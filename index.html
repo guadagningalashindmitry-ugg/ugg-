@@ -8,20 +8,19 @@
 
 <style>
 :root{
-    --navy:#08182e;
-    --navy2:#122846;
-    --navy3:#21446e;
-    --gold:#c9a653;
-    --gold2:#dfc77d;
-    --cream:#f6f2e9;
-    --cream2:#ece5d8;
+    --navy:#08172d;
+    --navy2:#122744;
+    --navy3:#203f67;
+    --gold:#c8a450;
+    --gold2:#e0c980;
+    --cream:#f5f1e8;
+    --cream2:#ebe4d7;
     --white:#fff;
-    --text:#202732;
-    --muted:#68727e;
-    --border:#d8d0c0;
-    --red:#973636;
-    --green:#336247;
-    --shadow:0 6px 22px rgba(0,0,0,.07);
+    --text:#202733;
+    --muted:#6b7480;
+    --border:#d7cfc0;
+    --red:#943535;
+    --green:#376447;
 }
 
 *{
@@ -52,9 +51,10 @@ button{
     cursor:pointer;
 }
 
-/* =====================================================
+
+/* =========================================================
    HEADER
-===================================================== */
+========================================================= */
 
 header{
     position:sticky;
@@ -65,37 +65,48 @@ header{
     box-shadow:0 3px 18px rgba(0,0,0,.25);
 }
 
+/*
+    ВАЖНО:
+    Высота верхней части фиксирована.
+    При скрытии она просто сдвигается transform-ом.
+    Поэтому меню не дёргается.
+*/
+
 .header-top{
-    max-height:115px;
+    height:112px;
     overflow:hidden;
-    transition:max-height .35s ease, opacity .25s ease;
+    transition:transform .35s ease;
+    will-change:transform;
 }
 
 header.compact .header-top{
-    max-height:0;
-    opacity:0;
+    transform:translateY(-112px);
 }
 
 .header-content{
+    height:112px;
     max-width:1400px;
     margin:auto;
-    padding:13px 25px;
+    padding:12px 25px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     gap:20px;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:17px;
 }
 
 .brand-crest{
-    width:58px;
-    height:70px;
+    width:65px;
+    height:82px;
     flex:0 0 auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .brand-crest svg{
@@ -106,9 +117,9 @@ header.compact .header-top{
 .brand-name{
     color:white;
     font-size:14px;
-    line-height:1.25;
-    letter-spacing:1.2px;
     font-weight:bold;
+    line-height:1.25;
+    letter-spacing:1.15px;
 }
 
 .languages{
@@ -117,10 +128,11 @@ header.compact .header-top{
 }
 
 .languages button{
+    padding:7px 11px;
+    border:1px solid var(--gold);
     background:transparent;
     color:white;
-    border:1px solid var(--gold);
-    padding:7px 10px;
+    transition:.2s;
 }
 
 .languages button:hover,
@@ -131,23 +143,26 @@ header.compact .header-top{
 
 nav{
     background:var(--navy2);
+    min-height:46px;
 }
 
 nav ul{
     max-width:1400px;
+    min-height:46px;
     margin:auto;
-    padding:7px 12px;
+    padding:5px 12px;
     list-style:none;
     display:flex;
+    align-items:center;
     justify-content:center;
     flex-wrap:wrap;
 }
 
 nav a{
+    display:block;
+    padding:7px 10px;
     color:white;
     text-decoration:none;
-    display:block;
-    padding:8px 10px;
     font-size:13px;
 }
 
@@ -155,24 +170,26 @@ nav a:hover{
     color:var(--gold2);
 }
 
-/* =====================================================
+
+/* =========================================================
    HERO
-===================================================== */
+========================================================= */
 
 .hero{
     min-height:760px;
+    padding:75px 25px;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     text-align:center;
-    padding:80px 25px;
     color:white;
+
     background:
         radial-gradient(
             circle at center,
-            #345a87 0%,
-            #213f66 35%,
-            #08182e 80%
+            #375c88 0%,
+            #234267 36%,
+            #08172d 80%
         );
 }
 
@@ -182,9 +199,9 @@ nav a:hover{
 }
 
 .hero-crest{
-    width:235px;
-    height:280px;
-    margin:0 auto 25px;
+    width:290px;
+    height:310px;
+    margin:0 auto 20px;
 }
 
 .hero-crest svg{
@@ -193,14 +210,14 @@ nav a:hover{
 }
 
 .hero h1{
-    font-size:clamp(36px,6vw,76px);
+    font-size:clamp(34px,6vw,76px);
     font-weight:normal;
-    line-height:1.03;
+    line-height:1.02;
     letter-spacing:2px;
 }
 
 .hero h2{
-    margin-top:17px;
+    margin-top:16px;
     color:var(--gold2);
     font-size:clamp(18px,3vw,30px);
     font-weight:normal;
@@ -209,21 +226,22 @@ nav a:hover{
 
 .hero-description{
     max-width:850px;
-    margin:28px auto 0;
+    margin:27px auto 0;
     font-size:19px;
 }
 
 .motto{
-    margin-top:35px;
+    margin-top:34px;
     color:var(--gold2);
+    font-size:18px;
     font-weight:bold;
     letter-spacing:2px;
-    font-size:18px;
 }
 
-/* =====================================================
-   SECTIONS
-===================================================== */
+
+/* =========================================================
+   GENERAL
+========================================================= */
 
 section{
     max-width:1350px;
@@ -254,7 +272,7 @@ section:nth-of-type(even){
 }
 
 .text{
-    max-width:940px;
+    max-width:950px;
     margin:auto;
     font-size:18px;
 }
@@ -265,7 +283,10 @@ section:nth-of-type(even){
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+    grid-template-columns:repeat(
+        auto-fit,
+        minmax(255px,1fr)
+    );
     gap:25px;
 }
 
@@ -273,56 +294,57 @@ section:nth-of-type(even){
     background:white;
     padding:30px;
     border-top:4px solid var(--gold);
-    box-shadow:var(--shadow);
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
 .card h3{
+    margin-bottom:12px;
     color:var(--navy);
     font-size:23px;
     font-weight:normal;
-    margin-bottom:12px;
 }
 
 .card p{
-    color:#565f6b;
+    color:#555e69;
 }
 
 .number{
+    margin-bottom:6px;
     color:var(--gold);
     font-size:29px;
     font-weight:bold;
-    margin-bottom:6px;
 }
 
-/* =====================================================
-   PROFESSORS / NEWS IMAGES
-===================================================== */
+
+/* =========================================================
+   CONTENT IMAGES
+========================================================= */
 
 .content-image{
     width:100%;
     height:260px;
     object-fit:cover;
     margin-bottom:18px;
-    background:#ded8ca;
+    background:#ddd7ca;
 }
 
 .placeholder{
     width:100%;
     height:260px;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     background:var(--navy2);
     color:var(--gold2);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:65px;
-    margin-bottom:18px;
+    font-size:62px;
 }
 
 .email{
     display:block;
+    margin-top:12px;
     color:var(--navy);
     text-decoration:none;
-    margin-top:12px;
     word-break:break-word;
 }
 
@@ -330,9 +352,10 @@ section:nth-of-type(even){
     color:var(--gold);
 }
 
-/* =====================================================
-   SCHEDULE
-===================================================== */
+
+/* =========================================================
+   TABLE
+========================================================= */
 
 .table-wrap{
     overflow-x:auto;
@@ -358,9 +381,10 @@ th{
     font-weight:normal;
 }
 
-/* =====================================================
+
+/* =========================================================
    RULES
-===================================================== */
+========================================================= */
 
 .rule{
     max-width:970px;
@@ -370,13 +394,14 @@ th{
 }
 
 .rule h3{
-    color:var(--navy);
     margin-bottom:8px;
+    color:var(--navy);
 }
 
-/* =====================================================
+
+/* =========================================================
    ADMISSIONS
-===================================================== */
+========================================================= */
 
 .admission-box{
     max-width:1020px;
@@ -384,10 +409,10 @@ th{
 }
 
 .price-panel{
+    padding:48px 25px;
     background:var(--navy);
     color:white;
     text-align:center;
-    padding:48px 25px;
     border-top:5px solid var(--gold);
 }
 
@@ -424,7 +449,7 @@ th{
     padding:40px;
     background:white;
     border-top:5px solid var(--gold);
-    box-shadow:var(--shadow);
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
 .form-grid{
@@ -440,7 +465,7 @@ th{
 label{
     display:block;
     margin-bottom:6px;
-    color:#4b535d;
+    color:#4b535c;
     font-size:14px;
 }
 
@@ -458,9 +483,10 @@ textarea{
     resize:vertical;
 }
 
-/* =====================================================
+
+/* =========================================================
    BUTTONS
-===================================================== */
+========================================================= */
 
 .button{
     display:inline-block;
@@ -469,6 +495,7 @@ textarea{
     border:1px solid var(--navy);
     background:var(--navy);
     color:white;
+    text-decoration:none;
 }
 
 .button:hover{
@@ -476,21 +503,22 @@ textarea{
     color:var(--navy);
 }
 
-.button.secondary{
+.secondary{
     background:white;
     color:var(--navy);
 }
 
-/* =====================================================
+
+/* =========================================================
    SUPPORT
-===================================================== */
+========================================================= */
 
 .support-box{
     max-width:900px;
     margin:auto;
     padding:40px;
-    text-align:center;
     background:white;
+    text-align:center;
     border-top:5px solid var(--gold);
 }
 
@@ -501,9 +529,10 @@ textarea{
     word-break:break-word;
 }
 
-/* =====================================================
+
+/* =========================================================
    FOOTER
-===================================================== */
+========================================================= */
 
 footer{
     padding:48px 20px;
@@ -517,9 +546,10 @@ footer{
     font-weight:bold;
 }
 
-/* =====================================================
+
+/* =========================================================
    ADMIN
-===================================================== */
+========================================================= */
 
 #adminOverlay{
     display:none;
@@ -528,7 +558,7 @@ footer{
     z-index:6000;
     overflow-y:auto;
     padding:25px 15px;
-    background:rgba(0,0,0,.83);
+    background:rgba(0,0,0,.84);
 }
 
 .login-box{
@@ -550,8 +580,8 @@ footer{
     justify-content:space-between;
     align-items:center;
     gap:20px;
-    padding-bottom:20px;
     margin-bottom:25px;
+    padding-bottom:20px;
     border-bottom:1px solid var(--border);
 }
 
@@ -568,10 +598,10 @@ footer{
 }
 
 .admin-tab{
+    padding:9px 12px;
     border:1px solid var(--border);
     background:#f3efe7;
     color:var(--text);
-    padding:9px 12px;
 }
 
 .admin-tab.active,
@@ -589,28 +619,28 @@ footer{
 }
 
 .editor{
-    padding:24px;
     margin-bottom:22px;
-    border:1px solid var(--border);
+    padding:24px;
     background:#faf8f2;
+    border:1px solid var(--border);
 }
 
 .editor h3{
+    margin-bottom:18px;
     color:var(--navy);
     font-weight:normal;
-    margin-bottom:18px;
 }
 
 .language-editor{
-    padding:18px;
     margin-bottom:15px;
-    border:1px solid var(--border);
+    padding:18px;
     background:white;
+    border:1px solid var(--border);
 }
 
 .language-editor h4{
-    color:var(--navy);
     margin-bottom:12px;
+    color:var(--navy);
 }
 
 .admin-item{
@@ -618,20 +648,20 @@ footer{
     align-items:center;
     justify-content:space-between;
     gap:15px;
-    padding:13px;
     margin-top:9px;
+    padding:13px;
     background:#f2eee5;
 }
 
 .admin-actions{
     display:flex;
-    flex-wrap:wrap;
     gap:6px;
+    flex-wrap:wrap;
 }
 
 .small{
-    border:0;
     padding:7px 10px;
+    border:0;
 }
 
 .small.edit{
@@ -645,20 +675,20 @@ footer{
 }
 
 .success{
-    color:var(--green);
     margin-top:12px;
+    color:var(--green);
 }
 
 .error{
-    color:var(--red);
     margin-top:12px;
+    color:var(--red);
 }
 
 .application-entry{
-    padding:18px;
     margin-top:10px;
-    border:1px solid var(--border);
+    padding:18px;
     background:white;
+    border:1px solid var(--border);
 }
 
 .hidden{
@@ -667,33 +697,50 @@ footer{
 
 .preview{
     display:block;
-    max-width:170px;
-    max-height:170px;
+    max-width:180px;
+    max-height:180px;
     margin-top:12px;
 }
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:800px){
 
     .header-content{
         flex-direction:column;
+        justify-content:center;
+    }
+
+    .header-top{
+        height:142px;
+    }
+
+    header.compact .header-top{
+        transform:translateY(-142px);
+    }
+
+    .header-content{
+        height:142px;
     }
 
     nav ul{
         flex-direction:column;
-        align-items:center;
+    }
+
+    nav a{
+        padding:5px 8px;
     }
 
     .hero{
-        min-height:630px;
+        min-height:650px;
     }
 
     .hero-crest{
-        width:160px;
-        height:190px;
+        width:190px;
+        height:215px;
     }
 
     .form-grid{
@@ -719,6 +766,7 @@ footer{
 
 <body>
 
+
 <!-- =====================================================
      HEADER
 ===================================================== -->
@@ -733,152 +781,308 @@ footer{
 
 <div class="brand-crest">
 
-<!-- SAME CREST AS HERO -->
+<!-- ===================================================
+     HERALDIC DOUBLE-HEADED EAGLE
+     No shield. No book. No central emblem.
+     Only eagle + laurel crown + two torches.
+=================================================== -->
 
-<svg viewBox="0 0 300 360"
+<svg viewBox="0 0 320 380"
      xmlns="http://www.w3.org/2000/svg">
 
+    <!-- LAUREL CROWN -->
+
     <path
-        d="M35 25H265V215Q265 287 150 333Q35 287 35 215Z"
-        fill="#0b1930"
+        d="
+        M80 98
+        Q100 44 145 35
+        Q160 32 175 35
+        Q220 44 240 98"
+        fill="none"
         stroke="#c9a653"
-        stroke-width="8"/>
-
-    <!-- laurel -->
-
-    <path
-        d="M57 272Q18 222 47 162Q20 235 77 296"
-        fill="none"
-        stroke="#dfc77d"
-        stroke-width="6"/>
-
-    <path
-        d="M42 235L72 221M37 202L66 197M39 171L68 179M51 145L77 163"
-        stroke="#dfc77d"
-        stroke-width="6"
+        stroke-width="10"
         stroke-linecap="round"/>
 
     <path
-        d="M243 272Q282 222 253 162Q280 235 223 296"
+        d="
+        M94 86
+        Q81 70 86 50
+        Q102 65 112 78
+        M110 64
+        Q105 45 116 31
+        Q126 49 129 65
+        M139 56
+        Q141 37 155 25
+        Q159 46 154 60
+        M181 60
+        Q176 46 181 25
+        Q195 37 197 56
+        M206 65
+        Q209 49 219 31
+        Q230 45 225 64
+        M208 78
+        Q218 65 234 50
+        Q239 70 226 86"
         fill="none"
         stroke="#dfc77d"
-        stroke-width="6"/>
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+
+    <!-- LEFT HEAD / NECK -->
 
     <path
-        d="M258 235L228 221M263 202L234 197M261 171L232 179M249 145L223 163"
-        stroke="#dfc77d"
-        stroke-width="6"
+        d="
+        M145 105
+        Q129 79 109 68
+        Q91 58 74 67
+        Q61 74 52 90
+        Q72 87 87 97
+        Q101 107 111 124
+        L135 150
+        Z"
+        fill="#111111"/>
+
+
+    <!-- RIGHT HEAD / NECK -->
+
+    <path
+        d="
+        M175 105
+        Q191 79 211 68
+        Q229 58 246 67
+        Q259 74 268 90
+        Q248 87 233 97
+        Q219 107 209 124
+        L185 150
+        Z"
+        fill="#111111"/>
+
+
+    <!-- LEFT HEAD -->
+
+    <path
+        d="
+        M110 68
+        Q89 53 69 60
+        Q54 65 48 81
+        Q64 79 76 87
+        Q90 96 107 91
+        L123 79
+        Z"
+        fill="#101010"
+        stroke="#c9a653"
+        stroke-width="3"/>
+
+
+    <!-- RIGHT HEAD -->
+
+    <path
+        d="
+        M210 68
+        Q231 53 251 60
+        Q266 65 272 81
+        Q256 79 244 87
+        Q230 96 213 91
+        L197 79
+        Z"
+        fill="#101010"
+        stroke="#c9a653"
+        stroke-width="3"/>
+
+
+    <!-- BEAKS -->
+
+    <path
+        d="M49 81L27 77L49 69Z"
+        fill="#c9a653"/>
+
+    <path
+        d="M271 81L293 77L271 69Z"
+        fill="#c9a653"/>
+
+
+    <!-- EYES -->
+
+    <circle
+        cx="75"
+        cy="71"
+        r="4"
+        fill="#dfc77d"/>
+
+    <circle
+        cx="245"
+        cy="71"
+        r="4"
+        fill="#dfc77d"/>
+
+
+    <!-- CENTRAL BODY -->
+
+    <path
+        d="
+        M150 94
+        Q136 104 128 132
+        Q122 160 130 191
+        Q137 216 150 239
+        Q163 216 170 191
+        Q178 160 172 132
+        Q164 104 150 94
+        Z"
+        fill="#111111"
+        stroke="#c9a653"
+        stroke-width="4"/>
+
+
+    <!-- LEFT WING, RAISED -->
+
+    <path
+        d="
+        M132 126
+        Q106 99 77 88
+        Q49 77 27 91
+        Q49 96 66 111
+        Q40 106 17 119
+        Q44 126 61 143
+        Q34 137 10 153
+        Q41 161 62 177
+        Q37 174 18 189
+        Q51 199 79 216
+        Q57 217 39 228
+        Q75 243 114 244
+        Q130 222 136 193
+        Q141 159 132 126
+        Z"
+        fill="#111111"
+        stroke="#c9a653"
+        stroke-width="4"
+        stroke-linejoin="round"/>
+
+
+    <!-- RIGHT WING, RAISED -->
+
+    <path
+        d="
+        M168 126
+        Q194 99 223 88
+        Q251 77 273 91
+        Q251 96 234 111
+        Q260 106 283 119
+        Q256 126 239 143
+        Q266 137 290 153
+        Q259 161 238 177
+        Q263 174 282 189
+        Q249 199 221 216
+        Q243 217 261 228
+        Q225 243 186 244
+        Q170 222 164 193
+        Q159 159 168 126
+        Z"
+        fill="#111111"
+        stroke="#c9a653"
+        stroke-width="4"
+        stroke-linejoin="round"/>
+
+
+    <!-- FEATHER LINES LEFT -->
+
+    <path
+        d="
+        M116 120L72 104
+        M112 135L59 124
+        M111 151L52 145
+        M112 168L48 167
+        M114 185L57 190
+        M119 201L70 217"
+        fill="none"
+        stroke="#8f773e"
+        stroke-width="3"/>
+
+
+    <!-- FEATHER LINES RIGHT -->
+
+    <path
+        d="
+        M184 120L228 104
+        M188 135L241 124
+        M189 151L248 145
+        M188 168L252 167
+        M186 185L243 190
+        M181 201L230 217"
+        fill="none"
+        stroke="#8f773e"
+        stroke-width="3"/>
+
+
+    <!-- LEFT TORCH -->
+
+    <path
+        d="M107 182L73 257"
+        fill="none"
+        stroke="#c9a653"
+        stroke-width="9"
         stroke-linecap="round"/>
 
-    <!-- eagle -->
-
     <path
-        d="M150 112
-           C134 97 123 79 100 73
-           C81 68 61 77 48 94
-           C70 91 87 100 101 117
-           C111 129 119 142 122 158
-           L95 143
-           C76 132 57 130 39 139
-           C59 147 77 161 90 177
-           C105 194 126 202 150 197
-           C174 202 195 194 210 177
-           C223 161 241 147 261 139
-           C243 130 224 132 205 143
-           L178 158
-           C181 142 189 129 199 117
-           C213 100 230 91 252 94
-           C239 77 219 68 200 73
-           C177 79 166 97 150 112Z"
-        fill="#c9a653"/>
-
-    <!-- heads -->
-
-    <path
-        d="M128 108Q117 75 95 58Q80 46 66 55Q79 72 97 82Q115 93 133 126Z"
-        fill="#c9a653"/>
-
-    <path
-        d="M172 108Q183 75 205 58Q220 46 234 55Q221 72 203 82Q185 93 167 126Z"
-        fill="#c9a653"/>
-
-    <path
-        d="M99 58Q76 43 57 52Q45 58 41 71Q58 69 71 78Q86 87 103 78L116 68Z"
-        fill="#dfc77d"/>
-
-    <path
-        d="M201 58Q224 43 243 52Q255 58 259 71Q242 69 229 78Q214 87 197 78L184 68Z"
-        fill="#dfc77d"/>
-
-    <path
-        d="M42 71L25 67L42 61Z"
-        fill="#c9a653"/>
-
-    <path
-        d="M258 71L275 67L258 61Z"
-        fill="#c9a653"/>
-
-    <circle
-        cx="67"
-        cy="62"
-        r="3.5"
-        fill="#0b1930"/>
-
-    <circle
-        cx="233"
-        cy="62"
-        r="3.5"
-        fill="#0b1930"/>
-
-    <!-- central torch -->
-
-    <path
-        d="M150 123V204"
-        stroke="#dfc77d"
+        d="M67 265H82"
+        stroke="#c9a653"
         stroke-width="7"
         stroke-linecap="round"/>
 
     <path
-        d="M137 198H163"
-        stroke="#dfc77d"
+        d="
+        M73 258
+        Q57 239 70 218
+        Q76 235 83 224
+        Q94 242 73 258
+        Z"
+        fill="#dfc77d"/>
+
+
+    <!-- RIGHT TORCH -->
+
+    <path
+        d="M213 182L247 257"
+        fill="none"
+        stroke="#c9a653"
+        stroke-width="9"
+        stroke-linecap="round"/>
+
+    <path
+        d="M238 265H253"
+        stroke="#c9a653"
         stroke-width="7"
         stroke-linecap="round"/>
 
     <path
-        d="M150 123Q133 100 149 82Q151 98 158 91Q171 106 150 123Z"
+        d="
+        M247 258
+        Q226 242 237 224
+        Q244 235 250 218
+        Q263 239 247 258
+        Z"
         fill="#dfc77d"/>
 
-    <!-- torches -->
+
+    <!-- CLAWS -->
 
     <path
-        d="M105 153L73 113M195 153L227 113"
-        stroke="#dfc77d"
+        d="M111 182Q98 174 91 185Q100 191 108 190"
+        fill="none"
+        stroke="#c9a653"
         stroke-width="5"/>
 
     <path
-        d="M64 112Q71 94 80 105Q83 89 93 102Q95 113 78 121Z"
-        fill="#dfc77d"/>
-
-    <path
-        d="M236 112Q229 94 220 105Q217 89 207 102Q205 113 222 121Z"
-        fill="#dfc77d"/>
-
-    <!-- book -->
-
-    <path
-        d="M73 206Q111 187 150 208Q189 187 227 206V251Q190 235 150 255Q110 235 73 251Z"
-        fill="#0b1930"
-        stroke="#dfc77d"
-        stroke-width="6"/>
-
-    <path
-        d="M150 208V255"
-        stroke="#dfc77d"
+        d="M209 182Q222 174 229 185Q220 191 212 190"
+        fill="none"
+        stroke="#c9a653"
         stroke-width="5"/>
 
 </svg>
 
 </div>
+
 
 <div class="brand-name">
 GUADANIN GALASHIN<br>
@@ -890,18 +1094,21 @@ INDEPENDENT UNIVERSITY
 
 <div class="languages">
 
-<button id="langRU"
-        onclick="setLanguage('ru')">
+<button
+id="langRU"
+onclick="setLanguage('ru')">
 RU
 </button>
 
-<button id="langEN"
-        onclick="setLanguage('en')">
+<button
+id="langEN"
+onclick="setLanguage('en')">
 EN
 </button>
 
-<button id="langPT"
-        onclick="setLanguage('pt')">
+<button
+id="langPT"
+onclick="setLanguage('pt')">
 PT
 </button>
 
@@ -916,18 +1123,65 @@ PT
 
 <ul>
 
-<li><a href="#home" data-ui="home"></a></li>
-<li><a href="#about" data-ui="about"></a></li>
-<li><a href="#faculties" data-ui="faculties"></a></li>
-<li><a href="#professors" data-ui="professors"></a></li>
-<li><a href="#students" data-ui="students"></a></li>
-<li><a href="#courses" data-ui="courses"></a></li>
-<li><a href="#schedule" data-ui="schedule"></a></li>
-<li><a href="#publications" data-ui="publications"></a></li>
-<li><a href="#news" data-ui="news"></a></li>
-<li><a href="#rules" data-ui="rules"></a></li>
-<li><a href="#admissions" data-ui="admissions"></a></li>
-<li><a href="#support" data-ui="support"></a></li>
+<li>
+<a href="#home"
+data-ui="home"></a>
+</li>
+
+<li>
+<a href="#about"
+data-ui="about"></a>
+</li>
+
+<li>
+<a href="#faculties"
+data-ui="faculties"></a>
+</li>
+
+<li>
+<a href="#professors"
+data-ui="professors"></a>
+</li>
+
+<li>
+<a href="#students"
+data-ui="students"></a>
+</li>
+
+<li>
+<a href="#courses"
+data-ui="courses"></a>
+</li>
+
+<li>
+<a href="#schedule"
+data-ui="schedule"></a>
+</li>
+
+<li>
+<a href="#publications"
+data-ui="publications"></a>
+</li>
+
+<li>
+<a href="#news"
+data-ui="news"></a>
+</li>
+
+<li>
+<a href="#rules"
+data-ui="rules"></a>
+</li>
+
+<li>
+<a href="#admissions"
+data-ui="admissions"></a>
+</li>
+
+<li>
+<a href="#support"
+data-ui="support"></a>
+</li>
 
 </ul>
 
@@ -940,123 +1194,178 @@ PT
      HOME
 ===================================================== -->
 
-<section id="home" class="hero">
+<section
+id="home"
+class="hero">
 
 <div class="hero-inner">
 
 <div class="hero-crest">
 
-<!-- SAME CREST -->
+<!-- SAME HERALDIC EAGLE -->
 
-<svg viewBox="0 0 300 360"
+<svg viewBox="0 0 320 380"
      xmlns="http://www.w3.org/2000/svg">
 
-    <path
-        d="M35 25H265V215Q265 287 150 333Q35 287 35 215Z"
-        fill="#0b1930"
-        stroke="#c9a653"
-        stroke-width="8"/>
+<path
+d="M80 98Q100 44 145 35Q160 32 175 35Q220 44 240 98"
+fill="none"
+stroke="#c9a653"
+stroke-width="10"
+stroke-linecap="round"/>
 
-    <path
-        d="M57 272Q18 222 47 162Q20 235 77 296"
-        fill="none"
-        stroke="#dfc77d"
-        stroke-width="6"/>
+<path
+d="M94 86Q81 70 86 50Q102 65 112 78
+M110 64Q105 45 116 31Q126 49 129 65
+M139 56Q141 37 155 25Q159 46 154 60
+M181 60Q176 46 181 25Q195 37 197 56
+M206 65Q209 49 219 31Q230 45 225 64
+M208 78Q218 65 234 50Q239 70 226 86"
+fill="none"
+stroke="#dfc77d"
+stroke-width="8"
+stroke-linecap="round"
+stroke-linejoin="round"/>
 
-    <path
-        d="M42 235L72 221M37 202L66 197M39 171L68 179M51 145L77 163"
-        stroke="#dfc77d"
-        stroke-width="6"
-        stroke-linecap="round"/>
+<path
+d="M145 105Q129 79 109 68Q91 58 74 67Q61 74 52 90Q72 87 87 97Q101 107 111 124L135 150Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="3"/>
 
-    <path
-        d="M243 272Q282 222 253 162Q280 235 223 296"
-        fill="none"
-        stroke="#dfc77d"
-        stroke-width="6"/>
+<path
+d="M175 105Q191 79 211 68Q229 58 246 67Q259 74 268 90Q248 87 233 97Q219 107 209 124L185 150Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="3"/>
 
-    <path
-        d="M258 235L228 221M263 202L234 197M261 171L232 179M249 145L223 163"
-        stroke="#dfc77d"
-        stroke-width="6"
-        stroke-linecap="round"/>
+<path
+d="M110 68Q89 53 69 60Q54 65 48 81Q64 79 76 87Q90 96 107 91L123 79Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="3"/>
 
-    <path
-        d="M150 112C134 97 123 79 100 73C81 68 61 77 48 94C70 91 87 100 101 117C111 129 119 142 122 158L95 143C76 132 57 130 39 139C59 147 77 161 90 177C105 194 126 202 150 197C174 202 195 194 210 177C223 161 241 147 261 139C243 130 224 132 205 143L178 158C181 142 189 129 199 117C213 100 230 91 252 94C239 77 219 68 200 73C177 79 166 97 150 112Z"
-        fill="#c9a653"/>
+<path
+d="M210 68Q231 53 251 60Q266 65 272 81Q256 79 244 87Q230 96 213 91L197 79Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="3"/>
 
-    <path
-        d="M128 108Q117 75 95 58Q80 46 66 55Q79 72 97 82Q115 93 133 126Z"
-        fill="#c9a653"/>
+<path d="M49 81L27 77L49 69Z"
+fill="#c9a653"/>
 
-    <path
-        d="M172 108Q183 75 205 58Q220 46 234 55Q221 72 203 82Q185 93 167 126Z"
-        fill="#c9a653"/>
+<path d="M271 81L293 77L271 69Z"
+fill="#c9a653"/>
 
-    <path
-        d="M99 58Q76 43 57 52Q45 58 41 71Q58 69 71 78Q86 87 103 78L116 68Z"
-        fill="#dfc77d"/>
+<circle cx="75" cy="71" r="4"
+fill="#dfc77d"/>
 
-    <path
-        d="M201 58Q224 43 243 52Q255 58 259 71Q242 69 229 78Q214 87 197 78L184 68Z"
-        fill="#dfc77d"/>
+<circle cx="245" cy="71" r="4"
+fill="#dfc77d"/>
 
-    <path d="M42 71L25 67L42 61Z" fill="#c9a653"/>
-    <path d="M258 71L275 67L258 61Z" fill="#c9a653"/>
+<path
+d="M150 94Q136 104 128 132Q122 160 130 191Q137 216 150 239Q163 216 170 191Q178 160 172 132Q164 104 150 94Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="4"/>
 
-    <circle cx="67" cy="62" r="3.5" fill="#0b1930"/>
-    <circle cx="233" cy="62" r="3.5" fill="#0b1930"/>
+<path
+d="M132 126Q106 99 77 88Q49 77 27 91Q49 96 66 111Q40 106 17 119Q44 126 61 143Q34 137 10 153Q41 161 62 177Q37 174 18 189Q51 199 79 216Q57 217 39 228Q75 243 114 244Q130 222 136 193Q141 159 132 126Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="4"
+stroke-linejoin="round"/>
 
-    <path
-        d="M150 123V204"
-        stroke="#dfc77d"
-        stroke-width="7"
-        stroke-linecap="round"/>
+<path
+d="M168 126Q194 99 223 88Q251 77 273 91Q251 96 234 111Q260 106 283 119Q256 126 239 143Q266 137 290 153Q259 161 238 177Q263 174 282 189Q249 199 221 216Q243 217 261 228Q225 243 186 244Q170 222 164 193Q159 159 168 126Z"
+fill="#111"
+stroke="#c9a653"
+stroke-width="4"
+stroke-linejoin="round"/>
 
-    <path
-        d="M137 198H163"
-        stroke="#dfc77d"
-        stroke-width="7"
-        stroke-linecap="round"/>
+<path
+d="M116 120L72 104
+M112 135L59 124
+M111 151L52 145
+M112 168L48 167
+M114 185L57 190
+M119 201L70 217"
+fill="none"
+stroke="#8f773e"
+stroke-width="3"/>
 
-    <path
-        d="M150 123Q133 100 149 82Q151 98 158 91Q171 106 150 123Z"
-        fill="#dfc77d"/>
+<path
+d="M184 120L228 104
+M188 135L241 124
+M189 151L248 145
+M188 168L252 167
+M186 185L243 190
+M181 201L230 217"
+fill="none"
+stroke="#8f773e"
+stroke-width="3"/>
 
-    <path
-        d="M105 153L73 113M195 153L227 113"
-        stroke="#dfc77d"
-        stroke-width="5"/>
+<path
+d="M107 182L73 257"
+fill="none"
+stroke="#c9a653"
+stroke-width="9"
+stroke-linecap="round"/>
 
-    <path
-        d="M64 112Q71 94 80 105Q83 89 93 102Q95 113 78 121Z"
-        fill="#dfc77d"/>
+<path
+d="M67 265H82"
+stroke="#c9a653"
+stroke-width="7"
+stroke-linecap="round"/>
 
-    <path
-        d="M236 112Q229 94 220 105Q217 89 207 102Q205 113 222 121Z"
-        fill="#dfc77d"/>
+<path
+d="M73 258Q57 239 70 218Q76 235 83 224Q94 242 73 258Z"
+fill="#dfc77d"/>
 
-    <path
-        d="M73 206Q111 187 150 208Q189 187 227 206V251Q190 235 150 255Q110 235 73 251Z"
-        fill="#0b1930"
-        stroke="#dfc77d"
-        stroke-width="6"/>
+<path
+d="M213 182L247 257"
+fill="none"
+stroke="#c9a653"
+stroke-width="9"
+stroke-linecap="round"/>
 
-    <path
-        d="M150 208V255"
-        stroke="#dfc77d"
-        stroke-width="5"/>
+<path
+d="M238 265H253"
+stroke="#c9a653"
+stroke-width="7"
+stroke-linecap="round"/>
+
+<path
+d="M247 258Q226 242 237 224Q244 235 250 218Q263 239 247 258Z"
+fill="#dfc77d"/>
+
+<path
+d="M111 182Q98 174 91 185Q100 191 108 190"
+fill="none"
+stroke="#c9a653"
+stroke-width="5"/>
+
+<path
+d="M209 182Q222 174 229 185Q220 191 212 190"
+fill="none"
+stroke="#c9a653"
+stroke-width="5"/>
 
 </svg>
 
 </div>
 
-<h1>GUADANIN GALASHIN</h1>
+<h1>
+GUADANIN GALASHIN
+</h1>
 
-<h2>INDEPENDENT UNIVERSITY</h2>
+<h2>
+INDEPENDENT UNIVERSITY
+</h2>
 
-<p id="heroText"
-   class="hero-description">
+<p
+id="heroText"
+class="hero-description">
 </p>
 
 <div class="motto">
@@ -1085,6 +1394,7 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <div class="text">
 
 <p id="aboutText1"></p>
+
 <p id="aboutText2"></p>
 
 </div>
@@ -1106,8 +1416,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 </div>
 
-<div id="facultyGrid"
-     class="grid">
+<div
+id="facultyGrid"
+class="grid">
 </div>
 
 </section>
@@ -1127,8 +1438,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 </div>
 
-<div id="professorGrid"
-     class="grid">
+<div
+id="professorGrid"
+class="grid">
 </div>
 
 </section>
@@ -1171,8 +1483,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 </div>
 
-<div id="courseGrid"
-     class="grid">
+<div
+id="courseGrid"
+class="grid">
 </div>
 
 </section>
@@ -1234,8 +1547,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 </div>
 
-<div id="publicationGrid"
-     class="grid">
+<div
+id="publicationGrid"
+class="grid">
 </div>
 
 </section>
@@ -1255,8 +1569,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 </div>
 
-<div id="newsGrid"
-     class="grid">
+<div
+id="newsGrid"
+class="grid">
 </div>
 
 </section>
@@ -1302,12 +1617,12 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 <h3 id="semesterPriceTitle"></h3>
 
-<div class="price"
-     id="semesterPrice">
+<div
+id="semesterPrice"
+class="price">
 </div>
 
-<p id="admissionLoad">
-</p>
+<p id="admissionLoad"></p>
 
 </div>
 
@@ -1316,8 +1631,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 <div class="card feature">
 
-<div class="feature-number"
-     id="freeSeats">
+<div
+id="freeSeats"
+class="feature-number">
 </div>
 
 <h3 id="freeSeatsTitle"></h3>
@@ -1355,8 +1671,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 </div>
 
 
-<div class="card"
-     style="margin-top:25px;">
+<div
+class="card"
+style="margin-top:25px;">
 
 <h3 id="entranceTitle"></h3>
 
@@ -1365,8 +1682,9 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 </div>
 
 
-<div class="card"
-     style="margin-top:25px;">
+<div
+class="card"
+style="margin-top:25px;">
 
 <h3 id="processTitle"></h3>
 
@@ -1394,10 +1712,11 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 
 <div class="form-grid">
 
-
 <div>
 
-<label id="applicationNameLabel"></label>
+<label
+id="applicationNameLabel">
+</label>
 
 <input
 id="applicationName"
@@ -1408,7 +1727,9 @@ type="text">
 
 <div>
 
-<label id="applicationEmailLabel"></label>
+<label
+id="applicationEmailLabel">
+</label>
 
 <input
 id="applicationEmail"
@@ -1419,7 +1740,9 @@ type="email">
 
 <div>
 
-<label id="applicationCountryLabel"></label>
+<label
+id="applicationCountryLabel">
+</label>
 
 <input
 id="applicationCountry"
@@ -1430,7 +1753,9 @@ type="text">
 
 <div>
 
-<label id="applicationFacultyLabel"></label>
+<label
+id="applicationFacultyLabel">
+</label>
 
 <select
 id="applicationFaculty">
@@ -1441,7 +1766,9 @@ id="applicationFaculty">
 
 <div class="full">
 
-<label id="applicationMotivationLabel"></label>
+<label
+id="applicationMotivationLabel">
+</label>
 
 <textarea
 id="applicationMotivation">
@@ -1486,15 +1813,13 @@ class="success">
 
 <div class="support-box">
 
-<p id="supportText">
-</p>
+<p id="supportText"></p>
 
 <div class="pix">
 
 <strong>PIX:</strong>
 
-<span id="pixValue">
-</span>
+<span id="pixValue"></span>
 
 </div>
 
@@ -1529,22 +1854,20 @@ onclick="openAdmin()">
 
 
 <!-- =====================================================
-     ADMIN OVERLAY
+     ADMIN LOGIN
 ===================================================== -->
 
 <div id="adminOverlay">
 
+<div
+id="loginBox"
+class="login-box">
 
-<div id="loginBox"
-     class="login-box">
-
-<h2 id="loginTitle">
-</h2>
+<h2 id="loginTitle"></h2>
 
 <br>
 
-<label id="passwordLabel">
-</label>
+<label id="passwordLabel"></label>
 
 <input
 id="adminPassword"
@@ -1570,14 +1893,17 @@ class="error">
 </div>
 
 
-<div id="adminWindow"
-     class="admin-window hidden">
+<!-- =====================================================
+     ADMIN WINDOW
+===================================================== -->
 
+<div
+id="adminWindow"
+class="admin-window hidden">
 
 <div class="admin-header">
 
-<h2 id="adminPanelTitle">
-</h2>
+<h2 id="adminPanelTitle"></h2>
 
 <button
 class="button secondary"
@@ -1653,9 +1979,7 @@ id="tabApplications">
 </div>
 
 
-<!-- =====================================================
-     PAGE TEXTS
-===================================================== -->
+<!-- PAGES -->
 
 <div
 id="pagesAdmin"
@@ -1739,9 +2063,7 @@ class="success">
 </div>
 
 
-<!-- =====================================================
-     FACULTIES
-===================================================== -->
+<!-- FACULTIES -->
 
 <div
 id="facultiesAdmin"
@@ -1752,8 +2074,8 @@ class="admin-section">
 <h3 id="facultyEditorTitle"></h3>
 
 <input
-type="hidden"
-id="facultyEditId">
+id="facultyEditId"
+type="hidden">
 
 
 <div class="language-editor">
@@ -1809,15 +2131,12 @@ id="newFacultyButton">
 
 </div>
 
-<div id="facultyAdminList">
-</div>
+<div id="facultyAdminList"></div>
 
 </div>
 
 
-<!-- =====================================================
-     PROFESSORS
-===================================================== -->
+<!-- PROFESSORS -->
 
 <div
 id="professorsAdmin"
@@ -1828,8 +2147,8 @@ class="admin-section">
 <h3 id="professorEditorTitle"></h3>
 
 <input
-type="hidden"
-id="professorEditId">
+id="professorEditId"
+type="hidden">
 
 
 <div class="language-editor">
@@ -1882,8 +2201,7 @@ id="professorEditId">
 
 <label>Faculty / Факультет / Faculdade</label>
 
-<select id="profFaculty">
-</select>
+<select id="profFaculty"></select>
 
 
 <label>Email</label>
@@ -1902,8 +2220,7 @@ accept="image/*">
 
 
 <input
-id="profPhotoURL"
-placeholder="Photo URL">
+id="profPhotoURL">
 
 
 <img
@@ -1925,16 +2242,12 @@ id="newProfessorButton">
 
 </div>
 
-
-<div id="professorAdminList">
-</div>
+<div id="professorAdminList"></div>
 
 </div>
 
 
-<!-- =====================================================
-     COURSES
-===================================================== -->
+<!-- COURSES -->
 
 <div
 id="coursesAdmin"
@@ -1945,14 +2258,13 @@ class="admin-section">
 <h3 id="courseEditorTitle"></h3>
 
 <input
-type="hidden"
-id="courseEditId">
+id="courseEditId"
+type="hidden">
 
 
 <label>Faculty / Факультет / Faculdade</label>
 
-<select id="courseFaculty">
-</select>
+<select id="courseFaculty"></select>
 
 
 <div class="language-editor">
@@ -2008,16 +2320,12 @@ id="newCourseButton">
 
 </div>
 
-
-<div id="courseAdminList">
-</div>
+<div id="courseAdminList"></div>
 
 </div>
 
 
-<!-- =====================================================
-     SCHEDULE
-===================================================== -->
+<!-- SCHEDULE -->
 
 <div
 id="scheduleAdmin"
@@ -2028,8 +2336,8 @@ class="admin-section">
 <h3 id="scheduleEditorTitle"></h3>
 
 <input
-type="hidden"
-id="scheduleEditId">
+id="scheduleEditId"
+type="hidden">
 
 
 <label id="scheduleDayLabel"></label>
@@ -2054,14 +2362,12 @@ type="time">
 
 <label id="scheduleCourseLabel"></label>
 
-<select id="scheduleCourse">
-</select>
+<select id="scheduleCourse"></select>
 
 
 <label id="scheduleProfessorLabel"></label>
 
-<select id="scheduleProfessor">
-</select>
+<select id="scheduleProfessor"></select>
 
 
 <div class="language-editor">
@@ -2108,16 +2414,12 @@ id="newScheduleButton">
 
 </div>
 
-
-<div id="scheduleAdminList">
-</div>
+<div id="scheduleAdminList"></div>
 
 </div>
 
 
-<!-- =====================================================
-     PUBLICATIONS
-===================================================== -->
+<!-- PUBLICATIONS -->
 
 <div
 id="publicationsAdmin"
@@ -2128,8 +2430,8 @@ class="admin-section">
 <h3 id="publicationEditorTitle"></h3>
 
 <input
-type="hidden"
-id="publicationEditId">
+id="publicationEditId"
+type="hidden">
 
 
 <div class="language-editor">
@@ -2195,16 +2497,12 @@ id="newPublicationButton">
 
 </div>
 
-
-<div id="publicationAdminList">
-</div>
+<div id="publicationAdminList"></div>
 
 </div>
 
 
-<!-- =====================================================
-     NEWS
-===================================================== -->
+<!-- NEWS -->
 
 <div
 id="newsAdmin"
@@ -2215,8 +2513,8 @@ class="admin-section">
 <h3 id="newsEditorTitle"></h3>
 
 <input
-type="hidden"
-id="newsEditId">
+id="newsEditId"
+type="hidden">
 
 
 <div class="language-editor">
@@ -2306,16 +2604,12 @@ id="newNewsButton">
 
 </div>
 
-
-<div id="newsAdminList">
-</div>
+<div id="newsAdminList"></div>
 
 </div>
 
 
-<!-- =====================================================
-     ADMISSIONS ADMIN
-===================================================== -->
+<!-- ADMISSIONS -->
 
 <div
 id="admissionsAdmin"
@@ -2421,9 +2715,7 @@ class="success">
 </div>
 
 
-<!-- =====================================================
-     SUPPORT ADMIN
-===================================================== -->
+<!-- SUPPORT -->
 
 <div
 id="supportAdmin"
@@ -2479,9 +2771,7 @@ class="success">
 </div>
 
 
-<!-- =====================================================
-     APPLICATIONS ADMIN
-===================================================== -->
+<!-- APPLICATIONS -->
 
 <div
 id="applicationsAdmin"
@@ -2506,23 +2796,29 @@ class="admin-section">
 
 <script>
 
-/* =====================================================
+/* =========================================================
    CONFIG
-===================================================== */
+========================================================= */
 
-const ADMIN_PASSWORD = "UGG2026";
+const ADMIN_PASSWORD="UGG2026";
 
-const LANGUAGES = ["ru","en","pt"];
+const LANGUAGES=[
+    "ru",
+    "en",
+    "pt"
+];
 
-let currentLanguage =
-    localStorage.getItem("ugg_language") || "ru";
+let currentLanguage=
+    localStorage.getItem(
+        "ugg_language"
+    ) || "ru";
 
 
-/* =====================================================
-   TRANSLATIONS
-===================================================== */
+/* =========================================================
+   UI
+========================================================= */
 
-const UI = {
+const UI={
 
 ru:{
 
@@ -2551,28 +2847,35 @@ about2:
 studentsText:
 "Раздел содержит информацию об учебном процессе, правах и обязанностях студентов, учебных материалах и академических требованиях.",
 
-semesterPriceTitle:"Стоимость обучения за семестр",
+semesterPriceTitle:
+"Стоимость обучения за семестр",
 
-freeSeatsTitle:"Бесплатные конкурсные места",
+freeSeatsTitle:
+"Бесплатные конкурсные места",
 
 freeSeatsDescription:
 "Количество бесплатных мест определяется конкурсом и может изменяться.",
 
-minimumLoadTitle:"Минимальная учебная нагрузка",
+minimumLoadTitle:
+"Минимальная учебная нагрузка",
 
 minimumLoadDescription:
 "Два занятия в неделю.",
 
-semesterLengthTitle:"Продолжительность семестра",
+semesterLengthTitle:
+"Продолжительность семестра",
 
 semesterLengthDescription:
 "24 учебные недели.",
 
-entranceTitle:"Вступительный экзамен",
+entranceTitle:
+"Вступительный экзамен",
 
-processTitle:"Порядок поступления",
+processTitle:
+"Порядок поступления",
 
-openDayTitle:"День открытых дверей",
+openDayTitle:
+"День открытых дверей",
 
 openDayDefault:
 "Дата будет опубликована.",
@@ -2580,15 +2883,29 @@ openDayDefault:
 openDayTextDefault:
 "В этот день можно будет познакомиться с программами УГГ, преподавателями и порядком поступления.",
 
-applicationTitle:"Заявка на поступление",
+applicationTitle:
+"Заявка на поступление",
 
-applicationNameLabel:"Имя и фамилия",
-applicationEmailLabel:"Email",
-applicationCountryLabel:"Страна",
-applicationFacultyLabel:"Выбранный факультет",
-applicationMotivationLabel:"Почему вы хотите учиться в УГГ?",
-applicationButton:"Подать заявку",
-applicationSuccess:"Заявка сохранена.",
+applicationNameLabel:
+"Имя и фамилия",
+
+applicationEmailLabel:
+"Email",
+
+applicationCountryLabel:
+"Страна",
+
+applicationFacultyLabel:
+"Выбранный факультет",
+
+applicationMotivationLabel:
+"Почему вы хотите учиться в УГГ?",
+
+applicationButton:
+"Подать заявку",
+
+applicationSuccess:
+"Заявка сохранена.",
 
 day:"День",
 time:"Время",
@@ -2596,78 +2913,194 @@ course:"Курс",
 professor:"Преподаватель",
 location:"Место",
 
-adminButton:"Администрирование",
-loginTitle:"Панель администратора",
-passwordLabel:"Пароль",
-loginButton:"Войти",
-close:"Закрыть",
-adminPanelTitle:"Управление УГГ",
+adminButton:
+"Администрирование",
 
-pagesTab:"Тексты",
-facultiesTab:"Факультеты",
-professorsTab:"Преподаватели",
-coursesTab:"Курсы",
-scheduleTab:"Расписание",
-publicationsTab:"Публикации",
-newsTab:"Новости",
-admissionsTab:"Поступление",
-supportTab:"Поддержка",
-applicationsTab:"Заявки",
+loginTitle:
+"Панель администратора",
 
-pagesEditorTitle:"Редактирование основных текстов",
-savePages:"Сохранить тексты",
+passwordLabel:
+"Пароль",
 
-facultyEditorTitle:"Факультет",
-saveFaculty:"Сохранить факультет",
-newFaculty:"Новый факультет",
+loginButton:
+"Войти",
 
-professorEditorTitle:"Преподаватель",
-saveProfessor:"Сохранить преподавателя",
-newProfessor:"Новый преподаватель",
+close:
+"Закрыть",
 
-courseEditorTitle:"Курс",
-saveCourse:"Сохранить курс",
-newCourse:"Новый курс",
+adminPanelTitle:
+"Управление УГГ",
 
-scheduleEditorTitle:"Занятие",
-scheduleDay:"День недели",
-scheduleTime:"Время",
-scheduleCourse:"Курс",
-scheduleProfessor:"Преподаватель",
-saveSchedule:"Сохранить занятие",
-newSchedule:"Новое занятие",
+pagesTab:
+"Тексты",
 
-publicationEditorTitle:"Публикация",
-publicationAuthor:"Автор",
-publicationURL:"Ссылка",
-savePublication:"Сохранить публикацию",
-newPublication:"Новая публикация",
+facultiesTab:
+"Факультеты",
 
-newsEditorTitle:"Новость",
-newsDate:"Дата",
-newsAuthor:"Автор",
-newsImage:"Изображение",
-newsImageURL:"Ссылка на изображение",
-saveNews:"Сохранить новость",
-newNews:"Новая новость",
+professorsTab:
+"Преподаватели",
 
-admissionEditorTitle:"Настройки поступления",
-admissionPrice:"Цена семестра",
-admissionSeats:"Количество бесплатных конкурсных мест",
-saveAdmissions:"Сохранить настройки",
+coursesTab:
+"Курсы",
 
-supportEditorTitle:"Поддержка",
-supportPIX:"Реквизиты PIX",
-saveSupport:"Сохранить поддержку",
+scheduleTab:
+"Расписание",
 
-applicationsTitle:"Заявки на поступление",
+publicationsTab:
+"Публикации",
 
-edit:"Изменить",
-delete:"Удалить",
-none:"Пока ничего нет.",
-saved:"Сохранено.",
-incorrectPassword:"Неверный пароль.",
-required:"Заполните обязательные поля.",
+newsTab:
+"Новости",
+
+admissionsTab:
+"Поступление",
+
+supportTab:
+"Поддержка",
+
+applicationsTab:
+"Заявки",
+
+pagesEditorTitle:
+"Редактирование основных текстов",
+
+savePages:
+"Сохранить тексты",
+
+facultyEditorTitle:
+"Факультет",
+
+saveFaculty:
+"Сохранить факультет",
+
+newFaculty:
+"Новый факультет",
+
+professorEditorTitle:
+"Преподаватель",
+
+saveProfessor:
+"Сохранить преподавателя",
+
+newProfessor:
+"Новый преподаватель",
+
+courseEditorTitle:
+"Курс",
+
+saveCourse:
+"Сохранить курс",
+
+newCourse:
+"Новый курс",
+
+scheduleEditorTitle:
+"Занятие",
+
+scheduleDay:
+"День недели",
+
+scheduleTime:
+"Время",
+
+scheduleCourse:
+"Курс",
+
+scheduleProfessor:
+"Преподаватель",
+
+saveSchedule:
+"Сохранить занятие",
+
+newSchedule:
+"Новое занятие",
+
+publicationEditorTitle:
+"Публикация",
+
+publicationAuthor:
+"Автор",
+
+publicationURL:
+"Ссылка",
+
+savePublication:
+"Сохранить публикацию",
+
+newPublication:
+"Новая публикация",
+
+newsEditorTitle:
+"Новость",
+
+newsDate:
+"Дата",
+
+newsAuthor:
+"Автор",
+
+newsImage:
+"Изображение",
+
+newsImageURL:
+"Ссылка на изображение",
+
+saveNews:
+"Сохранить новость",
+
+newNews:
+"Новая новость",
+
+admissionEditorTitle:
+"Настройки поступления",
+
+admissionPrice:
+"Цена семестра",
+
+admissionSeats:
+"Количество бесплатных конкурсных мест",
+
+saveAdmissions:
+"Сохранить настройки",
+
+supportEditorTitle:
+"Поддержка",
+
+supportPIX:
+"Реквизиты PIX",
+
+saveSupport:
+"Сохранить поддержку",
+
+applicationsTitle:
+"Заявки на поступление",
+
+edit:
+"Изменить",
+
+delete:
+"Удалить",
+
+none:
+"Пока ничего нет.",
+
+saved:
+"Сохранено.",
+
+incorrectPassword:
+"Неверный пароль.",
+
+required:
+"Заполните обязательные поля.",
+
+selectFaculty:
+"Выберите факультет",
+
+selectCourse:
+"Выберите курс",
+
+selectProfessor:
+"Выберите преподавателя",
 
 entranceDefault:
 "Вступительный экзамен оценивает логическое мышление, понимание текста, способность аргументировать свою позицию и базовые знания выбранной области. Для разных факультетов содержание экзамена может различаться. Важна не только память на факты, но и способность самостоятельно рассуждать.",
@@ -2705,28 +3138,35 @@ about2:
 studentsText:
 "This section contains information about the academic process, student rights and responsibilities, study materials, and academic requirements.",
 
-semesterPriceTitle:"Tuition per semester",
+semesterPriceTitle:
+"Tuition per semester",
 
-freeSeatsTitle:"Competitive tuition-free places",
+freeSeatsTitle:
+"Competitive tuition-free places",
 
 freeSeatsDescription:
 "The number of tuition-free places is determined through a competition and may change.",
 
-minimumLoadTitle:"Minimum academic load",
+minimumLoadTitle:
+"Minimum academic load",
 
 minimumLoadDescription:
 "Two classes per week.",
 
-semesterLengthTitle:"Semester length",
+semesterLengthTitle:
+"Semester length",
 
 semesterLengthDescription:
 "24 academic weeks.",
 
-entranceTitle:"Entrance Examination",
+entranceTitle:
+"Entrance Examination",
 
-processTitle:"Admission Process",
+processTitle:
+"Admission Process",
 
-openDayTitle:"Open Day",
+openDayTitle:
+"Open Day",
 
 openDayDefault:
 "The date will be announced.",
@@ -2734,15 +3174,29 @@ openDayDefault:
 openDayTextDefault:
 "Visitors will be able to learn about UGG programs, meet professors, and learn about the admission process.",
 
-applicationTitle:"Application",
+applicationTitle:
+"Application",
 
-applicationNameLabel:"Full name",
-applicationEmailLabel:"Email",
-applicationCountryLabel:"Country",
-applicationFacultyLabel:"Chosen faculty",
-applicationMotivationLabel:"Why do you want to study at UGG?",
-applicationButton:"Submit application",
-applicationSuccess:"Application saved.",
+applicationNameLabel:
+"Full name",
+
+applicationEmailLabel:
+"Email",
+
+applicationCountryLabel:
+"Country",
+
+applicationFacultyLabel:
+"Chosen faculty",
+
+applicationMotivationLabel:
+"Why do you want to study at UGG?",
+
+applicationButton:
+"Submit application",
+
+applicationSuccess:
+"Application saved.",
 
 day:"Day",
 time:"Time",
@@ -2750,78 +3204,194 @@ course:"Course",
 professor:"Professor",
 location:"Location",
 
-adminButton:"Administration",
-loginTitle:"Administration Panel",
-passwordLabel:"Password",
-loginButton:"Log in",
-close:"Close",
-adminPanelTitle:"UGG Administration",
+adminButton:
+"Administration",
 
-pagesTab:"Text",
-facultiesTab:"Faculties",
-professorsTab:"Professors",
-coursesTab:"Courses",
-scheduleTab:"Schedule",
-publicationsTab:"Publications",
-newsTab:"News",
-admissionsTab:"Admissions",
-supportTab:"Support",
-applicationsTab:"Applications",
+loginTitle:
+"Administration Panel",
 
-pagesEditorTitle:"Edit main texts",
-savePages:"Save text",
+passwordLabel:
+"Password",
 
-facultyEditorTitle:"Faculty",
-saveFaculty:"Save faculty",
-newFaculty:"New faculty",
+loginButton:
+"Log in",
 
-professorEditorTitle:"Professor",
-saveProfessor:"Save professor",
-newProfessor:"New professor",
+close:
+"Close",
 
-courseEditorTitle:"Course",
-saveCourse:"Save course",
-newCourse:"New course",
+adminPanelTitle:
+"UGG Administration",
 
-scheduleEditorTitle:"Class",
-scheduleDay:"Day",
-scheduleTime:"Time",
-scheduleCourse:"Course",
-scheduleProfessor:"Professor",
-saveSchedule:"Save class",
-newSchedule:"New class",
+pagesTab:
+"Text",
 
-publicationEditorTitle:"Publication",
-publicationAuthor:"Author",
-publicationURL:"URL",
-savePublication:"Save publication",
-newPublication:"New publication",
+facultiesTab:
+"Faculties",
 
-newsEditorTitle:"News",
-newsDate:"Date",
-newsAuthor:"Author",
-newsImage:"Image",
-newsImageURL:"Image URL",
-saveNews:"Save news",
-newNews:"New news",
+professorsTab:
+"Professors",
 
-admissionEditorTitle:"Admission Settings",
-admissionPrice:"Semester price",
-admissionSeats:"Number of competitive tuition-free places",
-saveAdmissions:"Save admission settings",
+coursesTab:
+"Courses",
 
-supportEditorTitle:"Support",
-supportPIX:"PIX details",
-saveSupport:"Save support",
+scheduleTab:
+"Schedule",
 
-applicationsTitle:"Applications",
+publicationsTab:
+"Publications",
 
-edit:"Edit",
-delete:"Delete",
-none:"Nothing has been added yet.",
-saved:"Saved.",
-incorrectPassword:"Incorrect password.",
-required:"Please complete the required fields.",
+newsTab:
+"News",
+
+admissionsTab:
+"Admissions",
+
+supportTab:
+"Support",
+
+applicationsTab:
+"Applications",
+
+pagesEditorTitle:
+"Edit main texts",
+
+savePages:
+"Save text",
+
+facultyEditorTitle:
+"Faculty",
+
+saveFaculty:
+"Save faculty",
+
+newFaculty:
+"New faculty",
+
+professorEditorTitle:
+"Professor",
+
+saveProfessor:
+"Save professor",
+
+newProfessor:
+"New professor",
+
+courseEditorTitle:
+"Course",
+
+saveCourse:
+"Save course",
+
+newCourse:
+"New course",
+
+scheduleEditorTitle:
+"Class",
+
+scheduleDay:
+"Day",
+
+scheduleTime:
+"Time",
+
+scheduleCourse:
+"Course",
+
+scheduleProfessor:
+"Professor",
+
+saveSchedule:
+"Save class",
+
+newSchedule:
+"New class",
+
+publicationEditorTitle:
+"Publication",
+
+publicationAuthor:
+"Author",
+
+publicationURL:
+"URL",
+
+savePublication:
+"Save publication",
+
+newPublication:
+"New publication",
+
+newsEditorTitle:
+"News",
+
+newsDate:
+"Date",
+
+newsAuthor:
+"Author",
+
+newsImage:
+"Image",
+
+newsImageURL:
+"Image URL",
+
+saveNews:
+"Save news",
+
+newNews:
+"New news",
+
+admissionEditorTitle:
+"Admission Settings",
+
+admissionPrice:
+"Semester price",
+
+admissionSeats:
+"Number of competitive tuition-free places",
+
+saveAdmissions:
+"Save admission settings",
+
+supportEditorTitle:
+"Support",
+
+supportPIX:
+"PIX details",
+
+saveSupport:
+"Save support",
+
+applicationsTitle:
+"Applications",
+
+edit:
+"Edit",
+
+delete:
+"Delete",
+
+none:
+"Nothing has been added yet.",
+
+saved:
+"Saved.",
+
+incorrectPassword:
+"Incorrect password.",
+
+required:
+"Please complete the required fields.",
+
+selectFaculty:
+"Select faculty",
+
+selectCourse:
+"Select course",
+
+selectProfessor:
+"Select professor",
 
 entranceDefault:
 "The entrance examination assesses logical reasoning, reading comprehension, the ability to construct arguments, and basic knowledge of the chosen field. The content may vary by faculty. Independent reasoning is evaluated alongside factual knowledge.",
@@ -2859,28 +3429,35 @@ about2:
 studentsText:
 "Esta seção contém informações sobre o processo acadêmico, direitos e responsabilidades, materiais de estudo e requisitos acadêmicos.",
 
-semesterPriceTitle:"Valor do semestre",
+semesterPriceTitle:
+"Valor do semestre",
 
-freeSeatsTitle:"Vagas gratuitas por concurso",
+freeSeatsTitle:
+"Vagas gratuitas por concurso",
 
 freeSeatsDescription:
 "O número de vagas gratuitas é definido por concurso e pode ser alterado.",
 
-minimumLoadTitle:"Carga acadêmica mínima",
+minimumLoadTitle:
+"Carga acadêmica mínima",
 
 minimumLoadDescription:
 "Duas aulas por semana.",
 
-semesterLengthTitle:"Duração do semestre",
+semesterLengthTitle:
+"Duração do semestre",
 
 semesterLengthDescription:
 "24 semanas acadêmicas.",
 
-entranceTitle:"Exame de Admissão",
+entranceTitle:
+"Exame de Admissão",
 
-processTitle:"Processo de Admissão",
+processTitle:
+"Processo de Admissão",
 
-openDayTitle:"Dia Aberto",
+openDayTitle:
+"Dia Aberto",
 
 openDayDefault:
 "A data será anunciada.",
@@ -2888,15 +3465,29 @@ openDayDefault:
 openDayTextDefault:
 "Os visitantes poderão conhecer os programas da UGG, os professores e o processo de admissão.",
 
-applicationTitle:"Candidatura",
+applicationTitle:
+"Candidatura",
 
-applicationNameLabel:"Nome completo",
-applicationEmailLabel:"Email",
-applicationCountryLabel:"País",
-applicationFacultyLabel:"Faculdade escolhida",
-applicationMotivationLabel:"Por que você quer estudar na UGG?",
-applicationButton:"Enviar candidatura",
-applicationSuccess:"Candidatura salva.",
+applicationNameLabel:
+"Nome completo",
+
+applicationEmailLabel:
+"Email",
+
+applicationCountryLabel:
+"País",
+
+applicationFacultyLabel:
+"Faculdade escolhida",
+
+applicationMotivationLabel:
+"Por que você quer estudar na UGG?",
+
+applicationButton:
+"Enviar candidatura",
+
+applicationSuccess:
+"Candidatura salva.",
 
 day:"Dia",
 time:"Horário",
@@ -2904,78 +3495,194 @@ course:"Curso",
 professor:"Professor",
 location:"Local",
 
-adminButton:"Administração",
-loginTitle:"Painel Administrativo",
-passwordLabel:"Senha",
-loginButton:"Entrar",
-close:"Fechar",
-adminPanelTitle:"Administração da UGG",
+adminButton:
+"Administração",
 
-pagesTab:"Textos",
-facultiesTab:"Faculdades",
-professorsTab:"Professores",
-coursesTab:"Cursos",
-scheduleTab:"Horário",
-publicationsTab:"Publicações",
-newsTab:"Notícias",
-admissionsTab:"Admissões",
-supportTab:"Apoiar",
-applicationsTab:"Candidaturas",
+loginTitle:
+"Painel Administrativo",
 
-pagesEditorTitle:"Editar textos principais",
-savePages:"Salvar textos",
+passwordLabel:
+"Senha",
 
-facultyEditorTitle:"Faculdade",
-saveFaculty:"Salvar faculdade",
-newFaculty:"Nova faculdade",
+loginButton:
+"Entrar",
 
-professorEditorTitle:"Professor",
-saveProfessor:"Salvar professor",
-newProfessor:"Novo professor",
+close:
+"Fechar",
 
-courseEditorTitle:"Curso",
-saveCourse:"Salvar curso",
-newCourse:"Novo curso",
+adminPanelTitle:
+"Administração da UGG",
 
-scheduleEditorTitle:"Aula",
-scheduleDay:"Dia",
-scheduleTime:"Horário",
-scheduleCourse:"Curso",
-scheduleProfessor:"Professor",
-saveSchedule:"Salvar aula",
-newSchedule:"Nova aula",
+pagesTab:
+"Textos",
 
-publicationEditorTitle:"Publicação",
-publicationAuthor:"Autor",
-publicationURL:"URL",
-savePublication:"Salvar publicação",
-newPublication:"Nova publicação",
+facultiesTab:
+"Faculdades",
 
-newsEditorTitle:"Notícia",
-newsDate:"Data",
-newsAuthor:"Autor",
-newsImage:"Imagem",
-newsImageURL:"URL da imagem",
-saveNews:"Salvar notícia",
-newNews:"Nova notícia",
+professorsTab:
+"Professores",
 
-admissionEditorTitle:"Configurações de Admissão",
-admissionPrice:"Valor do semestre",
-admissionSeats:"Número de vagas gratuitas por concurso",
-saveAdmissions:"Salvar configurações",
+coursesTab:
+"Cursos",
 
-supportEditorTitle:"Apoiar",
-supportPIX:"Dados PIX",
-saveSupport:"Salvar apoio",
+scheduleTab:
+"Horário",
 
-applicationsTitle:"Candidaturas",
+publicationsTab:
+"Publicações",
 
-edit:"Editar",
-delete:"Excluir",
-none:"Nada foi adicionado ainda.",
-saved:"Salvo.",
-incorrectPassword:"Senha incorreta.",
-required:"Preencha os campos obrigatórios.",
+newsTab:
+"Notícias",
+
+admissionsTab:
+"Admissões",
+
+supportTab:
+"Apoiar",
+
+applicationsTab:
+"Candidaturas",
+
+pagesEditorTitle:
+"Editar textos principais",
+
+savePages:
+"Salvar textos",
+
+facultyEditorTitle:
+"Faculdade",
+
+saveFaculty:
+"Salvar faculdade",
+
+newFaculty:
+"Nova faculdade",
+
+professorEditorTitle:
+"Professor",
+
+saveProfessor:
+"Salvar professor",
+
+newProfessor:
+"Novo professor",
+
+courseEditorTitle:
+"Curso",
+
+saveCourse:
+"Salvar curso",
+
+newCourse:
+"Novo curso",
+
+scheduleEditorTitle:
+"Aula",
+
+scheduleDay:
+"Dia",
+
+scheduleTime:
+"Horário",
+
+scheduleCourse:
+"Curso",
+
+scheduleProfessor:
+"Professor",
+
+saveSchedule:
+"Salvar aula",
+
+newSchedule:
+"Nova aula",
+
+publicationEditorTitle:
+"Publicação",
+
+publicationAuthor:
+"Autor",
+
+publicationURL:
+"URL",
+
+savePublication:
+"Salvar publicação",
+
+newPublication:
+"Nova publicação",
+
+newsEditorTitle:
+"Notícia",
+
+newsDate:
+"Data",
+
+newsAuthor:
+"Autor",
+
+newsImage:
+"Imagem",
+
+newsImageURL:
+"URL da imagem",
+
+saveNews:
+"Salvar notícia",
+
+newNews:
+"Nova notícia",
+
+admissionEditorTitle:
+"Configurações de Admissão",
+
+admissionPrice:
+"Valor do semestre",
+
+admissionSeats:
+"Número de vagas gratuitas por concurso",
+
+saveAdmissions:
+"Salvar configurações",
+
+supportEditorTitle:
+"Apoiar",
+
+supportPIX:
+"Dados PIX",
+
+saveSupport:
+"Salvar apoio",
+
+applicationsTitle:
+"Candidaturas",
+
+edit:
+"Editar",
+
+delete:
+"Excluir",
+
+none:
+"Nada foi adicionado ainda.",
+
+saved:
+"Salvo.",
+
+incorrectPassword:
+"Senha incorreta.",
+
+required:
+"Preencha os campos obrigatórios.",
+
+selectFaculty:
+"Selecione a faculdade",
+
+selectCourse:
+"Selecione o curso",
+
+selectProfessor:
+"Selecione o professor",
 
 entranceDefault:
 "O exame de admissão avalia raciocínio lógico, compreensão de texto, capacidade de construir argumentos e conhecimentos básicos da área escolhida. O conteúdo pode variar de acordo com a faculdade. A capacidade de raciocínio independente também é avaliada.",
@@ -2988,9 +3695,9 @@ processDefault:
 };
 
 
-/* =====================================================
-   DEFAULT DATABASE
-===================================================== */
+/* =========================================================
+   DATABASE
+========================================================= */
 
 function makeText(ru,en,pt){
     return {ru,en,pt};
@@ -3002,7 +3709,7 @@ function makeId(prefix){
         .slice(2,8);
 }
 
-function defaultDatabase(){
+function createDefaultDatabase(){
 
     return {
 
@@ -3178,13 +3885,8 @@ function defaultDatabase(){
 
 
         schedule:[],
-
-
         publications:[],
-
-
         news:[],
-
 
         rules:{
 
@@ -3282,11 +3984,7 @@ function defaultDatabase(){
 
             openDay:{
 
-                date:makeText(
-                    "",
-                    "",
-                    ""
-                ),
+                date:makeText("","",""),
 
                 text:makeText(
                     UI.ru.openDayTextDefault,
@@ -3324,22 +4022,22 @@ let database;
 
 try{
 
-    const saved =
+    const saved=
         localStorage.getItem(
             "ugg_database"
         );
 
-    database =
+    database=
         saved
         ?
         JSON.parse(saved)
         :
-        defaultDatabase();
+        createDefaultDatabase();
 
 }catch(error){
 
-    database =
-        defaultDatabase();
+    database=
+        createDefaultDatabase();
 
 }
 
@@ -3354,11 +4052,11 @@ function saveDatabase(){
 }
 
 
-/* =====================================================
+/* =========================================================
    HELPERS
-===================================================== */
+========================================================= */
 
-function textOf(value){
+function localized(value){
 
     if(!value){
         return "";
@@ -3368,13 +4066,13 @@ function textOf(value){
 }
 
 
-function setText(id,value){
+function setText(id,text){
 
     const element=
         document.getElementById(id);
 
     if(element){
-        element.textContent=value ?? "";
+        element.textContent=text ?? "";
     }
 
 }
@@ -3386,8 +4084,10 @@ function getValue(id){
         document.getElementById(id);
 
     return element
-        ? element.value.trim()
-        : "";
+        ?
+        element.value.trim()
+        :
+        "";
 
 }
 
@@ -3425,9 +4125,7 @@ function facultyName(id){
 
     return faculty
         ?
-        textOf(
-            faculty.name
-        )
+        localized(faculty.name)
         :
         "—";
 
@@ -3480,9 +4178,9 @@ function dayName(day){
 }
 
 
-/* =====================================================
-   LANGUAGE
-===================================================== */
+/* =========================================================
+   LANGUAGE SWITCHER
+========================================================= */
 
 function setLanguage(language){
 
@@ -3493,30 +4191,35 @@ function setLanguage(language){
         language
     );
 
+
     document.documentElement.lang=
         language;
 
 
-    document.querySelectorAll(
-        "[data-ui]"
-    ).forEach(element=>{
+    document
+        .querySelectorAll("[data-ui]")
+        .forEach(
+            element=>{
 
-        const key=
-            element.dataset.ui;
+                const key=
+                    element.dataset.ui;
 
-        element.textContent=
-            UI[language][key] || "";
+                element.textContent=
+                    UI[language][key] || "";
 
-    });
-
-
-    document.querySelectorAll(
-        ".languages button"
-    ).forEach(button=>{
-        button.classList.remove(
-            "active"
+            }
         );
-    });
+
+
+    document
+        .querySelectorAll(".languages button")
+        .forEach(
+            button=>{
+                button.classList.remove(
+                    "active"
+                );
+            }
+        );
 
 
     document.getElementById(
@@ -3526,15 +4229,14 @@ function setLanguage(language){
 
 
     renderSite();
-
     renderAdminUI();
 
 }
 
 
-/* =====================================================
-   PUBLIC SITE
-===================================================== */
+/* =========================================================
+   PUBLIC RENDER
+========================================================= */
 
 function renderSite(){
 
@@ -3542,38 +4244,33 @@ function renderSite(){
         UI[currentLanguage];
 
 
-    /* HOME */
-
     setText(
         "heroText",
-        textOf(
+        localized(
             database.pages.hero
         )
     );
 
 
-    /* ABOUT */
-
     setText(
         "aboutText1",
-        textOf(
+        localized(
             database.pages.about1
         )
     );
 
+
     setText(
         "aboutText2",
-        textOf(
+        localized(
             database.pages.about2
         )
     );
 
 
-    /* STUDENTS */
-
     setText(
         "studentsText",
-        textOf(
+        localized(
             database.pages.students
         )
     );
@@ -3594,12 +4291,13 @@ function renderSite(){
                 <div class="card">
 
                     <div class="number">
-                        ${String(index+1).padStart(2,"0")}
+                        ${String(index+1)
+                            .padStart(2,"0")}
                     </div>
 
                     <h3>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 faculty.name
                             )
                         )}
@@ -3607,15 +4305,20 @@ function renderSite(){
 
                     <p>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 faculty.desc
                             )
                         )}
                     </p>
 
                 </div>
+
             `
-        ).join("");
+        ).join("")
+        ||
+        `<div class="card">
+            ${escapeHTML(t.none)}
+        </div>`;
 
 
     /* PROFESSORS */
@@ -3632,7 +4335,7 @@ function renderSite(){
         database.professors.map(
             professor=>{
 
-                const photo=
+                const image=
                     professor.photo
                     ?
                     `
@@ -3642,7 +4345,7 @@ function renderSite(){
                             professor.photo
                         )}"
                         alt="${escapeHTML(
-                            textOf(
+                            localized(
                                 professor.name
                             )
                         )}">
@@ -3659,11 +4362,11 @@ function renderSite(){
 
                     <div class="card">
 
-                        ${photo}
+                        ${image}
 
                         <h3>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     professor.name
                                 )
                             )}
@@ -3672,7 +4375,7 @@ function renderSite(){
                         <p>
                             <strong>
                                 ${escapeHTML(
-                                    textOf(
+                                    localized(
                                         professor.position
                                     )
                                 )}
@@ -3691,7 +4394,7 @@ function renderSite(){
 
                         <p>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     professor.bio
                                 )
                             )}
@@ -3722,12 +4425,10 @@ function renderSite(){
             }
         ).join("")
         :
-        `
-        <div class="card">
+        `<div class="card">
             <h3>${escapeHTML(t.professors)}</h3>
             <p>${escapeHTML(t.none)}</p>
-        </div>
-        `;
+        </div>`;
 
 
     /* COURSES */
@@ -3748,7 +4449,7 @@ function renderSite(){
 
                     <h3>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 course.name
                             )
                         )}
@@ -3768,7 +4469,7 @@ function renderSite(){
 
                     <p>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 course.desc
                             )
                         )}
@@ -3784,7 +4485,7 @@ function renderSite(){
         </div>`;
 
 
-    /* SCHEDULE HEADINGS */
+    /* SCHEDULE */
 
     setText(
         "dayHeading",
@@ -3811,8 +4512,6 @@ function renderSite(){
         t.location
     );
 
-
-    /* SCHEDULE */
 
     const scheduleBody=
         document.getElementById(
@@ -3843,7 +4542,9 @@ function renderSite(){
 
                         <td>
                             ${escapeHTML(
-                                dayName(item.day)
+                                dayName(
+                                    item.day
+                                )
                             )}
                         </td>
 
@@ -3857,7 +4558,7 @@ function renderSite(){
                             ${escapeHTML(
                                 course
                                 ?
-                                textOf(
+                                localized(
                                     course.name
                                 )
                                 :
@@ -3869,7 +4570,7 @@ function renderSite(){
                             ${escapeHTML(
                                 professor
                                 ?
-                                textOf(
+                                localized(
                                     professor.name
                                 )
                                 :
@@ -3879,7 +4580,7 @@ function renderSite(){
 
                         <td>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     item.location
                                 )
                             )}
@@ -3919,7 +4620,7 @@ function renderSite(){
 
                     <h3>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 publication.title
                             )
                         )}
@@ -3937,7 +4638,7 @@ function renderSite(){
 
                     <p>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 publication.desc
                             )
                         )}
@@ -3949,11 +4650,11 @@ function renderSite(){
                         `
                         <a
                             class="button"
-                            target="_blank"
-                            rel="noopener"
                             href="${escapeHTML(
                                 publication.url
-                            )}">
+                            )}"
+                            target="_blank"
+                            rel="noopener">
 
                             ${
                                 currentLanguage==="ru"
@@ -3993,13 +4694,13 @@ function renderSite(){
 
     const news=
         [...database.news]
-        .sort(
-            (a,b)=>
-                String(b.date)
-                    .localeCompare(
-                        String(a.date)
-                    )
-        );
+            .sort(
+                (a,b)=>
+                    String(b.date)
+                        .localeCompare(
+                            String(a.date)
+                        )
+            );
 
 
     newsGrid.innerHTML=
@@ -4027,7 +4728,7 @@ function renderSite(){
 
                     <h3>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 article.title
                             )
                         )}
@@ -4053,19 +4754,20 @@ function renderSite(){
 
                     <p>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 article.summary
                             )
                         )}
                     </p>
 
                     ${
-                        textOf(
+                        localized(
                             article.text
                         )
                         ?
                         `
-                        <details style="margin-top:15px;">
+                        <details
+                            style="margin-top:15px;">
 
                             <summary>
                                 ${
@@ -4083,7 +4785,7 @@ function renderSite(){
 
                             <p style="margin-top:12px;">
                                 ${escapeHTML(
-                                    textOf(
+                                    localized(
                                         article.text
                                     )
                                 )}
@@ -4123,7 +4825,7 @@ function renderSite(){
 
                     <h3>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 rule.title
                             )
                         )}
@@ -4131,7 +4833,7 @@ function renderSite(){
 
                     <p>
                         ${escapeHTML(
-                            textOf(
+                            localized(
                                 rule.text
                             )
                         )}
@@ -4157,7 +4859,7 @@ function renderSite(){
 
     setText(
         "admissionLoad",
-        textOf(
+        localized(
             database.admissions.load
         )
     );
@@ -4204,7 +4906,7 @@ function renderSite(){
 
     setText(
         "entranceText",
-        textOf(
+        localized(
             database.admissions.entrance
         )
     );
@@ -4216,7 +4918,7 @@ function renderSite(){
 
     setText(
         "processText",
-        textOf(
+        localized(
             database.admissions.process
         )
     );
@@ -4228,7 +4930,7 @@ function renderSite(){
 
     setText(
         "openDayDate",
-        textOf(
+        localized(
             database.admissions.openDay.date
         )
         ||
@@ -4237,7 +4939,7 @@ function renderSite(){
 
     setText(
         "openDayDescription",
-        textOf(
+        localized(
             database.admissions.openDay.text
         )
         ||
@@ -4290,7 +4992,7 @@ function renderSite(){
 
     setText(
         "supportText",
-        textOf(
+        localized(
             database.support.text
         )
     );
@@ -4303,9 +5005,9 @@ function renderSite(){
 }
 
 
-/* =====================================================
+/* =========================================================
    APPLICATION
-===================================================== */
+========================================================= */
 
 function fillApplicationFaculty(){
 
@@ -4327,7 +5029,7 @@ function fillApplicationFaculty(){
                 )}">
 
                     ${escapeHTML(
-                        textOf(
+                        localized(
                             faculty.name
                         )
                     )}
@@ -4371,7 +5073,9 @@ function submitApplication(){
         !motivation
     ){
 
-        alert(t.required);
+        alert(
+            t.required
+        );
 
         return;
 
@@ -4401,10 +5105,25 @@ function submitApplication(){
     saveDatabase();
 
 
-    setValue("applicationName","");
-    setValue("applicationEmail","");
-    setValue("applicationCountry","");
-    setValue("applicationMotivation","");
+    setValue(
+        "applicationName",
+        ""
+    );
+
+    setValue(
+        "applicationEmail",
+        ""
+    );
+
+    setValue(
+        "applicationCountry",
+        ""
+    );
+
+    setValue(
+        "applicationMotivation",
+        ""
+    );
 
 
     setText(
@@ -4418,9 +5137,9 @@ function submitApplication(){
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN
-===================================================== */
+========================================================= */
 
 function openAdmin(){
 
@@ -4454,6 +5173,7 @@ function loginAdmin(){
         getValue(
             "adminPassword"
         );
+
 
     if(
         password===
@@ -4524,9 +5244,9 @@ function showAdminSection(
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN UI
-===================================================== */
+========================================================= */
 
 function renderAdminUI(){
 
@@ -4534,7 +5254,7 @@ function renderAdminUI(){
         UI[currentLanguage];
 
 
-    const labels={
+    const map={
 
         adminButton:t.adminButton,
 
@@ -4608,12 +5328,11 @@ function renderAdminUI(){
     };
 
 
-    Object.entries(
-        labels
-    ).forEach(
-        ([id,text])=>
-            setText(id,text)
-    );
+    Object.entries(map)
+        .forEach(
+            ([id,text])=>
+                setText(id,text)
+        );
 
 
     renderAdminForms();
@@ -4622,9 +5341,9 @@ function renderAdminUI(){
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN FORMS
-===================================================== */
+========================================================= */
 
 function renderAdminForms(){
 
@@ -4701,6 +5420,7 @@ function renderAdminForms(){
             const code=
                 language.toUpperCase();
 
+
             setValue(
                 "load"+code,
                 database.admissions.load[language]
@@ -4743,9 +5463,9 @@ function renderAdminForms(){
 }
 
 
-/* =====================================================
-   SELECT HELPERS
-===================================================== */
+/* =========================================================
+   SELECTS
+========================================================= */
 
 function fillFacultySelect(select){
 
@@ -4759,17 +5479,10 @@ function fillFacultySelect(select){
 
     select.innerHTML=
         `<option value="">
-            ${
-                currentLanguage==="ru"
-                ?
-                "Выберите факультет"
-                :
-                currentLanguage==="en"
-                ?
-                "Select faculty"
-                :
-                "Selecione a faculdade"
-            }
+            ${escapeHTML(
+                UI[currentLanguage]
+                    .selectFaculty
+            )}
         </option>`
 
         +
@@ -4777,12 +5490,13 @@ function fillFacultySelect(select){
         database.faculties.map(
             faculty=>`
 
-                <option value="${escapeHTML(
-                    faculty.id
-                )}">
+                <option
+                    value="${escapeHTML(
+                        faculty.id
+                    )}">
 
                     ${escapeHTML(
-                        textOf(
+                        localized(
                             faculty.name
                         )
                     )}
@@ -4818,17 +5532,10 @@ function fillCourseSelect(select){
 
     select.innerHTML=
         `<option value="">
-            ${
-                currentLanguage==="ru"
-                ?
-                "Выберите курс"
-                :
-                currentLanguage==="en"
-                ?
-                "Select course"
-                :
-                "Selecione o curso"
-            }
+            ${escapeHTML(
+                UI[currentLanguage]
+                    .selectCourse
+            )}
         </option>`
 
         +
@@ -4836,12 +5543,13 @@ function fillCourseSelect(select){
         database.courses.map(
             course=>`
 
-                <option value="${escapeHTML(
-                    course.id
-                )}">
+                <option
+                    value="${escapeHTML(
+                        course.id
+                    )}">
 
                     ${escapeHTML(
-                        textOf(
+                        localized(
                             course.name
                         )
                     )}
@@ -4877,17 +5585,10 @@ function fillProfessorSelect(select){
 
     select.innerHTML=
         `<option value="">
-            ${
-                currentLanguage==="ru"
-                ?
-                "Выберите преподавателя"
-                :
-                currentLanguage==="en"
-                ?
-                "Select professor"
-                :
-                "Selecione o professor"
-            }
+            ${escapeHTML(
+                UI[currentLanguage]
+                    .selectProfessor
+            )}
         </option>`
 
         +
@@ -4895,12 +5596,13 @@ function fillProfessorSelect(select){
         database.professors.map(
             professor=>`
 
-                <option value="${escapeHTML(
-                    professor.id
-                )}">
+                <option
+                    value="${escapeHTML(
+                        professor.id
+                    )}">
 
                     ${escapeHTML(
-                        textOf(
+                        localized(
                             professor.name
                         )
                     )}
@@ -4924,9 +5626,9 @@ function fillProfessorSelect(select){
 }
 
 
-/* =====================================================
+/* =========================================================
    PAGES
-===================================================== */
+========================================================= */
 
 function savePages(){
 
@@ -4935,7 +5637,6 @@ function savePages(){
 
             const code=
                 language.toUpperCase();
-
 
             database.pages.hero[language]=
                 getValue(
@@ -4962,6 +5663,7 @@ function savePages(){
 
 
     saveDatabase();
+
     renderSite();
 
 
@@ -4973,14 +5675,16 @@ function savePages(){
 }
 
 
-/* =====================================================
+/* =========================================================
    FACULTIES
-===================================================== */
+========================================================= */
 
 function saveFaculty(){
 
     const id=
-        getValue("facultyEditId")
+        getValue(
+            "facultyEditId"
+        )
         ||
         makeId("faculty");
 
@@ -5103,14 +5807,16 @@ function clearFacultyForm(){
 }
 
 
-/* =====================================================
+/* =========================================================
    PROFESSORS
-===================================================== */
+========================================================= */
 
 function saveProfessor(){
 
     const id=
-        getValue("professorEditId")
+        getValue(
+            "professorEditId"
+        )
         ||
         makeId("professor");
 
@@ -5143,10 +5849,14 @@ function saveProfessor(){
             ).value,
 
         email:
-            getValue("profEmail"),
+            getValue(
+                "profEmail"
+            ),
 
         photo:
-            getValue("profPhotoURL")
+            getValue(
+                "profPhotoURL"
+            )
 
     };
 
@@ -5207,6 +5917,7 @@ function editProfessor(id){
             const code=
                 language.toUpperCase();
 
+
             setValue(
                 "profName"+code,
                 professor.name[language]
@@ -5243,24 +5954,17 @@ function editProfessor(id){
         professor.facultyId;
 
 
-    const preview=
-        document.getElementById(
-            "profPreview"
-        );
-
-
     if(professor.photo){
+
+        const preview=
+            document.getElementById(
+                "profPreview"
+            );
 
         preview.src=
             professor.photo;
 
         preview.classList.remove(
-            "hidden"
-        );
-
-    }else{
-
-        preview.classList.add(
             "hidden"
         );
 
@@ -5293,6 +5997,7 @@ function clearProfessorForm(){
         "profPhoto"
     ).value="";
 
+
     document.getElementById(
         "profPreview"
     ).classList.add(
@@ -5315,29 +6020,35 @@ document.getElementById(
             return;
         }
 
+
         const reader=
             new FileReader();
 
-        reader.onload=function(){
 
-            setValue(
-                "profPhotoURL",
-                reader.result
-            );
+        reader.onload=
+            function(){
 
-            const preview=
-                document.getElementById(
-                    "profPreview"
+                setValue(
+                    "profPhotoURL",
+                    reader.result
                 );
 
-            preview.src=
-                reader.result;
 
-            preview.classList.remove(
-                "hidden"
-            );
+                const preview=
+                    document.getElementById(
+                        "profPreview"
+                    );
 
-        };
+
+                preview.src=
+                    reader.result;
+
+                preview.classList.remove(
+                    "hidden"
+                );
+
+            };
+
 
         reader.readAsDataURL(file);
 
@@ -5345,14 +6056,16 @@ document.getElementById(
 );
 
 
-/* =====================================================
+/* =========================================================
    COURSES
-===================================================== */
+========================================================= */
 
 function saveCourse(){
 
     const id=
-        getValue("courseEditId")
+        getValue(
+            "courseEditId"
+        )
         ||
         makeId("course");
 
@@ -5430,7 +6143,6 @@ function editCourse(id){
         course.id
     );
 
-
     setValue(
         "courseFaculty",
         course.facultyId
@@ -5442,6 +6154,7 @@ function editCourse(id){
 
             const code=
                 language.toUpperCase();
+
 
             setValue(
                 "courseName"+code,
@@ -5473,7 +6186,6 @@ function clearCourseForm(){
         id=>setValue(id,"")
     );
 
-
     document.getElementById(
         "courseFaculty"
     ).value="";
@@ -5481,14 +6193,16 @@ function clearCourseForm(){
 }
 
 
-/* =====================================================
+/* =========================================================
    SCHEDULE
-===================================================== */
+========================================================= */
 
 function saveSchedule(){
 
     const id=
-        getValue("scheduleEditId")
+        getValue(
+            "scheduleEditId"
+        )
         ||
         makeId("schedule");
 
@@ -5503,7 +6217,9 @@ function saveSchedule(){
             ).value,
 
         time:
-            getValue("scheduleTime"),
+            getValue(
+                "scheduleTime"
+            ),
 
         courseId:
             document.getElementById(
@@ -5622,9 +6338,11 @@ function clearScheduleForm(){
         "scheduleDay"
     ).value="1";
 
+
     document.getElementById(
         "scheduleCourse"
     ).value="";
+
 
     document.getElementById(
         "scheduleProfessor"
@@ -5633,9 +6351,9 @@ function clearScheduleForm(){
 }
 
 
-/* =====================================================
+/* =========================================================
    PUBLICATIONS
-===================================================== */
+========================================================= */
 
 function savePublication(){
 
@@ -5780,9 +6498,9 @@ function clearPublicationForm(){
 }
 
 
-/* =====================================================
+/* =========================================================
    NEWS
-===================================================== */
+========================================================= */
 
 function saveNews(){
 
@@ -5964,17 +6682,21 @@ document.getElementById(
             return;
         }
 
+
         const reader=
             new FileReader();
 
-        reader.onload=function(){
 
-            setValue(
-                "newsImageURL",
-                reader.result
-            );
+        reader.onload=
+            function(){
 
-        };
+                setValue(
+                    "newsImageURL",
+                    reader.result
+                );
+
+            };
+
 
         reader.readAsDataURL(file);
 
@@ -5982,9 +6704,9 @@ document.getElementById(
 );
 
 
-/* =====================================================
+/* =========================================================
    ADMISSIONS
-===================================================== */
+========================================================= */
 
 function saveAdmissions(){
 
@@ -5992,6 +6714,7 @@ function saveAdmissions(){
         getValue(
             "admissionPrice"
         );
+
 
     database.admissions.seats=
         Number(
@@ -6006,6 +6729,7 @@ function saveAdmissions(){
 
             const code=
                 language.toUpperCase();
+
 
             database.admissions.load[language]=
                 getValue(
@@ -6040,6 +6764,7 @@ function saveAdmissions(){
 
     renderSite();
 
+
     setText(
         "admissionMessage",
         UI[currentLanguage].saved
@@ -6048,9 +6773,9 @@ function saveAdmissions(){
 }
 
 
-/* =====================================================
+/* =========================================================
    SUPPORT
-===================================================== */
+========================================================= */
 
 function saveSupport(){
 
@@ -6079,6 +6804,7 @@ function saveSupport(){
 
     renderSite();
 
+
     setText(
         "supportMessage",
         UI[currentLanguage].saved
@@ -6087,9 +6813,9 @@ function saveSupport(){
 }
 
 
-/* =====================================================
+/* =========================================================
    ADMIN LISTS
-===================================================== */
+========================================================= */
 
 function renderAdminLists(){
 
@@ -6111,7 +6837,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     faculty.name
                                 )
                             )}
@@ -6150,7 +6876,9 @@ function renderAdminLists(){
                 </div>
 
             `
-        ).join("");
+        ).join("")
+        ||
+        `<p>${escapeHTML(t.none)}</p>`;
 
 
     /* PROFESSORS */
@@ -6167,7 +6895,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     professor.name
                                 )
                             )}
@@ -6206,7 +6934,9 @@ function renderAdminLists(){
                 </div>
 
             `
-        ).join("");
+        ).join("")
+        ||
+        `<p>${escapeHTML(t.none)}</p>`;
 
 
     /* COURSES */
@@ -6223,7 +6953,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     course.name
                                 )
                             )}
@@ -6262,7 +6992,9 @@ function renderAdminLists(){
                 </div>
 
             `
-        ).join("");
+        ).join("")
+        ||
+        `<p>${escapeHTML(t.none)}</p>`;
 
 
     /* SCHEDULE */
@@ -6278,7 +7010,6 @@ function renderAdminLists(){
                     database.courses.find(
                         c=>c.id===item.courseId
                     );
-
 
                 return `
 
@@ -6302,7 +7033,7 @@ function renderAdminLists(){
                                 ?
                                 " — "+
                                 escapeHTML(
-                                    textOf(
+                                    localized(
                                         course.name
                                     )
                                 )
@@ -6346,7 +7077,9 @@ function renderAdminLists(){
                 `;
 
             }
-        ).join("");
+        ).join("")
+        ||
+        `<p>${escapeHTML(t.none)}</p>`;
 
 
     /* PUBLICATIONS */
@@ -6363,7 +7096,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     publication.title
                                 )
                             )}
@@ -6402,7 +7135,9 @@ function renderAdminLists(){
                 </div>
 
             `
-        ).join("");
+        ).join("")
+        ||
+        `<p>${escapeHTML(t.none)}</p>`;
 
 
     /* NEWS */
@@ -6420,7 +7155,7 @@ function renderAdminLists(){
 
                         <strong>
                             ${escapeHTML(
-                                textOf(
+                                localized(
                                     article.title
                                 )
                             )}
@@ -6471,7 +7206,9 @@ function renderAdminLists(){
                 </div>
 
             `
-        ).join("");
+        ).join("")
+        ||
+        `<p>${escapeHTML(t.none)}</p>`;
 
 
     /* APPLICATIONS */
@@ -6562,9 +7299,9 @@ function renderAdminLists(){
 }
 
 
-/* =====================================================
+/* =========================================================
    DELETE
-===================================================== */
+========================================================= */
 
 function deleteItem(
     type,
@@ -6572,14 +7309,21 @@ function deleteItem(
 ){
 
     const question=
+
         currentLanguage==="ru"
+
         ?
         "Удалить эту запись?"
+
         :
+
         currentLanguage==="en"
+
         ?
         "Delete this entry?"
+
         :
+
         "Excluir este registro?";
 
 
@@ -6596,7 +7340,7 @@ function deleteItem(
             );
 
 
-        const validFacultyIds=
+        const validFaculties=
             new Set(
                 database.faculties.map(
                     item=>item.id
@@ -6607,7 +7351,7 @@ function deleteItem(
         database.courses=
             database.courses.filter(
                 course=>
-                    validFacultyIds.has(
+                    validFaculties.has(
                         course.facultyId
                     )
             );
@@ -6616,13 +7360,13 @@ function deleteItem(
         database.professors=
             database.professors.filter(
                 professor=>
-                    validFacultyIds.has(
+                    validFaculties.has(
                         professor.facultyId
                     )
             );
 
 
-        const validCourseIds=
+        const validCourses=
             new Set(
                 database.courses.map(
                     course=>course.id
@@ -6630,7 +7374,7 @@ function deleteItem(
             );
 
 
-        const validProfessorIds=
+        const validProfessors=
             new Set(
                 database.professors.map(
                     professor=>professor.id
@@ -6641,10 +7385,10 @@ function deleteItem(
         database.schedule=
             database.schedule.filter(
                 item=>
-                    validCourseIds.has(
+                    validCourses.has(
                         item.courseId
                     ) &&
-                    validProfessorIds.has(
+                    validProfessors.has(
                         item.professorId
                     )
             );
@@ -6652,37 +7396,41 @@ function deleteItem(
     }
 
 
-    if(type==="professor"){
+    else if(type==="professor"){
 
         database.professors=
             database.professors.filter(
                 item=>item.id!==id
             );
 
+
         database.schedule=
             database.schedule.filter(
-                item=>item.professorId!==id
+                item=>
+                    item.professorId!==id
             );
 
     }
 
 
-    if(type==="course"){
+    else if(type==="course"){
 
         database.courses=
             database.courses.filter(
                 item=>item.id!==id
             );
 
+
         database.schedule=
             database.schedule.filter(
-                item=>item.courseId!==id
+                item=>
+                    item.courseId!==id
             );
 
     }
 
 
-    if(type==="schedule"){
+    else if(type==="schedule"){
 
         database.schedule=
             database.schedule.filter(
@@ -6692,7 +7440,7 @@ function deleteItem(
     }
 
 
-    if(type==="publication"){
+    else if(type==="publication"){
 
         database.publications=
             database.publications.filter(
@@ -6702,7 +7450,7 @@ function deleteItem(
     }
 
 
-    if(type==="news"){
+    else if(type==="news"){
 
         database.news=
             database.news.filter(
@@ -6712,7 +7460,7 @@ function deleteItem(
     }
 
 
-    if(type==="application"){
+    else if(type==="application"){
 
         database.applications=
             database.applications.filter(
@@ -6730,9 +7478,9 @@ function deleteItem(
 }
 
 
-/* =====================================================
+/* =========================================================
    SCROLL HEADER
-===================================================== */
+========================================================= */
 
 let lastScrollY=
     window.scrollY;
@@ -6751,6 +7499,11 @@ window.addEventListener(
             window.scrollY;
 
 
+        /*
+            Двигаемся вниз:
+            верхняя часть уезжает вверх.
+        */
+
         if(
             current>120 &&
             current>lastScrollY
@@ -6763,7 +7516,12 @@ window.addEventListener(
         }
 
 
-        if(
+        /*
+            Двигаемся вверх:
+            верхняя часть возвращается.
+        */
+
+        else if(
             current<lastScrollY
         ){
 
@@ -6774,9 +7532,7 @@ window.addEventListener(
         }
 
 
-        if(
-            current<=20
-        ){
+        if(current<=20){
 
             header.classList.remove(
                 "compact"
@@ -6787,13 +7543,14 @@ window.addEventListener(
 
         lastScrollY=current;
 
-    }
+    },
+    {passive:true}
 );
 
 
-/* =====================================================
+/* =========================================================
    START
-===================================================== */
+========================================================= */
 
 setLanguage(
     currentLanguage
