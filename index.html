@@ -3,34 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guadanin Galashin Independent University — UGG</title>
+
+<title>Guadanin Galashin Independent University</title>
+
+<meta name="description"
+content="Guadanin Galashin Independent University — independent education, research and free thought.">
 
 <style>
 :root{
-    --navy:#0d1b34;
-    --navy2:#142746;
-    --gold:#c7a34a;
-    --cream:#f5f1e7;
-    --white:#fff;
-    --text:#1b2430;
-    --muted:#6b7280;
-    --border:#ddd6c7;
-    --danger:#9b3030;
+    --navy:#0b1930;
+    --navy2:#152846;
+    --navy3:#203a62;
+    --gold:#c6a354;
+    --gold2:#dfc77f;
+    --cream:#f5f1e8;
+    --cream2:#eae3d5;
+    --white:#ffffff;
+    --text:#202631;
+    --muted:#68717d;
+    --border:#d9d0c0;
+    --red:#943333;
+    --green:#356347;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-html{scroll-behavior:smooth}
+html{
+    scroll-behavior:smooth;
+}
 
 body{
     font-family:Georgia,"Times New Roman",serif;
     background:var(--cream);
     color:var(--text);
-    line-height:1.65;
+    line-height:1.7;
 }
 
-button,input,textarea,select{
+button,
+input,
+textarea,
+select{
     font:inherit;
+}
+
+button{
+    cursor:pointer;
 }
 
 header{
@@ -39,53 +60,52 @@ header{
     z-index:1000;
     background:var(--navy);
     color:white;
-    box-shadow:0 3px 15px rgba(0,0,0,.25);
+    box-shadow:0 3px 14px rgba(0,0,0,.25);
 }
 
-.header{
-    max-width:1300px;
+.header-main{
+    max-width:1350px;
     margin:auto;
-    padding:16px 24px;
+    padding:14px 25px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:20px;
+    justify-content:space-between;
+    gap:25px;
 }
 
-.logo{
+.brand{
     display:flex;
     align-items:center;
     gap:14px;
 }
 
-.logo-mark{
-    width:48px;
-    height:58px;
-    border:2px solid var(--gold);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:var(--gold);
-    font-size:26px;
-    clip-path:polygon(0 0,100% 0,100% 72%,50% 100%,0 72%);
+.mini-crest{
+    width:53px;
+    height:63px;
 }
 
-.logo-title{
+.mini-crest svg{
+    width:100%;
+    height:100%;
+}
+
+.brand-name{
+    font-size:14px;
     font-weight:bold;
-    letter-spacing:1px;
-    font-size:15px;
+    letter-spacing:1.2px;
+    line-height:1.25;
 }
 
 .languages button{
     background:transparent;
-    color:white;
     border:1px solid var(--gold);
-    padding:6px 9px;
-    margin-left:4px;
-    cursor:pointer;
+    color:white;
+    padding:6px 10px;
+    margin-left:5px;
 }
 
-.languages button:hover{
+.languages button:hover,
+.languages button.active{
     background:var(--gold);
     color:var(--navy);
 }
@@ -95,189 +115,193 @@ nav{
 }
 
 nav ul{
-    max-width:1300px;
+    max-width:1350px;
     margin:auto;
+    padding:7px 15px;
     list-style:none;
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
-    padding:8px 15px;
+    gap:2px;
 }
 
 nav a{
     color:white;
     text-decoration:none;
-    padding:8px 11px;
-    font-size:14px;
+    padding:8px 10px;
+    font-size:13px;
 }
 
 nav a:hover{
-    color:var(--gold);
+    color:var(--gold2);
 }
 
 .hero{
-    min-height:680px;
+    min-height:720px;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     text-align:center;
+    padding:80px 25px;
     color:white;
     background:
-      radial-gradient(circle at center, #294a73 0%, #142746 40%, #0d1b34 100%);
-    padding:80px 25px;
+        radial-gradient(
+            circle at center,
+            #314f7b 0%,
+            var(--navy3) 35%,
+            var(--navy) 76%
+        );
 }
 
 .hero-inner{
-    max-width:1000px;
+    max-width:1050px;
 }
 
-.crest{
-    width:135px;
-    height:155px;
-    border:3px solid var(--gold);
+.large-crest{
+    width:190px;
+    height:220px;
     margin:0 auto 30px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:54px;
-    color:var(--gold);
-    clip-path:polygon(0 0,100% 0,100% 72%,50% 100%,0 72%);
+}
+
+.large-crest svg{
+    width:100%;
+    height:100%;
 }
 
 .hero h1{
-    font-size:clamp(36px,6vw,72px);
+    font-size:clamp(35px,6vw,72px);
     font-weight:normal;
-    line-height:1.05;
     letter-spacing:2px;
+    line-height:1.05;
 }
 
 .hero h2{
-    font-size:clamp(18px,3vw,28px);
+    margin-top:18px;
+    color:var(--gold2);
     font-weight:normal;
-    color:var(--gold);
-    margin:18px 0 25px;
+    font-size:clamp(19px,3vw,30px);
     letter-spacing:3px;
 }
 
-.hero p{
-    max-width:780px;
-    margin:auto;
+.hero-description{
+    max-width:820px;
+    margin:28px auto 0;
     font-size:19px;
 }
 
 .motto{
-    margin-top:35px;
-    color:var(--gold);
-    letter-spacing:2px;
+    margin-top:34px;
+    color:var(--gold2);
     font-weight:bold;
+    letter-spacing:2px;
+    font-size:18px;
 }
 
 section{
-    max-width:1250px;
+    max-width:1300px;
     margin:auto;
-    padding:85px 25px;
+    padding:85px 28px;
 }
 
-section:nth-child(even){
-    background:#ece7db;
+section:nth-of-type(even){
+    background:var(--cream2);
 }
 
-.section-head{
+.section-title{
     text-align:center;
-    margin-bottom:45px;
+    margin-bottom:48px;
 }
 
-.section-head h2{
+.section-title h2{
     color:var(--navy);
-    font-size:40px;
+    font-size:42px;
     font-weight:normal;
 }
 
-.line{
-    width:75px;
+.gold-line{
+    width:80px;
     height:3px;
     background:var(--gold);
     margin:14px auto;
 }
 
-.section-head p{
+.section-title p{
     color:var(--muted);
 }
 
-.about{
-    max-width:850px;
+.text{
+    max-width:900px;
     margin:auto;
     font-size:18px;
+}
+
+.text p{
+    margin-bottom:18px;
 }
 
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:24px;
+    gap:25px;
 }
 
 .card{
     background:white;
     padding:30px;
     border-top:4px solid var(--gold);
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
 }
 
 .card h3{
     color:var(--navy);
-    margin-bottom:12px;
-    font-size:22px;
+    font-size:23px;
     font-weight:normal;
+    margin-bottom:12px;
 }
 
 .card p{
-    color:#51565f;
+    color:#555d67;
 }
 
 .faculty-number{
-    font-size:28px;
     color:var(--gold);
+    font-size:28px;
     font-weight:bold;
+    margin-bottom:5px;
 }
 
 .professor-card img{
     width:100%;
-    height:240px;
+    height:250px;
     object-fit:cover;
-    margin-bottom:17px;
-    background:#ddd;
+    margin-bottom:18px;
 }
 
-.button{
-    border:none;
-    cursor:pointer;
-    display:inline-block;
-    background:var(--navy);
-    color:white;
-    padding:12px 22px;
-    text-decoration:none;
-    margin-top:20px;
+.professor-placeholder{
+    width:100%;
+    height:250px;
+    margin-bottom:18px;
+    background:var(--navy2);
+    color:var(--gold2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:65px;
 }
 
-.button:hover{
-    background:var(--gold);
-    color:var(--navy);
-}
-
-.outline{
-    background:transparent;
-    border:1px solid var(--navy);
-    color:var(--navy);
+.table-wrap{
+    overflow-x:auto;
 }
 
 table{
     width:100%;
+    min-width:750px;
     border-collapse:collapse;
     background:white;
-    box-shadow:0 4px 15px rgba(0,0,0,.07);
 }
 
-th,td{
+th,
+td{
     padding:14px;
     border:1px solid var(--border);
     text-align:left;
@@ -286,39 +310,132 @@ th,td{
 th{
     background:var(--navy);
     color:white;
+    font-weight:normal;
 }
 
 .rule{
-    max-width:900px;
-    margin:0 auto 30px;
-    padding-left:20px;
+    max-width:950px;
+    margin:0 auto 32px;
+    padding-left:23px;
     border-left:3px solid var(--gold);
 }
 
 .rule h3{
-    margin-bottom:8px;
     color:var(--navy);
+    margin-bottom:8px;
 }
 
-.admission{
-    max-width:850px;
+.admission-box{
+    max-width:1000px;
     margin:auto;
-    background:white;
+}
+
+.admission-highlight{
+    background:var(--navy);
+    color:white;
     padding:45px;
     text-align:center;
     border-top:5px solid var(--gold);
-    box-shadow:0 5px 20px rgba(0,0,0,.09);
+    box-shadow:0 5px 25px rgba(0,0,0,.1);
 }
 
 .price{
-    font-size:48px;
-    color:var(--navy);
+    color:var(--gold2);
+    font-size:54px;
     font-weight:bold;
-    margin:15px 0;
+    margin:10px 0;
+}
+
+.admission-grid{
+    margin-top:25px;
+}
+
+.highlight-card{
+    text-align:center;
+}
+
+.highlight-number{
+    font-size:38px;
+    color:var(--gold);
+    font-weight:bold;
+}
+
+.application{
+    max-width:900px;
+    margin:45px auto 0;
+    background:white;
+    padding:38px;
+    border-top:5px solid var(--gold);
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.application h3{
+    color:var(--navy);
+    font-weight:normal;
+    margin-bottom:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    font-size:14px;
+    color:#4d535c;
+    margin-bottom:5px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    padding:11px;
+    border:1px solid #cfc7b8;
+    background:white;
+}
+
+textarea{
+    min-height:115px;
+    resize:vertical;
+}
+
+.button{
+    display:inline-block;
+    border:1px solid var(--navy);
+    background:var(--navy);
+    color:white;
+    padding:12px 24px;
+    margin-top:20px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.button:hover{
+    background:var(--gold);
+    color:var(--navy);
+}
+
+.open-day{
+    background:#f8f5ee;
+    border:1px solid var(--border);
+    padding:28px;
+    margin-top:25px;
+}
+
+.open-day h3{
+    color:var(--navy);
+    margin-bottom:10px;
 }
 
 .support-box{
-    max-width:850px;
+    max-width:900px;
     margin:auto;
     background:white;
     padding:40px;
@@ -329,8 +446,8 @@ th{
 .pix{
     margin-top:25px;
     padding:18px;
-    background:#f0ede5;
-    word-break:break-all;
+    background:#eeeae1;
+    word-break:break-word;
 }
 
 footer{
@@ -340,30 +457,34 @@ footer{
     padding:45px 20px;
 }
 
-.gold{color:var(--gold)}
+footer .gold{
+    color:var(--gold2);
+}
 
-#adminPanel{
-    display:none;
+/* ADMIN */
+
+#adminOverlay{
     position:fixed;
     inset:0;
-    z-index:3000;
-    background:rgba(0,0,0,.75);
-    overflow:auto;
+    z-index:5000;
+    display:none;
+    overflow-y:auto;
+    padding:30px 15px;
+    background:rgba(0,0,0,.80);
 }
 
 .admin-window{
-    max-width:1000px;
-    margin:40px auto;
+    max-width:1100px;
+    margin:auto;
     background:white;
     padding:30px;
-    min-height:90vh;
 }
 
 .admin-header{
     display:flex;
-    justify-content:space-between;
-    gap:15px;
     align-items:center;
+    justify-content:space-between;
+    gap:20px;
     border-bottom:1px solid var(--border);
     padding-bottom:20px;
     margin-bottom:25px;
@@ -371,90 +492,111 @@ footer{
 
 .admin-header h2{
     color:var(--navy);
+    font-weight:normal;
 }
 
 .admin-section{
     border:1px solid var(--border);
-    padding:22px;
-    margin-bottom:20px;
+    padding:25px;
+    margin-bottom:22px;
 }
 
 .admin-section h3{
-    margin-bottom:15px;
+    color:var(--navy);
+    font-weight:normal;
+    margin-bottom:18px;
+}
+
+.admin-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.admin-button{
+    border:0;
+    background:var(--navy);
+    color:white;
+    padding:10px 18px;
+    margin-top:15px;
+}
+
+.admin-button:hover{
+    background:var(--gold);
     color:var(--navy);
 }
 
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
+.close-button{
+    border:1px solid #bbb;
+    background:#eee;
+    padding:9px 14px;
 }
 
-.full{
-    grid-column:1/-1;
-}
-
-label{
-    display:block;
-    font-size:14px;
-    margin-bottom:5px;
-    color:#444;
-}
-
-input,textarea,select{
-    width:100%;
-    padding:10px;
-    border:1px solid #c9c4b7;
-    background:white;
-}
-
-textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-.admin-list{
-    margin-top:18px;
-}
-
-.admin-item{
-    padding:12px;
-    background:#f4f1ea;
-    margin-bottom:8px;
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    align-items:center;
-}
-
-.small-button{
+.danger-button{
     border:0;
-    cursor:pointer;
+    background:var(--red);
+    color:white;
     padding:7px 10px;
 }
 
-.delete{
-    background:var(--danger);
-    color:white;
+.admin-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:12px;
+    margin-top:9px;
+    background:#f3f0e8;
 }
 
-.close{
-    background:var(--navy);
-    color:white;
-}
-
-.login{
+.login-box{
     max-width:450px;
     margin:100px auto;
-    background:white;
     padding:35px;
+    background:white;
 }
 
-.hidden{display:none}
+.login-box h2{
+    color:var(--navy);
+    font-weight:normal;
+    margin-bottom:20px;
+}
+
+.error{
+    color:var(--red);
+    margin-top:10px;
+}
+
+.success{
+    color:var(--green);
+    margin-top:12px;
+}
+
+.application-list{
+    max-height:500px;
+    overflow:auto;
+}
+
+.application-entry{
+    border:1px solid var(--border);
+    padding:18px;
+    margin-top:10px;
+    background:#faf8f3;
+}
+
+.hidden{
+    display:none !important;
+}
 
 @media(max-width:800px){
-    .header{
+
+    .header-main{
         flex-direction:column;
+    }
+
+    nav ul{
+        flex-direction:column;
+        align-items:center;
     }
 
     .form-grid{
@@ -465,8 +607,25 @@ textarea{
         grid-column:auto;
     }
 
-    .schedule-wrap{
-        overflow-x:auto;
+    .hero{
+        min-height:600px;
+    }
+
+    .large-crest{
+        width:145px;
+        height:170px;
+    }
+
+    .admission-highlight{
+        padding:30px 20px;
+    }
+
+    .price{
+        font-size:42px;
+    }
+
+    .application{
+        padding:25px;
     }
 }
 </style>
@@ -475,958 +634,2870 @@ textarea{
 <body>
 
 <header>
-    <div class="header">
-        <div class="logo">
-            <div class="logo-mark">✦</div>
-            <div class="logo-title">
-                GUADANIN GALASHIN<br>
-                INDEPENDENT UNIVERSITY
-            </div>
+
+<div class="header-main">
+
+    <div class="brand">
+
+        <div class="mini-crest">
+
+            <svg viewBox="0 0 220 260"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <path d="M25 20 H195 V160 Q195 210 110 240 Q25 210 25 160 Z"
+                      fill="none"
+                      stroke="#c6a354"
+                      stroke-width="7"/>
+
+                <path d="M55 145 Q110 125 165 145 V190 Q110 170 55 190 Z"
+                      fill="none"
+                      stroke="#dfc77f"
+                      stroke-width="5"/>
+
+                <path d="M110 48 L117 67 L137 68 L121 80 L127 100 L110 89 L93 100 L99 80 L83 68 L103 67 Z"
+                      fill="#c6a354"/>
+
+                <path d="M74 58 L64 112 M146 58 L156 112"
+                      stroke="#c6a354"
+                      stroke-width="5"/>
+
+            </svg>
+
         </div>
 
-        <div class="languages">
-            <button onclick="setLanguage('ru')">RU</button>
-            <button onclick="setLanguage('en')">EN</button>
-            <button onclick="setLanguage('pt')">PT</button>
+        <div class="brand-name">
+            GUADANIN GALASHIN<br>
+            INDEPENDENT UNIVERSITY
         </div>
+
     </div>
 
-    <nav>
-        <ul>
-            <li><a href="#home" data-i18n="navHome">Главная</a></li>
-            <li><a href="#about" data-i18n="navAbout">Об УГГ</a></li>
-            <li><a href="#faculties" data-i18n="navFaculties">Факультеты</a></li>
-            <li><a href="#professors" data-i18n="navProfessors">Преподаватели</a></li>
-            <li><a href="#students" data-i18n="navStudents">Студенты</a></li>
-            <li><a href="#courses" data-i18n="navCourses">Курсы</a></li>
-            <li><a href="#schedule" data-i18n="navSchedule">Расписание</a></li>
-            <li><a href="#publications" data-i18n="navPublications">Публикации</a></li>
-            <li><a href="#rules" data-i18n="navRules">Основные правила</a></li>
-            <li><a href="#admissions" data-i18n="navAdmissions">Поступление</a></li>
-            <li><a href="#support" data-i18n="navSupport">Поддержать</a></li>
-        </ul>
-    </nav>
+    <div class="languages">
+        <button id="langRU" onclick="changeLanguage('ru')">RU</button>
+        <button id="langEN" onclick="changeLanguage('en')">EN</button>
+        <button id="langPT" onclick="changeLanguage('pt')">PT</button>
+    </div>
+
+</div>
+
+<nav>
+
+<ul>
+
+<li><a href="#home" data-key="home"></a></li>
+<li><a href="#about" data-key="about"></a></li>
+<li><a href="#faculties" data-key="faculties"></a></li>
+<li><a href="#professors" data-key="professors"></a></li>
+<li><a href="#students" data-key="students"></a></li>
+<li><a href="#courses" data-key="courses"></a></li>
+<li><a href="#schedule" data-key="schedule"></a></li>
+<li><a href="#publications" data-key="publications"></a></li>
+<li><a href="#rules" data-key="rules"></a></li>
+<li><a href="#admissions" data-key="admissions"></a></li>
+<li><a href="#support" data-key="support"></a></li>
+
+</ul>
+
+</nav>
+
 </header>
 
-<section class="hero" id="home">
-    <div class="hero-inner">
 
-        <div class="crest">✦</div>
+<!-- HOME -->
 
-        <h1>GUADANIN GALASHIN</h1>
-        <h2>INDEPENDENT UNIVERSITY</h2>
+<section id="home" class="hero">
 
-        <p data-i18n="heroText">
-            Независимое образовательное и исследовательское сообщество,
-            посвящённое свободному мышлению, гуманитарным наукам и строгой аргументации.
-        </p>
+<div class="hero-inner">
 
-        <div class="motto">
-            FREEDOM OF THOUGHT · STRENGTH OF ARGUMENT
-        </div>
+<div class="large-crest">
 
-    </div>
+<svg viewBox="0 0 220 260"
+     xmlns="http://www.w3.org/2000/svg">
+
+    <!-- shield -->
+
+    <path
+        d="M18 18
+           H202
+           V158
+           Q202 213 110 246
+           Q18 213 18 158
+           Z"
+        fill="#101d35"
+        stroke="#c6a354"
+        stroke-width="7"/>
+
+    <!-- laurel left -->
+
+    <path
+        d="M38 165
+           Q18 135 38 105
+           Q20 155 52 187
+           M38 140 L55 130
+           M32 120 L50 117
+           M35 101 L51 105"
+        fill="none"
+        stroke="#dfc77f"
+        stroke-width="4"
+        stroke-linecap="round"/>
+
+    <!-- laurel right -->
+
+    <path
+        d="M182 165
+           Q202 135 182 105
+           Q200 155 168 187
+           M182 140 L165 130
+           M188 120 L170 117
+           M185 101 L169 105"
+        fill="none"
+        stroke="#dfc77f"
+        stroke-width="4"
+        stroke-linecap="round"/>
+
+    <!-- star -->
+
+    <path
+        d="M110 43
+           L117 63
+           L138 64
+           L122 76
+           L128 97
+           L110 86
+           L92 97
+           L98 76
+           L82 64
+           L103 63 Z"
+        fill="#c6a354"/>
+
+    <!-- torch -->
+
+    <path
+        d="M110 91 V162"
+        stroke="#dfc77f"
+        stroke-width="6"
+        stroke-linecap="round"/>
+
+    <path
+        d="M99 155 H121"
+        stroke="#dfc77f"
+        stroke-width="6"/>
+
+    <path
+        d="M110 91
+           Q95 73 108 61
+           Q110 75 116 67
+           Q127 80 110 91 Z"
+        fill="#c6a354"/>
+
+    <!-- open book -->
+
+    <path
+        d="M51 139
+           Q80 126 110 141
+           Q140 126 169 139
+           V190
+           Q140 177 110 192
+           Q80 177 51 190 Z"
+        fill="#101d35"
+        stroke="#dfc77f"
+        stroke-width="5"/>
+
+    <path
+        d="M110 141 V192"
+        stroke="#dfc77f"
+        stroke-width="4"/>
+
+</svg>
+
+</div>
+
+<h1>GUADANIN GALASHIN</h1>
+
+<h2>INDEPENDENT UNIVERSITY</h2>
+
+<p class="hero-description" data-key="heroText"></p>
+
+<div class="motto">
+    FREEDOM OF THOUGHT · STRENGTH OF ARGUMENT
+</div>
+
+</div>
+
 </section>
+
+
+<!-- ABOUT -->
 
 <section id="about">
 
-    <div class="section-head">
-        <h2 data-i18n="aboutTitle">Об УГГ</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="about">
-        <p data-i18n="aboutText">
-            Guadanin Galashin Independent University (UGG) — независимый образовательный
-            и исследовательский проект, ориентированный прежде всего на гуманитарные науки.
-            УГГ стремится создать пространство для свободного исследования,
-            открытой дискуссии и самостоятельного интеллектуального развития.
-        </p>
-    </div>
+<h2 data-key="aboutTitle"></h2>
+
+<div class="gold-line"></div>
+
+</div>
+
+<div class="text">
+
+<p data-key="aboutText1"></p>
+
+<p data-key="aboutText2"></p>
+
+</div>
 
 </section>
+
+
+<!-- FACULTIES -->
 
 <section id="faculties">
 
-    <div class="section-head">
-        <h2 data-i18n="facultiesTitle">Факультеты</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="grid">
+<h2 data-key="facultiesTitle"></h2>
 
-        <div class="card">
-            <div class="faculty-number">01</div>
-            <h3>Philosophy</h3>
-            <p data-i18n="philDesc">
-                Онтология, метафизика, эпистемология, философия науки,
-                эстетика, история философии и ноуменология.
-            </p>
-        </div>
+<div class="gold-line"></div>
 
-        <div class="card">
-            <div class="faculty-number">02</div>
-            <h3>Political Science</h3>
-            <p data-i18n="politDesc">
-                Политическая теория, международные отношения и геополитика.
-                Геополитика является обязательным курсом.
-            </p>
-        </div>
+</div>
 
-        <div class="card">
-            <div class="faculty-number">03</div>
-            <h3>Sociology</h3>
-            <p data-i18n="socDesc">
-                Общая социология, социальная теория,
-                социология культуры и современного общества.
-            </p>
-        </div>
+<div class="grid">
 
-        <div class="card">
-            <div class="faculty-number">04</div>
-            <h3>Cinema</h3>
-            <p data-i18n="cinemaDesc">
-                Теория кино, история кино, философия кинематографа и анализ фильма.
-            </p>
-        </div>
+<div class="card">
+<div class="faculty-number">01</div>
+<h3 data-key="philosophy"></h3>
+<p data-key="philosophyDesc"></p>
+</div>
 
-        <div class="card">
-            <div class="faculty-number">05</div>
-            <h3>History</h3>
-            <p data-i18n="historyDesc">
-                История России, всемирная история, история Европы,
-                Латинской Америки и историография.
-            </p>
-        </div>
+<div class="card">
+<div class="faculty-number">02</div>
+<h3 data-key="political"></h3>
+<p data-key="politicalDesc"></p>
+</div>
 
-        <div class="card">
-            <div class="faculty-number">06</div>
-            <h3>Russian Language & Culture</h3>
-            <p data-i18n="russianDesc">
-                Русский язык, русская литература, история и культура России,
-                русское искусство и кинематограф.
-            </p>
-        </div>
+<div class="card">
+<div class="faculty-number">03</div>
+<h3 data-key="sociology"></h3>
+<p data-key="sociologyDesc"></p>
+</div>
 
-        <div class="card">
-            <div class="faculty-number">+</div>
-            <h3>Literature</h3>
-            <p data-i18n="literatureDesc">
-                Дополнительный курс для гуманитарных направлений.
-            </p>
-        </div>
+<div class="card">
+<div class="faculty-number">04</div>
+<h3 data-key="cinema"></h3>
+<p data-key="cinemaDesc"></p>
+</div>
 
-    </div>
+<div class="card">
+<div class="faculty-number">05</div>
+<h3 data-key="history"></h3>
+<p data-key="historyDesc"></p>
+</div>
+
+<div class="card">
+<div class="faculty-number">06</div>
+<h3 data-key="russianCulture"></h3>
+<p data-key="russianCultureDesc"></p>
+</div>
+
+<div class="card">
+<div class="faculty-number">+</div>
+<h3 data-key="literature"></h3>
+<p data-key="literatureDesc"></p>
+</div>
+
+</div>
 
 </section>
+
+
+<!-- PROFESSORS -->
 
 <section id="professors">
 
-    <div class="section-head">
-        <h2 data-i18n="professorsTitle">Преподаватели</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div id="professorGrid" class="grid"></div>
+<h2 data-key="professorsTitle"></h2>
+
+<div class="gold-line"></div>
+
+<p data-key="professorsSubtitle"></p>
+
+</div>
+
+<div id="professorGrid" class="grid"></div>
 
 </section>
+
+
+<!-- STUDENTS -->
 
 <section id="students">
 
-    <div class="section-head">
-        <h2 data-i18n="studentsTitle">Студенты</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="about">
-        <p data-i18n="studentsText">
-            Здесь размещается информация об учебном процессе,
-            правах и обязанностях студентов, учебных материалах
-            и академических требованиях.
-        </p>
-    </div>
+<h2 data-key="studentsTitle"></h2>
+
+<div class="gold-line"></div>
+
+</div>
+
+<div class="text">
+
+<p data-key="studentsText"></p>
+
+</div>
 
 </section>
+
+
+<!-- COURSES -->
 
 <section id="courses">
 
-    <div class="section-head">
-        <h2 data-i18n="coursesTitle">Курсы</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div id="courseGrid" class="grid"></div>
+<h2 data-key="coursesTitle"></h2>
+
+<div class="gold-line"></div>
+
+</div>
+
+<div id="courseGrid" class="grid"></div>
 
 </section>
+
+
+<!-- SCHEDULE -->
 
 <section id="schedule">
 
-    <div class="section-head">
-        <h2 data-i18n="scheduleTitle">Расписание</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="schedule-wrap">
-        <table>
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Course</th>
-                    <th>Professor</th>
-                    <th>Location</th>
-                </tr>
-            </thead>
+<h2 data-key="scheduleTitle"></h2>
 
-            <tbody id="scheduleBody"></tbody>
-        </table>
-    </div>
+<div class="gold-line"></div>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th data-key="day"></th>
+<th data-key="time"></th>
+<th data-key="course"></th>
+<th data-key="professor"></th>
+<th data-key="location"></th>
+</tr>
+
+</thead>
+
+<tbody id="scheduleBody"></tbody>
+
+</table>
+
+</div>
 
 </section>
+
+
+<!-- PUBLICATIONS -->
 
 <section id="publications">
 
-    <div class="section-head">
-        <h2 data-i18n="publicationsTitle">Публикации</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div id="publicationGrid" class="grid"></div>
+<h2 data-key="publicationsTitle"></h2>
+
+<div class="gold-line"></div>
+
+</div>
+
+<div id="publicationGrid" class="grid"></div>
 
 </section>
+
+
+<!-- RULES -->
 
 <section id="rules">
 
-    <div class="section-head">
-        <h2 data-i18n="rulesTitle">Основные правила</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="rule">
-        <h3 data-i18n="rule1Title">1. Свобода мысли</h3>
-        <p data-i18n="rule1Text">
-            Каждый участник имеет право самостоятельно формировать свои взгляды
-            и исследовать идеи независимо от их популярности.
-        </p>
-    </div>
+<h2 data-key="rulesTitle"></h2>
 
-    <div class="rule">
-        <h3 data-i18n="rule2Title">2. Свобода выражения</h3>
-        <p data-i18n="rule2Text">
-            Несогласие с распространённой или официальной точкой зрения
-            само по себе не является нарушением правил УГГ.
-        </p>
-    </div>
+<div class="gold-line"></div>
 
-    <div class="rule">
-        <h3 data-i18n="rule3Title">3. Обоснованность утверждений</h3>
-        <p data-i18n="rule3Text">
-            Существенные, спорные или фактически проверяемые утверждения
-            должны быть логически и фактически обоснованы.
-        </p>
-    </div>
+</div>
 
-    <div class="rule">
-        <h3 data-i18n="rule4Title">4. Критика идей</h3>
-        <p data-i18n="rule4Text">
-            Критика теорий, аргументов, преподавателей, администрации
-            и самого УГГ допускается. Критика должна быть направлена
-            на содержание позиции, а не на унижение личности.
-        </p>
-    </div>
+<div class="rule">
+<h3 data-key="rule1Title"></h3>
+<p data-key="rule1Text"></p>
+</div>
 
-    <div class="rule">
-        <h3 data-i18n="rule5Title">5. Академическая честность</h3>
-        <p data-i18n="rule5Text">
-            Плагиат, сознательная фальсификация данных,
-            подделка источников и выдача чужой работы за собственную
-            не допускаются.
-        </p>
-    </div>
+<div class="rule">
+<h3 data-key="rule2Title"></h3>
+<p data-key="rule2Text"></p>
+</div>
+
+<div class="rule">
+<h3 data-key="rule3Title"></h3>
+<p data-key="rule3Text"></p>
+</div>
+
+<div class="rule">
+<h3 data-key="rule4Title"></h3>
+<p data-key="rule4Text"></p>
+</div>
+
+<div class="rule">
+<h3 data-key="rule5Title"></h3>
+<p data-key="rule5Text"></p>
+</div>
 
 </section>
+
+
+<!-- ADMISSIONS -->
 
 <section id="admissions">
 
-    <div class="section-head">
-        <h2 data-i18n="admissionsTitle">Поступление</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="admission">
+<h2 data-key="admissionsTitle"></h2>
 
-        <h3 data-i18n="semesterPriceTitle">
-            Стоимость обучения за семестр
-        </h3>
+<div class="gold-line"></div>
 
-        <div class="price">R$ 2 400</div>
+</div>
 
-        <p data-i18n="admissionText">
-            Минимальная учебная нагрузка — 2 занятия в неделю.
-            Стандартный семестр включает 24 учебные недели.
-        </p>
 
-        <br>
+<div class="admission-box">
 
-        <h3 data-i18n="entranceTitle">
-            Вступительный тест
-        </h3>
 
-        <p data-i18n="entranceText">
-            Для поступления кандидат проходит вступительный тест,
-            проверяющий логическое мышление, понимание текста,
-            аргументацию и базовые знания выбранной области.
-        </p>
+<div class="admission-highlight">
 
-        <a href="#" class="button" data-i18n="applyButton">
-            Подать заявку
-        </a>
+<h3 id="semesterPriceTitle"></h3>
 
-    </div>
+<div class="price" id="semesterPrice"></div>
+
+<p id="admissionLoad"></p>
+
+</div>
+
+
+<div class="grid admission-grid">
+
+
+<div class="card highlight-card">
+
+<div class="highlight-number"
+     id="scholarshipSeats">
+0
+</div>
+
+<h3 id="freeSeatsTitle"></h3>
+
+<p id="freeSeatsText"></p>
+
+</div>
+
+
+<div class="card highlight-card">
+
+<div class="highlight-number">
+2
+</div>
+
+<h3 id="minimumClassesTitle"></h3>
+
+<p id="minimumClassesText"></p>
+
+</div>
+
+
+<div class="card highlight-card">
+
+<div class="highlight-number">
+24
+</div>
+
+<h3 id="semesterWeeksTitle"></h3>
+
+<p id="semesterWeeksText"></p>
+
+</div>
+
+
+</div>
+
+
+<div class="card" style="margin-top:25px;">
+
+<h3 id="entranceTestTitle"></h3>
+
+<p id="entranceTestText"></p>
+
+</div>
+
+
+<div class="card" style="margin-top:25px;">
+
+<h3 id="admissionProcessTitle"></h3>
+
+<p id="admissionProcessText"></p>
+
+</div>
+
+
+<div class="open-day">
+
+<h3 id="openDayTitle"></h3>
+
+<p id="openDayDate"></p>
+
+<p id="openDayText"></p>
+
+</div>
+
+
+<div class="application" id="applicationForm">
+
+<h3 id="applicationTitle"></h3>
+
+<div class="form-grid">
+
+<div>
+<label id="applicationNameLabel"></label>
+<input id="applicationName">
+</div>
+
+<div>
+<label id="applicationEmailLabel"></label>
+<input id="applicationEmail" type="email">
+</div>
+
+<div>
+<label id="applicationCountryLabel"></label>
+<input id="applicationCountry">
+</div>
+
+<div>
+<label id="applicationFacultyLabel"></label>
+<select id="applicationFaculty">
+<option value="Philosophy">Philosophy</option>
+<option value="Political Science">Political Science</option>
+<option value="Sociology">Sociology</option>
+<option value="Cinema">Cinema</option>
+<option value="History">History</option>
+<option value="Russian Language and Culture">Russian Language and Culture</option>
+</select>
+</div>
+
+<div class="full">
+<label id="applicationMotivationLabel"></label>
+<textarea id="applicationMotivation"></textarea>
+</div>
+
+</div>
+
+<button class="button"
+        onclick="submitApplication()"
+        id="applicationButton">
+</button>
+
+<p id="applicationMessage"
+   class="success"></p>
+
+</div>
+
+
+</div>
 
 </section>
+
+
+<!-- SUPPORT -->
 
 <section id="support">
 
-    <div class="section-head">
-        <h2 data-i18n="supportTitle">Поддержать УГГ</h2>
-        <div class="line"></div>
-    </div>
+<div class="section-title">
 
-    <div class="support-box">
+<h2 data-key="supportTitle"></h2>
 
-        <p id="supportText">
-            Поддержка УГГ помогает развивать образовательные программы,
-            проводить лекции, оплачивать помещения, оборудование и публикации.
-        </p>
+<div class="gold-line"></div>
 
-        <div class="pix">
-            <strong>PIX:</strong>
-            <span id="pixValue">Реквизиты пока не указаны</span>
-        </div>
+</div>
 
-    </div>
+<div class="support-box">
+
+<p id="supportText"></p>
+
+<div class="pix">
+<strong>PIX:</strong>
+<span id="pixValue"></span>
+</div>
+
+</div>
 
 </section>
 
+
 <footer>
 
-    <p class="gold">
-        GUADANIN GALASHIN INDEPENDENT UNIVERSITY
-    </p>
+<p class="gold">
+GUADANIN GALASHIN INDEPENDENT UNIVERSITY
+</p>
 
-    <p>
-        FREEDOM OF THOUGHT · STRENGTH OF ARGUMENT
-    </p>
+<p>
+FREEDOM OF THOUGHT · STRENGTH OF ARGUMENT
+</p>
 
-    <button class="button" onclick="openAdmin()">
-        Admin Panel
-    </button>
+<button class="button"
+        onclick="openAdmin()"
+        id="adminButton">
+Admin
+</button>
 
 </footer>
 
 
-<div id="adminPanel">
+<!-- ADMIN OVERLAY -->
 
-    <div id="loginBox" class="login">
+<div id="adminOverlay">
 
-        <h2>UGG Admin Panel</h2>
 
-        <br>
+<!-- LOGIN -->
 
-        <label>Admin password</label>
+<div id="adminLogin"
+     class="login-box">
 
-        <input type="password" id="adminPassword">
+<h2 id="adminLoginTitle"></h2>
 
-        <button class="button" onclick="loginAdmin()">
-            Login
-        </button>
+<label id="passwordLabel"></label>
 
-        <button class="button outline" onclick="closeAdmin()">
-            Close
-        </button>
+<input
+    type="password"
+    id="adminPassword">
 
-        <p id="loginError" style="color:#9b3030;margin-top:12px;"></p>
+<button class="admin-button"
+        onclick="loginAdmin()"
+        id="loginButton">
+</button>
 
-    </div>
+<button class="close-button"
+        onclick="closeAdmin()"
+        id="closeLoginButton">
+</button>
 
+<p id="loginError"
+   class="error"></p>
 
-    <div id="adminWindow" class="admin-window hidden">
+</div>
 
-        <div class="admin-header">
 
-            <h2>UGG Administration</h2>
+<!-- PANEL -->
 
-            <button class="small-button close" onclick="closeAdmin()">
-                Close
-            </button>
+<div id="adminPanel"
+     class="admin-window hidden">
 
-        </div>
 
+<div class="admin-header">
 
-        <div class="admin-section">
+<h2 id="adminPanelTitle"></h2>
 
-            <h3>Professors</h3>
+<button class="close-button"
+        onclick="closeAdmin()"
+        id="closeAdminButton">
+</button>
 
-            <div class="form-grid">
+</div>
 
-                <div>
-                    <label>Name</label>
-                    <input id="profName">
-                </div>
 
-                <div>
-                    <label>Faculty</label>
-                    <input id="profFaculty">
-                </div>
+<!-- ADMISSIONS -->
 
-                <div class="full">
-                    <label>Biography</label>
-                    <textarea id="profBio"></textarea>
-                </div>
+<div class="admin-section">
 
-                <div class="full">
-                    <label>Photo URL</label>
-                    <input id="profPhoto">
-                </div>
+<h3 id="adminAdmissionsTitle"></h3>
 
-            </div>
+<div class="form-grid">
 
-            <button class="button" onclick="addProfessor()">
-                Add Professor
-            </button>
+<div>
+<label id="adminPriceLabel"></label>
+<input id="adminPrice">
+</div>
 
-            <div id="profAdminList" class="admin-list"></div>
+<div>
+<label id="adminSeatsLabel"></label>
+<input id="adminSeats"
+       type="number"
+       min="0">
+</div>
 
-        </div>
+<div class="full">
+<label id="adminAdmissionLoadLabel"></label>
+<input id="adminAdmissionLoad">
+</div>
 
+<div class="full">
+<label id="adminEntranceLabel"></label>
+<textarea id="adminEntrance"></textarea>
+</div>
 
-        <div class="admin-section">
+<div class="full">
+<label id="adminProcessLabel"></label>
+<textarea id="adminProcess"></textarea>
+</div>
 
-            <h3>Courses</h3>
+<div>
+<label id="adminOpenDayDateLabel"></label>
+<input id="adminOpenDayDate">
+</div>
 
-            <div class="form-grid">
+<div class="full">
+<label id="adminOpenDayTextLabel"></label>
+<textarea id="adminOpenDayText"></textarea>
+</div>
 
-                <div>
-                    <label>Course</label>
-                    <input id="courseName">
-                </div>
+</div>
 
-                <div>
-                    <label>Faculty</label>
-                    <input id="courseFaculty">
-                </div>
+<button class="admin-button"
+        onclick="saveAdmissionSettings()"
+        id="saveAdmissionsButton">
+</button>
 
-                <div class="full">
-                    <label>Description</label>
-                    <textarea id="courseDescription"></textarea>
-                </div>
+<p id="admissionSaveMessage"
+   class="success"></p>
 
-            </div>
+</div>
 
-            <button class="button" onclick="addCourse()">
-                Add Course
-            </button>
 
-            <div id="courseAdminList" class="admin-list"></div>
+<!-- PROFESSORS -->
 
-        </div>
+<div class="admin-section">
 
+<h3 id="adminProfessorsTitle"></h3>
 
-        <div class="admin-section">
+<div class="form-grid">
 
-            <h3>Schedule</h3>
+<div>
+<label id="adminProfessorNameLabel"></label>
+<input id="profName">
+</div>
 
-            <div class="form-grid">
+<div>
+<label id="adminProfessorFacultyLabel"></label>
+<input id="profFaculty">
+</div>
 
-                <div>
-                    <label>Day</label>
-                    <input id="scheduleDay">
-                </div>
+<div class="full">
+<label id="adminProfessorBioLabel"></label>
+<textarea id="profBio"></textarea>
+</div>
 
-                <div>
-                    <label>Time</label>
-                    <input id="scheduleTime">
-                </div>
+<div class="full">
+<label id="adminProfessorPhotoLabel"></label>
+<input id="profPhoto">
+</div>
 
-                <div>
-                    <label>Course</label>
-                    <input id="scheduleCourse">
-                </div>
+</div>
 
-                <div>
-                    <label>Professor</label>
-                    <input id="scheduleProfessor">
-                </div>
+<button class="admin-button"
+        onclick="addProfessor()"
+        id="addProfessorButton">
+</button>
 
-                <div class="full">
-                    <label>Location</label>
-                    <input id="scheduleLocation">
-                </div>
+<div id="professorAdminList"></div>
 
-            </div>
+</div>
 
-            <button class="button" onclick="addSchedule()">
-                Add Class
-            </button>
 
-            <div id="scheduleAdminList" class="admin-list"></div>
+<!-- COURSES -->
 
-        </div>
+<div class="admin-section">
 
+<h3 id="adminCoursesTitle"></h3>
 
-        <div class="admin-section">
+<div class="form-grid">
 
-            <h3>Publications</h3>
+<div>
+<label id="adminCourseNameLabel"></label>
+<input id="courseName">
+</div>
 
-            <div class="form-grid">
+<div>
+<label id="adminCourseFacultyLabel"></label>
+<input id="courseFaculty">
+</div>
 
-                <div>
-                    <label>Title</label>
-                    <input id="publicationTitle">
-                </div>
+<div class="full">
+<label id="adminCourseDescriptionLabel"></label>
+<textarea id="courseDescription"></textarea>
+</div>
 
-                <div>
-                    <label>Author</label>
-                    <input id="publicationAuthor">
-                </div>
+</div>
 
-                <div class="full">
-                    <label>Description</label>
-                    <textarea id="publicationDescription"></textarea>
-                </div>
+<button class="admin-button"
+        onclick="addCourse()"
+        id="addCourseButton">
+</button>
 
-                <div class="full">
-                    <label>Publication URL</label>
-                    <input id="publicationUrl">
-                </div>
+<div id="courseAdminList"></div>
 
-            </div>
+</div>
 
-            <button class="button" onclick="addPublication()">
-                Add Publication
-            </button>
 
-            <div id="publicationAdminList" class="admin-list"></div>
+<!-- SCHEDULE -->
 
-        </div>
+<div class="admin-section">
 
+<h3 id="adminScheduleTitle"></h3>
 
-        <div class="admin-section">
+<div class="form-grid">
 
-            <h3>Support</h3>
+<div>
+<label id="adminScheduleDayLabel"></label>
+<input id="scheduleDay">
+</div>
 
-            <div>
-                <label>Support text</label>
-                <textarea id="supportTextInput"></textarea>
-            </div>
+<div>
+<label id="adminScheduleTimeLabel"></label>
+<input id="scheduleTime">
+</div>
 
-            <br>
+<div>
+<label id="adminScheduleCourseLabel"></label>
+<input id="scheduleCourse">
+</div>
 
-            <div>
-                <label>PIX</label>
-                <input id="pixInput">
-            </div>
+<div>
+<label id="adminScheduleProfessorLabel"></label>
+<input id="scheduleProfessor">
+</div>
 
-            <button class="button" onclick="saveSupport()">
-                Save Support Information
-            </button>
+<div class="full">
+<label id="adminScheduleLocationLabel"></label>
+<input id="scheduleLocation">
+</div>
 
-        </div>
+</div>
 
-    </div>
+<button class="admin-button"
+        onclick="addSchedule()"
+        id="addScheduleButton">
+</button>
+
+<div id="scheduleAdminList"></div>
+
+</div>
+
+
+<!-- PUBLICATIONS -->
+
+<div class="admin-section">
+
+<h3 id="adminPublicationsTitle"></h3>
+
+<div class="form-grid">
+
+<div>
+<label id="adminPublicationTitleLabel"></label>
+<input id="publicationTitle">
+</div>
+
+<div>
+<label id="adminPublicationAuthorLabel"></label>
+<input id="publicationAuthor">
+</div>
+
+<div class="full">
+<label id="adminPublicationDescriptionLabel"></label>
+<textarea id="publicationDescription"></textarea>
+</div>
+
+<div class="full">
+<label id="adminPublicationUrlLabel"></label>
+<input id="publicationUrl">
+</div>
+
+</div>
+
+<button class="admin-button"
+        onclick="addPublication()"
+        id="addPublicationButton">
+</button>
+
+<div id="publicationAdminList"></div>
+
+</div>
+
+
+<!-- SUPPORT -->
+
+<div class="admin-section">
+
+<h3 id="adminSupportTitle"></h3>
+
+<label id="adminSupportTextLabel"></label>
+
+<textarea id="supportInput"></textarea>
+
+<br><br>
+
+<label id="adminPixLabel"></label>
+
+<input id="pixInput">
+
+<button class="admin-button"
+        onclick="saveSupport()"
+        id="saveSupportButton">
+</button>
+
+<p id="supportSaveMessage"
+   class="success"></p>
+
+</div>
+
+
+<!-- APPLICATIONS -->
+
+<div class="admin-section">
+
+<h3 id="adminApplicationsTitle"></h3>
+
+<div id="applicationAdminList"
+     class="application-list"></div>
+
+</div>
+
+
+</div>
 
 </div>
 
 
 <script>
 
+/* =========================================================
+   PASSWORD
+   ========================================================= */
+
 const ADMIN_PASSWORD = "UGG2026";
 
-const translations = {
 
-ru:{
-navHome:"Главная",
-navAbout:"Об УГГ",
-navFaculties:"Факультеты",
-navProfessors:"Преподаватели",
-navStudents:"Студенты",
-navCourses:"Курсы",
-navSchedule:"Расписание",
-navPublications:"Публикации",
-navRules:"Основные правила",
-navAdmissions:"Поступление",
-navSupport:"Поддержать",
+/* =========================================================
+   TRANSLATIONS
+   ========================================================= */
 
-heroText:"Независимое образовательное и исследовательское сообщество, посвящённое свободному мышлению, гуманитарным наукам и строгой аргументации.",
+const T = {
+
+ru: {
+
+home:"Главная",
+about:"Об УГГ",
+faculties:"Факультеты",
+professors:"Преподаватели",
+students:"Студенты",
+courses:"Курсы",
+schedule:"Расписание",
+publications:"Публикации",
+rules:"Основные правила",
+admissions:"Поступление",
+support:"Поддержать",
+
+heroText:
+"Независимое образовательное и исследовательское сообщество, посвящённое свободному мышлению, гуманитарным наукам и строгой аргументации.",
 
 aboutTitle:"Об УГГ",
-aboutText:"Guadanin Galashin Independent University (UGG) — независимый образовательный и исследовательский проект, ориентированный прежде всего на гуманитарные науки. УГГ стремится создать пространство для свободного исследования, открытой дискуссии и самостоятельного интеллектуального развития.",
+
+aboutText1:
+"Guadanin Galashin Independent University (UGG) — независимый образовательный и исследовательский проект, ориентированный прежде всего на гуманитарные науки.",
+
+aboutText2:
+"УГГ стремится создать пространство для свободного исследования, открытой дискуссии и самостоятельного интеллектуального развития.",
 
 facultiesTitle:"Факультеты",
 
-philDesc:"Онтология, метафизика, эпистемология, философия науки, эстетика, история философии и ноуменология.",
-politDesc:"Политическая теория, международные отношения и геополитика. Геополитика является обязательным курсом.",
-socDesc:"Общая социология, социальная теория, социология культуры и современного общества.",
-cinemaDesc:"Теория кино, история кино, философия кинематографа и анализ фильма.",
-historyDesc:"История России, всемирная история, история Европы, Латинской Америки и историография.",
-russianDesc:"Русский язык, русская литература, история и культура России, русское искусство и кинематограф.",
-literatureDesc:"Дополнительный курс для гуманитарных направлений.",
+philosophy:"Философия",
+philosophyDesc:
+"Онтология, метафизика, эпистемология, философия науки, эстетика, история философии и ноуменология.",
+
+political:"Политология",
+politicalDesc:
+"Политическая теория, международные отношения и геополитика. Геополитика является обязательным курсом.",
+
+sociology:"Социология",
+sociologyDesc:
+"Общая социология, социальная теория, социология культуры и современного общества.",
+
+cinema:"Кинематограф",
+cinemaDesc:
+"Теория кино, история кино, философия кинематографа и анализ фильма.",
+
+history:"История",
+historyDesc:
+"История России, всемирная история, история Европы, Латинской Америки и историография.",
+
+russianCulture:"Русский язык и русская культура",
+russianCultureDesc:
+"Русский язык, русская литература, история и культура России, русское искусство и русский кинематограф.",
+
+literature:"Литература",
+literatureDesc:
+"Дополнительный курс для гуманитарных направлений. В будущем направление может стать самостоятельным факультетом.",
 
 professorsTitle:"Преподаватели",
+professorsSubtitle:
+"Информация о преподавателях УГГ.",
+
 studentsTitle:"Студенты",
-studentsText:"Здесь размещается информация об учебном процессе, правах и обязанностях студентов, учебных материалах и академических требованиях.",
+studentsText:
+"Раздел содержит информацию об учебном процессе, правах и обязанностях студентов, учебных материалах и академических требованиях.",
 
 coursesTitle:"Курсы",
 scheduleTitle:"Расписание",
 publicationsTitle:"Публикации",
 
+day:"День",
+time:"Время",
+course:"Курс",
+professor:"Преподаватель",
+location:"Место",
+
 rulesTitle:"Основные правила",
+
 rule1Title:"1. Свобода мысли",
-rule1Text:"Каждый участник имеет право самостоятельно формировать свои взгляды и исследовать идеи независимо от их популярности.",
+rule1Text:
+"Каждый участник имеет право самостоятельно формировать свои взгляды и исследовать идеи независимо от их популярности.",
+
 rule2Title:"2. Свобода выражения",
-rule2Text:"Несогласие с распространённой или официальной точкой зрения само по себе не является нарушением правил УГГ.",
+rule2Text:
+"Несогласие с распространённой или официальной точкой зрения само по себе не является нарушением правил УГГ.",
+
 rule3Title:"3. Обоснованность утверждений",
-rule3Text:"Существенные, спорные или фактически проверяемые утверждения должны быть логически и фактически обоснованы.",
+rule3Text:
+"Любая серьёзная, спорная или фактически проверяемая мысль, вызывающая существенные возражения, должна быть логически и фактически обоснована. Чем более существенным является утверждение, тем более серьёзного обоснования оно требует.",
+
 rule4Title:"4. Критика идей",
-rule4Text:"Критика теорий, аргументов, преподавателей, администрации и самого УГГ допускается. Критика должна быть направлена на содержание позиции, а не на унижение личности.",
+rule4Text:
+"Критика теорий, аргументов, преподавателей, администрации и самого УГГ допускается. Критика должна быть направлена прежде всего на содержание позиции, а не на унижение личности.",
+
 rule5Title:"5. Академическая честность",
-rule5Text:"Плагиат, сознательная фальсификация данных, подделка источников и выдача чужой работы за собственную не допускаются.",
+rule5Text:
+"Плагиат, сознательная фальсификация данных, подделка источников и выдача чужой работы за собственную не допускаются.",
 
 admissionsTitle:"Поступление",
-semesterPriceTitle:"Стоимость обучения за семестр",
-admissionText:"Минимальная учебная нагрузка — 2 занятия в неделю. Стандартный семестр включает 24 учебные недели.",
-entranceTitle:"Вступительный тест",
-entranceText:"Для поступления кандидат проходит вступительный тест, проверяющий логическое мышление, понимание текста, аргументацию и базовые знания выбранной области.",
-applyButton:"Подать заявку",
 
-supportTitle:"Поддержать УГГ"
+semesterPriceTitle:"Стоимость обучения за семестр",
+
+admissionLoad:
+"Минимальная учебная нагрузка — 2 занятия в неделю. Стандартный семестр состоит из 24 учебных недель.",
+
+freeSeatsTitle:"Бесплатные конкурсные места",
+
+freeSeatsText:
+"Количество бесплатных мест определяется конкурсом и может изменяться.",
+
+minimumClassesTitle:"Минимальная нагрузка",
+
+minimumClassesText:
+"Два занятия в неделю.",
+
+semesterWeeksTitle:"Продолжительность",
+
+semesterWeeksText:
+"24 учебные недели.",
+
+entranceTestTitle:"Вступительный экзамен",
+
+entranceTestText:
+"Вступительный экзамен оценивает логическое мышление, понимание текста, способность аргументировать свою позицию и базовые знания выбранной области. Для разных факультетов содержание экзамена может различаться. УГГ оценивает не только запоминание фактов, но и способность самостоятельно рассуждать.",
+
+admissionProcessTitle:"Порядок поступления",
+
+admissionProcessText:
+"Кандидат подаёт заявку, выбирает направление и проходит вступительный экзамен. После проверки результатов кандидат получает решение о поступлении. При наличии бесплатных конкурсных мест кандидаты могут участвовать в отдельном конкурсе на их получение.",
+
+openDayTitle:"День открытых дверей",
+openDayDate:"Дата будет опубликована.",
+openDayText:
+"В этот день можно будет познакомиться с программами УГГ, преподавателями и порядком поступления.",
+
+applicationTitle:"Заявка на поступление",
+
+applicationNameLabel:"Имя и фамилия",
+applicationEmailLabel:"Email",
+applicationCountryLabel:"Страна",
+applicationFacultyLabel:"Выбранный факультет",
+applicationMotivationLabel:"Почему вы хотите учиться в УГГ?",
+applicationButton:"Подать заявку",
+
+applicationSuccess:
+"Заявка сохранена.",
+
+adminButton:"Администрирование",
+adminLoginTitle:"Панель администратора",
+passwordLabel:"Пароль",
+loginButton:"Войти",
+close:"Закрыть",
+adminPanelTitle:"Управление УГГ",
+
+adminAdmissionsTitle:"Поступление",
+adminPriceLabel:"Цена семестра",
+adminSeatsLabel:"Количество бесплатных конкурсных мест",
+adminAdmissionLoadLabel:"Описание учебной нагрузки",
+adminEntranceLabel:"Описание вступительного экзамена",
+adminProcessLabel:"Описание процесса поступления",
+adminOpenDayDateLabel:"Дата Дня открытых дверей",
+adminOpenDayTextLabel:"Описание Дня открытых дверей",
+saveAdmissionsButton:"Сохранить информацию о поступлении",
+
+adminProfessorsTitle:"Преподаватели",
+adminProfessorNameLabel:"Имя",
+adminProfessorFacultyLabel:"Факультет",
+adminProfessorBioLabel:"Биография",
+adminProfessorPhotoLabel:"Ссылка на фотографию",
+addProfessorButton:"Добавить преподавателя",
+
+adminCoursesTitle:"Курсы",
+adminCourseNameLabel:"Название курса",
+adminCourseFacultyLabel:"Факультет",
+adminCourseDescriptionLabel:"Описание",
+addCourseButton:"Добавить курс",
+
+adminScheduleTitle:"Расписание",
+adminScheduleDayLabel:"День",
+adminScheduleTimeLabel:"Время",
+adminScheduleCourseLabel:"Курс",
+adminScheduleProfessorLabel:"Преподаватель",
+adminScheduleLocationLabel:"Место",
+addScheduleButton:"Добавить занятие",
+
+adminPublicationsTitle:"Публикации",
+adminPublicationTitleLabel:"Название",
+adminPublicationAuthorLabel:"Автор",
+adminPublicationDescriptionLabel:"Описание",
+adminPublicationUrlLabel:"Ссылка",
+addPublicationButton:"Добавить публикацию",
+
+adminSupportTitle:"Поддержка",
+adminSupportTextLabel:"Текст поддержки",
+adminPixLabel:"Реквизиты PIX",
+saveSupportButton:"Сохранить информацию о поддержке",
+
+adminApplicationsTitle:"Заявки на поступление",
+
+delete:"Удалить",
+noProfessors:"Пока нет добавленных преподавателей.",
+noCourses:"Пока нет добавленных курсов.",
+noSchedule:"Расписание пока не опубликовано.",
+noPublications:"Пока нет опубликованных материалов.",
+noApplications:"Пока заявок нет."
 },
 
-en:{
-navHome:"Home",
-navAbout:"About UGG",
-navFaculties:"Faculties",
-navProfessors:"Professors",
-navStudents:"Students",
-navCourses:"Courses",
-navSchedule:"Schedule",
-navPublications:"Publications",
-navRules:"General Rules",
-navAdmissions:"Admissions",
-navSupport:"Support",
 
-heroText:"An independent educational and research community dedicated to free thought, the humanities, and rigorous argument.",
+en: {
+
+home:"Home",
+about:"About UGG",
+faculties:"Faculties",
+professors:"Professors",
+students:"Students",
+courses:"Courses",
+schedule:"Schedule",
+publications:"Publications",
+rules:"General Rules",
+admissions:"Admissions",
+support:"Support",
+
+heroText:
+"An independent educational and research community dedicated to free thought, the humanities, and rigorous argument.",
 
 aboutTitle:"About UGG",
-aboutText:"Guadanin Galashin Independent University (UGG) is an independent educational and research project focused primarily on the humanities. UGG seeks to create a space for free inquiry, open discussion, and independent intellectual development.",
+
+aboutText1:
+"Guadanin Galashin Independent University (UGG) is an independent educational and research project focused primarily on the humanities.",
+
+aboutText2:
+"UGG seeks to create a space for free inquiry, open discussion, and independent intellectual development.",
 
 facultiesTitle:"Faculties",
 
-philDesc:"Ontology, metaphysics, epistemology, philosophy of science, aesthetics, history of philosophy, and noumenology.",
-politDesc:"Political theory, international relations, and geopolitics. Geopolitics is a mandatory course.",
-socDesc:"General sociology, social theory, sociology of culture, and contemporary society.",
-cinemaDesc:"Film theory, film history, philosophy of cinema, and film analysis.",
-historyDesc:"Russian history, world history, European history, Latin American history, and historiography.",
-russianDesc:"Russian language, Russian literature, Russian history and culture, Russian art, and cinema.",
-literatureDesc:"An additional course for humanities programs.",
+philosophy:"Philosophy",
+philosophyDesc:
+"Ontology, metaphysics, epistemology, philosophy of science, aesthetics, history of philosophy, and noumenology.",
+
+political:"Political Science",
+politicalDesc:
+"Political theory, international relations, and geopolitics. Geopolitics is a mandatory course.",
+
+sociology:"Sociology",
+sociologyDesc:
+"General sociology, social theory, sociology of culture, and contemporary society.",
+
+cinema:"Cinema",
+cinemaDesc:
+"Film theory, film history, philosophy of cinema, and film analysis.",
+
+history:"History",
+historyDesc:
+"Russian history, world history, European history, Latin American history, and historiography.",
+
+russianCulture:"Russian Language and Culture",
+russianCultureDesc:
+"Russian language, Russian literature, Russian history and culture, Russian art, and Russian cinema.",
+
+literature:"Literature",
+literatureDesc:
+"An additional course for humanities programs. It may become an independent faculty in the future.",
 
 professorsTitle:"Professors",
+professorsSubtitle:
+"Information about UGG professors.",
+
 studentsTitle:"Students",
-studentsText:"This section contains information about the academic process, student rights and responsibilities, study materials, and academic requirements.",
+studentsText:
+"This section contains information about the academic process, student rights and responsibilities, study materials, and academic requirements.",
 
 coursesTitle:"Courses",
 scheduleTitle:"Schedule",
 publicationsTitle:"Publications",
 
+day:"Day",
+time:"Time",
+course:"Course",
+professor:"Professor",
+location:"Location",
+
 rulesTitle:"General Rules",
+
 rule1Title:"1. Freedom of Thought",
-rule1Text:"Every participant has the right to form their own views and investigate ideas regardless of their popularity.",
+rule1Text:
+"Every participant has the right to form their own views and investigate ideas regardless of their popularity.",
+
 rule2Title:"2. Freedom of Expression",
-rule2Text:"Disagreement with a prevailing or official position is not, by itself, a violation of UGG rules.",
+rule2Text:
+"Disagreement with a prevailing or official position is not, by itself, a violation of UGG rules.",
+
 rule3Title:"3. Justification of Claims",
-rule3Text:"Substantial, controversial, or factually testable claims must be logically and factually supported.",
+rule3Text:
+"Any serious, controversial, or factually testable claim that raises substantial objections must be logically and factually supported. The more significant the claim, the stronger the required justification.",
+
 rule4Title:"4. Criticism of Ideas",
-rule4Text:"Criticism of theories, arguments, professors, administration, and UGG itself is permitted. Criticism should address the substance of a position rather than humiliate a person.",
+rule4Text:
+"Criticism of theories, arguments, professors, administration, and UGG itself is permitted. Criticism should primarily address the substance of a position rather than humiliate a person.",
+
 rule5Title:"5. Academic Integrity",
-rule5Text:"Plagiarism, deliberate falsification of data, fabricated sources, and presenting another person's work as one's own are not permitted.",
+rule5Text:
+"Plagiarism, deliberate falsification of data, fabricated sources, and presenting another person's work as one's own are not permitted.",
 
 admissionsTitle:"Admissions",
-semesterPriceTitle:"Tuition per semester",
-admissionText:"The minimum academic load is 2 classes per week. A standard semester consists of 24 academic weeks.",
-entranceTitle:"Entrance Test",
-entranceText:"Applicants take an entrance test assessing logical reasoning, reading comprehension, argumentation, and basic knowledge of the chosen field.",
-applyButton:"Apply",
 
-supportTitle:"Support UGG"
+semesterPriceTitle:"Tuition per semester",
+
+admissionLoad:
+"The minimum academic load is 2 classes per week. A standard semester consists of 24 academic weeks.",
+
+freeSeatsTitle:"Competitive tuition-free places",
+
+freeSeatsText:
+"The number of tuition-free places is determined through a competition and may change.",
+
+minimumClassesTitle:"Minimum academic load",
+
+minimumClassesText:
+"Two classes per week.",
+
+semesterWeeksTitle:"Semester length",
+
+semesterWeeksText:
+"24 academic weeks.",
+
+entranceTestTitle:"Entrance Examination",
+
+entranceTestText:
+"The entrance examination assesses logical reasoning, reading comprehension, the ability to construct arguments, and basic knowledge of the chosen field. The examination may vary by faculty. UGG evaluates not only factual knowledge but also independent reasoning.",
+
+admissionProcessTitle:"Admission Process",
+
+admissionProcessText:
+"Applicants submit an application, choose a field, and take the entrance examination. After the results are reviewed, the applicant receives an admission decision. Applicants may also compete separately for available tuition-free places.",
+
+openDayTitle:"Open Day",
+openDayDate:"The date will be announced.",
+openDayText:
+"Visitors will be able to learn about UGG programs, meet professors, and learn about the admission process.",
+
+applicationTitle:"Application",
+
+applicationNameLabel:"Full name",
+applicationEmailLabel:"Email",
+applicationCountryLabel:"Country",
+applicationFacultyLabel:"Chosen faculty",
+applicationMotivationLabel:"Why do you want to study at UGG?",
+applicationButton:"Submit application",
+
+applicationSuccess:
+"Application saved.",
+
+adminButton:"Administration",
+adminLoginTitle:"Administration Panel",
+passwordLabel:"Password",
+loginButton:"Log in",
+close:"Close",
+adminPanelTitle:"UGG Administration",
+
+adminAdmissionsTitle:"Admissions",
+adminPriceLabel:"Semester price",
+adminSeatsLabel:"Number of competitive tuition-free places",
+adminAdmissionLoadLabel:"Academic load description",
+adminEntranceLabel:"Entrance examination description",
+adminProcessLabel:"Admission process description",
+adminOpenDayDateLabel:"Open Day date",
+adminOpenDayTextLabel:"Open Day description",
+saveAdmissionsButton:"Save admission information",
+
+adminProfessorsTitle:"Professors",
+adminProfessorNameLabel:"Name",
+adminProfessorFacultyLabel:"Faculty",
+adminProfessorBioLabel:"Biography",
+adminProfessorPhotoLabel:"Photo URL",
+addProfessorButton:"Add professor",
+
+adminCoursesTitle:"Courses",
+adminCourseNameLabel:"Course name",
+adminCourseFacultyLabel:"Faculty",
+adminCourseDescriptionLabel:"Description",
+addCourseButton:"Add course",
+
+adminScheduleTitle:"Schedule",
+adminScheduleDayLabel:"Day",
+adminScheduleTimeLabel:"Time",
+adminScheduleCourseLabel:"Course",
+adminScheduleProfessorLabel:"Professor",
+adminScheduleLocationLabel:"Location",
+addScheduleButton:"Add class",
+
+adminPublicationsTitle:"Publications",
+adminPublicationTitleLabel:"Title",
+adminPublicationAuthorLabel:"Author",
+adminPublicationDescriptionLabel:"Description",
+adminPublicationUrlLabel:"URL",
+addPublicationButton:"Add publication",
+
+adminSupportTitle:"Support",
+adminSupportTextLabel:"Support text",
+adminPixLabel:"PIX details",
+saveSupportButton:"Save support information",
+
+adminApplicationsTitle:"Applications",
+
+delete:"Delete",
+noProfessors:"No professors have been added yet.",
+noCourses:"No courses have been added yet.",
+noSchedule:"The schedule has not been published yet.",
+noPublications:"No publications have been added yet.",
+noApplications:"There are no applications yet."
 },
 
-pt:{
-navHome:"Início",
-navAbout:"Sobre a UGG",
-navFaculties:"Faculdades",
-navProfessors:"Professores",
-navStudents:"Estudantes",
-navCourses:"Cursos",
-navSchedule:"Horário",
-navPublications:"Publicações",
-navRules:"Regras Gerais",
-navAdmissions:"Admissões",
-navSupport:"Apoiar",
 
-heroText:"Uma comunidade independente de educação e pesquisa dedicada ao pensamento livre, às humanidades e à argumentação rigorosa.",
+pt: {
+
+home:"Início",
+about:"Sobre a UGG",
+faculties:"Faculdades",
+professors:"Professores",
+students:"Estudantes",
+courses:"Cursos",
+schedule:"Horário",
+publications:"Publicações",
+rules:"Regras Gerais",
+admissions:"Admissões",
+support:"Apoiar",
+
+heroText:
+"Uma comunidade independente de educação e pesquisa dedicada ao pensamento livre, às humanidades e à argumentação rigorosa.",
 
 aboutTitle:"Sobre a UGG",
-aboutText:"A Guadanin Galashin Independent University (UGG) é um projeto independente de educação e pesquisa voltado principalmente para as humanidades. A UGG busca criar um espaço para investigação livre, discussão aberta e desenvolvimento intelectual independente.",
+
+aboutText1:
+"A Guadanin Galashin Independent University (UGG) é um projeto independente de educação e pesquisa voltado principalmente para as humanidades.",
+
+aboutText2:
+"A UGG busca criar um espaço para investigação livre, discussão aberta e desenvolvimento intelectual independente.",
 
 facultiesTitle:"Faculdades",
 
-philDesc:"Ontologia, metafísica, epistemologia, filosofia da ciência, estética, história da filosofia e noumenologia.",
-politDesc:"Teoria política, relações internacionais e geopolítica. Geopolítica é uma disciplina obrigatória.",
-socDesc:"Sociologia geral, teoria social, sociologia da cultura e sociedade contemporânea.",
-cinemaDesc:"Teoria do cinema, história do cinema, filosofia do cinema e análise cinematográfica.",
-historyDesc:"História da Rússia, história mundial, história europeia, história da América Latina e historiografia.",
-russianDesc:"Língua russa, literatura russa, história e cultura da Rússia, arte russa e cinema.",
-literatureDesc:"Disciplina complementar para os cursos de humanidades.",
+philosophy:"Filosofia",
+philosophyDesc:
+"Ontologia, metafísica, epistemologia, filosofia da ciência, estética, história da filosofia e noumenologia.",
+
+political:"Ciência Política",
+politicalDesc:
+"Teoria política, relações internacionais e geopolítica. Geopolítica é uma disciplina obrigatória.",
+
+sociology:"Sociologia",
+sociologyDesc:
+"Sociologia geral, teoria social, sociologia da cultura e sociedade contemporânea.",
+
+cinema:"Cinema",
+cinemaDesc:
+"Teoria do cinema, história do cinema, filosofia do cinema e análise cinematográfica.",
+
+history:"História",
+historyDesc:
+"História da Rússia, história mundial, história europeia, história da América Latina e historiografia.",
+
+russianCulture:"Língua e Cultura Russas",
+russianCultureDesc:
+"Língua russa, literatura russa, história e cultura da Rússia, arte russa e cinema russo.",
+
+literature:"Literatura",
+literatureDesc:
+"Disciplina complementar para os cursos de humanidades. No futuro, poderá tornar-se uma faculdade independente.",
 
 professorsTitle:"Professores",
+professorsSubtitle:
+"Informações sobre os professores da UGG.",
+
 studentsTitle:"Estudantes",
-studentsText:"Esta seção contém informações sobre o processo acadêmico, direitos e responsabilidades, materiais de estudo e requisitos acadêmicos.",
+studentsText:
+"Esta seção contém informações sobre o processo acadêmico, direitos e responsabilidades, materiais de estudo e requisitos acadêmicos.",
 
 coursesTitle:"Cursos",
 scheduleTitle:"Horário",
 publicationsTitle:"Publicações",
 
+day:"Dia",
+time:"Horário",
+course:"Curso",
+professor:"Professor",
+location:"Local",
+
 rulesTitle:"Regras Gerais",
+
 rule1Title:"1. Liberdade de Pensamento",
-rule1Text:"Cada participante tem o direito de formar suas próprias opiniões e investigar ideias independentemente de sua popularidade.",
+rule1Text:
+"Cada participante tem o direito de formar suas próprias opiniões e investigar ideias independentemente de sua popularidade.",
+
 rule2Title:"2. Liberdade de Expressão",
-rule2Text:"A discordância com uma posição predominante ou oficial, por si só, não constitui uma violação das regras da UGG.",
+rule2Text:
+"A discordância com uma posição predominante ou oficial, por si só, não constitui uma violação das regras da UGG.",
+
 rule3Title:"3. Fundamentação das Afirmações",
-rule3Text:"Afirmações relevantes, controversas ou verificáveis devem ser fundamentadas lógica e factualmente.",
+rule3Text:
+"Qualquer afirmação séria, controversa ou verificável que suscite objeções relevantes deve ser fundamentada lógica e factualmente. Quanto mais significativa for a afirmação, mais sólida deverá ser sua fundamentação.",
+
 rule4Title:"4. Crítica de Ideias",
-rule4Text:"A crítica de teorias, argumentos, professores, administração e da própria UGG é permitida. A crítica deve dirigir-se ao conteúdo da posição, e não à humilhação da pessoa.",
+rule4Text:
+"A crítica de teorias, argumentos, professores, administração e da própria UGG é permitida. A crítica deve dirigir-se principalmente ao conteúdo da posição, e não à humilhação da pessoa.",
+
 rule5Title:"5. Integridade Acadêmica",
-rule5Text:"Plágio, falsificação deliberada de dados, fontes inventadas e apresentar o trabalho de outra pessoa como próprio não são permitidos.",
+rule5Text:
+"Plágio, falsificação deliberada de dados, fontes inventadas e apresentar o trabalho de outra pessoa como próprio não são permitidos.",
 
 admissionsTitle:"Admissões",
-semesterPriceTitle:"Mensalidade por semestre",
-admissionText:"A carga acadêmica mínima é de 2 aulas por semana. Um semestre padrão consiste em 24 semanas acadêmicas.",
-entranceTitle:"Teste de Admissão",
-entranceText:"Os candidatos realizam um teste de admissão que avalia raciocínio lógico, compreensão de texto, argumentação e conhecimentos básicos da área escolhida.",
-applyButton:"Candidatar-se",
 
-supportTitle:"Apoiar a UGG"
+semesterPriceTitle:"Valor da mensalidade por semestre",
+
+admissionLoad:
+"A carga acadêmica mínima é de 2 aulas por semana. Um semestre padrão consiste em 24 semanas acadêmicas.",
+
+freeSeatsTitle:"Vagas gratuitas por concurso",
+
+freeSeatsText:
+"O número de vagas gratuitas é definido por concurso e pode ser alterado.",
+
+minimumClassesTitle:"Carga acadêmica mínima",
+
+minimumClassesText:
+"Duas aulas por semana.",
+
+semesterWeeksTitle:"Duração do semestre",
+
+semesterWeeksText:
+"24 semanas acadêmicas.",
+
+entranceTestTitle:"Exame de Admissão",
+
+entranceTestText:
+"O exame de admissão avalia raciocínio lógico, compreensão de texto, capacidade de construir argumentos e conhecimentos básicos da área escolhida. O conteúdo pode variar de acordo com a faculdade. A UGG avalia não apenas conhecimentos factuais, mas também a capacidade de raciocínio independente.",
+
+admissionProcessTitle:"Processo de Admissão",
+
+admissionProcessText:
+"O candidato envia uma inscrição, escolhe uma área e realiza o exame de admissão. Após a análise dos resultados, o candidato recebe uma decisão de admissão. Também é possível participar de um concurso separado pelas vagas gratuitas disponíveis.",
+
+openDayTitle:"Dia Aberto",
+openDayDate:"A data será anunciada.",
+openDayText:
+"Os visitantes poderão conhecer os programas da UGG, os professores e o processo de admissão.",
+
+applicationTitle:"Candidatura",
+
+applicationNameLabel:"Nome completo",
+applicationEmailLabel:"Email",
+applicationCountryLabel:"País",
+applicationFacultyLabel:"Faculdade escolhida",
+applicationMotivationLabel:"Por que você quer estudar na UGG?",
+applicationButton:"Enviar candidatura",
+
+applicationSuccess:
+"Candidatura salva.",
+
+adminButton:"Administração",
+adminLoginTitle:"Painel Administrativo",
+passwordLabel:"Senha",
+loginButton:"Entrar",
+close:"Fechar",
+adminPanelTitle:"Administração da UGG",
+
+adminAdmissionsTitle:"Admissões",
+adminPriceLabel:"Valor do semestre",
+adminSeatsLabel:"Número de vagas gratuitas por concurso",
+adminAdmissionLoadLabel:"Descrição da carga acadêmica",
+adminEntranceLabel:"Descrição do exame de admissão",
+adminProcessLabel:"Descrição do processo de admissão",
+adminOpenDayDateLabel:"Data do Dia Aberto",
+adminOpenDayTextLabel:"Descrição do Dia Aberto",
+saveAdmissionsButton:"Salvar informações de admissão",
+
+adminProfessorsTitle:"Professores",
+adminProfessorNameLabel:"Nome",
+adminProfessorFacultyLabel:"Faculdade",
+adminProfessorBioLabel:"Biografia",
+adminProfessorPhotoLabel:"URL da foto",
+addProfessorButton:"Adicionar professor",
+
+adminCoursesTitle:"Cursos",
+adminCourseNameLabel:"Nome do curso",
+adminCourseFacultyLabel:"Faculdade",
+adminCourseDescriptionLabel:"Descrição",
+addCourseButton:"Adicionar curso",
+
+adminScheduleTitle:"Horário",
+adminScheduleDayLabel:"Dia",
+adminScheduleTimeLabel:"Horário",
+adminScheduleCourseLabel:"Curso",
+adminScheduleProfessorLabel:"Professor",
+adminScheduleLocationLabel:"Local",
+addScheduleButton:"Adicionar aula",
+
+adminPublicationsTitle:"Publicações",
+adminPublicationTitleLabel:"Título",
+adminPublicationAuthorLabel:"Autor",
+adminPublicationDescriptionLabel:"Descrição",
+adminPublicationUrlLabel:"URL",
+addPublicationButton:"Adicionar publicação",
+
+adminSupportTitle:"Apoiar",
+adminSupportTextLabel:"Texto de apoio",
+adminPixLabel:"Dados PIX",
+saveSupportButton:"Salvar informações de apoio",
+
+adminApplicationsTitle:"Candidaturas",
+
+delete:"Excluir",
+noProfessors:"Nenhum professor foi adicionado.",
+noCourses:"Nenhum curso foi adicionado.",
+noSchedule:"O horário ainda não foi publicado.",
+noPublications:"Nenhuma publicação foi adicionada.",
+noApplications:"Ainda não há candidaturas."
 }
+
 };
 
-function getData(key, fallback){
-    try{
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : fallback;
-    }catch(e){
-        return fallback;
-    }
-}
 
-function saveData(key,data){
-    localStorage.setItem(key,JSON.stringify(data));
-}
+/* =========================================================
+   DEFAULT DATA
+   ========================================================= */
 
-let professors = getData("ugg_professors",[]);
-let courses = getData("ugg_courses",[]);
-let schedule = getData("ugg_schedule",[]);
-let publications = getData("ugg_publications",[]);
+let data = load("ugg_data", {
 
-let support = getData("ugg_support",{
-    text:"Поддержка УГГ помогает развивать образовательные программы, проводить лекции, оплачивать помещения, оборудование и публикации.",
-    pix:"Реквизиты пока не указаны"
+    admission:{
+        price:"R$ 2 400",
+        seats:3,
+        load:"",
+        entrance:"",
+        process:"",
+        openDayDate:"",
+        openDayText:""
+    },
+
+    professors:[],
+
+    courses:[
+        {
+            name:"Ontology I",
+            faculty:"Philosophy",
+            description:"Introduction to ontology and the philosophical study of being."
+        },
+        {
+            name:"Geopolitics",
+            faculty:"Political Science",
+            description:"Mandatory course in the Political Science program."
+        },
+        {
+            name:"Russian Language",
+            faculty:"Russian Language and Culture",
+            description:"Russian language studies."
+        }
+    ],
+
+    schedule:[],
+
+    publications:[],
+
+    support:{
+        text:"",
+        pix:""
+    },
+
+    applications:[]
+
 });
 
-function setLanguage(lang){
 
-    localStorage.setItem("ugg_language",lang);
+function load(key,fallback){
 
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key=el.getAttribute("data-i18n");
-        if(translations[lang][key]){
-            el.textContent=translations[lang][key];
+    try{
+
+        const raw =
+            localStorage.getItem(key);
+
+        if(!raw){
+            return fallback;
         }
+
+        return JSON.parse(raw);
+
+    }catch(error){
+
+        return fallback;
+
+    }
+
+}
+
+
+function saveData(){
+
+    localStorage.setItem(
+        "ugg_data",
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+let currentLanguage =
+    localStorage.getItem("ugg_language") || "ru";
+
+
+function setText(id,text){
+
+    const element =
+        document.getElementById(id);
+
+    if(element){
+        element.textContent = text || "";
+    }
+
+}
+
+
+function changeLanguage(language){
+
+    currentLanguage = language;
+
+    localStorage.setItem(
+        "ugg_language",
+        language
+    );
+
+    document.documentElement.lang =
+        language;
+
+    const dictionary =
+        T[language];
+
+    document
+        .querySelectorAll("[data-key]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute("data-key");
+
+            if(dictionary[key]){
+                element.textContent =
+                    dictionary[key];
+            }
+
+        });
+
+
+    [
+        "langRU",
+        "langEN",
+        "langPT"
+    ].forEach(id => {
+
+        document
+            .getElementById(id)
+            .classList.remove("active");
+
     });
 
-    document.documentElement.lang=lang;
+    document
+        .getElementById(
+            "lang" + language.toUpperCase()
+        )
+        .classList.add("active");
+
+
+    renderDynamicText();
+
+    renderAdminInterface();
+
 }
 
-function render(){
 
-    professors=getData("ugg_professors",[]);
-    courses=getData("ugg_courses",[]);
-    schedule=getData("ugg_schedule",[]);
-    publications=getData("ugg_publications",[]);
+function renderDynamicText(){
 
-    const profGrid=document.getElementById("professorGrid");
+    const t = T[currentLanguage];
 
-    profGrid.innerHTML=professors.map((p,i)=>`
-        <div class="card professor-card">
-            ${p.photo ? `<img src="${escapeHtml(p.photo)}" alt="${escapeHtml(p.name)}">` : ""}
-            <h3>${escapeHtml(p.name)}</h3>
-            <p><strong>${escapeHtml(p.faculty)}</strong></p>
-            <p>${escapeHtml(p.bio)}</p>
-        </div>
-    `).join("");
+    setText(
+        "semesterPriceTitle",
+        t.semesterPriceTitle
+    );
 
-    const courseGrid=document.getElementById("courseGrid");
+    setText(
+        "semesterPrice",
+        data.admission.price
+    );
 
-    courseGrid.innerHTML=courses.map(c=>`
-        <div class="card">
-            <h3>${escapeHtml(c.name)}</h3>
-            <p><strong>${escapeHtml(c.faculty)}</strong></p>
-            <p>${escapeHtml(c.description)}</p>
-        </div>
-    `).join("");
+    setText(
+        "admissionLoad",
+        data.admission.load ||
+        t.admissionLoad
+    );
 
-    const scheduleBody=document.getElementById("scheduleBody");
+    setText(
+        "scholarshipSeats",
+        data.admission.seats
+    );
 
-    scheduleBody.innerHTML=schedule.map(s=>`
-        <tr>
-            <td>${escapeHtml(s.day)}</td>
-            <td>${escapeHtml(s.time)}</td>
-            <td>${escapeHtml(s.course)}</td>
-            <td>${escapeHtml(s.professor)}</td>
-            <td>${escapeHtml(s.location)}</td>
-        </tr>
-    `).join("");
+    setText(
+        "freeSeatsTitle",
+        t.freeSeatsTitle
+    );
 
-    const publicationGrid=document.getElementById("publicationGrid");
+    setText(
+        "freeSeatsText",
+        t.freeSeatsText
+    );
 
-    publicationGrid.innerHTML=publications.map(p=>`
-        <div class="card">
-            <h3>${escapeHtml(p.title)}</h3>
-            <p><strong>${escapeHtml(p.author)}</strong></p>
-            <p>${escapeHtml(p.description)}</p>
-            ${p.url ? `<a class="button" href="${escapeHtml(p.url)}" target="_blank">Open publication</a>` : ""}
-        </div>
-    `).join("");
+    setText(
+        "minimumClassesTitle",
+        t.minimumClassesTitle
+    );
 
-    document.getElementById("supportText").textContent=support.text;
-    document.getElementById("pixValue").textContent=support.pix;
+    setText(
+        "minimumClassesText",
+        t.minimumClassesText
+    );
 
-    renderAdminLists();
+    setText(
+        "semesterWeeksTitle",
+        t.semesterWeeksTitle
+    );
+
+    setText(
+        "semesterWeeksText",
+        t.semesterWeeksText
+    );
+
+    setText(
+        "entranceTestTitle",
+        t.entranceTestTitle
+    );
+
+    setText(
+        "entranceTestText",
+        data.admission.entrance ||
+        t.entranceTestText
+    );
+
+    setText(
+        "admissionProcessTitle",
+        t.admissionProcessTitle
+    );
+
+    setText(
+        "admissionProcessText",
+        data.admission.process ||
+        t.admissionProcessText
+    );
+
+    setText(
+        "openDayTitle",
+        t.openDayTitle
+    );
+
+    setText(
+        "openDayDate",
+        data.admission.openDayDate ||
+        t.openDayDate
+    );
+
+    setText(
+        "openDayText",
+        data.admission.openDayText ||
+        t.openDayText
+    );
+
+    setText(
+        "applicationTitle",
+        t.applicationTitle
+    );
+
+    setText(
+        "applicationNameLabel",
+        t.applicationNameLabel
+    );
+
+    setText(
+        "applicationEmailLabel",
+        t.applicationEmailLabel
+    );
+
+    setText(
+        "applicationCountryLabel",
+        t.applicationCountryLabel
+    );
+
+    setText(
+        "applicationFacultyLabel",
+        t.applicationFacultyLabel
+    );
+
+    setText(
+        "applicationMotivationLabel",
+        t.applicationMotivationLabel
+    );
+
+    setText(
+        "applicationButton",
+        t.applicationButton
+    );
+
+    setText(
+        "adminButton",
+        t.adminButton
+    );
+
+    setText(
+        "supportText",
+        data.support.text ||
+        (
+            currentLanguage === "ru"
+            ? "Поддержка УГГ помогает развивать образовательные программы, лекции, публикации и инфраструктуру."
+            : currentLanguage === "en"
+            ? "Support for UGG helps develop educational programs, lectures, publications, and infrastructure."
+            : "O apoio à UGG ajuda a desenvolver programas educacionais, palestras, publicações e infraestrutura."
+        )
+    );
+
+    setText(
+        "pixValue",
+        data.support.pix ||
+        "—"
+    );
+
 }
 
-function escapeHtml(value){
+
+function escapeHTML(value){
+
     return String(value || "")
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
+
 }
+
+
+/* =========================================================
+   PUBLIC RENDERING
+   ========================================================= */
+
+function renderPublic(){
+
+    data =
+        load("ugg_data",data);
+
+
+    const professorGrid =
+        document.getElementById(
+            "professorGrid"
+        );
+
+    if(data.professors.length === 0){
+
+        professorGrid.innerHTML = `
+            <div class="card">
+                <h3>${escapeHTML(
+                    T[currentLanguage].professorsTitle
+                )}</h3>
+                <p>
+                    ${escapeHTML(
+                        T[currentLanguage].noProfessors
+                    )}
+                </p>
+            </div>
+        `;
+
+    }else{
+
+        professorGrid.innerHTML =
+            data.professors.map(prof => {
+
+                const photo =
+                    prof.photo
+                    ? `<img src="${escapeHTML(
+                        prof.photo
+                    )}" alt="${escapeHTML(
+                        prof.name
+                    )}">`
+                    : `<div class="professor-placeholder">
+                        ✦
+                       </div>`;
+
+                return `
+                    <div class="card professor-card">
+
+                        ${photo}
+
+                        <h3>
+                            ${escapeHTML(prof.name)}
+                        </h3>
+
+                        <p>
+                            <strong>
+                                ${escapeHTML(prof.faculty)}
+                            </strong>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            ${escapeHTML(prof.bio)}
+                        </p>
+
+                    </div>
+                `;
+
+            }).join("");
+
+    }
+
+
+    const courseGrid =
+        document.getElementById(
+            "courseGrid"
+        );
+
+    if(data.courses.length === 0){
+
+        courseGrid.innerHTML = `
+            <div class="card">
+                <h3>${escapeHTML(
+                    T[currentLanguage].coursesTitle
+                )}</h3>
+
+                <p>
+                    ${escapeHTML(
+                        T[currentLanguage].noCourses
+                    )}
+                </p>
+            </div>
+        `;
+
+    }else{
+
+        courseGrid.innerHTML =
+            data.courses.map(course => {
+
+                return `
+                    <div class="card">
+
+                        <h3>
+                            ${escapeHTML(course.name)}
+                        </h3>
+
+                        <p>
+                            <strong>
+                                ${escapeHTML(course.faculty)}
+                            </strong>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            ${escapeHTML(course.description)}
+                        </p>
+
+                    </div>
+                `;
+
+            }).join("");
+
+    }
+
+
+    const scheduleBody =
+        document.getElementById(
+            "scheduleBody"
+        );
+
+    if(data.schedule.length === 0){
+
+        scheduleBody.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    ${escapeHTML(
+                        T[currentLanguage].noSchedule
+                    )}
+                </td>
+            </tr>
+        `;
+
+    }else{
+
+        scheduleBody.innerHTML =
+            data.schedule.map(item => {
+
+                return `
+                    <tr>
+                        <td>${escapeHTML(item.day)}</td>
+                        <td>${escapeHTML(item.time)}</td>
+                        <td>${escapeHTML(item.course)}</td>
+                        <td>${escapeHTML(item.professor)}</td>
+                        <td>${escapeHTML(item.location)}</td>
+                    </tr>
+                `;
+
+            }).join("");
+
+    }
+
+
+    const publicationGrid =
+        document.getElementById(
+            "publicationGrid"
+        );
+
+    if(data.publications.length === 0){
+
+        publicationGrid.innerHTML = `
+            <div class="card">
+
+                <h3>
+                    ${escapeHTML(
+                        T[currentLanguage].publicationsTitle
+                    )}
+                </h3>
+
+                <p>
+                    ${escapeHTML(
+                        T[currentLanguage].noPublications
+                    )}
+                </p>
+
+            </div>
+        `;
+
+    }else{
+
+        publicationGrid.innerHTML =
+            data.publications.map(pub => {
+
+                return `
+                    <div class="card">
+
+                        <h3>
+                            ${escapeHTML(pub.title)}
+                        </h3>
+
+                        <p>
+                            <strong>
+                                ${escapeHTML(pub.author)}
+                            </strong>
+                        </p>
+
+                        <br>
+
+                        <p>
+                            ${escapeHTML(pub.description)}
+                        </p>
+
+                        ${
+                            pub.url
+                            ? `
+                                <a
+                                    class="button"
+                                    href="${escapeHTML(pub.url)}"
+                                    target="_blank"
+                                    rel="noopener"
+                                >
+                                    ${currentLanguage === "ru"
+                                    ? "Открыть"
+                                    : currentLanguage === "en"
+                                    ? "Open"
+                                    : "Abrir"}
+                                </a>
+                            `
+                            : ""
+                        }
+
+                    </div>
+                `;
+
+            }).join("");
+
+    }
+
+
+    renderDynamicText();
+
+}
+
+
+/* =========================================================
+   APPLICATIONS
+   ========================================================= */
+
+function submitApplication(){
+
+    const name =
+        document.getElementById(
+            "applicationName"
+        ).value.trim();
+
+    const email =
+        document.getElementById(
+            "applicationEmail"
+        ).value.trim();
+
+    const country =
+        document.getElementById(
+            "applicationCountry"
+        ).value.trim();
+
+    const faculty =
+        document.getElementById(
+            "applicationFaculty"
+        ).value;
+
+    const motivation =
+        document.getElementById(
+            "applicationMotivation"
+        ).value.trim();
+
+    if(!name || !email || !country || !motivation){
+
+        alert(
+            currentLanguage === "ru"
+            ? "Заполните все обязательные поля."
+            : currentLanguage === "en"
+            ? "Please complete all required fields."
+            : "Preencha todos os campos obrigatórios."
+        );
+
+        return;
+
+    }
+
+
+    data.applications.push({
+
+        id:Date.now(),
+
+        name,
+
+        email,
+
+        country,
+
+        faculty,
+
+        motivation,
+
+        date:new Date().toLocaleString()
+
+    });
+
+
+    saveData();
+
+    document.getElementById(
+        "applicationName"
+    ).value="";
+
+    document.getElementById(
+        "applicationEmail"
+    ).value="";
+
+    document.getElementById(
+        "applicationCountry"
+    ).value="";
+
+    document.getElementById(
+        "applicationMotivation"
+    ).value="";
+
+
+    const message =
+        document.getElementById(
+            "applicationMessage"
+        );
+
+    message.textContent =
+        T[currentLanguage].applicationSuccess;
+
+    renderAdminLists();
+
+}
+
+
+/* =========================================================
+   ADMIN OPEN/CLOSE
+   ========================================================= */
 
 function openAdmin(){
 
-    document.getElementById("adminPanel").style.display="block";
-    document.getElementById("loginBox").style.display="block";
-    document.getElementById("adminWindow").classList.add("hidden");
+    document.getElementById(
+        "adminOverlay"
+    ).style.display="block";
+
+    document.getElementById(
+        "adminLogin"
+    ).style.display="block";
+
+    document.getElementById(
+        "adminPanel"
+    ).classList.add("hidden");
 
 }
+
 
 function closeAdmin(){
 
-    document.getElementById("adminPanel").style.display="none";
+    document.getElementById(
+        "adminOverlay"
+    ).style.display="none";
 
 }
 
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
 function loginAdmin(){
 
-    const password=document.getElementById("adminPassword").value;
+    const password =
+        document.getElementById(
+            "adminPassword"
+        ).value;
 
-    if(password===ADMIN_PASSWORD){
+    const error =
+        document.getElementById(
+            "loginError"
+        );
 
-        document.getElementById("loginBox").style.display="none";
-        document.getElementById("adminWindow").classList.remove("hidden");
+    if(password === ADMIN_PASSWORD){
 
-        loadSupportForm();
+        document.getElementById(
+            "adminLogin"
+        ).style.display="none";
+
+        document.getElementById(
+            "adminPanel"
+        ).classList.remove("hidden");
+
+        loadAdminForms();
+
+        renderAdminInterface();
+
         renderAdminLists();
 
     }else{
 
-        document.getElementById("loginError").textContent="Wrong password.";
+        error.textContent =
+            currentLanguage === "ru"
+            ? "Неверный пароль."
+            : currentLanguage === "en"
+            ? "Incorrect password."
+            : "Senha incorreta.";
 
     }
+
 }
+
+
+/* =========================================================
+   ADMIN TRANSLATIONS
+   ========================================================= */
+
+function renderAdminInterface(){
+
+    const t=T[currentLanguage];
+
+    setText(
+        "adminLoginTitle",
+        t.adminLoginTitle
+    );
+
+    setText(
+        "passwordLabel",
+        t.passwordLabel
+    );
+
+    setText(
+        "loginButton",
+        t.loginButton
+    );
+
+    setText(
+        "closeLoginButton",
+        t.close
+    );
+
+    setText(
+        "adminPanelTitle",
+        t.adminPanelTitle
+    );
+
+    setText(
+        "closeAdminButton",
+        t.close
+    );
+
+    setText(
+        "adminAdmissionsTitle",
+        t.adminAdmissionsTitle
+    );
+
+    setText(
+        "adminPriceLabel",
+        t.adminPriceLabel
+    );
+
+    setText(
+        "adminSeatsLabel",
+        t.adminSeatsLabel
+    );
+
+    setText(
+        "adminAdmissionLoadLabel",
+        t.adminAdmissionLoadLabel
+    );
+
+    setText(
+        "adminEntranceLabel",
+        t.adminEntranceLabel
+    );
+
+    setText(
+        "adminProcessLabel",
+        t.adminProcessLabel
+    );
+
+    setText(
+        "adminOpenDayDateLabel",
+        t.adminOpenDayDateLabel
+    );
+
+    setText(
+        "adminOpenDayTextLabel",
+        t.adminOpenDayTextLabel
+    );
+
+    setText(
+        "saveAdmissionsButton",
+        t.saveAdmissionsButton
+    );
+
+    setText(
+        "adminProfessorsTitle",
+        t.adminProfessorsTitle
+    );
+
+    setText(
+        "adminProfessorNameLabel",
+        t.adminProfessorNameLabel
+    );
+
+    setText(
+        "adminProfessorFacultyLabel",
+        t.adminProfessorFacultyLabel
+    );
+
+    setText(
+        "adminProfessorBioLabel",
+        t.adminProfessorBioLabel
+    );
+
+    setText(
+        "adminProfessorPhotoLabel",
+        t.adminProfessorPhotoLabel
+    );
+
+    setText(
+        "addProfessorButton",
+        t.addProfessorButton
+    );
+
+    setText(
+        "adminCoursesTitle",
+        t.adminCoursesTitle
+    );
+
+    setText(
+        "adminCourseNameLabel",
+        t.adminCourseNameLabel
+    );
+
+    setText(
+        "adminCourseFacultyLabel",
+        t.adminCourseFacultyLabel
+    );
+
+    setText(
+        "adminCourseDescriptionLabel",
+        t.adminCourseDescriptionLabel
+    );
+
+    setText(
+        "addCourseButton",
+        t.addCourseButton
+    );
+
+    setText(
+        "adminScheduleTitle",
+        t.adminScheduleTitle
+    );
+
+    setText(
+        "adminScheduleDayLabel",
+        t.adminScheduleDayLabel
+    );
+
+    setText(
+        "adminScheduleTimeLabel",
+        t.adminScheduleTimeLabel
+    );
+
+    setText(
+        "adminScheduleCourseLabel",
+        t.adminScheduleCourseLabel
+    );
+
+    setText(
+        "adminScheduleProfessorLabel",
+        t.adminScheduleProfessorLabel
+    );
+
+    setText(
+        "adminScheduleLocationLabel",
+        t.adminScheduleLocationLabel
+    );
+
+    setText(
+        "addScheduleButton",
+        t.addScheduleButton
+    );
+
+    setText(
+        "adminPublicationsTitle",
+        t.adminPublicationsTitle
+    );
+
+    setText(
+        "adminPublicationTitleLabel",
+        t.adminPublicationTitleLabel
+    );
+
+    setText(
+        "adminPublicationAuthorLabel",
+        t.adminPublicationAuthorLabel
+    );
+
+    setText(
+        "adminPublicationDescriptionLabel",
+        t.adminPublicationDescriptionLabel
+    );
+
+    setText(
+        "adminPublicationUrlLabel",
+        t.adminPublicationUrlLabel
+    );
+
+    setText(
+        "addPublicationButton",
+        t.addPublicationButton
+    );
+
+    setText(
+        "adminSupportTitle",
+        t.adminSupportTitle
+    );
+
+    setText(
+        "adminSupportTextLabel",
+        t.adminSupportTextLabel
+    );
+
+    setText(
+        "adminPixLabel",
+        t.adminPixLabel
+    );
+
+    setText(
+        "saveSupportButton",
+        t.saveSupportButton
+    );
+
+    setText(
+        "adminApplicationsTitle",
+        t.adminApplicationsTitle
+    );
+
+}
+
+
+/* =========================================================
+   LOAD ADMIN FORMS
+   ========================================================= */
+
+function loadAdminForms(){
+
+    document.getElementById(
+        "adminPrice"
+    ).value=data.admission.price;
+
+    document.getElementById(
+        "adminSeats"
+    ).value=data.admission.seats;
+
+    document.getElementById(
+        "adminAdmissionLoad"
+    ).value=data.admission.load;
+
+    document.getElementById(
+        "adminEntrance"
+    ).value=data.admission.entrance;
+
+    document.getElementById(
+        "adminProcess"
+    ).value=data.admission.process;
+
+    document.getElementById(
+        "adminOpenDayDate"
+    ).value=data.admission.openDayDate;
+
+    document.getElementById(
+        "adminOpenDayText"
+    ).value=data.admission.openDayText;
+
+    document.getElementById(
+        "supportInput"
+    ).value=data.support.text;
+
+    document.getElementById(
+        "pixInput"
+    ).value=data.support.pix;
+
+}
+
+
+/* =========================================================
+   SAVE ADMISSION SETTINGS
+   ========================================================= */
+
+function saveAdmissionSettings(){
+
+    data.admission.price =
+        document.getElementById(
+            "adminPrice"
+        ).value.trim();
+
+    data.admission.seats =
+        Number(
+            document.getElementById(
+                "adminSeats"
+            ).value
+        ) || 0;
+
+    data.admission.load =
+        document.getElementById(
+            "adminAdmissionLoad"
+        ).value.trim();
+
+    data.admission.entrance =
+        document.getElementById(
+            "adminEntrance"
+        ).value.trim();
+
+    data.admission.process =
+        document.getElementById(
+            "adminProcess"
+        ).value.trim();
+
+    data.admission.openDayDate =
+        document.getElementById(
+            "adminOpenDayDate"
+        ).value.trim();
+
+    data.admission.openDayText =
+        document.getElementById(
+            "adminOpenDayText"
+        ).value.trim();
+
+    saveData();
+
+    renderPublic();
+
+    document.getElementById(
+        "admissionSaveMessage"
+    ).textContent =
+        currentLanguage === "ru"
+        ? "Информация сохранена."
+        : currentLanguage === "en"
+        ? "Information saved."
+        : "Informações salvas.";
+
+}
+
+
+/* =========================================================
+   PROFESSORS
+   ========================================================= */
 
 function addProfessor(){
 
-    const name=document.getElementById("profName").value.trim();
-    const faculty=document.getElementById("profFaculty").value.trim();
-    const bio=document.getElementById("profBio").value.trim();
-    const photo=document.getElementById("profPhoto").value.trim();
+    const name =
+        document.getElementById(
+            "profName"
+        ).value.trim();
+
+    const faculty =
+        document.getElementById(
+            "profFaculty"
+        ).value.trim();
+
+    const bio =
+        document.getElementById(
+            "profBio"
+        ).value.trim();
+
+    const photo =
+        document.getElementById(
+            "profPhoto"
+        ).value.trim();
 
     if(!name){
-        alert("Enter professor name.");
+
+        alert(
+            currentLanguage === "ru"
+            ? "Введите имя преподавателя."
+            : currentLanguage === "en"
+            ? "Enter professor name."
+            : "Digite o nome do professor."
+        );
+
         return;
+
     }
 
-    professors.push({
+    data.professors.push({
         name,
         faculty,
         bio,
         photo
     });
 
-    saveData("ugg_professors",professors);
+    saveData();
 
-    document.getElementById("profName").value="";
-    document.getElementById("profFaculty").value="";
-    document.getElementById("profBio").value="";
-    document.getElementById("profPhoto").value="";
+    document.getElementById(
+        "profName"
+    ).value="";
 
-    render();
+    document.getElementById(
+        "profFaculty"
+    ).value="";
+
+    document.getElementById(
+        "profBio"
+    ).value="";
+
+    document.getElementById(
+        "profPhoto"
+    ).value="";
+
+    renderPublic();
+    renderAdminLists();
 
 }
 
+
+function deleteProfessor(index){
+
+    data.professors.splice(
+        index,
+        1
+    );
+
+    saveData();
+
+    renderPublic();
+    renderAdminLists();
+
+}
+
+
+/* =========================================================
+   COURSES
+   ========================================================= */
+
 function addCourse(){
 
-    const name=document.getElementById("courseName").value.trim();
-    const faculty=document.getElementById("courseFaculty").value.trim();
-    const description=document.getElementById("courseDescription").value.trim();
+    const name =
+        document.getElementById(
+            "courseName"
+        ).value.trim();
+
+    const faculty =
+        document.getElementById(
+            "courseFaculty"
+        ).value.trim();
+
+    const description =
+        document.getElementById(
+            "courseDescription"
+        ).value.trim();
 
     if(!name){
-        alert("Enter course name.");
+
+        alert(
+            currentLanguage === "ru"
+            ? "Введите название курса."
+            : currentLanguage === "en"
+            ? "Enter course name."
+            : "Digite o nome do curso."
+        );
+
         return;
+
     }
 
-    courses.push({
+    data.courses.push({
         name,
         faculty,
         description
     });
 
-    saveData("ugg_courses",courses);
+    saveData();
 
-    document.getElementById("courseName").value="";
-    document.getElementById("courseFaculty").value="";
-    document.getElementById("courseDescription").value="";
+    document.getElementById(
+        "courseName"
+    ).value="";
 
-    render();
+    document.getElementById(
+        "courseFaculty"
+    ).value="";
+
+    document.getElementById(
+        "courseDescription"
+    ).value="";
+
+    renderPublic();
+    renderAdminLists();
 
 }
 
+
+function deleteCourse(index){
+
+    data.courses.splice(
+        index,
+        1
+    );
+
+    saveData();
+
+    renderPublic();
+    renderAdminLists();
+
+}
+
+
+/* =========================================================
+   SCHEDULE
+   ========================================================= */
+
 function addSchedule(){
 
-    const day=document.getElementById("scheduleDay").value.trim();
-    const time=document.getElementById("scheduleTime").value.trim();
-    const course=document.getElementById("scheduleCourse").value.trim();
-    const professor=document.getElementById("scheduleProfessor").value.trim();
-    const location=document.getElementById("scheduleLocation").value.trim();
+    const day =
+        document.getElementById(
+            "scheduleDay"
+        ).value.trim();
+
+    const time =
+        document.getElementById(
+            "scheduleTime"
+        ).value.trim();
+
+    const course =
+        document.getElementById(
+            "scheduleCourse"
+        ).value.trim();
+
+    const professor =
+        document.getElementById(
+            "scheduleProfessor"
+        ).value.trim();
+
+    const location =
+        document.getElementById(
+            "scheduleLocation"
+        ).value.trim();
 
     if(!course){
-        alert("Enter course name.");
+
+        alert(
+            currentLanguage === "ru"
+            ? "Введите курс."
+            : currentLanguage === "en"
+            ? "Enter course."
+            : "Digite o curso."
+        );
+
         return;
+
     }
 
-    schedule.push({
+    data.schedule.push({
         day,
         time,
         course,
@@ -1434,188 +3505,385 @@ function addSchedule(){
         location
     });
 
-    saveData("ugg_schedule",schedule);
+    saveData();
 
-    document.getElementById("scheduleDay").value="";
-    document.getElementById("scheduleTime").value="";
-    document.getElementById("scheduleCourse").value="";
-    document.getElementById("scheduleProfessor").value="";
-    document.getElementById("scheduleLocation").value="";
+    document.getElementById(
+        "scheduleDay"
+    ).value="";
 
-    render();
+    document.getElementById(
+        "scheduleTime"
+    ).value="";
+
+    document.getElementById(
+        "scheduleCourse"
+    ).value="";
+
+    document.getElementById(
+        "scheduleProfessor"
+    ).value="";
+
+    document.getElementById(
+        "scheduleLocation"
+    ).value="";
+
+    renderPublic();
+    renderAdminLists();
 
 }
 
+
+function deleteSchedule(index){
+
+    data.schedule.splice(
+        index,
+        1
+    );
+
+    saveData();
+
+    renderPublic();
+    renderAdminLists();
+
+}
+
+
+/* =========================================================
+   PUBLICATIONS
+   ========================================================= */
+
 function addPublication(){
 
-    const title=document.getElementById("publicationTitle").value.trim();
-    const author=document.getElementById("publicationAuthor").value.trim();
-    const description=document.getElementById("publicationDescription").value.trim();
-    const url=document.getElementById("publicationUrl").value.trim();
+    const title =
+        document.getElementById(
+            "publicationTitle"
+        ).value.trim();
+
+    const author =
+        document.getElementById(
+            "publicationAuthor"
+        ).value.trim();
+
+    const description =
+        document.getElementById(
+            "publicationDescription"
+        ).value.trim();
+
+    const url =
+        document.getElementById(
+            "publicationUrl"
+        ).value.trim();
 
     if(!title){
-        alert("Enter publication title.");
+
+        alert(
+            currentLanguage === "ru"
+            ? "Введите название публикации."
+            : currentLanguage === "en"
+            ? "Enter publication title."
+            : "Digite o título da publicação."
+        );
+
         return;
+
     }
 
-    publications.push({
+    data.publications.push({
         title,
         author,
         description,
         url
     });
 
-    saveData("ugg_publications",publications);
+    saveData();
 
-    document.getElementById("publicationTitle").value="";
-    document.getElementById("publicationAuthor").value="";
-    document.getElementById("publicationDescription").value="";
-    document.getElementById("publicationUrl").value="";
+    document.getElementById(
+        "publicationTitle"
+    ).value="";
 
-    render();
+    document.getElementById(
+        "publicationAuthor"
+    ).value="";
 
-}
+    document.getElementById(
+        "publicationDescription"
+    ).value="";
 
-function saveSupport(){
+    document.getElementById(
+        "publicationUrl"
+    ).value="";
 
-    support={
-        text:document.getElementById("supportTextInput").value.trim(),
-        pix:document.getElementById("pixInput").value.trim()
-    };
-
-    saveData("ugg_support",support);
-
-    render();
-
-    alert("Support information saved.");
+    renderPublic();
+    renderAdminLists();
 
 }
 
-function loadSupportForm(){
-
-    support=getData("ugg_support",support);
-
-    document.getElementById("supportTextInput").value=support.text;
-    document.getElementById("pixInput").value=support.pix;
-
-}
-
-function deleteProfessor(index){
-
-    if(confirm("Delete this professor?")){
-
-        professors.splice(index,1);
-
-        saveData("ugg_professors",professors);
-
-        render();
-
-    }
-
-}
-
-function deleteCourse(index){
-
-    if(confirm("Delete this course?")){
-
-        courses.splice(index,1);
-
-        saveData("ugg_courses",courses);
-
-        render();
-
-    }
-
-}
-
-function deleteSchedule(index){
-
-    if(confirm("Delete this class?")){
-
-        schedule.splice(index,1);
-
-        saveData("ugg_schedule",schedule);
-
-        render();
-
-    }
-
-}
 
 function deletePublication(index){
 
-    if(confirm("Delete this publication?")){
+    data.publications.splice(
+        index,
+        1
+    );
 
-        publications.splice(index,1);
+    saveData();
 
-        saveData("ugg_publications",publications);
-
-        render();
-
-    }
+    renderPublic();
+    renderAdminLists();
 
 }
+
+
+/* =========================================================
+   SUPPORT
+   ========================================================= */
+
+function saveSupport(){
+
+    data.support.text =
+        document.getElementById(
+            "supportInput"
+        ).value.trim();
+
+    data.support.pix =
+        document.getElementById(
+            "pixInput"
+        ).value.trim();
+
+    saveData();
+
+    renderPublic();
+
+    document.getElementById(
+        "supportSaveMessage"
+    ).textContent =
+        currentLanguage === "ru"
+        ? "Информация сохранена."
+        : currentLanguage === "en"
+        ? "Information saved."
+        : "Informações salvas.";
+
+}
+
+
+/* =========================================================
+   ADMIN LISTS
+   ========================================================= */
 
 function renderAdminLists(){
 
-    const pList=document.getElementById("profAdminList");
+    const t=T[currentLanguage];
 
-    if(pList){
-        pList.innerHTML=professors.map((p,i)=>`
-            <div class="admin-item">
-                <span>${escapeHtml(p.name)}</span>
-                <button class="small-button delete" onclick="deleteProfessor(${i})">
-                    Delete
-                </button>
-            </div>
-        `).join("");
-    }
 
-    const cList=document.getElementById("courseAdminList");
+    const professorList =
+        document.getElementById(
+            "professorAdminList"
+        );
 
-    if(cList){
-        cList.innerHTML=courses.map((c,i)=>`
-            <div class="admin-item">
-                <span>${escapeHtml(c.name)}</span>
-                <button class="small-button delete" onclick="deleteCourse(${i})">
-                    Delete
-                </button>
-            </div>
-        `).join("");
-    }
+    professorList.innerHTML =
+        data.professors.map(
+            (prof,index) => {
 
-    const sList=document.getElementById("scheduleAdminList");
+                return `
+                    <div class="admin-item">
 
-    if(sList){
-        sList.innerHTML=schedule.map((s,i)=>`
-            <div class="admin-item">
-                <span>${escapeHtml(s.day)} ${escapeHtml(s.time)} — ${escapeHtml(s.course)}</span>
-                <button class="small-button delete" onclick="deleteSchedule(${i})">
-                    Delete
-                </button>
-            </div>
-        `).join("");
-    }
+                        <span>
+                            ${escapeHTML(
+                                prof.name
+                            )}
+                        </span>
 
-    const pubList=document.getElementById("publicationAdminList");
+                        <button
+                            class="danger-button"
+                            onclick="deleteProfessor(${index})"
+                        >
+                            ${escapeHTML(t.delete)}
+                        </button>
 
-    if(pubList){
-        pubList.innerHTML=publications.map((p,i)=>`
-            <div class="admin-item">
-                <span>${escapeHtml(p.title)}</span>
-                <button class="small-button delete" onclick="deletePublication(${i})">
-                    Delete
-                </button>
-            </div>
-        `).join("");
+                    </div>
+                `;
+
+            }
+        ).join("");
+
+
+    const courseList =
+        document.getElementById(
+            "courseAdminList"
+        );
+
+    courseList.innerHTML =
+        data.courses.map(
+            (course,index) => {
+
+                return `
+                    <div class="admin-item">
+
+                        <span>
+                            ${escapeHTML(
+                                course.name
+                            )}
+                        </span>
+
+                        <button
+                            class="danger-button"
+                            onclick="deleteCourse(${index})"
+                        >
+                            ${escapeHTML(t.delete)}
+                        </button>
+
+                    </div>
+                `;
+
+            }
+        ).join("");
+
+
+    const scheduleList =
+        document.getElementById(
+            "scheduleAdminList"
+        );
+
+    scheduleList.innerHTML =
+        data.schedule.map(
+            (item,index) => {
+
+                return `
+                    <div class="admin-item">
+
+                        <span>
+                            ${escapeHTML(item.day)}
+                            ${escapeHTML(item.time)}
+                            —
+                            ${escapeHTML(item.course)}
+                        </span>
+
+                        <button
+                            class="danger-button"
+                            onclick="deleteSchedule(${index})"
+                        >
+                            ${escapeHTML(t.delete)}
+                        </button>
+
+                    </div>
+                `;
+
+            }
+        ).join("");
+
+
+    const publicationList =
+        document.getElementById(
+            "publicationAdminList"
+        );
+
+    publicationList.innerHTML =
+        data.publications.map(
+            (pub,index) => {
+
+                return `
+                    <div class="admin-item">
+
+                        <span>
+                            ${escapeHTML(pub.title)}
+                        </span>
+
+                        <button
+                            class="danger-button"
+                            onclick="deletePublication(${index})"
+                        >
+                            ${escapeHTML(t.delete)}
+                        </button>
+
+                    </div>
+                `;
+
+            }
+        ).join("");
+
+
+    const applications =
+        document.getElementById(
+            "applicationAdminList"
+        );
+
+    if(data.applications.length === 0){
+
+        applications.innerHTML = `
+            <p>
+                ${escapeHTML(
+                    t.noApplications
+                )}
+            </p>
+        `;
+
+    }else{
+
+        applications.innerHTML =
+            data.applications.map(
+                application => {
+
+                    return `
+                        <div class="application-entry">
+
+                            <strong>
+                                ${escapeHTML(
+                                    application.name
+                                )}
+                            </strong>
+
+                            <br>
+
+                            ${escapeHTML(
+                                application.email
+                            )}
+
+                            <br>
+
+                            ${escapeHTML(
+                                application.country
+                            )}
+
+                            <br>
+
+                            ${escapeHTML(
+                                application.faculty
+                            )}
+
+                            <br><br>
+
+                            ${escapeHTML(
+                                application.motivation
+                            )}
+
+                            <br><br>
+
+                            <small>
+                                ${escapeHTML(
+                                    application.date
+                                )}
+                            </small>
+
+                        </div>
+                    `;
+
+                }
+            ).join("");
+
     }
 
 }
 
-const savedLanguage=localStorage.getItem("ugg_language") || "ru";
 
-setLanguage(savedLanguage);
-render();
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+changeLanguage(
+    currentLanguage
+);
+
+renderPublic();
 
 </script>
 
