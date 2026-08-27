@@ -3,163 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>УГГ — Университет</title>
+
+    <title>Университет имени Гуаданина Галашина</title>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             font-family: Georgia, "Times New Roman", serif;
             background: #f5f1e8;
-            color: #201b16;
-        }
-
-        header {
-            background: #171717;
-            color: white;
-            padding: 20px 50px;
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            border-bottom: 5px solid #b08d3c;
-        }
-
-        .gerb {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-        }
-
-        .header-text h1 {
-            margin: 0;
-            font-size: 36px;
-            letter-spacing: 2px;
-        }
-
-        .header-text p {
-            margin: 7px 0 0;
-            font-size: 16px;
-            opacity: 0.85;
-        }
-
-        nav {
-            background: #24211e;
-            padding: 14px 50px;
-            display: flex;
-            gap: 30px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        nav a:hover {
-            color: #d2b15c;
-        }
-
-        .hero {
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(
-                rgba(245, 241, 232, 0.94),
-                rgba(245, 241, 232, 0.94)
-            );
-        }
-
-        .hero-content {
-            max-width: 850px;
-        }
-
-        .hero img {
-            width: 230px;
-            max-height: 230px;
-            object-fit: contain;
-            margin-bottom: 25px;
-        }
-
-        .hero h2 {
-            font-size: 44px;
-            margin: 10px 0;
-        }
-
-        .hero p {
-            font-size: 20px;
+            color: #211d1a;
             line-height: 1.6;
         }
 
-        .section {
-            max-width: 1100px;
-            margin: auto;
-            padding: 70px 25px;
+        header {
+            background: #35151b;
+            color: #f5f1e8;
+            padding: 22px 7%;
+            border-bottom: 4px solid #b08a4a;
         }
 
-        .section h2 {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
         }
 
-        .cards {
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            display: block;
+        }
+
+        nav a {
+            color: #f5f1e8;
+            text-decoration: none;
+            margin-left: 22px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #d7b978;
+        }
+
+        .hero {
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            padding: 80px 7%;
+            background:
+                linear-gradient(rgba(245,241,232,0.93), rgba(245,241,232,0.93)),
+                radial-gradient(circle at center, #d7c7a6, #f5f1e8);
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .small-title {
+            color: #80652e;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 1.05;
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            max-width: 720px;
+            margin-bottom: 35px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #35151b;
+            color: #f5f1e8;
+            padding: 13px 25px;
+            text-decoration: none;
+            margin-right: 10px;
+            border: 1px solid #35151b;
+        }
+
+        .button:hover {
+            background: #5a242c;
+        }
+
+        .button.secondary {
+            background: transparent;
+            color: #35151b;
+            border: 1px solid #35151b;
+        }
+
+        section {
+            padding: 75px 7%;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: normal;
+            margin-bottom: 18px;
+        }
+
+        .section-intro {
+            max-width: 750px;
+            margin-bottom: 45px;
+            font-size: 18px;
+        }
+
+        .about {
+            background: #ebe3d3;
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
         .card {
-            background: white;
+            background: #f8f5ed;
             padding: 30px;
-            border-top: 4px solid #b08d3c;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 3px solid #b08a4a;
         }
 
         .card h3 {
-            margin-top: 0;
             font-size: 23px;
+            margin-bottom: 12px;
+            font-weight: normal;
         }
 
         .card p {
-            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .courses {
+            background: #f5f1e8;
+        }
+
+        .course {
+            border-bottom: 1px solid #c9bea9;
+            padding: 22px 0;
+        }
+
+        .course strong {
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        .course span {
+            display: block;
+            color: #6d6257;
+            margin-top: 5px;
+        }
+
+        .statement {
+            background: #35151b;
+            color: #f5f1e8;
+            text-align: center;
+        }
+
+        .statement p {
+            max-width: 850px;
+            margin: auto;
+            font-size: 26px;
+            line-height: 1.5;
+        }
+
+        .publication {
+            background: #ebe3d3;
         }
 
         footer {
-            background: #171717;
-            color: white;
-            text-align: center;
-            padding: 35px 20px;
-            border-top: 5px solid #b08d3c;
+            background: #211014;
+            color: #d9d0c1;
+            padding: 45px 7%;
         }
 
-        @media (max-width: 600px) {
-            header {
-                padding: 15px 20px;
+        footer h3 {
+            color: #f5f1e8;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        .legal {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #51333a;
+            font-size: 13px;
+            color: #aaa096;
+        }
+
+        @media (max-width: 800px) {
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
-            .header-text h1 {
-                font-size: 25px;
+            nav a {
+                margin-left: 0;
+                margin-right: 15px;
+                display: inline-block;
+                margin-top: 8px;
             }
 
-            .gerb {
-                width: 70px;
-                height: 70px;
+            .grid {
+                grid-template-columns: 1fr;
             }
 
-            nav {
-                padding: 12px 20px;
-                gap: 15px;
-                flex-wrap: wrap;
+            h1 {
+                font-size: 48px;
             }
 
-            .hero h2 {
-                font-size: 32px;
+            .subtitle {
+                font-size: 19px;
             }
         }
     </style>
@@ -168,114 +245,268 @@
 <body>
 
 <header>
-    <img class="gerb" src="Герб УГГ.png" alt="Герб УГГ">
+    <div class="top">
 
-    <div class="header-text">
-        <h1>УГГ</h1>
-        <p>Университет гуманитарных знаний</p>
+        <div class="logo">
+            <img src="Герб%20УГГ.png" alt="Герб УГГ">
+        </div>
+
+        <nav>
+            <a href="#about">Об университете</a>
+            <a href="#faculties">Факультеты</a>
+            <a href="#courses">Курсы</a>
+            <a href="#publications">Публикации</a>
+            <a href="#support">Поддержать</a>
+        </nav>
+
     </div>
 </header>
 
-<nav>
-    <a href="#about">Об университете</a>
-    <a href="#faculties">Факультеты</a>
-    <a href="#philosophy">Философия</a>
-    <a href="#contacts">Контакты</a>
-</nav>
 
 <section class="hero">
+
     <div class="hero-content">
 
-        <img src="Герб УГГ.png" alt="Герб УГГ">
+        <div class="small-title">
+            Бразилиа · Бразилия
+        </div>
 
-        <h2>Университет гуманитарных знаний</h2>
+        <h1>
+            Университет имени<br>
+            Гуаданина Галашина
+        </h1>
 
-        <p>
-            Пространство для изучения философии, истории,
-            литературы и других гуманитарных наук.
+        <p class="subtitle">
+            Независимое образовательное и исследовательское сообщество,
+            посвящённое философии, истории, искусству и свободному поиску знаний.
         </p>
 
-    </div>
-</section>
+        <a class="button" href="#faculties">
+            Направления
+        </a>
 
-<section class="section" id="about">
-    <h2>Об университете</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <h3>Образование</h3>
-            <p>
-                Изучение гуманитарных дисциплин,
-                развитие критического мышления и
-                самостоятельного научного поиска.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Наука</h3>
-            <p>
-                Исследование философских, исторических
-                и культурных вопросов.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Культура</h3>
-            <p>
-                Изучение мировой культуры, литературы
-                и истории человеческой мысли.
-            </p>
-        </div>
+        <a class="button secondary" href="#about">
+            Об УГГ
+        </a>
 
     </div>
+
 </section>
 
-<section class="section" id="faculties">
-    <h2>Факультеты</h2>
 
-    <div class="cards">
+<section id="about" class="about">
 
-        <div class="card">
-            <h3>Философский факультет</h3>
-            <p>
-                История философии, онтология, гносеология,
-                этика, эстетика и современная философская мысль.
-            </p>
-        </div>
+    <h2 class="section-title">
+        Об университете
+    </h2>
 
-        <div class="card">
-            <h3>Исторический факультет</h3>
-            <p>
-                История России, Европы и мира,
-                историческая методология и источниковедение.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Факультет литературы</h3>
-            <p>
-                Русская и мировая литература,
-                литературная теория и история культуры.
-            </p>
-        </div>
-
-    </div>
-</section>
-
-<section class="section" id="philosophy">
-    <h2>Философия</h2>
-
-    <p style="text-align:center; max-width:800px; margin:auto; font-size:19px; line-height:1.7;">
-        Философия рассматривается как рациональное исследование
-        наиболее фундаментальных вопросов о бытии, познании,
-        человеке и мире.
+    <p class="section-intro">
+        УГГ — независимый образовательный проект, объединяющий студентов,
+        преподавателей и исследователей для изучения философии, истории,
+        искусства, языка и других областей знания.
     </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Свобода мысли</h3>
+            <p>
+                Возможность свободно формулировать, обсуждать и критиковать
+                философские и научные идеи.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Исследование</h3>
+            <p>
+                Публикация самостоятельных исследований преподавателей,
+                студентов и приглашённых авторов.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Диалог</h3>
+            <p>
+                Открытые лекции, семинары, дискуссии и встречи представителей
+                разных интеллектуальных традиций.
+            </p>
+        </div>
+
+    </div>
+
 </section>
 
-<footer id="contacts">
-    <p>УГГ</p>
-    <p>Университет гуманитарных знаний</p>
+
+<section id="faculties">
+
+    <h2 class="section-title">
+        Факультеты и направления
+    </h2>
+
+    <p class="section-intro">
+        Академические направления УГГ находятся в процессе формирования.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Философия</h3>
+            <p>
+                Онтология, метафизика, ноуменология, философия времени,
+                философия науки и история философии.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>История</h3>
+            <p>
+                История России, Европы, Латинской Америки и история
+                политической и интеллектуальной мысли.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Кинематограф</h3>
+            <p>
+                История кино, теория кинематографа, философия кино
+                и анализ произведений.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Геополитика</h3>
+            <p>
+                Исследование международных отношений, геополитических
+                концепций и современной мировой политики.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Русский язык</h3>
+            <p>
+                Изучение русского языка, литературы и русской культуры
+                для иностранных учащихся.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Будущие направления</h3>
+            <p>
+                Новые факультеты и исследовательские направления будут
+                создаваться по мере развития УГГ.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="courses" class="courses">
+
+    <h2 class="section-title">
+        Курсы
+    </h2>
+
+    <p class="section-intro">
+        Примеры образовательных программ УГГ.
+    </p>
+
+    <div class="course">
+        <strong>Введение в онтологию</strong>
+        <span>Проблема бытия и основные онтологические концепции.</span>
+    </div>
+
+    <div class="course">
+        <strong>Метафизика</strong>
+        <span>Предельные основания реальности и философское исследование сущего.</span>
+    </div>
+
+    <div class="course">
+        <strong>Ноуменология</strong>
+        <span>Авторский философский курс, посвящённый проблемам ноумена, пустоты и ничто.</span>
+    </div>
+
+    <div class="course">
+        <strong>История России</strong>
+        <span>Основные периоды и проблемы российской истории.</span>
+    </div>
+
+    <div class="course">
+        <strong>Философия кинематографа</strong>
+        <span>Кино как искусство, способ мышления и форма философского выражения.</span>
+    </div>
+
+</section>
+
+
+<section class="statement">
+
+    <p>
+        «Знание должно быть предметом исследования,
+        а не только предметом передачи».
+    </p>
+
+</section>
+
+
+<section id="publications" class="publication">
+
+    <h2 class="section-title">
+        Научные публикации
+    </h2>
+
+    <p class="section-intro">
+        В этом разделе будут публиковаться исследования преподавателей,
+        студентов и независимых авторов.
+    </p>
+
+    <a class="button" href="#">
+        Перейти к публикациям
+    </a>
+
+</section>
+
+
+<section id="support">
+
+    <h2 class="section-title">
+        Поддержать УГГ
+    </h2>
+
+    <p class="section-intro">
+        УГГ стремится сохранять доступность образования. Поддержка проекта
+        помогает оплачивать помещения, оборудование, публикации и работу
+        преподавателей.
+    </p>
+
+    <a class="button" href="#">
+        Поддержать проект
+    </a>
+
+</section>
+
+
+<footer>
+
+    <h3>
+        Университет имени Гуаданина Галашина
+    </h3>
+
+    <p>
+        Brasília, Brasil
+    </p>
+
+    <p>
+        Независимый образовательный и исследовательский проект.
+    </p>
+
+    <div class="legal">
+        УГГ не является аккредитованным Министерством образования Бразилии
+        учреждением высшего образования. Материалы сайта описывают
+        деятельность независимого образовательного проекта.
+    </div>
+
 </footer>
 
 </body>
