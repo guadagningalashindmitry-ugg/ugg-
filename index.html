@@ -2,25 +2,25 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>GUADANIN GALASHIN INDEPENDENT UNIVERSITY</title>
 
 <style>
 :root{
-    --navy:#0b1a31;
-    --navy2:#162a49;
-    --navy3:#24466f;
-    --gold:#c7a452;
-    --gold2:#dfc77f;
+    --navy:#08172d;
+    --navy2:#112744;
+    --navy3:#1d3b61;
+    --gold:#c8a551;
+    --gold2:#dfc77b;
     --cream:#f5f1e8;
-    --cream2:#ebe4d6;
-    --white:#fff;
-    --text:#202733;
-    --muted:#6d7580;
+    --cream2:#ebe4d7;
+    --white:#ffffff;
+    --text:#202631;
+    --muted:#6b7480;
     --border:#d8d0c0;
-    --red:#983737;
-    --green:#326346;
+    --red:#963535;
+    --green:#346247;
 }
 
 *{
@@ -51,23 +51,43 @@ button{
     cursor:pointer;
 }
 
-/* =========================
+
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header{
     position:sticky;
     top:0;
-    z-index:1000;
+    z-index:2000;
     background:var(--navy);
     color:white;
     box-shadow:0 3px 18px rgba(0,0,0,.25);
 }
 
-.header-main{
+/* Верхняя часть шапки */
+
+.header-top{
+    max-height:110px;
+    overflow:hidden;
+    transition:
+        max-height .38s ease,
+        transform .38s ease,
+        opacity .28s ease;
+}
+
+header.header-hidden .header-top{
+    max-height:0;
+    opacity:0;
+    transform:translateY(-100%);
+}
+
+/* Меню всегда остаётся */
+
+.header-content{
     max-width:1400px;
     margin:auto;
-    padding:14px 25px;
+    padding:13px 25px;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -81,8 +101,9 @@ header{
 }
 
 .brand-crest{
-    width:58px;
-    height:70px;
+    width:54px;
+    height:67px;
+    flex-shrink:0;
 }
 
 .brand-crest svg{
@@ -92,9 +113,9 @@ header{
 
 .brand-name{
     color:white;
+    font-size:14px;
     font-weight:bold;
     line-height:1.25;
-    font-size:14px;
     letter-spacing:1.1px;
 }
 
@@ -107,7 +128,7 @@ header{
     color:white;
     background:transparent;
     border:1px solid var(--gold);
-    padding:7px 10px;
+    padding:6px 10px;
 }
 
 .languages button:hover,
@@ -125,50 +146,55 @@ nav ul{
     margin:auto;
     list-style:none;
     display:flex;
-    flex-wrap:wrap;
     justify-content:center;
-    padding:7px 12px;
+    flex-wrap:wrap;
+    padding:6px 12px;
 }
 
 nav a{
     display:block;
-    color:white;
-    text-decoration:none;
     padding:8px 10px;
+    color:white;
     font-size:13px;
+    text-decoration:none;
 }
 
 nav a:hover{
     color:var(--gold2);
 }
 
-/* =========================
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero{
     min-height:760px;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
     padding:80px 25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+
     background:
-        radial-gradient(circle at center,
-            #345b89 0%,
-            #1f3b61 36%,
-            #0b1a31 80%);
+        radial-gradient(
+            circle at center,
+            #345a88 0%,
+            #213f66 35%,
+            #08172d 80%
+        );
 }
 
 .hero-inner{
+    width:100%;
     max-width:1100px;
 }
 
 .hero-crest{
-    width:210px;
-    height:250px;
-    margin:0 auto 30px;
+    width:230px;
+    height:270px;
+    margin:0 auto 25px;
 }
 
 .hero-crest svg{
@@ -177,15 +203,15 @@ nav a:hover{
 }
 
 .hero h1{
-    font-size:clamp(36px,6vw,76px);
+    font-size:clamp(35px,6vw,76px);
     font-weight:normal;
     line-height:1.02;
     letter-spacing:2px;
 }
 
 .hero h2{
-    margin-top:17px;
-    font-size:clamp(19px,3vw,31px);
+    margin-top:16px;
+    font-size:clamp(18px,3vw,30px);
     font-weight:normal;
     letter-spacing:3px;
     color:var(--gold2);
@@ -193,26 +219,27 @@ nav a:hover{
 
 .hero-description{
     max-width:850px;
-    margin:28px auto 0;
+    margin:27px auto 0;
     font-size:19px;
 }
 
 .motto{
-    margin-top:36px;
+    margin-top:35px;
     color:var(--gold2);
+    letter-spacing:2px;
     font-size:18px;
     font-weight:bold;
-    letter-spacing:2px;
 }
 
-/* =========================
+
+/* =========================================================
    SECTIONS
-========================= */
+========================================================= */
 
 section{
     max-width:1350px;
     margin:auto;
-    padding:90px 28px;
+    padding:88px 28px;
 }
 
 section:nth-of-type(even){
@@ -226,19 +253,19 @@ section:nth-of-type(even){
 
 .section-title h2{
     color:var(--navy);
-    font-size:43px;
+    font-size:42px;
     font-weight:normal;
 }
 
 .gold-line{
     width:80px;
     height:3px;
-    margin:14px auto;
     background:var(--gold);
+    margin:14px auto;
 }
 
 .text{
-    max-width:950px;
+    max-width:930px;
     margin:auto;
     font-size:18px;
 }
@@ -249,69 +276,77 @@ section:nth-of-type(even){
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(255px,1fr));
+    grid-template-columns:
+        repeat(auto-fit,minmax(255px,1fr));
     gap:25px;
 }
 
 .card{
     background:white;
-    border-top:4px solid var(--gold);
     padding:30px;
+    border-top:4px solid var(--gold);
     box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
 .card h3{
     color:var(--navy);
-    font-weight:normal;
     font-size:23px;
+    font-weight:normal;
     margin-bottom:12px;
 }
 
 .card p{
-    color:#555e6a;
+    color:#555e69;
 }
 
 .number{
     color:var(--gold);
-    font-size:29px;
+    font-size:28px;
     font-weight:bold;
     margin-bottom:6px;
 }
 
-/* =========================
+
+/* =========================================================
    PROFESSORS
-========================= */
+========================================================= */
 
 .professor-photo{
     width:100%;
     height:260px;
     object-fit:cover;
     margin-bottom:18px;
-    background:#ddd7ca;
+    background:#ddd8cb;
 }
 
 .professor-placeholder{
     width:100%;
     height:260px;
-    background:var(--navy2);
-    color:var(--gold2);
+    margin-bottom:18px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:65px;
-    margin-bottom:18px;
+    background:var(--navy2);
+    color:var(--gold2);
+    font-size:68px;
 }
 
 .email{
     display:block;
     margin-top:12px;
     color:var(--navy);
+    text-decoration:none;
     word-break:break-word;
 }
 
-/* =========================
-   TABLE
-========================= */
+.email:hover{
+    color:var(--gold);
+}
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
 
 .table-wrap{
     overflow-x:auto;
@@ -326,9 +361,9 @@ table{
 
 th,
 td{
-    border:1px solid var(--border);
     padding:14px;
     text-align:left;
+    border:1px solid var(--border);
 }
 
 th{
@@ -337,12 +372,13 @@ th{
     font-weight:normal;
 }
 
-/* =========================
+
+/* =========================================================
    RULES
-========================= */
+========================================================= */
 
 .rule{
-    max-width:950px;
+    max-width:970px;
     margin:0 auto 32px;
     padding-left:23px;
     border-left:3px solid var(--gold);
@@ -353,12 +389,13 @@ th{
     margin-bottom:8px;
 }
 
-/* =========================
+
+/* =========================================================
    ADMISSIONS
-========================= */
+========================================================= */
 
 .admission-box{
-    max-width:1000px;
+    max-width:1020px;
     margin:auto;
 }
 
@@ -366,15 +403,15 @@ th{
     background:var(--navy);
     color:white;
     text-align:center;
-    padding:50px 25px;
+    padding:48px 25px;
     border-top:5px solid var(--gold);
 }
 
 .price{
     color:var(--gold2);
-    font-size:55px;
+    font-size:56px;
     font-weight:bold;
-    margin:10px 0;
+    margin:8px 0;
 }
 
 .feature-grid{
@@ -393,15 +430,15 @@ th{
 
 .open-day{
     margin-top:25px;
-    background:#faf7f0;
-    border:1px solid var(--border);
     padding:30px;
+    border:1px solid var(--border);
+    background:#faf7f0;
 }
 
 .application{
     margin-top:40px;
-    background:white;
     padding:40px;
+    background:white;
     border-top:5px solid var(--gold);
     box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
@@ -418,9 +455,9 @@ th{
 
 label{
     display:block;
-    font-size:14px;
-    color:#4d535c;
     margin-bottom:6px;
+    font-size:14px;
+    color:#4b525b;
 }
 
 input,
@@ -428,8 +465,8 @@ textarea,
 select{
     width:100%;
     padding:11px;
-    border:1px solid #cfc7b8;
     background:white;
+    border:1px solid #cdc5b7;
 }
 
 textarea{
@@ -437,37 +474,19 @@ textarea{
     resize:vertical;
 }
 
-/* =========================
-   SUPPORT
-========================= */
 
-.support-box{
-    max-width:900px;
-    margin:auto;
-    text-align:center;
-    background:white;
-    padding:40px;
-    border-top:5px solid var(--gold);
-}
-
-.pix{
-    margin-top:25px;
-    padding:18px;
-    background:#efebe3;
-    word-break:break-word;
-}
-
-/* =========================
+/* =========================================================
    BUTTONS
-========================= */
+========================================================= */
 
 .button{
     display:inline-block;
+    padding:12px 23px;
+    margin-top:20px;
     border:1px solid var(--navy);
     background:var(--navy);
     color:white;
-    padding:12px 23px;
-    margin-top:20px;
+    text-decoration:none;
 }
 
 .button:hover{
@@ -480,42 +499,81 @@ textarea{
     color:var(--navy);
 }
 
-/* =========================
+
+/* =========================================================
+   SUPPORT
+========================================================= */
+
+.support-box{
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+    background:white;
+    text-align:center;
+    border-top:5px solid var(--gold);
+}
+
+.pix{
+    margin-top:25px;
+    padding:18px;
+    background:#efebe2;
+    word-break:break-word;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:48px 20px;
+    background:var(--navy);
+    color:white;
+    text-align:center;
+}
+
+.footer-gold{
+    color:var(--gold2);
+    font-weight:bold;
+}
+
+
+/* =========================================================
    ADMIN
-========================= */
+========================================================= */
 
 #adminOverlay{
     display:none;
     position:fixed;
     inset:0;
     z-index:5000;
-    overflow-y:auto;
     padding:25px 15px;
+    overflow-y:auto;
     background:rgba(0,0,0,.82);
 }
 
 .admin-login{
     max-width:440px;
     margin:100px auto;
-    background:white;
     padding:35px;
+    background:white;
 }
 
 .admin-window{
     max-width:1200px;
     margin:auto;
-    background:white;
     padding:30px;
+    background:white;
 }
 
 .admin-header{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     gap:20px;
-    border-bottom:1px solid var(--border);
     padding-bottom:20px;
     margin-bottom:25px;
+    border-bottom:1px solid var(--border);
 }
 
 .admin-header h2{
@@ -531,9 +589,9 @@ textarea{
 }
 
 .admin-tab{
-    padding:9px 13px;
+    padding:9px 12px;
     border:1px solid var(--border);
-    background:#f5f1e9;
+    background:#f3efe7;
     color:var(--text);
 }
 
@@ -543,19 +601,19 @@ textarea{
     color:white;
 }
 
-.admin-page{
+.admin-section{
     display:none;
 }
 
-.admin-page.active{
+.admin-section.active{
     display:block;
 }
 
 .editor{
-    background:#faf8f3;
-    border:1px solid var(--border);
     padding:24px;
     margin-bottom:22px;
+    border:1px solid var(--border);
+    background:#faf8f2;
 }
 
 .editor h3{
@@ -565,10 +623,10 @@ textarea{
 }
 
 .language-editor{
-    background:white;
-    border:1px solid var(--border);
     padding:18px;
     margin-bottom:15px;
+    border:1px solid var(--border);
+    background:white;
 }
 
 .language-editor h4{
@@ -578,18 +636,18 @@ textarea{
 
 .admin-item{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:15px;
     padding:13px;
     margin-top:9px;
-    background:#f2eee6;
+    background:#f2eee5;
 }
 
 .admin-actions{
     display:flex;
-    flex-wrap:wrap;
     gap:6px;
+    flex-wrap:wrap;
 }
 
 .small{
@@ -607,12 +665,12 @@ textarea{
     color:white;
 }
 
-.message-success{
+.success{
     color:var(--green);
     margin-top:12px;
 }
 
-.message-error{
+.error{
     color:var(--red);
     margin-top:12px;
 }
@@ -625,12 +683,12 @@ textarea{
 }
 
 .hidden{
-    display:none !important;
+    display:none!important;
 }
 
 @media(max-width:800px){
 
-    .header-main{
+    .header-content{
         flex-direction:column;
     }
 
@@ -648,21 +706,21 @@ textarea{
     }
 
     .hero{
-        min-height:630px;
+        min-height:620px;
     }
 
     .hero-crest{
-        width:155px;
+        width:150px;
         height:180px;
+    }
+
+    .price{
+        font-size:43px;
     }
 
     .admin-item{
         flex-direction:column;
         align-items:flex-start;
-    }
-
-    .price{
-        font-size:42px;
     }
 }
 </style>
@@ -670,68 +728,227 @@ textarea{
 
 <body>
 
+
 <!-- =====================================================
      HEADER
 ===================================================== -->
 
-<header>
+<header id="siteHeader">
 
-<div class="header-main">
+<div class="header-top">
+
+<div class="header-content">
 
 <div class="brand">
 
 <div class="brand-crest">
 
-<svg viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg">
+<!-- ONE COMMON CREST -->
 
-<path
-d="M18 18H202V158Q202 213 110 246Q18 213 18 158Z"
-fill="#101d35"
-stroke="#c6a354"
-stroke-width="7"/>
+<svg viewBox="0 0 300 360"
+     xmlns="http://www.w3.org/2000/svg">
 
-<path
-d="M110 42L117 63L139 64L122 77L128 98L110 87L92 98L98 77L81 64L103 63Z"
-fill="#c6a354"/>
+    <!-- shield -->
+    <path
+        d="M35 25
+           H265
+           V215
+           Q265 287 150 333
+           Q35 287 35 215
+           Z"
+        fill="#0b1930"
+        stroke="#c8a551"
+        stroke-width="8"/>
 
-<path
-d="M110 91V162"
-stroke="#dfc77f"
-stroke-width="6"/>
+    <!-- laurel left -->
+    <path
+        d="M57 272
+           Q18 222 47 162
+           Q20 235 77 296"
+        fill="none"
+        stroke="#dfc77b"
+        stroke-width="6"
+        stroke-linecap="round"/>
 
-<path
-d="M99 155H121"
-stroke="#dfc77f"
-stroke-width="5"/>
+    <path
+        d="M42 235L72 221
+           M37 202L66 197
+           M39 171L68 179
+           M51 145L77 163"
+        stroke="#dfc77b"
+        stroke-width="6"
+        stroke-linecap="round"/>
 
-<path
-d="M110 92Q96 73 108 61Q111 75 116 67Q127 80 110 92Z"
-fill="#c6a354"/>
+    <!-- laurel right -->
+    <path
+        d="M243 272
+           Q282 222 253 162
+           Q280 235 223 296"
+        fill="none"
+        stroke="#dfc77b"
+        stroke-width="6"
+        stroke-linecap="round"/>
 
-<path
-d="M51 139Q80 126 110 141Q140 126 169 139V190Q140 177 110 192Q80 177 51 190Z"
-fill="#101d35"
-stroke="#dfc77f"
-stroke-width="5"/>
+    <path
+        d="M258 235L228 221
+           M263 202L234 197
+           M261 171L232 179
+           M249 145L223 163"
+        stroke="#dfc77b"
+        stroke-width="6"
+        stroke-linecap="round"/>
 
-<path
-d="M110 141V192"
-stroke="#dfc77f"
-stroke-width="4"/>
+    <!-- TWO-HEADED EAGLE BODY -->
+    <path
+        d="M150 112
+           C134 97 123 79 100 73
+           C81 68 61 77 48 94
+           C70 91 87 100 101 117
+           C111 129 119 142 122 158
+           L95 143
+           C76 132 57 130 39 139
+           C59 147 77 161 90 177
+           C105 194 126 202 150 197
+           C174 202 195 194 210 177
+           C223 161 241 147 261 139
+           C243 130 224 132 205 143
+           L178 158
+           C181 142 189 129 199 117
+           C213 100 230 91 252 94
+           C239 77 219 68 200 73
+           C177 79 166 97 150 112
+           Z"
+        fill="#c8a551"/>
 
-<path
-d="M38 165Q18 135 38 105Q20 155 52 187M38 140L55 130M32 120L50 117M35 101L51 105"
-fill="none"
-stroke="#dfc77f"
-stroke-width="4"
-stroke-linecap="round"/>
+    <!-- necks -->
+    <path
+        d="M128 108
+           Q117 75 95 58
+           Q80 46 66 55
+           Q79 72 97 82
+           Q115 93 133 126
+           Z"
+        fill="#c8a551"/>
 
-<path
-d="M182 165Q202 135 182 105Q200 155 168 187M182 140L165 130M188 120L170 117M185 101L169 105"
-fill="none"
-stroke="#dfc77f"
-stroke-width="4"
-stroke-linecap="round"/>
+    <path
+        d="M172 108
+           Q183 75 205 58
+           Q220 46 234 55
+           Q221 72 203 82
+           Q185 93 167 126
+           Z"
+        fill="#c8a551"/>
+
+    <!-- left head -->
+    <path
+        d="M99 58
+           Q76 43 57 52
+           Q45 58 41 71
+           Q58 69 71 78
+           Q86 87 103 78
+           L116 68
+           Z"
+        fill="#dfc77b"/>
+
+    <!-- right head -->
+    <path
+        d="M201 58
+           Q224 43 243 52
+           Q255 58 259 71
+           Q242 69 229 78
+           Q214 87 197 78
+           L184 68
+           Z"
+        fill="#dfc77b"/>
+
+    <!-- beaks -->
+    <path
+        d="M42 71L25 67L42 61Z"
+        fill="#c8a551"/>
+
+    <path
+        d="M258 71L275 67L258 61Z"
+        fill="#c8a551"/>
+
+    <!-- eyes -->
+    <circle
+        cx="67"
+        cy="62"
+        r="3.5"
+        fill="#0b1930"/>
+
+    <circle
+        cx="233"
+        cy="62"
+        r="3.5"
+        fill="#0b1930"/>
+
+    <!-- central academic torch -->
+    <path
+        d="M150 123V204"
+        stroke="#dfc77b"
+        stroke-width="7"
+        stroke-linecap="round"/>
+
+    <path
+        d="M137 198H163"
+        stroke="#dfc77b"
+        stroke-width="7"
+        stroke-linecap="round"/>
+
+    <!-- flame -->
+    <path
+        d="M150 123
+           Q133 100 149 82
+           Q151 98 158 91
+           Q171 106 150 123
+           Z"
+        fill="#dfc77b"/>
+
+    <!-- two torches held by wings -->
+    <path
+        d="M105 153L73 113"
+        stroke="#dfc77b"
+        stroke-width="5"/>
+
+    <path
+        d="M195 153L227 113"
+        stroke="#dfc77b"
+        stroke-width="5"/>
+
+    <path
+        d="M64 112
+           Q71 94 80 105
+           Q83 89 93 102
+           Q95 113 78 121
+           Z"
+        fill="#dfc77b"/>
+
+    <path
+        d="M236 112
+           Q229 94 220 105
+           Q217 89 207 102
+           Q205 113 222 121
+           Z"
+        fill="#dfc77b"/>
+
+    <!-- book -->
+    <path
+        d="M73 206
+           Q111 187 150 208
+           Q189 187 227 206
+           V251
+           Q190 235 150 255
+           Q110 235 73 251
+           Z"
+        fill="#0b1930"
+        stroke="#dfc77b"
+        stroke-width="6"/>
+
+    <path
+        d="M150 208V255"
+        stroke="#dfc77b"
+        stroke-width="5"/>
 
 </svg>
 
@@ -744,11 +961,25 @@ INDEPENDENT UNIVERSITY
 
 </div>
 
+
 <div class="languages">
 
-<button id="langRU" onclick="setLanguage('ru')">RU</button>
-<button id="langEN" onclick="setLanguage('en')">EN</button>
-<button id="langPT" onclick="setLanguage('pt')">PT</button>
+<button id="langRU"
+        onclick="setLanguage('ru')">
+RU
+</button>
+
+<button id="langEN"
+        onclick="setLanguage('en')">
+EN
+</button>
+
+<button id="langPT"
+        onclick="setLanguage('pt')">
+PT
+</button>
+
+</div>
 
 </div>
 
@@ -780,7 +1011,7 @@ INDEPENDENT UNIVERSITY
 
 
 <!-- =====================================================
-     HOME
+     HERO
 ===================================================== -->
 
 <section id="home" class="hero">
@@ -789,66 +1020,125 @@ INDEPENDENT UNIVERSITY
 
 <div class="hero-crest">
 
-<svg viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg">
+<!-- SAME CREST -->
 
-<path
-d="M18 18H202V158Q202 213 110 246Q18 213 18 158Z"
-fill="#101d35"
-stroke="#c6a354"
-stroke-width="7"/>
+<svg viewBox="0 0 300 360"
+     xmlns="http://www.w3.org/2000/svg">
 
-<path
-d="M110 42L117 63L139 64L122 77L128 98L110 87L92 98L98 77L81 64L103 63Z"
-fill="#c6a354"/>
+    <path
+        d="M35 25H265V215Q265 287 150 333Q35 287 35 215Z"
+        fill="#0b1930"
+        stroke="#c8a551"
+        stroke-width="8"/>
 
-<path
-d="M110 91V162"
-stroke="#dfc77f"
-stroke-width="6"/>
+    <path
+        d="M57 272Q18 222 47 162Q20 235 77 296"
+        fill="none"
+        stroke="#dfc77b"
+        stroke-width="6"/>
 
-<path
-d="M99 155H121"
-stroke="#dfc77f"
-stroke-width="5"/>
+    <path
+        d="M42 235L72 221M37 202L66 197M39 171L68 179M51 145L77 163"
+        stroke="#dfc77b"
+        stroke-width="6"
+        stroke-linecap="round"/>
 
-<path
-d="M110 92Q96 73 108 61Q111 75 116 67Q127 80 110 92Z"
-fill="#c6a354"/>
+    <path
+        d="M243 272Q282 222 253 162Q280 235 223 296"
+        fill="none"
+        stroke="#dfc77b"
+        stroke-width="6"/>
 
-<path
-d="M51 139Q80 126 110 141Q140 126 169 139V190Q140 177 110 192Q80 177 51 190Z"
-fill="#101d35"
-stroke="#dfc77f"
-stroke-width="5"/>
+    <path
+        d="M258 235L228 221M263 202L234 197M261 171L232 179M249 145L223 163"
+        stroke="#dfc77b"
+        stroke-width="6"
+        stroke-linecap="round"/>
 
-<path
-d="M110 141V192"
-stroke="#dfc77f"
-stroke-width="4"/>
+    <path
+        d="M150 112C134 97 123 79 100 73C81 68 61 77 48 94C70 91 87 100 101 117C111 129 119 142 122 158L95 143C76 132 57 130 39 139C59 147 77 161 90 177C105 194 126 202 150 197C174 202 195 194 210 177C223 161 241 147 261 139C243 130 224 132 205 143L178 158C181 142 189 129 199 117C213 100 230 91 252 94C239 77 219 68 200 73C177 79 166 97 150 112Z"
+        fill="#c8a551"/>
 
-<path
-d="M38 165Q18 135 38 105Q20 155 52 187M38 140L55 130M32 120L50 117M35 101L51 105"
-fill="none"
-stroke="#dfc77f"
-stroke-width="4"
-stroke-linecap="round"/>
+    <path
+        d="M128 108Q117 75 95 58Q80 46 66 55Q79 72 97 82Q115 93 133 126Z"
+        fill="#c8a551"/>
 
-<path
-d="M182 165Q202 135 182 105Q200 155 168 187M182 140L165 130M188 120L170 117M185 101L169 105"
-fill="none"
-stroke="#dfc77f"
-stroke-width="4"
-stroke-linecap="round"/>
+    <path
+        d="M172 108Q183 75 205 58Q220 46 234 55Q221 72 203 82Q185 93 167 126Z"
+        fill="#c8a551"/>
+
+    <path
+        d="M99 58Q76 43 57 52Q45 58 41 71Q58 69 71 78Q86 87 103 78L116 68Z"
+        fill="#dfc77b"/>
+
+    <path
+        d="M201 58Q224 43 243 52Q255 58 259 71Q242 69 229 78Q214 87 197 78L184 68Z"
+        fill="#dfc77b"/>
+
+    <path d="M42 71L25 67L42 61Z" fill="#c8a551"/>
+    <path d="M258 71L275 67L258 61Z" fill="#c8a551"/>
+
+    <circle cx="67" cy="62" r="3.5" fill="#0b1930"/>
+    <circle cx="233" cy="62" r="3.5" fill="#0b1930"/>
+
+    <path
+        d="M150 123V204"
+        stroke="#dfc77b"
+        stroke-width="7"
+        stroke-linecap="round"/>
+
+    <path
+        d="M137 198H163"
+        stroke="#dfc77b"
+        stroke-width="7"
+        stroke-linecap="round"/>
+
+    <path
+        d="M150 123Q133 100 149 82Q151 98 158 91Q171 106 150 123Z"
+        fill="#dfc77b"/>
+
+    <path
+        d="M105 153L73 113M195 153L227 113"
+        stroke="#dfc77b"
+        stroke-width="5"/>
+
+    <path
+        d="M64 112Q71 94 80 105Q83 89 93 102Q95 113 78 121Z"
+        fill="#dfc77b"/>
+
+    <path
+        d="M236 112Q229 94 220 105Q217 89 207 102Q205 113 222 121Z"
+        fill="#dfc77b"/>
+
+    <path
+        d="M73 206Q111 187 150 208Q189 187 227 206V251Q190 235 150 255Q110 235 73 251Z"
+        fill="#0b1930"
+        stroke="#dfc77b"
+        stroke-width="6"/>
+
+    <path
+        d="M150 208V255"
+        stroke="#dfc77b"
+        stroke-width="5"/>
 
 </svg>
 
 </div>
 
-<h1>GUADANIN GALASHIN</h1>
 
-<h2>INDEPENDENT UNIVERSITY</h2>
+<h1>
+GUADANIN GALASHIN
+</h1>
 
-<p id="heroText" class="hero-description"></p>
+<h2>
+INDEPENDENT UNIVERSITY
+</h2>
+
+
+<p id="heroText"
+   class="hero-description">
+</p>
+
 
 <div class="motto">
 LIBERTAS COGITATIONIS · VIS ARGUMENTI
@@ -866,13 +1156,17 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="about">
 
 <div class="section-title">
+
 <h2 data-ui="about"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
 <div class="text">
 
 <p id="aboutText1"></p>
+
 <p id="aboutText2"></p>
 
 </div>
@@ -887,11 +1181,16 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="faculties">
 
 <div class="section-title">
+
 <h2 data-ui="faculties"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
-<div id="facultyGrid" class="grid"></div>
+<div id="facultyGrid"
+     class="grid">
+</div>
 
 </section>
 
@@ -903,11 +1202,16 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="professors">
 
 <div class="section-title">
+
 <h2 data-ui="professors"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
-<div id="professorGrid" class="grid"></div>
+<div id="professorGrid"
+     class="grid">
+</div>
 
 </section>
 
@@ -919,12 +1223,17 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="students">
 
 <div class="section-title">
+
 <h2 data-ui="students"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
 <div class="text">
+
 <p id="studentsText"></p>
+
 </div>
 
 </section>
@@ -937,11 +1246,16 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="courses">
 
 <div class="section-title">
+
 <h2 data-ui="courses"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
-<div id="courseGrid" class="grid"></div>
+<div id="courseGrid"
+     class="grid">
+</div>
 
 </section>
 
@@ -953,8 +1267,11 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="schedule">
 
 <div class="section-title">
+
 <h2 data-ui="schedule"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
 <div class="table-wrap">
@@ -964,16 +1281,17 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <thead>
 
 <tr>
-<th id="scheduleDayHeading"></th>
-<th id="scheduleTimeHeading"></th>
-<th id="scheduleCourseHeading"></th>
-<th id="scheduleProfessorHeading"></th>
-<th id="scheduleLocationHeading"></th>
+<th id="dayHeading"></th>
+<th id="timeHeading"></th>
+<th id="courseHeading"></th>
+<th id="professorHeading"></th>
+<th id="locationHeading"></th>
 </tr>
 
 </thead>
 
-<tbody id="scheduleBody"></tbody>
+<tbody id="scheduleBody">
+</tbody>
 
 </table>
 
@@ -989,11 +1307,16 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="publications">
 
 <div class="section-title">
+
 <h2 data-ui="publications"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
-<div id="publicationGrid" class="grid"></div>
+<div id="publicationGrid"
+     class="grid">
+</div>
 
 </section>
 
@@ -1005,11 +1328,16 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="news">
 
 <div class="section-title">
+
 <h2 data-ui="news"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
-<div id="newsGrid" class="grid"></div>
+<div id="newsGrid"
+     class="grid">
+</div>
 
 </section>
 
@@ -1021,11 +1349,15 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="rules">
 
 <div class="section-title">
+
 <h2 data-ui="rules"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
-<div id="rulesContainer"></div>
+<div id="rulesContainer">
+</div>
 
 </section>
 
@@ -1037,29 +1369,39 @@ LIBERTAS COGITATIONIS · VIS ARGUMENTI
 <section id="admissions">
 
 <div class="section-title">
+
 <h2 data-ui="admissions"></h2>
+
 <div class="gold-line"></div>
+
 </div>
 
+
 <div class="admission-box">
+
 
 <div class="price-panel">
 
 <h3 id="semesterPriceTitle"></h3>
 
-<div class="price" id="semesterPrice"></div>
+<div class="price"
+     id="semesterPrice">
+</div>
 
-<p id="admissionLoad"></p>
+<p id="admissionLoad">
+</p>
 
 </div>
 
 
 <div class="grid feature-grid">
 
+
 <div class="card feature">
 
 <div class="feature-number"
-id="freeSeats"></div>
+     id="freeSeats">
+</div>
 
 <h3 id="freeSeatsTitle"></h3>
 
@@ -1070,7 +1412,9 @@ id="freeSeats"></div>
 
 <div class="card feature">
 
-<div class="feature-number">2</div>
+<div class="feature-number">
+2
+</div>
 
 <h3 id="minimumLoadTitle"></h3>
 
@@ -1081,7 +1425,9 @@ id="freeSeats"></div>
 
 <div class="card feature">
 
-<div class="feature-number">24</div>
+<div class="feature-number">
+24
+</div>
 
 <h3 id="semesterLengthTitle"></h3>
 
@@ -1092,7 +1438,8 @@ id="freeSeats"></div>
 </div>
 
 
-<div class="card" style="margin-top:25px;">
+<div class="card"
+     style="margin-top:25px;">
 
 <h3 id="entranceTitle"></h3>
 
@@ -1101,7 +1448,8 @@ id="freeSeats"></div>
 </div>
 
 
-<div class="card" style="margin-top:25px;">
+<div class="card"
+     style="margin-top:25px;">
 
 <h3 id="processTitle"></h3>
 
@@ -1128,6 +1476,7 @@ id="freeSeats"></div>
 <h3 id="applicationTitle"></h3>
 
 <div class="form-grid">
+
 
 <div>
 
@@ -1166,7 +1515,8 @@ type="text">
 
 <label id="applicationFacultyLabel"></label>
 
-<select id="applicationFaculty"></select>
+<select id="applicationFaculty">
+</select>
 
 </div>
 
@@ -1176,20 +1526,23 @@ type="text">
 <label id="applicationMotivationLabel"></label>
 
 <textarea
-id="applicationMotivation"></textarea>
+id="applicationMotivation">
+</textarea>
 
 </div>
 
 </div>
+
 
 <button
 class="button"
 id="applicationButton"
-onclick="submitApplication()">
+onclick="submitApplication">
 </button>
 
 <p id="applicationMessage"
-class="message-success"></p>
+   class="success">
+</p>
 
 </div>
 
@@ -1205,19 +1558,25 @@ class="message-success"></p>
 <section id="support">
 
 <div class="section-title">
+
 <h2 data-ui="support"></h2>
+
 <div class="gold-line"></div>
+
 </div>
+
 
 <div class="support-box">
 
-<p id="supportText"></p>
+<p id="supportText">
+</p>
 
 <div class="pix">
 
 <strong>PIX:</strong>
 
-<span id="pixValue"></span>
+<span id="pixValue">
+</span>
 
 </div>
 
@@ -1232,10 +1591,7 @@ class="message-success"></p>
 
 <footer>
 
-<div class="text"
-style="text-align:center;">
-
-<p style="color:var(--gold2);font-weight:bold;">
+<p class="footer-gold">
 GUADANIN GALASHIN INDEPENDENT UNIVERSITY
 </p>
 
@@ -1243,73 +1599,71 @@ GUADANIN GALASHIN INDEPENDENT UNIVERSITY
 LIBERTAS COGITATIONIS · VIS ARGUMENTI
 </p>
 
-<button
-id="adminOpenButton"
-class="button"
-onclick="openAdmin()">
-</button>
+<br>
 
-</div>
+<button
+class="button"
+id="adminButton"
+onclick="openAdmin">
+</button>
 
 </footer>
 
 
 <!-- =====================================================
-     ADMIN OVERLAY
+     ADMIN
 ===================================================== -->
 
 <div id="adminOverlay">
 
 
-<!-- LOGIN -->
+<div id="loginBox"
+     class="admin-login">
 
-<div id="adminLogin"
-class="admin-login">
-
-<h2 id="adminLoginTitle"></h2>
+<h2 id="loginTitle">
+</h2>
 
 <br>
 
-<label id="adminPasswordLabel"></label>
+<label id="passwordLabel">
+</label>
 
 <input
 id="adminPassword"
 type="password">
 
 <button
-class="admin-tab active"
-onclick="loginAdmin()"
-id="adminLoginButton">
+class="button"
+id="loginButton"
+onclick="loginAdmin">
 </button>
 
 <button
 class="button outline"
-onclick="closeAdmin()"
-id="adminCloseLoginButton">
+id="closeLoginButton"
+onclick="closeAdmin">
 </button>
 
-<p
-id="adminLoginError"
-class="message-error">
+<p id="loginError"
+   class="error">
 </p>
 
 </div>
 
 
-<!-- PANEL -->
-
 <div id="adminWindow"
-class="admin-window hidden">
+     class="admin-window hidden">
 
 
 <div class="admin-header">
 
-<h2 id="adminPanelTitle"></h2>
+<h2 id="adminPanelTitle">
+</h2>
 
 <button
 class="button outline"
-onclick="closeAdmin()"
-id="adminCloseButton">
+id="closeAdminButton"
+onclick="closeAdmin">
 </button>
 
 </div>
@@ -1382,27 +1736,30 @@ id="tabApplications">
 
 <!-- PAGES -->
 
-<div id="pages" class="admin-page active">
+<div
+id="pages"
+class="admin-section active">
 
 <div class="editor">
 
-<h3 id="pagesEditorTitle"></h3>
+<h3 id="pagesTitle">
+</h3>
 
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Главный текст</label>
+<label id="heroRULabel"></label>
 <textarea id="heroRU"></textarea>
 
-<label>Об УГГ — текст 1</label>
+<label id="about1RULabel"></label>
 <textarea id="about1RU"></textarea>
 
-<label>Об УГГ — текст 2</label>
+<label id="about2RULabel"></label>
 <textarea id="about2RU"></textarea>
 
-<label>Студенты</label>
+<label id="studentsRULabel"></label>
 <textarea id="studentsRU"></textarea>
 
 </div>
@@ -1410,18 +1767,18 @@ id="tabApplications">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Hero text</label>
+<label id="heroENLabel"></label>
 <textarea id="heroEN"></textarea>
 
-<label>About UGG — text 1</label>
+<label id="about1ENLabel"></label>
 <textarea id="about1EN"></textarea>
 
-<label>About UGG — text 2</label>
+<label id="about2ENLabel"></label>
 <textarea id="about2EN"></textarea>
 
-<label>Students</label>
+<label id="studentsENLabel"></label>
 <textarea id="studentsEN"></textarea>
 
 </div>
@@ -1429,38 +1786,39 @@ id="tabApplications">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Texto principal</label>
+<label id="heroPTLabel"></label>
 <textarea id="heroPT"></textarea>
 
-<label>Sobre a UGG — texto 1</label>
+<label id="about1PTLabel"></label>
 <textarea id="about1PT"></textarea>
 
-<label>Sobre a UGG — texto 2</label>
+<label id="about2PTLabel"></label>
 <textarea id="about2PT"></textarea>
 
-<label>Estudantes</label>
+<label id="studentsPTLabel"></label>
 <textarea id="studentsPT"></textarea>
 
 </div>
 
 
-<h3 id="rulesEditorTitle"></h3>
+<h3 id="rulesEditorTitle">
+</h3>
 
-
-<div id="rulesEditor"></div>
+<div id="rulesEditor">
+</div>
 
 
 <button
 class="button"
-onclick="savePages()"
-id="savePagesButton">
+id="savePagesButton"
+onclick="savePages">
 </button>
 
 <p
 id="pagesMessage"
-class="message-success">
+class="success">
 </p>
 
 </div>
@@ -1468,13 +1826,16 @@ class="message-success">
 </div>
 
 
-<!-- FACULTIES -->
+<!-- FACULTIES ADMIN -->
 
-<div id="facultiesAdmin" class="admin-page">
+<div
+id="facultiesAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="facultyEditorTitle"></h3>
+<h3 id="facultyEditorTitle">
+</h3>
 
 <input
 type="hidden"
@@ -1483,12 +1844,12 @@ id="facultyEditId">
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Название</label>
+<label id="facultyNameRULabel"></label>
 <input id="facultyNameRU">
 
-<label>Описание</label>
+<label id="facultyDescRULabel"></label>
 <textarea id="facultyDescRU"></textarea>
 
 </div>
@@ -1496,12 +1857,12 @@ id="facultyEditId">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Name</label>
+<label id="facultyNameENLabel"></label>
 <input id="facultyNameEN">
 
-<label>Description</label>
+<label id="facultyDescENLabel"></label>
 <textarea id="facultyDescEN"></textarea>
 
 </div>
@@ -1509,12 +1870,12 @@ id="facultyEditId">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Nome</label>
+<label id="facultyNamePTLabel"></label>
 <input id="facultyNamePT">
 
-<label>Descrição</label>
+<label id="facultyDescPTLabel"></label>
 <textarea id="facultyDescPT"></textarea>
 
 </div>
@@ -1522,31 +1883,35 @@ id="facultyEditId">
 
 <button
 class="button"
-onclick="saveFaculty()"
-id="saveFacultyButton">
+id="saveFacultyButton"
+onclick="saveFaculty">
 </button>
 
 <button
 class="button outline"
-onclick="clearFacultyForm()"
-id="newFacultyButton">
+id="newFacultyButton"
+onclick="clearFacultyForm">
 </button>
 
 </div>
 
 
-<div id="facultyAdminList"></div>
+<div id="facultyAdminList">
+</div>
 
 </div>
 
 
-<!-- PROFESSORS -->
+<!-- PROFESSORS ADMIN -->
 
-<div id="professorsAdmin" class="admin-page">
+<div
+id="professorsAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="professorEditorTitle"></h3>
+<h3 id="professorEditorTitle">
+</h3>
 
 <input
 type="hidden"
@@ -1555,15 +1920,15 @@ id="professorEditId">
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Имя</label>
+<label id="profNameRULabel"></label>
 <input id="profNameRU">
 
-<label>Должность</label>
+<label id="profPositionRULabel"></label>
 <input id="profPositionRU">
 
-<label>Биография</label>
+<label id="profBioRULabel"></label>
 <textarea id="profBioRU"></textarea>
 
 </div>
@@ -1571,15 +1936,15 @@ id="professorEditId">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Name</label>
+<label id="profNameENLabel"></label>
 <input id="profNameEN">
 
-<label>Position</label>
+<label id="profPositionENLabel"></label>
 <input id="profPositionEN">
 
-<label>Biography</label>
+<label id="profBioENLabel"></label>
 <textarea id="profBioEN"></textarea>
 
 </div>
@@ -1587,101 +1952,97 @@ id="professorEditId">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Nome</label>
+<label id="profNamePTLabel"></label>
 <input id="profNamePT">
 
-<label>Cargo</label>
+<label id="profPositionPTLabel"></label>
 <input id="profPositionPT">
 
-<label>Biografia</label>
+<label id="profBioPTLabel"></label>
 <textarea id="profBioPT"></textarea>
 
 </div>
 
 
-<label>
-Faculty / Факультет / Faculdade
-</label>
+<label id="profFacultyLabel"></label>
 
-<select id="profFaculty"></select>
+<select id="profFaculty">
+</select>
 
 
-<label>Email</label>
+<label id="profEmailLabel"></label>
+
 <input
 id="profEmail"
 type="email">
 
 
-<label>
-Photo / Фото / Foto
-</label>
+<label id="profPhotoLabel"></label>
 
 <input
-id="profPhotoFile"
+id="profPhoto"
 type="file"
 accept="image/*">
 
-<br><br>
+<label id="profPhotoURLLabel"></label>
 
 <input
-id="profPhotoURL"
-placeholder="Photo URL">
+id="profPhotoURL">
 
-<img
-id="profPhotoPreview"
-class="professor-photo hidden">
-
-<br>
 
 <button
 class="button"
-onclick="saveProfessor()"
-id="saveProfessorButton">
+id="saveProfessorButton"
+onclick="saveProfessor">
 </button>
 
 <button
 class="button outline"
-onclick="clearProfessorForm()"
-id="newProfessorButton">
+id="newProfessorButton"
+onclick="clearProfessorForm">
 </button>
 
 </div>
 
-<div id="professorAdminList"></div>
+
+<div id="professorAdminList">
+</div>
 
 </div>
 
 
-<!-- COURSES -->
+<!-- COURSES ADMIN -->
 
-<div id="coursesAdmin" class="admin-page">
+<div
+id="coursesAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="courseEditorTitle"></h3>
+<h3 id="courseEditorTitle">
+</h3>
 
 <input
 type="hidden"
 id="courseEditId">
 
 
-<label>
-Faculty / Факультет / Faculdade
-</label>
+<label id="courseFacultyLabel"></label>
 
-<select id="courseFaculty"></select>
+<select id="courseFaculty">
+</select>
 
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Название</label>
+<label id="courseNameRULabel"></label>
 <input id="courseNameRU">
 
-<label>Описание</label>
+<label id="courseDescRULabel"></label>
 <textarea id="courseDescRU"></textarea>
 
 </div>
@@ -1689,12 +2050,12 @@ Faculty / Факультет / Faculdade
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Name</label>
+<label id="courseNameENLabel"></label>
 <input id="courseNameEN">
 
-<label>Description</label>
+<label id="courseDescENLabel"></label>
 <textarea id="courseDescEN"></textarea>
 
 </div>
@@ -1702,12 +2063,12 @@ Faculty / Факультет / Faculdade
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Nome</label>
+<label id="courseNamePTLabel"></label>
 <input id="courseNamePT">
 
-<label>Descrição</label>
+<label id="courseDescPTLabel"></label>
 <textarea id="courseDescPT"></textarea>
 
 </div>
@@ -1715,30 +2076,35 @@ Faculty / Факультет / Faculdade
 
 <button
 class="button"
-onclick="saveCourse()"
-id="saveCourseButton">
+id="saveCourseButton"
+onclick="saveCourse">
 </button>
 
 <button
 class="button outline"
-onclick="clearCourseForm()"
-id="newCourseButton">
+id="newCourseButton"
+onclick="clearCourseForm">
 </button>
 
 </div>
 
-<div id="courseAdminList"></div>
+
+<div id="courseAdminList">
+</div>
 
 </div>
 
 
-<!-- SCHEDULE -->
+<!-- SCHEDULE ADMIN -->
 
-<div id="scheduleAdmin" class="admin-page">
+<div
+id="scheduleAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="scheduleEditorTitle"></h3>
+<h3 id="scheduleEditorTitle">
+</h3>
 
 <input
 type="hidden"
@@ -1769,19 +2135,21 @@ type="time">
 
 <label id="scheduleCourseLabel"></label>
 
-<select id="scheduleCourse"></select>
+<select id="scheduleCourse">
+</select>
 
 
 <label id="scheduleProfessorLabel"></label>
 
-<select id="scheduleProfessor"></select>
+<select id="scheduleProfessor">
+</select>
 
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Место</label>
+<label id="locationRULabel"></label>
 <input id="locationRU">
 
 </div>
@@ -1789,9 +2157,9 @@ type="time">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Location</label>
+<label id="locationENLabel"></label>
 <input id="locationEN">
 
 </div>
@@ -1799,9 +2167,9 @@ type="time">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Local</label>
+<label id="locationPTLabel"></label>
 <input id="locationPT">
 
 </div>
@@ -1809,30 +2177,35 @@ type="time">
 
 <button
 class="button"
-onclick="saveSchedule()"
-id="saveScheduleButton">
+id="saveScheduleButton"
+onclick="saveSchedule">
 </button>
 
 <button
 class="button outline"
-onclick="clearScheduleForm()"
-id="newScheduleButton">
+id="newScheduleButton"
+onclick="clearScheduleForm">
 </button>
 
 </div>
 
-<div id="scheduleAdminList"></div>
+
+<div id="scheduleAdminList">
+</div>
 
 </div>
 
 
-<!-- PUBLICATIONS -->
+<!-- PUBLICATIONS ADMIN -->
 
-<div id="publicationsAdmin" class="admin-page">
+<div
+id="publicationsAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="publicationEditorTitle"></h3>
+<h3 id="publicationEditorTitle">
+</h3>
 
 <input
 type="hidden"
@@ -1841,12 +2214,12 @@ id="publicationEditId">
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Название</label>
+<label id="publicationTitleRULabel"></label>
 <input id="publicationTitleRU">
 
-<label>Описание</label>
+<label id="publicationDescRULabel"></label>
 <textarea id="publicationDescRU"></textarea>
 
 </div>
@@ -1854,12 +2227,12 @@ id="publicationEditId">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Title</label>
+<label id="publicationTitleENLabel"></label>
 <input id="publicationTitleEN">
 
-<label>Description</label>
+<label id="publicationDescENLabel"></label>
 <textarea id="publicationDescEN"></textarea>
 
 </div>
@@ -1867,12 +2240,12 @@ id="publicationEditId">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Título</label>
+<label id="publicationTitlePTLabel"></label>
 <input id="publicationTitlePT">
 
-<label>Descrição</label>
+<label id="publicationDescPTLabel"></label>
 <textarea id="publicationDescPT"></textarea>
 
 </div>
@@ -1890,30 +2263,35 @@ id="publicationEditId">
 
 <button
 class="button"
-onclick="savePublication()"
-id="savePublicationButton">
+id="savePublicationButton"
+onclick="savePublication">
 </button>
 
 <button
 class="button outline"
-onclick="clearPublicationForm()"
-id="newPublicationButton">
+id="newPublicationButton"
+onclick="clearPublicationForm">
 </button>
 
 </div>
 
-<div id="publicationAdminList"></div>
+
+<div id="publicationAdminList">
+</div>
 
 </div>
 
 
-<!-- NEWS -->
+<!-- NEWS ADMIN -->
 
-<div id="newsAdmin" class="admin-page">
+<div
+id="newsAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="newsEditorTitle"></h3>
+<h3 id="newsEditorTitle">
+</h3>
 
 <input
 type="hidden"
@@ -1922,15 +2300,15 @@ id="newsEditId">
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Заголовок</label>
+<label id="newsTitleRULabel"></label>
 <input id="newsTitleRU">
 
-<label>Краткое описание</label>
+<label id="newsSummaryRULabel"></label>
 <textarea id="newsSummaryRU"></textarea>
 
-<label>Полный текст</label>
+<label id="newsTextRULabel"></label>
 <textarea id="newsTextRU"></textarea>
 
 </div>
@@ -1938,15 +2316,15 @@ id="newsEditId">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Title</label>
+<label id="newsTitleENLabel"></label>
 <input id="newsTitleEN">
 
-<label>Summary</label>
+<label id="newsSummaryENLabel"></label>
 <textarea id="newsSummaryEN"></textarea>
 
-<label>Full text</label>
+<label id="newsTextENLabel"></label>
 <textarea id="newsTextEN"></textarea>
 
 </div>
@@ -1954,15 +2332,15 @@ id="newsEditId">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Título</label>
+<label id="newsTitlePTLabel"></label>
 <input id="newsTitlePT">
 
-<label>Resumo</label>
+<label id="newsSummaryPTLabel"></label>
 <textarea id="newsSummaryPT"></textarea>
 
-<label>Texto completo</label>
+<label id="newsTextPTLabel"></label>
 <textarea id="newsTextPT"></textarea>
 
 </div>
@@ -1987,7 +2365,6 @@ id="newsImage"
 type="file"
 accept="image/*">
 
-
 <label id="newsImageURLLabel"></label>
 
 <input id="newsImageURL">
@@ -1995,36 +2372,40 @@ accept="image/*">
 
 <button
 class="button"
-onclick="saveNews()"
-id="saveNewsButton">
+id="saveNewsButton"
+onclick="saveNews">
 </button>
 
 <button
 class="button outline"
-onclick="clearNewsForm()"
-id="newNewsButton">
+id="newNewsButton"
+onclick="clearNewsForm">
 </button>
 
 </div>
 
-<div id="newsAdminList"></div>
+
+<div id="newsAdminList">
+</div>
 
 </div>
 
 
-<!-- ADMISSIONS -->
+<!-- ADMISSIONS ADMIN -->
 
-<div id="admissionsAdmin" class="admin-page">
+<div
+id="admissionsAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="admissionEditorTitle"></h3>
+<h3 id="admissionEditorTitle">
+</h3>
 
 
 <label id="admissionPriceLabel"></label>
 
-<input
-id="admissionPrice">
+<input id="admissionPrice">
 
 
 <label id="admissionSeatsLabel"></label>
@@ -2037,21 +2418,21 @@ min="0">
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 
-<label>Учебная нагрузка</label>
+<label id="admissionLoadRULabel"></label>
 <textarea id="admissionLoadRU"></textarea>
 
-<label>Вступительный экзамен</label>
+<label id="entranceRULabel"></label>
 <textarea id="entranceRU"></textarea>
 
-<label>Порядок поступления</label>
+<label id="processRULabel"></label>
 <textarea id="processRU"></textarea>
 
-<label>Дата Дня открытых дверей</label>
+<label id="openDateRULabel"></label>
 <input id="openDateRU">
 
-<label>Описание Дня открытых дверей</label>
+<label id="openTextRULabel"></label>
 <textarea id="openTextRU"></textarea>
 
 </div>
@@ -2059,21 +2440,21 @@ min="0">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 
-<label>Academic load</label>
+<label id="admissionLoadENLabel"></label>
 <textarea id="admissionLoadEN"></textarea>
 
-<label>Entrance examination</label>
+<label id="entranceENLabel"></label>
 <textarea id="entranceEN"></textarea>
 
-<label>Admission process</label>
+<label id="processENLabel"></label>
 <textarea id="processEN"></textarea>
 
-<label>Open Day date</label>
+<label id="openDateENLabel"></label>
 <input id="openDateEN">
 
-<label>Open Day description</label>
+<label id="openTextENLabel"></label>
 <textarea id="openTextEN"></textarea>
 
 </div>
@@ -2081,21 +2462,21 @@ min="0">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 
-<label>Carga acadêmica</label>
+<label id="admissionLoadPTLabel"></label>
 <textarea id="admissionLoadPT"></textarea>
 
-<label>Exame de admissão</label>
+<label id="entrancePTLabel"></label>
 <textarea id="entrancePT"></textarea>
 
-<label>Processo de admissão</label>
+<label id="processPTLabel"></label>
 <textarea id="processPT"></textarea>
 
-<label>Data do Dia Aberto</label>
+<label id="openDatePTLabel"></label>
 <input id="openDatePT">
 
-<label>Descrição do Dia Aberto</label>
+<label id="openTextPTLabel"></label>
 <textarea id="openTextPT"></textarea>
 
 </div>
@@ -2103,13 +2484,13 @@ min="0">
 
 <button
 class="button"
-onclick="saveAdmissions()"
-id="saveAdmissionsButton">
+id="saveAdmissionsButton"
+onclick="saveAdmissions">
 </button>
 
 <p
 id="admissionMessage"
-class="message-success">
+class="success">
 </p>
 
 </div>
@@ -2117,18 +2498,21 @@ class="message-success">
 </div>
 
 
-<!-- SUPPORT -->
+<!-- SUPPORT ADMIN -->
 
-<div id="supportAdmin" class="admin-page">
+<div
+id="supportAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="supportEditorTitle"></h3>
+<h3 id="supportEditorTitle">
+</h3>
 
 
 <div class="language-editor">
 
-<h4>RU — Русский</h4>
+<h4>RU</h4>
 <textarea id="supportRU"></textarea>
 
 </div>
@@ -2136,7 +2520,7 @@ class="message-success">
 
 <div class="language-editor">
 
-<h4>EN — English</h4>
+<h4>EN</h4>
 <textarea id="supportEN"></textarea>
 
 </div>
@@ -2144,26 +2528,26 @@ class="message-success">
 
 <div class="language-editor">
 
-<h4>PT — Português</h4>
+<h4>PT</h4>
 <textarea id="supportPT"></textarea>
 
 </div>
 
 
-<label>PIX</label>
+<label id="supportPIXLabel"></label>
 
 <input id="supportPIX">
 
 
 <button
 class="button"
-onclick="saveSupport()"
-id="saveSupportButton">
+id="saveSupportButton"
+onclick="saveSupport">
 </button>
 
 <p
 id="supportMessage"
-class="message-success">
+class="success">
 </p>
 
 </div>
@@ -2173,13 +2557,17 @@ class="message-success">
 
 <!-- APPLICATIONS -->
 
-<div id="applicationsAdmin" class="admin-page">
+<div
+id="applicationsAdmin"
+class="admin-section">
 
 <div class="editor">
 
-<h3 id="applicationsTitle"></h3>
+<h3 id="applicationsTitle">
+</h3>
 
-<div id="applicationAdminList"></div>
+<div id="applicationAdminList">
+</div>
 
 </div>
 
@@ -2193,132 +2581,606 @@ class="message-success">
 
 <script>
 
-/* =====================================================
-   CONFIG
-===================================================== */
+/* =========================================================
+   CONFIGURATION
+========================================================= */
 
 const ADMIN_PASSWORD="UGG2026";
 
-const LANGS=["ru","en","pt"];
+const LANGUAGES=["ru","en","pt"];
 
 let currentLanguage=
     localStorage.getItem("ugg_language") || "ru";
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+/* =========================================================
+   UI TRANSLATIONS
+========================================================= */
+
+const UI={
+
+ru:{
+
+home:"Главная",
+about:"Об УГГ",
+faculties:"Факультеты",
+professors:"Преподаватели",
+students:"Студенты",
+courses:"Курсы",
+schedule:"Расписание",
+publications:"Публикации",
+news:"Новости",
+rules:"Основные правила",
+admissions:"Поступление",
+support:"Поддержать",
+
+heroText:
+"Независимое образовательное и исследовательское сообщество, посвящённое свободному мышлению, гуманитарным наукам и строгой аргументации.",
+
+about1:
+"Guadanin Galashin Independent University (UGG) — независимый образовательный и исследовательский проект, ориентированный прежде всего на гуманитарные науки.",
+
+about2:
+"УГГ стремится создать пространство для свободного исследования, открытой дискуссии и самостоятельного интеллектуального развития.",
+
+studentsText:
+"Раздел содержит информацию об учебном процессе, правах и обязанностях студентов, учебных материалах и академических требованиях.",
+
+semesterPriceTitle:"Стоимость обучения за семестр",
+
+freeSeatsTitle:"Бесплатные конкурсные места",
+
+freeSeatsDescription:
+"Количество бесплатных мест определяется конкурсом и может изменяться.",
+
+minimumLoadTitle:"Минимальная учебная нагрузка",
+
+minimumLoadDescription:
+"Два занятия в неделю.",
+
+semesterLengthTitle:"Продолжительность семестра",
+
+semesterLengthDescription:
+"24 учебные недели.",
+
+entranceTitle:"Вступительный экзамен",
+
+entranceText:
+"Вступительный экзамен оценивает логическое мышление, понимание текста, способность аргументировать свою позицию и базовые знания выбранной области. Для разных факультетов содержание экзамена может различаться.",
+
+processTitle:"Порядок поступления",
+
+processText:
+"Кандидат подаёт заявку, выбирает направление и проходит вступительный экзамен. После проверки результатов кандидат получает решение о поступлении. При наличии бесплатных конкурсных мест кандидаты могут участвовать в отдельном конкурсе.",
+
+openDayTitle:"День открытых дверей",
+
+openDayDate:"Дата будет опубликована.",
+
+openDayText:
+"В этот день можно будет познакомиться с программами УГГ, преподавателями и порядком поступления.",
+
+applicationTitle:"Заявка на поступление",
+
+applicationNameLabel:"Имя и фамилия",
+applicationEmailLabel:"Email",
+applicationCountryLabel:"Страна",
+applicationFacultyLabel:"Выбранный факультет",
+applicationMotivationLabel:"Почему вы хотите учиться в УГГ?",
+applicationButton:"Подать заявку",
+applicationSuccess:"Заявка сохранена.",
+
+day:"День",
+time:"Время",
+course:"Курс",
+professor:"Преподаватель",
+location:"Место",
+
+adminButton:"Администрирование",
+loginTitle:"Панель администратора",
+passwordLabel:"Пароль",
+loginButton:"Войти",
+close:"Закрыть",
+adminPanelTitle:"Управление УГГ",
+
+pagesTab:"Тексты",
+facultiesTab:"Факультеты",
+professorsTab:"Преподаватели",
+coursesTab:"Курсы",
+scheduleTab:"Расписание",
+publicationsTab:"Публикации",
+newsTab:"Новости",
+admissionsTab:"Поступление",
+supportTab:"Поддержка",
+applicationsTab:"Заявки",
+
+pagesTitle:"Основные страницы",
+rulesEditorTitle:"Редактирование правил",
+savePages:"Сохранить тексты",
+
+facultyEditorTitle:"Факультет",
+saveFaculty:"Сохранить факультет",
+newFaculty:"Новый факультет",
+
+professorEditorTitle:"Преподаватель",
+saveProfessor:"Сохранить преподавателя",
+newProfessor:"Новый преподаватель",
+
+courseEditorTitle:"Курс",
+saveCourse:"Сохранить курс",
+newCourse:"Новый курс",
+
+scheduleEditorTitle:"Занятие",
+scheduleDay:"День недели",
+scheduleTime:"Время",
+scheduleCourse:"Курс",
+scheduleProfessor:"Преподаватель",
+saveSchedule:"Сохранить занятие",
+newSchedule:"Новое занятие",
+
+publicationEditorTitle:"Публикация",
+publicationAuthor:"Автор",
+publicationURL:"Ссылка",
+savePublication:"Сохранить публикацию",
+newPublication:"Новая публикация",
+
+newsEditorTitle:"Новость",
+newsDate:"Дата",
+newsAuthor:"Автор",
+newsImage:"Изображение",
+newsImageURL:"Ссылка на изображение",
+newsTitle:"Заголовок",
+newsSummary:"Краткое описание",
+newsText:"Полный текст",
+saveNews:"Сохранить новость",
+newNews:"Новая новость",
+
+admissionEditorTitle:"Настройки поступления",
+admissionPrice:"Цена семестра",
+admissionSeats:"Количество бесплатных конкурсных мест",
+admissionLoad:"Учебная нагрузка",
+entrance:"Вступительный экзамен",
+process:"Порядок поступления",
+openDate:"Дата Дня открытых дверей",
+openText:"Описание Дня открытых дверей",
+saveAdmissions:"Сохранить настройки",
+
+supportEditorTitle:"Поддержка",
+supportPIX:"Реквизиты PIX",
+saveSupport:"Сохранить поддержку",
+
+applicationsTitle:"Заявки на поступление",
+
+name:"Имя",
+position:"Должность",
+biography:"Биография",
+faculty:"Факультет",
+email:"Email",
+photo:"Фотография",
+description:"Описание",
+edit:"Изменить",
+delete:"Удалить",
+none:"Пока ничего нет.",
+saved:"Сохранено.",
+incorrectPassword:"Неверный пароль.",
+required:"Заполните обязательные поля.",
+
+selectFaculty:"Выберите факультет",
+selectCourse:"Выберите курс",
+selectProfessor:"Выберите преподавателя",
+
+ruLabel:"Русский",
+enLabel:"Английский",
+ptLabel:"Португальский"
+},
+
+en:{
+
+home:"Home",
+about:"About UGG",
+faculties:"Faculties",
+professors:"Professors",
+students:"Students",
+courses:"Courses",
+schedule:"Schedule",
+publications:"Publications",
+news:"News",
+rules:"General Rules",
+admissions:"Admissions",
+support:"Support",
+
+heroText:
+"An independent educational and research community dedicated to free thought, the humanities, and rigorous argument.",
+
+about1:
+"Guadanin Galashin Independent University (UGG) is an independent educational and research project focused primarily on the humanities.",
+
+about2:
+"UGG seeks to create a space for free inquiry, open discussion, and independent intellectual development.",
+
+studentsText:
+"This section contains information about the academic process, student rights and responsibilities, study materials, and academic requirements.",
+
+semesterPriceTitle:"Tuition per semester",
+
+freeSeatsTitle:"Competitive tuition-free places",
+
+freeSeatsDescription:
+"The number of tuition-free places is determined through a competition and may change.",
+
+minimumLoadTitle:"Minimum academic load",
+
+minimumLoadDescription:
+"Two classes per week.",
+
+semesterLengthTitle:"Semester length",
+
+semesterLengthDescription:
+"24 academic weeks.",
+
+entranceTitle:"Entrance Examination",
+
+entranceText:
+"The entrance examination assesses logical reasoning, reading comprehension, the ability to construct arguments, and basic knowledge of the chosen field. The content may vary by faculty.",
+
+processTitle:"Admission Process",
+
+processText:
+"Applicants submit an application, choose a field, and take the entrance examination. After the results are reviewed, the applicant receives an admission decision. Applicants may also compete separately for available tuition-free places.",
+
+openDayTitle:"Open Day",
+
+openDayDate:
+"The date will be announced.",
+
+openDayText:
+"Visitors will be able to learn about UGG programs, meet professors, and learn about the admission process.",
+
+applicationTitle:"Application",
+
+applicationNameLabel:"Full name",
+applicationEmailLabel:"Email",
+applicationCountryLabel:"Country",
+applicationFacultyLabel:"Chosen faculty",
+applicationMotivationLabel:"Why do you want to study at UGG?",
+applicationButton:"Submit application",
+applicationSuccess:"Application saved.",
+
+day:"Day",
+time:"Time",
+course:"Course",
+professor:"Professor",
+location:"Location",
+
+adminButton:"Administration",
+loginTitle:"Administration Panel",
+passwordLabel:"Password",
+loginButton:"Log in",
+close:"Close",
+adminPanelTitle:"UGG Administration",
+
+pagesTab:"Text",
+facultiesTab:"Faculties",
+professorsTab:"Professors",
+coursesTab:"Courses",
+scheduleTab:"Schedule",
+publicationsTab:"Publications",
+newsTab:"News",
+admissionsTab:"Admissions",
+supportTab:"Support",
+applicationsTab:"Applications",
+
+pagesTitle:"Main Pages",
+rulesEditorTitle:"Edit General Rules",
+savePages:"Save text",
+
+facultyEditorTitle:"Faculty",
+saveFaculty:"Save faculty",
+newFaculty:"New faculty",
+
+professorEditorTitle:"Professor",
+saveProfessor:"Save professor",
+newProfessor:"New professor",
+
+courseEditorTitle:"Course",
+saveCourse:"Save course",
+newCourse:"New course",
+
+scheduleEditorTitle:"Class",
+scheduleDay:"Day",
+scheduleTime:"Time",
+scheduleCourse:"Course",
+scheduleProfessor:"Professor",
+saveSchedule:"Save class",
+newSchedule:"New class",
+
+publicationEditorTitle:"Publication",
+publicationAuthor:"Author",
+publicationURL:"URL",
+savePublication:"Save publication",
+newPublication:"New publication",
+
+newsEditorTitle:"News",
+newsDate:"Date",
+newsAuthor:"Author",
+newsImage:"Image",
+newsImageURL:"Image URL",
+newsTitle:"Title",
+newsSummary:"Summary",
+newsText:"Full text",
+saveNews:"Save news",
+newNews:"New news",
+
+admissionEditorTitle:"Admission Settings",
+admissionPrice:"Semester price",
+admissionSeats:"Number of competitive tuition-free places",
+admissionLoad:"Academic load",
+entrance:"Entrance examination",
+process:"Admission process",
+openDate:"Open Day date",
+openText:"Open Day description",
+saveAdmissions:"Save admission settings",
+
+supportEditorTitle:"Support",
+supportPIX:"PIX details",
+saveSupport:"Save support",
+
+applicationsTitle:"Applications",
+
+name:"Name",
+position:"Position",
+biography:"Biography",
+faculty:"Faculty",
+email:"Email",
+photo:"Photo",
+description:"Description",
+edit:"Edit",
+delete:"Delete",
+none:"Nothing has been added yet.",
+saved:"Saved.",
+incorrectPassword:"Incorrect password.",
+required:"Please complete the required fields.",
+
+selectFaculty:"Select faculty",
+selectCourse:"Select course",
+selectProfessor:"Select professor",
+
+ruLabel:"Russian",
+enLabel:"English",
+ptLabel:"Portuguese"
+},
+
+pt:{
+
+home:"Início",
+about:"Sobre a UGG",
+faculties:"Faculdades",
+professors:"Professores",
+students:"Estudantes",
+courses:"Cursos",
+schedule:"Horário",
+publications:"Publicações",
+news:"Notícias",
+rules:"Regras Gerais",
+admissions:"Admissões",
+support:"Apoiar",
+
+heroText:
+"Uma comunidade independente de educação e pesquisa dedicada ao pensamento livre, às humanidades e à argumentação rigorosa.",
+
+about1:
+"A Guadanin Galashin Independent University (UGG) é um projeto independente de educação e pesquisa voltado principalmente para as humanidades.",
+
+about2:
+"A UGG busca criar um espaço para investigação livre, discussão aberta e desenvolvimento intelectual independente.",
+
+studentsText:
+"Esta seção contém informações sobre o processo acadêmico, direitos e responsabilidades, materiais de estudo e requisitos acadêmicos.",
+
+semesterPriceTitle:"Valor do semestre",
+
+freeSeatsTitle:"Vagas gratuitas por concurso",
+
+freeSeatsDescription:
+"O número de vagas gratuitas é definido por concurso e pode ser alterado.",
+
+minimumLoadTitle:"Carga acadêmica mínima",
+
+minimumLoadDescription:
+"Duas aulas por semana.",
+
+semesterLengthTitle:"Duração do semestre",
+
+semesterLengthDescription:
+"24 semanas acadêmicas.",
+
+entranceTitle:"Exame de Admissão",
+
+entranceText:
+"O exame de admissão avalia raciocínio lógico, compreensão de texto, capacidade de construir argumentos e conhecimentos básicos da área escolhida. O conteúdo pode variar de acordo com a faculdade.",
+
+processTitle:"Processo de Admissão",
+
+processText:
+"O candidato envia uma inscrição, escolhe uma área e realiza o exame de admissão. Após a análise dos resultados, recebe uma decisão de admissão. Também é possível participar de um concurso separado pelas vagas gratuitas disponíveis.",
+
+openDayTitle:"Dia Aberto",
+
+openDayDate:"A data será anunciada.",
+
+openDayText:
+"Os visitantes poderão conhecer os programas da UGG, os professores e o processo de admissão.",
+
+applicationTitle:"Candidatura",
+
+applicationNameLabel:"Nome completo",
+applicationEmailLabel:"Email",
+applicationCountryLabel:"País",
+applicationFacultyLabel:"Faculdade escolhida",
+applicationMotivationLabel:"Por que você quer estudar na UGG?",
+applicationButton:"Enviar candidatura",
+applicationSuccess:"Candidatura salva.",
+
+day:"Dia",
+time:"Horário",
+course:"Curso",
+professor:"Professor",
+location:"Local",
+
+adminButton:"Administração",
+loginTitle:"Painel Administrativo",
+passwordLabel:"Senha",
+loginButton:"Entrar",
+close:"Fechar",
+adminPanelTitle:"Administração da UGG",
+
+pagesTab:"Textos",
+facultiesTab:"Faculdades",
+professorsTab:"Professores",
+coursesTab:"Cursos",
+scheduleTab:"Horário",
+publicationsTab:"Publicações",
+newsTab:"Notícias",
+admissionsTab:"Admissões",
+supportTab:"Apoiar",
+applicationsTab:"Candidaturas",
+
+pagesTitle:"Páginas principais",
+rulesEditorTitle:"Editar regras gerais",
+savePages:"Salvar textos",
+
+facultyEditorTitle:"Faculdade",
+saveFaculty:"Salvar faculdade",
+newFaculty:"Nova faculdade",
+
+professorEditorTitle:"Professor",
+saveProfessor:"Salvar professor",
+newProfessor:"Novo professor",
+
+courseEditorTitle:"Curso",
+saveCourse:"Salvar curso",
+newCourse:"Novo curso",
+
+scheduleEditorTitle:"Aula",
+scheduleDay:"Dia",
+scheduleTime:"Horário",
+scheduleCourse:"Curso",
+scheduleProfessor:"Professor",
+saveSchedule:"Salvar aula",
+newSchedule:"Nova aula",
+
+publicationEditorTitle:"Publicação",
+publicationAuthor:"Autor",
+publicationURL:"URL",
+savePublication:"Salvar publicação",
+newPublication:"Nova publicação",
+
+newsEditorTitle:"Notícia",
+newsDate:"Data",
+newsAuthor:"Autor",
+newsImage:"Imagem",
+newsImageURL:"URL da imagem",
+newsTitle:"Título",
+newsSummary:"Resumo",
+newsText:"Texto completo",
+saveNews:"Salvar notícia",
+newNews:"Nova notícia",
+
+admissionEditorTitle:"Configurações de admissão",
+admissionPrice:"Valor do semestre",
+admissionSeats:"Número de vagas gratuitas por concurso",
+admissionLoad:"Carga acadêmica",
+entrance:"Exame de admissão",
+process:"Processo de admissão",
+openDate:"Data do Dia Aberto",
+openText:"Descrição do Dia Aberto",
+saveAdmissions:"Salvar configurações",
+
+supportEditorTitle:"Apoiar",
+supportPIX:"Dados PIX",
+saveSupport:"Salvar apoio",
+
+applicationsTitle:"Candidaturas",
+
+name:"Nome",
+position:"Cargo",
+biography:"Biografia",
+faculty:"Faculdade",
+email:"Email",
+photo:"Foto",
+description:"Descrição",
+edit:"Editar",
+delete:"Excluir",
+none:"Nada foi adicionado ainda.",
+saved:"Salvo.",
+incorrectPassword:"Senha incorreta.",
+required:"Preencha os campos obrigatórios.",
+
+selectFaculty:"Selecione a faculdade",
+selectCourse:"Selecione o curso",
+selectProfessor:"Selecione o professor",
+
+ruLabel:"Russo",
+enLabel:"Inglês",
+ptLabel:"Português"
+}
+
+};
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
 
 function makeText(ru,en,pt){
     return {ru,en,pt};
 }
 
 function makeId(prefix){
-    return prefix+"_"+Date.now()+"_"+Math.random().toString(36).slice(2,8);
-}
-
-function saveDatabase(){
-    localStorage.setItem(
-        "ugg_database",
-        JSON.stringify(database)
-    );
+    return prefix+"_"+Date.now()+"_"+Math.random()
+        .toString(36)
+        .slice(2,8);
 }
 
 function loadDatabase(){
 
-    const raw=
+    const saved=
         localStorage.getItem("ugg_database");
 
-    if(raw){
+    if(saved){
 
         try{
-            return JSON.parse(raw);
+            return JSON.parse(saved);
         }catch(error){}
 
     }
-
-    return createDefaultDatabase();
-}
-
-function escapeHTML(value){
-
-    return String(value??"")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-function getLocalized(value){
-
-    if(!value){
-        return "";
-    }
-
-    return value[currentLanguage] ??
-           value.ru ??
-           "";
-}
-
-function inputValue(id){
-    return document.getElementById(id).value.trim();
-}
-
-function setInput(id,value){
-
-    const el=document.getElementById(id);
-
-    if(el){
-        el.value=value??"";
-    }
-
-}
-
-function setText(id,value){
-
-    const el=document.getElementById(id);
-
-    if(el){
-        el.textContent=value??"";
-    }
-
-}
-
-
-/* =====================================================
-   DEFAULT DATABASE
-===================================================== */
-
-function createDefaultDatabase(){
 
     return {
 
         pages:{
 
             hero:makeText(
-                "Независимое образовательное и исследовательское сообщество, посвящённое свободному мышлению, гуманитарным наукам и строгой аргументации.",
-                "An independent educational and research community dedicated to free thought, the humanities, and rigorous argument.",
-                "Uma comunidade independente de educação e pesquisa dedicada ao pensamento livre, às humanidades e à argumentação rigorosa."
+                UI.ru.heroText,
+                UI.en.heroText,
+                UI.pt.heroText
             ),
 
             about1:makeText(
-                "Guadanin Galashin Independent University (UGG) — независимый образовательный и исследовательский проект, ориентированный прежде всего на гуманитарные науки.",
-                "Guadanin Galashin Independent University (UGG) is an independent educational and research project focused primarily on the humanities.",
-                "A Guadanin Galashin Independent University (UGG) é um projeto independente de educação e pesquisa voltado principalmente para as humanidades."
+                UI.ru.about1,
+                UI.en.about1,
+                UI.pt.about1
             ),
 
             about2:makeText(
-                "УГГ стремится создать пространство для свободного исследования, открытой дискуссии и самостоятельного интеллектуального развития.",
-                "UGG seeks to create a space for free inquiry, open discussion, and independent intellectual development.",
-                "A UGG busca criar um espaço para investigação livre, discussão aberta e desenvolvimento intelectual independente."
+                UI.ru.about2,
+                UI.en.about2,
+                UI.pt.about2
             ),
 
             students:makeText(
-                "Раздел содержит информацию об учебном процессе, правах и обязанностях студентов, учебных материалах и академических требованиях.",
-                "This section contains information about the academic process, student rights and responsibilities, study materials, and academic requirements.",
-                "Esta seção contém informações sobre o processo acadêmico, direitos e responsabilidades, materiais de estudo e requisitos acadêmicos."
+                UI.ru.studentsText,
+                UI.en.studentsText,
+                UI.pt.studentsText
             )
 
         },
@@ -2415,7 +3277,6 @@ function createDefaultDatabase(){
 
         professors:[],
 
-
         courses:[
 
             {
@@ -2449,7 +3310,7 @@ function createDefaultDatabase(){
             },
 
             {
-                id:"russian-language",
+                id:"russian",
                 facultyId:"russian",
                 name:makeText(
                     "Русский язык",
@@ -2558,18 +3419,19 @@ function createDefaultDatabase(){
             ),
 
             entrance:makeText(
-                "Вступительный экзамен оценивает логическое мышление, понимание текста, способность аргументировать свою позицию и базовые знания выбранной области. Для разных факультетов содержание экзамена может различаться.",
-                "The entrance examination assesses logical reasoning, reading comprehension, the ability to construct arguments, and basic knowledge of the chosen field. The content may vary by faculty.",
-                "O exame de admissão avalia raciocínio lógico, compreensão de texto, capacidade de construir argumentos e conhecimentos básicos da área escolhida. O conteúdo pode variar de acordo com a faculdade."
+                UI.ru.entranceText,
+                UI.en.entranceText,
+                UI.pt.entranceText
             ),
 
             process:makeText(
-                "Кандидат подаёт заявку, выбирает направление и проходит вступительный экзамен. После проверки результатов кандидат получает решение о поступлении. При наличии бесплатных конкурсных мест кандидаты могут участвовать в отдельном конкурсе.",
-                "Applicants submit an application, choose a field, and take the entrance examination. After the results are reviewed, the applicant receives an admission decision. Applicants may also compete separately for available tuition-free places.",
-                "O candidato envia uma inscrição, escolhe uma área e realiza o exame de admissão. Após a análise dos resultados, recebe uma decisão de admissão. Também é possível participar de um concurso separado pelas vagas gratuitas disponíveis."
+                UI.ru.processText,
+                UI.en.processText,
+                UI.pt.processText
             ),
 
             openDay:{
+
                 date:makeText(
                     "",
                     "",
@@ -2577,10 +3439,11 @@ function createDefaultDatabase(){
                 ),
 
                 text:makeText(
-                    "В этот день можно будет познакомиться с программами УГГ, преподавателями и порядком поступления.",
-                    "Visitors will be able to learn about UGG programs, meet professors, and learn about the admission process.",
-                    "Os visitantes poderão conhecer os programas da UGG, os professores e o processo de admissão."
+                    UI.ru.openDayText,
+                    UI.en.openDayText,
+                    UI.pt.openDayText
                 )
+
             }
 
         },
@@ -2609,364 +3472,75 @@ function createDefaultDatabase(){
 let database=loadDatabase();
 
 
-/* =====================================================
-   UI TRANSLATIONS
-===================================================== */
+function saveDatabase(){
 
-const UI={
+    localStorage.setItem(
+        "ugg_database",
+        JSON.stringify(database)
+    );
 
-ru:{
-
-home:"Главная",
-about:"Об УГГ",
-faculties:"Факультеты",
-professors:"Преподаватели",
-students:"Студенты",
-courses:"Курсы",
-schedule:"Расписание",
-publications:"Публикации",
-news:"Новости",
-rules:"Основные правила",
-admissions:"Поступление",
-support:"Поддержать",
-
-semesterPriceTitle:"Стоимость обучения за семестр",
-freeSeatsTitle:"Бесплатные конкурсные места",
-freeSeatsDescription:"Количество бесплатных мест определяется конкурсом и может изменяться.",
-minimumLoadTitle:"Минимальная учебная нагрузка",
-minimumLoadDescription:"Два занятия в неделю.",
-semesterLengthTitle:"Продолжительность",
-semesterLengthDescription:"24 учебные недели.",
-
-openDayTitle:"День открытых дверей",
-
-applicationTitle:"Заявка на поступление",
-applicationNameLabel:"Имя и фамилия",
-applicationEmailLabel:"Email",
-applicationCountryLabel:"Страна",
-applicationFacultyLabel:"Выбранный факультет",
-applicationMotivationLabel:"Почему вы хотите учиться в УГГ?",
-applicationButton:"Подать заявку",
-applicationSuccess:"Заявка сохранена.",
-
-day:"День",
-time:"Время",
-course:"Курс",
-professor:"Преподаватель",
-location:"Место",
-
-adminButton:"Администрирование",
-adminLoginTitle:"Панель администратора",
-adminPasswordLabel:"Пароль",
-adminLoginButton:"Войти",
-close:"Закрыть",
-adminPanelTitle:"Управление УГГ",
-
-pagesTab:"Тексты",
-facultiesTab:"Факультеты",
-professorsTab:"Преподаватели",
-coursesTab:"Курсы",
-scheduleTab:"Расписание",
-publicationsTab:"Публикации",
-newsTab:"Новости",
-admissionsTab:"Поступление",
-supportTab:"Поддержка",
-applicationsTab:"Заявки",
-
-pagesEditorTitle:"Редактирование основных страниц",
-rulesEditorTitle:"Основные правила",
-savePages:"Сохранить тексты",
-
-facultyEditorTitle:"Факультет",
-saveFaculty:"Сохранить факультет",
-newFaculty:"Новый факультет",
-
-professorEditorTitle:"Преподаватель",
-saveProfessor:"Сохранить преподавателя",
-newProfessor:"Новый преподаватель",
-
-courseEditorTitle:"Курс",
-saveCourse:"Сохранить курс",
-newCourse:"Новый курс",
-
-scheduleEditorTitle:"Занятие",
-scheduleDayLabel:"День недели",
-scheduleTimeLabel:"Время",
-scheduleCourseLabel:"Курс",
-scheduleProfessorLabel:"Преподаватель",
-saveSchedule:"Сохранить занятие",
-newSchedule:"Новое занятие",
-
-publicationEditorTitle:"Публикация",
-publicationAuthorLabel:"Автор",
-publicationURLLabel:"Ссылка",
-savePublication:"Сохранить публикацию",
-newPublication:"Новая публикация",
-
-newsEditorTitle:"Новость",
-newsDateLabel:"Дата",
-newsAuthorLabel:"Автор",
-newsImageLabel:"Изображение",
-newsImageURLLabel:"Ссылка на изображение",
-saveNews:"Сохранить новость",
-newNews:"Новая новость",
-
-admissionEditorTitle:"Настройки поступления",
-admissionPriceLabel:"Цена семестра",
-admissionSeatsLabel:"Количество бесплатных конкурсных мест",
-saveAdmissions:"Сохранить настройки",
-
-supportEditorTitle:"Поддержка",
-saveSupport:"Сохранить поддержку",
-
-applicationsTitle:"Заявки на поступление",
-
-edit:"Изменить",
-delete:"Удалить",
-none:"Пока ничего нет.",
-
-invalidPassword:"Неверный пароль.",
-saved:"Сохранено.",
-required:"Заполните обязательные поля."
-},
-
-en:{
-
-home:"Home",
-about:"About UGG",
-faculties:"Faculties",
-professors:"Professors",
-students:"Students",
-courses:"Courses",
-schedule:"Schedule",
-publications:"Publications",
-news:"News",
-rules:"General Rules",
-admissions:"Admissions",
-support:"Support",
-
-semesterPriceTitle:"Tuition per semester",
-freeSeatsTitle:"Competitive tuition-free places",
-freeSeatsDescription:"The number of tuition-free places is determined through a competition and may change.",
-minimumLoadTitle:"Minimum academic load",
-minimumLoadDescription:"Two classes per week.",
-semesterLengthTitle:"Semester length",
-semesterLengthDescription:"24 academic weeks.",
-
-openDayTitle:"Open Day",
-
-applicationTitle:"Application",
-applicationNameLabel:"Full name",
-applicationEmailLabel:"Email",
-applicationCountryLabel:"Country",
-applicationFacultyLabel:"Chosen faculty",
-applicationMotivationLabel:"Why do you want to study at UGG?",
-applicationButton:"Submit application",
-applicationSuccess:"Application saved.",
-
-day:"Day",
-time:"Time",
-course:"Course",
-professor:"Professor",
-location:"Location",
-
-adminButton:"Administration",
-adminLoginTitle:"Administration Panel",
-adminPasswordLabel:"Password",
-adminLoginButton:"Log in",
-close:"Close",
-adminPanelTitle:"UGG Administration",
-
-pagesTab:"Text",
-facultiesTab:"Faculties",
-professorsTab:"Professors",
-studentsTab:"Students",
-coursesTab:"Courses",
-scheduleTab:"Schedule",
-publicationsTab:"Publications",
-newsTab:"News",
-admissionsTab:"Admissions",
-supportTab:"Support",
-applicationsTab:"Applications",
-
-pagesEditorTitle:"Edit main pages",
-rulesEditorTitle:"General Rules",
-savePages:"Save text",
-
-facultyEditorTitle:"Faculty",
-saveFaculty:"Save faculty",
-newFaculty:"New faculty",
-
-professorEditorTitle:"Professor",
-saveProfessor:"Save professor",
-newProfessor:"New professor",
-
-courseEditorTitle:"Course",
-saveCourse:"Save course",
-newCourse:"New course",
-
-scheduleEditorTitle:"Class",
-scheduleDayLabel:"Day",
-scheduleTimeLabel:"Time",
-scheduleCourseLabel:"Course",
-scheduleProfessorLabel:"Professor",
-saveSchedule:"Save class",
-newSchedule:"New class",
-
-publicationEditorTitle:"Publication",
-publicationAuthorLabel:"Author",
-publicationURLLabel:"URL",
-savePublication:"Save publication",
-newPublication:"New publication",
-
-newsEditorTitle:"News",
-newsDateLabel:"Date",
-newsAuthorLabel:"Author",
-newsImageLabel:"Image",
-newsImageURLLabel:"Image URL",
-saveNews:"Save news",
-newNews:"New news",
-
-admissionEditorTitle:"Admission settings",
-admissionPriceLabel:"Semester price",
-admissionSeatsLabel:"Number of competitive tuition-free places",
-saveAdmissions:"Save admission settings",
-
-supportEditorTitle:"Support",
-saveSupport:"Save support",
-
-applicationsTitle:"Applications",
-
-edit:"Edit",
-delete:"Delete",
-none:"Nothing has been added yet.",
-
-invalidPassword:"Incorrect password.",
-saved:"Saved.",
-required:"Please complete the required fields."
-},
-
-pt:{
-
-home:"Início",
-about:"Sobre a UGG",
-faculties:"Faculdades",
-professors:"Professores",
-students:"Estudantes",
-courses:"Cursos",
-schedule:"Horário",
-publications:"Publicações",
-news:"Notícias",
-rules:"Regras Gerais",
-admissions:"Admissões",
-support:"Apoiar",
-
-semesterPriceTitle:"Valor do semestre",
-freeSeatsTitle:"Vagas gratuitas por concurso",
-freeSeatsDescription:"O número de vagas gratuitas é definido por concurso e pode ser alterado.",
-minimumLoadTitle:"Carga acadêmica mínima",
-minimumLoadDescription:"Duas aulas por semana.",
-semesterLengthTitle:"Duração do semestre",
-semesterLengthDescription:"24 semanas acadêmicas.",
-
-openDayTitle:"Dia Aberto",
-
-applicationTitle:"Candidatura",
-applicationNameLabel:"Nome completo",
-applicationEmailLabel:"Email",
-applicationCountryLabel:"País",
-applicationFacultyLabel:"Faculdade escolhida",
-applicationMotivationLabel:"Por que você quer estudar na UGG?",
-applicationButton:"Enviar candidatura",
-applicationSuccess:"Candidatura salva.",
-
-day:"Dia",
-time:"Horário",
-course:"Curso",
-professor:"Professor",
-location:"Local",
-
-adminButton:"Administração",
-adminLoginTitle:"Painel Administrativo",
-adminPasswordLabel:"Senha",
-adminLoginButton:"Entrar",
-close:"Fechar",
-adminPanelTitle:"Administração da UGG",
-
-pagesTab:"Textos",
-facultiesTab:"Faculdades",
-professorsTab:"Professores",
-coursesTab:"Cursos",
-scheduleTab:"Horário",
-publicationsTab:"Publicações",
-newsTab:"Notícias",
-admissionsTab:"Admissões",
-supportTab:"Apoiar",
-applicationsTab:"Candidaturas",
-
-pagesEditorTitle:"Editar páginas principais",
-rulesEditorTitle:"Regras Gerais",
-savePages:"Salvar textos",
-
-facultyEditorTitle:"Faculdade",
-saveFaculty:"Salvar faculdade",
-newFaculty:"Nova faculdade",
-
-professorEditorTitle:"Professor",
-saveProfessor:"Salvar professor",
-newProfessor:"Novo professor",
-
-courseEditorTitle:"Curso",
-saveCourse:"Salvar curso",
-newCourse:"Novo curso",
-
-scheduleEditorTitle:"Aula",
-scheduleDayLabel:"Dia",
-scheduleTimeLabel:"Horário",
-scheduleCourseLabel:"Curso",
-scheduleProfessorLabel:"Professor",
-saveSchedule:"Salvar aula",
-newSchedule:"Nova aula",
-
-publicationEditorTitle:"Publicação",
-publicationAuthorLabel:"Autor",
-publicationURLLabel:"URL",
-savePublication:"Salvar publicação",
-newPublication:"Nova publicação",
-
-newsEditorTitle:"Notícia",
-newsDateLabel:"Data",
-newsAuthorLabel:"Autor",
-newsImageLabel:"Imagem",
-newsImageURLLabel:"URL da imagem",
-saveNews:"Salvar notícia",
-newNews:"Nova notícia",
-
-admissionEditorTitle:"Configurações de admissão",
-admissionPriceLabel:"Valor do semestre",
-admissionSeatsLabel:"Número de vagas gratuitas por concurso",
-saveAdmissions:"Salvar configurações",
-
-supportEditorTitle:"Apoiar",
-saveSupport:"Salvar apoio",
-
-applicationsTitle:"Candidaturas",
-
-edit:"Editar",
-delete:"Excluir",
-none:"Nada foi adicionado ainda.",
-
-invalidPassword:"Senha incorreta.",
-saved:"Salvo.",
-required:"Preencha os campos obrigatórios."
 }
 
-};
+
+function textOf(value){
+
+    if(!value){
+        return "";
+    }
+
+    return value[currentLanguage] || "";
+}
 
 
-/* =====================================================
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+function setText(id,value){
+
+    const element=
+        document.getElementById(id);
+
+    if(element){
+        element.textContent=value ?? "";
+    }
+
+}
+
+
+function getValue(id){
+
+    return document
+        .getElementById(id)
+        .value
+        .trim();
+
+}
+
+
+function setValue(id,value){
+
+    const element=
+        document.getElementById(id);
+
+    if(element){
+        element.value=value ?? "";
+    }
+
+}
+
+
+/* =========================================================
    LANGUAGE
-===================================================== */
+========================================================= */
 
 function setLanguage(language){
 
@@ -2980,31 +3554,36 @@ function setLanguage(language){
     document.documentElement.lang=
         language;
 
+
     const t=UI[language];
 
 
-    document.querySelectorAll(
-        "[data-ui]"
-    ).forEach(element=>{
+    document
+        .querySelectorAll("[data-ui]")
+        .forEach(element=>{
 
-        const key=
-            element.dataset.ui;
+            const key=
+                element.dataset.ui;
 
-        element.textContent=
-            t[key] || "";
+            element.textContent=
+                t[key] || "";
 
-    });
+        });
 
 
-    document.querySelectorAll(
-        ".languages button"
-    ).forEach(button=>{
-        button.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".languages button")
+        .forEach(button=>{
+            button.classList.remove("active");
+        });
 
-    document.getElementById(
-        "lang"+language.toUpperCase()
-    ).classList.add("active");
+
+    document
+        .getElementById(
+            "lang"+
+            language.toUpperCase()
+        )
+        .classList.add("active");
 
 
     renderSite();
@@ -3013,33 +3592,49 @@ function setLanguage(language){
 }
 
 
-/* =====================================================
+/* =========================================================
    PUBLIC SITE
-===================================================== */
+========================================================= */
 
 function renderSite(){
 
     const t=UI[currentLanguage];
 
 
+    /* HOME */
+
     setText(
         "heroText",
-        getLocalized(database.pages.hero)
+        textOf(
+            database.pages.hero
+        )
     );
+
+
+    /* ABOUT */
 
     setText(
         "aboutText1",
-        getLocalized(database.pages.about1)
+        textOf(
+            database.pages.about1
+        )
     );
 
     setText(
         "aboutText2",
-        getLocalized(database.pages.about2)
+        textOf(
+            database.pages.about2
+        )
     );
+
+
+    /* STUDENTS */
 
     setText(
         "studentsText",
-        getLocalized(database.pages.students)
+        textOf(
+            database.pages.students
+        )
     );
 
 
@@ -3050,39 +3645,49 @@ function renderSite(){
             "facultyGrid"
         );
 
-    facultyGrid.innerHTML=
-        database.faculties.length
-        ?
-        database.faculties.map(
-            (faculty,index)=>`
 
-                <div class="card">
+    if(database.faculties.length===0){
 
-                    <div class="number">
-                        ${String(index+1).padStart(2,"0")}
+        facultyGrid.innerHTML=
+            `<div class="card">
+                ${escapeHTML(t.none)}
+             </div>`;
+
+    }else{
+
+        facultyGrid.innerHTML=
+            database.faculties.map(
+                (faculty,index)=>`
+
+                    <div class="card">
+
+                        <div class="number">
+                            ${String(index+1)
+                                .padStart(2,"0")}
+                        </div>
+
+                        <h3>
+                            ${escapeHTML(
+                                textOf(
+                                    faculty.name
+                                )
+                            )}
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                textOf(
+                                    faculty.desc
+                                )
+                            )}
+                        </p>
+
                     </div>
 
-                    <h3>
-                        ${escapeHTML(
-                            getLocalized(
-                                faculty.name
-                            )
-                        )}
-                    </h3>
+                `
+            ).join("");
 
-                    <p>
-                        ${escapeHTML(
-                            getLocalized(
-                                faculty.desc
-                            )
-                        )}
-                    </p>
-
-                </div>
-            `
-        ).join("")
-        :
-        `<div class="card">${escapeHTML(t.none)}</div>`;
+    }
 
 
     /* PROFESSORS */
@@ -3092,99 +3697,116 @@ function renderSite(){
             "professorGrid"
         );
 
-    professorGrid.innerHTML=
-        database.professors.length
-        ?
-        database.professors.map(
-            professor=>{
 
-                const photo=
-                    professor.photo
-                    ?
-                    `<img
-                        src="${escapeHTML(professor.photo)}"
-                        alt="${escapeHTML(
-                            getLocalized(
-                                professor.name
-                            )
-                        )}"
-                        class="professor-photo">
-                    `
-                    :
-                    `<div class="professor-placeholder">
-                        ✦
-                    </div>`;
+    if(database.professors.length===0){
 
-                return `
+        professorGrid.innerHTML=
+            `<div class="card">
 
-                    <div class="card">
+                <h3>
+                    ${escapeHTML(t.professors)}
+                </h3>
 
-                        ${photo}
+                <p>
+                    ${escapeHTML(t.none)}
+                </p>
 
-                        <h3>
-                            ${escapeHTML(
-                                getLocalized(
+            </div>`;
+
+    }else{
+
+        professorGrid.innerHTML=
+            database.professors.map(
+                professor=>{
+
+                    const photo=
+                        professor.photo
+                        ?
+                        `<img
+                            class="professor-photo"
+                            src="${escapeHTML(
+                                professor.photo
+                            )}"
+                            alt="${escapeHTML(
+                                textOf(
                                     professor.name
                                 )
-                            )}
-                        </h3>
+                            )}">
+                        `
+                        :
+                        `<div class="professor-placeholder">
+                            ✦
+                         </div>`;
 
-                        <p>
-                            <strong>
+
+                    return `
+
+                        <div class="card">
+
+                            ${photo}
+
+                            <h3>
                                 ${escapeHTML(
-                                    getLocalized(
-                                        professor.position
+                                    textOf(
+                                        professor.name
                                     )
                                 )}
-                            </strong>
-                        </p>
+                            </h3>
 
-                        <p>
-                            ${escapeHTML(
-                                facultyName(
-                                    professor.facultyId
-                                )
-                            )}
-                        </p>
+                            <p>
+                                <strong>
+                                    ${escapeHTML(
+                                        textOf(
+                                            professor.position
+                                        )
+                                    )}
+                                </strong>
+                            </p>
 
-                        <br>
-
-                        <p>
-                            ${escapeHTML(
-                                getLocalized(
-                                    professor.bio
-                                )
-                            )}
-                        </p>
-
-                        ${
-                            professor.email
-                            ?
-                            `
-                            <a
-                                class="email"
-                                href="mailto:${escapeHTML(
-                                    professor.email
-                                )}">
+                            <p>
                                 ${escapeHTML(
-                                    professor.email
+                                    facultyName(
+                                        professor.facultyId
+                                    )
                                 )}
-                            </a>
-                            `
-                            :""
-                        }
+                            </p>
 
-                    </div>
+                            <br>
 
-                `;
+                            <p>
+                                ${escapeHTML(
+                                    textOf(
+                                        professor.bio
+                                    )
+                                )}
+                            </p>
 
-            }
-        ).join("")
-        :
-        `<div class="card">
-            <h3>${escapeHTML(t.professors)}</h3>
-            <p>${escapeHTML(t.none)}</p>
-        </div>`;
+                            ${
+                                professor.email
+                                ?
+                                `
+                                <a
+                                    class="email"
+                                    href="mailto:${escapeHTML(
+                                        professor.email
+                                    )}">
+                                    ${escapeHTML(
+                                        professor.email
+                                    )}
+                                </a>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
 
 
     /* COURSES */
@@ -3194,160 +3816,179 @@ function renderSite(){
             "courseGrid"
         );
 
-    courseGrid.innerHTML=
-        database.courses.length
-        ?
-        database.courses.map(
-            course=>`
 
-                <div class="card">
+    if(database.courses.length===0){
 
-                    <h3>
-                        ${escapeHTML(
-                            getLocalized(
-                                course.name
-                            )
-                        )}
-                    </h3>
+        courseGrid.innerHTML=
+            `<div class="card">
+                ${escapeHTML(t.none)}
+             </div>`;
 
-                    <p>
-                        <strong>
+    }else{
+
+        courseGrid.innerHTML=
+            database.courses.map(
+                course=>`
+
+                    <div class="card">
+
+                        <h3>
                             ${escapeHTML(
-                                facultyName(
-                                    course.facultyId
+                                textOf(
+                                    course.name
                                 )
                             )}
-                        </strong>
-                    </p>
+                        </h3>
 
-                    <br>
+                        <p>
+                            <strong>
+                                ${escapeHTML(
+                                    facultyName(
+                                        course.facultyId
+                                    )
+                                )}
+                            </strong>
+                        </p>
 
-                    <p>
-                        ${escapeHTML(
-                            getLocalized(
-                                course.desc
-                            )
-                        )}
-                    </p>
+                        <br>
 
-                </div>
-            `
-        ).join("")
-        :
-        `<div class="card">${escapeHTML(t.none)}</div>`;
+                        <p>
+                            ${escapeHTML(
+                                textOf(
+                                    course.desc
+                                )
+                            )}
+                        </p>
+
+                    </div>
+
+                `
+            ).join("");
+
+    }
 
 
-    /* SCHEDULE */
+    /* SCHEDULE HEADINGS */
 
     setText(
-        "scheduleDayHeading",
+        "dayHeading",
         t.day
     );
 
     setText(
-        "scheduleTimeHeading",
+        "timeHeading",
         t.time
     );
 
     setText(
-        "scheduleCourseHeading",
+        "courseHeading",
         t.course
     );
 
     setText(
-        "scheduleProfessorHeading",
+        "professorHeading",
         t.professor
     );
 
     setText(
-        "scheduleLocationHeading",
+        "locationHeading",
         t.location
     );
 
+
+    /* SCHEDULE */
 
     const scheduleBody=
         document.getElementById(
             "scheduleBody"
         );
 
-    scheduleBody.innerHTML=
-        database.schedule.length
-        ?
-        database.schedule.map(
-            item=>{
 
-                const course=
-                    database.courses.find(
-                        course=>course.id===item.courseId
-                    );
+    if(database.schedule.length===0){
 
-                const professor=
-                    database.professors.find(
-                        professor=>professor.id===item.professorId
-                    );
-
-                return `
-
-                    <tr>
-
-                        <td>
-                            ${escapeHTML(
-                                dayName(item.day)
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                item.time
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                course
-                                ?
-                                getLocalized(
-                                    course.name
-                                )
-                                :
-                                "—"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                professor
-                                ?
-                                getLocalized(
-                                    professor.name
-                                )
-                                :
-                                "—"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                getLocalized(
-                                    item.location
-                                )
-                            )}
-                        </td>
-
-                    </tr>
-
-                `;
-
-            }
-        ).join("")
-        :
-        `
-        <tr>
-            <td colspan="5">
-                ${escapeHTML(t.none)}
-            </td>
-        </tr>
+        scheduleBody.innerHTML=`
+            <tr>
+                <td colspan="5">
+                    ${escapeHTML(t.none)}
+                </td>
+            </tr>
         `;
+
+    }else{
+
+        scheduleBody.innerHTML=
+            database.schedule.map(
+                item=>{
+
+                    const course=
+                        database.courses.find(
+                            c=>c.id===item.courseId
+                        );
+
+                    const professor=
+                        database.professors.find(
+                            p=>p.id===item.professorId
+                        );
+
+
+                    return `
+
+                        <tr>
+
+                            <td>
+                                ${escapeHTML(
+                                    dayName(
+                                        item.day
+                                    )
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    item.time
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    course
+                                    ?
+                                    textOf(
+                                        course.name
+                                    )
+                                    :
+                                    "—"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    professor
+                                    ?
+                                    textOf(
+                                        professor.name
+                                    )
+                                    :
+                                    "—"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    textOf(
+                                        item.location
+                                    )
+                                )}
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
 
 
     /* PUBLICATIONS */
@@ -3357,76 +3998,84 @@ function renderSite(){
             "publicationGrid"
         );
 
-    publicationGrid.innerHTML=
-        database.publications.length
-        ?
-        database.publications.map(
-            publication=>`
 
-                <div class="card">
+    if(database.publications.length===0){
 
-                    <h3>
-                        ${escapeHTML(
-                            getLocalized(
-                                publication.title
-                            )
-                        )}
-                    </h3>
+        publicationGrid.innerHTML=
+            `<div class="card">
+                ${escapeHTML(t.none)}
+             </div>`;
 
-                    <p>
-                        <strong>
+    }else{
+
+        publicationGrid.innerHTML=
+            database.publications.map(
+                publication=>`
+
+                    <div class="card">
+
+                        <h3>
                             ${escapeHTML(
-                                publication.author
+                                textOf(
+                                    publication.title
+                                )
                             )}
-                        </strong>
-                    </p>
+                        </h3>
 
-                    <br>
+                        <p>
+                            <strong>
+                                ${escapeHTML(
+                                    publication.author
+                                )}
+                            </strong>
+                        </p>
 
-                    <p>
-                        ${escapeHTML(
-                            getLocalized(
-                                publication.desc
-                            )
-                        )}
-                    </p>
+                        <br>
 
-                    ${
-                        publication.url
-                        ?
-                        `
-                        <a
-                            class="button"
-                            href="${escapeHTML(
-                                publication.url
-                            )}"
-                            target="_blank"
-                            rel="noopener">
+                        <p>
+                            ${escapeHTML(
+                                textOf(
+                                    publication.desc
+                                )
+                            )}
+                        </p>
 
-                            ${
-                                currentLanguage==="ru"
-                                ?
-                                "Открыть"
-                                :
-                                currentLanguage==="en"
-                                ?
-                                "Open"
-                                :
-                                "Abrir"
-                            }
+                        ${
+                            publication.url
+                            ?
+                            `
+                            <a
+                                class="button"
+                                href="${escapeHTML(
+                                    publication.url
+                                )}"
+                                target="_blank"
+                                rel="noopener">
 
-                        </a>
-                        `
-                        :
-                        ""
-                    }
+                                ${
+                                    currentLanguage==="ru"
+                                    ?
+                                    "Открыть"
+                                    :
+                                    currentLanguage==="en"
+                                    ?
+                                    "Open"
+                                    :
+                                    "Abrir"
+                                }
 
-                </div>
+                            </a>
+                            `
+                            :
+                            ""
+                        }
 
-            `
-        ).join("")
-        :
-        `<div class="card">${escapeHTML(t.none)}</div>`;
+                    </div>
+
+                `
+            ).join("");
+
+    }
 
 
     /* NEWS */
@@ -3436,106 +4085,125 @@ function renderSite(){
             "newsGrid"
         );
 
+
     const sortedNews=
         [...database.news].sort(
             (a,b)=>
                 String(b.date)
-                .localeCompare(
-                    String(a.date)
-                )
+                    .localeCompare(
+                        String(a.date)
+                    )
         );
 
 
-    newsGrid.innerHTML=
-        sortedNews.length
-        ?
-        sortedNews.map(
-            article=>`
+    if(sortedNews.length===0){
 
-                <div class="card">
+        newsGrid.innerHTML=
+            `<div class="card">
+                ${escapeHTML(t.none)}
+             </div>`;
 
-                    ${
-                        article.image
-                        ?
-                        `<img
-                            src="${escapeHTML(
-                                article.image
-                            )}"
-                            alt=""
-                            class="professor-photo">
-                        `
-                        :
-                        ""
-                    }
+    }else{
 
-                    <h3>
-                        ${escapeHTML(
-                            getLocalized(
-                                article.title
-                            )
-                        )}
-                    </h3>
+        newsGrid.innerHTML=
+            sortedNews.map(
+                article=>`
 
-                    <p>
-                        <strong>
+                    <div class="card">
+
+                        ${
+                            article.image
+                            ?
+                            `
+                            <img
+                                class="professor-photo"
+                                src="${escapeHTML(
+                                    article.image
+                                )}"
+                                alt="">
+                            `
+                            :
+                            ""
+                        }
+
+                        <h3>
                             ${escapeHTML(
-                                article.date || ""
+                                textOf(
+                                    article.title
+                                )
                             )}
-                        </strong>
-                    </p>
+                        </h3>
 
-                    <br>
+                        ${
+                            article.date
+                            ?
+                            `<p>
+                                <strong>
+                                    ${escapeHTML(
+                                        article.date
+                                    )}
+                                </strong>
+                            </p>`
+                            :
+                            ""
+                        }
 
-                    <p>
-                        ${escapeHTML(
-                            getLocalized(
-                                article.summary
-                            )
-                        )}
-                    </p>
+                        <br>
 
-                    ${
-                        getLocalized(
-                            article.text
-                        )
-                        ?
-                        `
-                        <details
-                            style="margin-top:15px;">
-                            <summary>
-                                ${
-                                    currentLanguage==="ru"
-                                    ?
-                                    "Читать полностью"
-                                    :
-                                    currentLanguage==="en"
-                                    ?
-                                    "Read full article"
-                                    :
-                                    "Ler o artigo completo"
-                                }
-                            </summary>
+                        <p>
+                            ${escapeHTML(
+                                textOf(
+                                    article.summary
+                                )
+                            )}
+                        </p>
 
-                            <p style="margin-top:12px;">
-                                ${escapeHTML(
-                                    getLocalized(
-                                        article.text
-                                    )
-                                )}
-                            </p>
+                        ${
+                            textOf(article.text)
+                            ?
+                            `
+                            <details
+                                style="margin-top:15px;">
 
-                        </details>
-                        `
-                        :
-                        ""
-                    }
+                                <summary>
 
-                </div>
+                                    ${
+                                        currentLanguage==="ru"
+                                        ?
+                                        "Читать полностью"
+                                        :
+                                        currentLanguage==="en"
+                                        ?
+                                        "Read full article"
+                                        :
+                                        "Ler o artigo completo"
+                                    }
 
-            `
-        ).join("")
-        :
-        `<div class="card">${escapeHTML(t.none)}</div>`;
+                                </summary>
+
+                                <p
+                                    style="margin-top:12px;">
+
+                                    ${escapeHTML(
+                                        textOf(
+                                            article.text
+                                        )
+                                    )}
+
+                                </p>
+
+                            </details>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                `
+            ).join("");
+
+    }
 
 
     /* RULES */
@@ -3544,6 +4212,7 @@ function renderSite(){
         document.getElementById(
             "rulesContainer"
         );
+
 
     rulesContainer.innerHTML=
         Object.values(
@@ -3555,7 +4224,7 @@ function renderSite(){
 
                     <h3>
                         ${escapeHTML(
-                            getLocalized(
+                            textOf(
                                 rule.title
                             )
                         )}
@@ -3563,7 +4232,7 @@ function renderSite(){
 
                     <p>
                         ${escapeHTML(
-                            getLocalized(
+                            textOf(
                                 rule.text
                             )
                         )}
@@ -3589,7 +4258,7 @@ function renderSite(){
 
     setText(
         "admissionLoad",
-        getLocalized(
+        textOf(
             database.admissions.load
         )
     );
@@ -3630,72 +4299,44 @@ function renderSite(){
     );
 
     setText(
-        "openDayTitle",
-        t.openDayTitle
-    );
-
-    setText(
         "entranceTitle",
-        currentLanguage==="ru"
-        ?
-        "Вступительный экзамен"
-        :
-        currentLanguage==="en"
-        ?
-        "Entrance Examination"
-        :
-        "Exame de Admissão"
+        t.entranceTitle
     );
 
     setText(
         "entranceText",
-        getLocalized(
+        textOf(
             database.admissions.entrance
         )
     );
 
     setText(
         "processTitle",
-        currentLanguage==="ru"
-        ?
-        "Порядок поступления"
-        :
-        currentLanguage==="en"
-        ?
-        "Admission Process"
-        :
-        "Processo de Admissão"
+        t.processTitle
     );
 
     setText(
         "processText",
-        getLocalized(
+        textOf(
             database.admissions.process
         )
     );
 
     setText(
+        "openDayTitle",
+        t.openDayTitle
+    );
+
+    setText(
         "openDayDate",
-        getLocalized(
+        textOf(
             database.admissions.openDay.date
-        )
-        ||
-        (
-            currentLanguage==="ru"
-            ?
-            "Дата будет опубликована."
-            :
-            currentLanguage==="en"
-            ?
-            "The date will be announced."
-            :
-            "A data será anunciada."
-        )
+        ) || t.openDayDate
     );
 
     setText(
         "openDayDescription",
-        getLocalized(
+        textOf(
             database.admissions.openDay.text
         )
     );
@@ -3739,14 +4380,14 @@ function renderSite(){
     );
 
 
-    fillApplicationFacultySelect();
+    fillApplicationFaculty();
 
 
     /* SUPPORT */
 
     setText(
         "supportText",
-        getLocalized(
+        textOf(
             database.support.text
         )
     );
@@ -3759,101 +4400,191 @@ function renderSite(){
 }
 
 
-/* =====================================================
-   ADMIN UI
-===================================================== */
+/* =========================================================
+   FACULTY / COURSE HELPERS
+========================================================= */
 
-function renderAdminUI(){
+function facultyName(id){
 
-    const t=UI[currentLanguage];
+    const faculty=
+        database.faculties.find(
+            item=>item.id===id
+        );
 
-    const mapping={
+    return faculty
+        ?
+        textOf(
+            faculty.name
+        )
+        :
+        "—";
 
-        adminOpenButton:t.adminButton,
-        adminLoginTitle:t.adminLoginTitle,
-        adminPasswordLabel:t.adminPasswordLabel,
-        adminLoginButton:t.adminLoginButton,
-        adminCloseLoginButton:t.close,
-        adminPanelTitle:t.adminPanelTitle,
-        adminCloseButton:t.close,
+}
 
-        tabPages:t.pagesTab,
-        tabFaculties:t.facultiesTab,
-        tabProfessors:t.professorsTab,
-        tabCourses:t.coursesTab,
-        tabSchedule:t.scheduleTab,
-        tabPublications:t.publicationsTab,
-        tabNews:t.newsTab,
-        tabAdmissions:t.admissionsTab,
-        tabSupport:t.supportTab,
-        tabApplications:t.applicationsTab,
 
-        pagesEditorTitle:t.pagesEditorTitle,
-        rulesEditorTitle:t.rulesEditorTitle,
-        savePagesButton:t.savePages,
+function dayName(day){
 
-        facultyEditorTitle:t.facultyEditorTitle,
-        saveFacultyButton:t.saveFaculty,
-        newFacultyButton:t.newFaculty,
+    const days={
 
-        professorEditorTitle:t.professorEditorTitle,
-        saveProfessorButton:t.saveProfessor,
-        newProfessorButton:t.newProfessor,
+        ru:[
+            "",
+            "Понедельник",
+            "Вторник",
+            "Среда",
+            "Четверг",
+            "Пятница",
+            "Суббота",
+            "Воскресенье"
+        ],
 
-        courseEditorTitle:t.courseEditorTitle,
-        saveCourseButton:t.saveCourse,
-        newCourseButton:t.newCourse,
+        en:[
+            "",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        ],
 
-        scheduleEditorTitle:t.scheduleEditorTitle,
-        scheduleDayLabel:t.scheduleDayLabel,
-        scheduleTimeLabel:t.scheduleTimeLabel,
-        scheduleCourseLabel:t.scheduleCourseLabel,
-        scheduleProfessorLabel:t.scheduleProfessorLabel,
-        saveScheduleButton:t.saveSchedule,
-        newScheduleButton:t.newSchedule,
-
-        publicationEditorTitle:t.publicationEditorTitle,
-        publicationAuthorLabel:t.publicationAuthorLabel,
-        publicationURLLabel:t.publicationURLLabel,
-        savePublicationButton:t.savePublication,
-        newPublicationButton:t.newPublication,
-
-        newsEditorTitle:t.newsEditorTitle,
-        newsDateLabel:t.newsDateLabel,
-        newsAuthorLabel:t.newsAuthorLabel,
-        newsImageLabel:t.newsImageLabel,
-        newsImageURLLabel:t.newsImageURLLabel,
-        saveNewsButton:t.saveNews,
-        newNewsButton:t.newNews,
-
-        admissionEditorTitle:t.admissionEditorTitle,
-        admissionPriceLabel:t.admissionPriceLabel,
-        admissionSeatsLabel:t.admissionSeatsLabel,
-        saveAdmissionsButton:t.saveAdmissions,
-
-        supportEditorTitle:t.supportEditorTitle,
-        saveSupportButton:t.saveSupport,
-
-        applicationsTitle:t.applicationsTitle
+        pt:[
+            "",
+            "Segunda-feira",
+            "Terça-feira",
+            "Quarta-feira",
+            "Quinta-feira",
+            "Sexta-feira",
+            "Sábado",
+            "Domingo"
+        ]
 
     };
 
+    return days[currentLanguage][
+        Number(day)
+    ] || "—";
 
-    Object.entries(mapping).forEach(
-        ([id,text])=>setText(id,text)
+}
+
+
+/* =========================================================
+   APPLICATION
+========================================================= */
+
+function fillApplicationFaculty(){
+
+    const select=
+        document.getElementById(
+            "applicationFaculty"
+        );
+
+    if(!select){
+        return;
+    }
+
+    select.innerHTML=
+        database.faculties.map(
+            faculty=>`
+
+                <option value="${escapeHTML(
+                    faculty.id
+                )}">
+                    ${escapeHTML(
+                        textOf(
+                            faculty.name
+                        )
+                    )}
+                </option>
+            `
+        ).join("");
+
+}
+
+
+function submitApplication(){
+
+    const t=UI[currentLanguage];
+
+    const name=
+        getValue("applicationName");
+
+    const email=
+        getValue("applicationEmail");
+
+    const country=
+        getValue("applicationCountry");
+
+    const facultyId=
+        document.getElementById(
+            "applicationFaculty"
+        ).value;
+
+    const motivation=
+        getValue("applicationMotivation");
+
+
+    if(
+        !name ||
+        !email ||
+        !country ||
+        !motivation
+    ){
+
+        alert(t.required);
+
+        return;
+
+    }
+
+
+    database.applications.push({
+
+        id:makeId("application"),
+
+        name,
+
+        email,
+
+        country,
+
+        facultyId,
+
+        motivation,
+
+        date:new Date()
+            .toLocaleString()
+
+    });
+
+
+    saveDatabase();
+
+
+    [
+        "applicationName",
+        "applicationEmail",
+        "applicationCountry",
+        "applicationMotivation"
+    ].forEach(
+        id=>setValue(id,"")
     );
 
 
-    renderRulesEditor();
-    renderAdminForms();
+    setText(
+        "applicationMessage",
+        t.applicationSuccess
+    );
+
+
     renderAdminLists();
 
 }
 
 
-/* =====================================================
-   ADMIN LOGIN
-===================================================== */
+/* =========================================================
+   ADMIN OPEN / CLOSE
+========================================================= */
 
 function openAdmin(){
 
@@ -3862,7 +4593,7 @@ function openAdmin(){
     ).style.display="block";
 
     document.getElementById(
-        "adminLogin"
+        "loginBox"
     ).style.display="block";
 
     document.getElementById(
@@ -3881,15 +4612,21 @@ function closeAdmin(){
 }
 
 
+/* =========================================================
+   LOGIN
+========================================================= */
+
 function loginAdmin(){
 
     const password=
-        inputValue("adminPassword");
+        getValue(
+            "adminPassword"
+        );
 
     if(password===ADMIN_PASSWORD){
 
         document.getElementById(
-            "adminLogin"
+            "loginBox"
         ).style.display="none";
 
         document.getElementById(
@@ -3901,8 +4638,8 @@ function loginAdmin(){
     }else{
 
         setText(
-            "adminLoginError",
-            UI[currentLanguage].invalidPassword
+            "loginError",
+            UI[currentLanguage].incorrectPassword
         );
 
     }
@@ -3910,70 +4647,636 @@ function loginAdmin(){
 }
 
 
-/* =====================================================
-   ADMIN TABS
-===================================================== */
+/* =========================================================
+   ADMIN NAVIGATION
+========================================================= */
 
 function showAdminPage(id,button){
 
-    document.querySelectorAll(
-        ".admin-page"
-    ).forEach(page=>{
-        page.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".admin-section")
+        .forEach(
+            section=>{
+                section.classList.remove("active");
+            }
+        );
+
 
     document.getElementById(
         id
     ).classList.add("active");
 
 
-    document.querySelectorAll(
-        ".admin-tab"
-    ).forEach(tab=>{
-        tab.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".admin-tab")
+        .forEach(
+            tab=>{
+                tab.classList.remove("active");
+            }
+        );
+
 
     button.classList.add("active");
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   ADMIN UI TRANSLATION
+========================================================= */
+
+function renderAdminUI(){
+
+    const t=UI[currentLanguage];
+
+
+    const fields={
+
+        adminOpenButton:t.adminButton,
+
+        loginTitle:t.loginTitle,
+        passwordLabel:t.passwordLabel,
+        loginButton:t.loginButton,
+        closeLoginButton:t.close,
+
+        adminPanelTitle:t.adminPanelTitle,
+        closeAdminButton:t.close,
+
+        tabPages:t.pagesTab,
+        tabFaculties:t.facultiesTab,
+        tabProfessors:t.professorsTab,
+        tabCourses:t.coursesTab,
+        tabSchedule:t.scheduleTab,
+        tabPublications:t.publicationsTab,
+        tabNews:t.newsTab,
+        tabAdmissions:t.admissionsTab,
+        tabSupport:t.supportTab,
+        tabApplications:t.applicationsTab,
+
+        pagesTitle:t.pagesTitle,
+        rulesEditorTitle:t.rulesEditorTitle,
+        savePagesButton:t.savePages,
+
+        facultyEditorTitle:t.facultyEditorTitle,
+        saveFacultyButton:t.saveFaculty,
+        newFacultyButton:t.newFaculty,
+
+        professorEditorTitle:t.professorEditorTitle,
+        saveProfessorButton:t.saveProfessor,
+        newProfessorButton:t.newProfessor,
+
+        courseEditorTitle:t.courseEditorTitle,
+        saveCourseButton:t.saveCourse,
+        newCourseButton:t.newCourse,
+
+        scheduleEditorTitle:t.scheduleEditorTitle,
+        scheduleDayLabel:t.scheduleDay,
+        scheduleTimeLabel:t.scheduleTime,
+        scheduleCourseLabel:t.scheduleCourse,
+        scheduleProfessorLabel:t.scheduleProfessor,
+        saveScheduleButton:t.saveSchedule,
+        newScheduleButton:t.newSchedule,
+
+        publicationEditorTitle:t.publicationEditorTitle,
+        publicationAuthorLabel:t.publicationAuthor,
+        publicationURLLabel:t.publicationURL,
+        savePublicationButton:t.savePublication,
+        newPublicationButton:t.newPublication,
+
+        newsEditorTitle:t.newsEditorTitle,
+        newsDateLabel:t.newsDate,
+        newsAuthorLabel:t.newsAuthor,
+        newsImageLabel:t.newsImage,
+        newsImageURLLabel:t.newsImageURL,
+        saveNewsButton:t.saveNews,
+        newNewsButton:t.newNews,
+
+        admissionEditorTitle:t.admissionEditorTitle,
+        admissionPriceLabel:t.admissionPrice,
+        admissionSeatsLabel:t.admissionSeats,
+        saveAdmissionsButton:t.saveAdmissions,
+
+        supportEditorTitle:t.supportEditorTitle,
+        supportPIXLabel:t.supportPIX,
+        saveSupportButton:t.saveSupport,
+
+        applicationsTitle:t.applicationsTitle
+    };
+
+
+    Object.entries(fields).forEach(
+        ([id,text])=>setText(id,text)
+    );
+
+
+    /* PAGE FORM LABELS */
+
+    const pageLabels={
+
+        heroRULabel:
+            currentLanguage==="ru"
+            ?"Главный текст"
+            :t.heroText,
+
+        about1RULabel:
+            currentLanguage==="ru"
+            ?"Об УГГ — текст 1"
+            :"About UGG — text 1",
+
+        about2RULabel:
+            currentLanguage==="ru"
+            ?"Об УГГ — текст 2"
+            :"About UGG — text 2",
+
+        studentsRULabel:
+            t.students,
+
+        heroENLabel:
+            "Hero text",
+
+        about1ENLabel:
+            "About UGG — text 1",
+
+        about2ENLabel:
+            "About UGG — text 2",
+
+        studentsENLabel:
+            "Students",
+
+        heroPTLabel:
+            "Texto principal",
+
+        about1PTLabel:
+            "Sobre a UGG — texto 1",
+
+        about2PTLabel:
+            "Sobre a UGG — texto 2",
+
+        studentsPTLabel:
+            "Estudantes"
+
+    };
+
+
+    Object.entries(pageLabels).forEach(
+        ([id,text])=>setText(id,text)
+    );
+
+
+    renderRulesEditor();
+    renderAdminForms();
+    renderAdminLists();
+
+}
+
+
+/* =========================================================
+   ADMIN FORMS
+========================================================= */
+
+function renderAdminForms(){
+
+    fillFacultySelect(
+        document.getElementById(
+            "profFaculty"
+        )
+    );
+
+    fillFacultySelect(
+        document.getElementById(
+            "courseFaculty"
+        )
+    );
+
+    fillCourseSelect(
+        document.getElementById(
+            "scheduleCourse"
+        )
+    );
+
+    fillProfessorSelect(
+        document.getElementById(
+            "scheduleProfessor"
+        )
+    );
+
+
+    /* pages */
+
+    LANGUAGES.forEach(
+        language=>{
+
+            const code=
+                language.toUpperCase();
+
+            setValue(
+                "hero"+code,
+                database.pages.hero[language]
+            );
+
+            setValue(
+                "about1"+code,
+                database.pages.about1[language]
+            );
+
+            setValue(
+                "about2"+code,
+                database.pages.about2[language]
+            );
+
+            setValue(
+                "students"+code,
+                database.pages.students[language]
+            );
+
+        }
+    );
+
+
+    /* admissions */
+
+    setValue(
+        "admissionPrice",
+        database.admissions.price
+    );
+
+    setValue(
+        "admissionSeats",
+        database.admissions.seats
+    );
+
+
+    LANGUAGES.forEach(
+        language=>{
+
+            const code=
+                language.toUpperCase();
+
+            setValue(
+                "admissionLoad"+code,
+                database.admissions.load[language]
+            );
+
+            setValue(
+                "entrance"+code,
+                database.admissions.entrance[language]
+            );
+
+            setValue(
+                "process"+code,
+                database.admissions.process[language]
+            );
+
+            setValue(
+                "openDate"+code,
+                database.admissions.openDay.date[language]
+            );
+
+            setValue(
+                "openText"+code,
+                database.admissions.openDay.text[language]
+            );
+
+            setValue(
+                "support"+code,
+                database.support.text[language]
+            );
+
+        }
+    );
+
+
+    setValue(
+        "supportPIX",
+        database.support.pix
+    );
+
+}
+
+
+/* =========================================================
+   SELECTS
+========================================================= */
+
+function fillFacultySelect(select){
+
+    if(!select){
+        return;
+    }
+
+    const old=select.value;
+
+    select.innerHTML=
+        `<option value="">
+            ${escapeHTML(
+                UI[currentLanguage].selectFaculty
+            )}
+        </option>`
+
+        +
+
+        database.faculties.map(
+            faculty=>`
+
+                <option
+                    value="${escapeHTML(
+                        faculty.id
+                    )}">
+
+                    ${escapeHTML(
+                        textOf(
+                            faculty.name
+                        )
+                    )}
+
+                </option>
+            `
+        ).join("");
+
+
+    if(
+        [...select.options]
+            .some(
+                option=>option.value===old
+            )
+    ){
+        select.value=old;
+    }
+
+}
+
+
+function fillCourseSelect(select){
+
+    if(!select){
+        return;
+    }
+
+    const old=select.value;
+
+    select.innerHTML=
+        `<option value="">
+            ${escapeHTML(
+                UI[currentLanguage].selectCourse
+            )}
+        </option>`
+
+        +
+
+        database.courses.map(
+            course=>`
+
+                <option
+                    value="${escapeHTML(
+                        course.id
+                    )}">
+
+                    ${escapeHTML(
+                        textOf(
+                            course.name
+                        )
+                    )}
+
+                </option>
+            `
+        ).join("");
+
+
+    if(
+        [...select.options]
+            .some(
+                option=>option.value===old
+            )
+    ){
+        select.value=old;
+    }
+
+}
+
+
+function fillProfessorSelect(select){
+
+    if(!select){
+        return;
+    }
+
+    const old=select.value;
+
+    select.innerHTML=
+        `<option value="">
+            ${escapeHTML(
+                UI[currentLanguage].selectProfessor
+            )}
+        </option>`
+
+        +
+
+        database.professors.map(
+            professor=>`
+
+                <option
+                    value="${escapeHTML(
+                        professor.id
+                    )}">
+
+                    ${escapeHTML(
+                        textOf(
+                            professor.name
+                        )
+                    )}
+
+                </option>
+            `
+        ).join("");
+
+
+    if(
+        [...select.options]
+            .some(
+                option=>option.value===old
+            )
+    ){
+        select.value=old;
+    }
+
+}
+
+
+/* =========================================================
+   RULE EDITOR
+========================================================= */
+
+function renderRulesEditor(){
+
+    const container=
+        document.getElementById(
+            "rulesEditor"
+        );
+
+    container.innerHTML=
+        Object.keys(
+            database.rules
+        ).map(
+            number=>`
+
+                <div class="language-editor">
+
+                    <h4>
+                        Rule ${escapeHTML(number)}
+                    </h4>
+
+                    ${LANGUAGES.map(
+                        language=>{
+
+                            const code=
+                                language.toUpperCase();
+
+                            return `
+
+                                <label>
+                                    ${escapeHTML(
+                                        code
+                                    )}
+                                </label>
+
+                                <input
+                                    id="rule${number}Title${code}"
+                                    value="${escapeHTML(
+                                        database.rules[number]
+                                            .title[language]
+                                    )}">
+
+                                <textarea
+                                    id="rule${number}Text${code}">${
+                                        escapeHTML(
+                                            database.rules[number]
+                                                .text[language]
+                                        )
+                                    }</textarea>
+
+                            `;
+
+                        }
+                    ).join("")}
+
+                </div>
+
+            `
+        ).join("");
+
+}
+
+
+/* =========================================================
+   PAGES
+========================================================= */
+
+function savePages(){
+
+    LANGUAGES.forEach(
+        language=>{
+
+            const code=
+                language.toUpperCase();
+
+            database.pages.hero[language]=
+                getValue(
+                    "hero"+code
+                );
+
+            database.pages.about1[language]=
+                getValue(
+                    "about1"+code
+                );
+
+            database.pages.about2[language]=
+                getValue(
+                    "about2"+code
+                );
+
+            database.pages.students[language]=
+                getValue(
+                    "students"+code
+                );
+
+        }
+    );
+
+
+    for(let i=1;i<=5;i++){
+
+        LANGUAGES.forEach(
+            language=>{
+
+                const code=
+                    language.toUpperCase();
+
+                database.rules[i]
+                    .title[language]=
+                        getValue(
+                            `rule${i}Title${code}`
+                        );
+
+                database.rules[i]
+                    .text[language]=
+                        getValue(
+                            `rule${i}Text${code}`
+                        );
+
+            }
+        );
+
+    }
+
+
+    saveDatabase();
+    renderSite();
+
+    setText(
+        "pagesMessage",
+        UI[currentLanguage].saved
+    );
+
+}
+
+
+/* =========================================================
    FACULTIES
-===================================================== */
+========================================================= */
 
 function saveFaculty(){
 
     const id=
-        inputValue("facultyEditId")
+        getValue("facultyEditId")
         ||
         makeId("faculty");
+
 
     const item={
 
         id,
 
         name:{
-            ru:inputValue("facultyNameRU"),
-            en:inputValue("facultyNameEN"),
-            pt:inputValue("facultyNamePT")
+            ru:getValue("facultyNameRU"),
+            en:getValue("facultyNameEN"),
+            pt:getValue("facultyNamePT")
         },
 
         desc:{
-            ru:inputValue("facultyDescRU"),
-            en:inputValue("facultyDescEN"),
-            pt:inputValue("facultyDescPT")
+            ru:getValue("facultyDescRU"),
+            en:getValue("facultyDescEN"),
+            pt:getValue("facultyDescPT")
         }
 
     };
 
 
-    if(!item.name.ru &&
-       !item.name.en &&
-       !item.name.pt){
-
+    if(
+        !item.name.ru &&
+        !item.name.en &&
+        !item.name.pt
+    ){
         return;
-
     }
 
 
@@ -4016,34 +5319,38 @@ function editFaculty(id){
         return;
     }
 
-    setInput("facultyEditId",item.id);
 
-    setInput(
+    setValue(
+        "facultyEditId",
+        item.id
+    );
+
+    setValue(
         "facultyNameRU",
         item.name.ru
     );
 
-    setInput(
+    setValue(
         "facultyNameEN",
         item.name.en
     );
 
-    setInput(
+    setValue(
         "facultyNamePT",
         item.name.pt
     );
 
-    setInput(
+    setValue(
         "facultyDescRU",
         item.desc.ru
     );
 
-    setInput(
+    setValue(
         "facultyDescEN",
         item.desc.en
     );
 
-    setInput(
+    setValue(
         "facultyDescPT",
         item.desc.pt
     );
@@ -4061,42 +5368,45 @@ function clearFacultyForm(){
         "facultyDescRU",
         "facultyDescEN",
         "facultyDescPT"
-    ].forEach(id=>setInput(id,""));
+    ].forEach(
+        id=>setValue(id,"")
+    );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    PROFESSORS
-===================================================== */
+========================================================= */
 
 function saveProfessor(){
 
     const id=
-        inputValue("professorEditId")
+        getValue("professorEditId")
         ||
         makeId("professor");
+
 
     const item={
 
         id,
 
         name:{
-            ru:inputValue("profNameRU"),
-            en:inputValue("profNameEN"),
-            pt:inputValue("profNamePT")
+            ru:getValue("profNameRU"),
+            en:getValue("profNameEN"),
+            pt:getValue("profNamePT")
         },
 
         position:{
-            ru:inputValue("profPositionRU"),
-            en:inputValue("profPositionEN"),
-            pt:inputValue("profPositionPT")
+            ru:getValue("profPositionRU"),
+            en:getValue("profPositionEN"),
+            pt:getValue("profPositionPT")
         },
 
         bio:{
-            ru:inputValue("profBioRU"),
-            en:inputValue("profBioEN"),
-            pt:inputValue("profBioPT")
+            ru:getValue("profBioRU"),
+            en:getValue("profBioEN"),
+            pt:getValue("profBioPT")
         },
 
         facultyId:
@@ -4105,20 +5415,20 @@ function saveProfessor(){
             ).value,
 
         email:
-            inputValue("profEmail"),
+            getValue("profEmail"),
 
         photo:
-            inputValue("profPhotoURL")
+            getValue("profPhotoURL")
 
     };
 
 
-    if(!item.name.ru &&
-       !item.name.en &&
-       !item.name.pt){
-
+    if(
+        !item.name.ru &&
+        !item.name.en &&
+        !item.name.pt
+    ){
         return;
-
     }
 
 
@@ -4161,46 +5471,53 @@ function editProfessor(id){
         return;
     }
 
-    setInput(
+
+    setValue(
         "professorEditId",
         item.id
     );
 
-    LANGS.forEach(lang=>{
 
-        const code=
-            lang.toUpperCase();
+    LANGUAGES.forEach(
+        language=>{
 
-        setInput(
-            "profName"+code,
-            item.name[lang]
-        );
+            const code=
+                language.toUpperCase();
 
-        setInput(
-            "profPosition"+code,
-            item.position[lang]
-        );
+            setValue(
+                "profName"+code,
+                item.name[language]
+            );
 
-        setInput(
-            "profBio"+code,
-            item.bio[lang]
-        );
+            setValue(
+                "profPosition"+code,
+                item.position[language]
+            );
 
-    });
+            setValue(
+                "profBio"+code,
+                item.bio[language]
+            );
 
-    setInput(
+        }
+    );
+
+
+    setValue(
         "profEmail",
         item.email
     );
 
-    setInput(
+    setValue(
         "profPhotoURL",
         item.photo
     );
 
+
     document.getElementById(
         "profFaculty"
-    ).value=item.facultyId;
+    ).value=
+        item.facultyId;
 
 }
 
@@ -4220,19 +5537,21 @@ function clearProfessorForm(){
         "profBioPT",
         "profEmail",
         "profPhotoURL"
-    ].forEach(id=>setInput(id,""));
+    ].forEach(
+        id=>setValue(id,"")
+    );
 
     document.getElementById(
-        "profPhotoFile"
+        "profPhoto"
     ).value="";
 
 }
 
 
-/* PHOTO FILE */
+/* Convert uploaded image to local data */
 
 document.getElementById(
-    "profPhotoFile"
+    "profPhoto"
 ).addEventListener(
     "change",
     function(event){
@@ -4249,21 +5568,9 @@ document.getElementById(
 
         reader.onload=function(){
 
-            setInput(
+            setValue(
                 "profPhotoURL",
                 reader.result
-            );
-
-            const preview=
-                document.getElementById(
-                    "profPhotoPreview"
-                );
-
-            preview.src=
-                reader.result;
-
-            preview.classList.remove(
-                "hidden"
             );
 
         };
@@ -4274,16 +5581,17 @@ document.getElementById(
 );
 
 
-/* =====================================================
+/* =========================================================
    COURSES
-===================================================== */
+========================================================= */
 
 function saveCourse(){
 
     const id=
-        inputValue("courseEditId")
+        getValue("courseEditId")
         ||
         makeId("course");
+
 
     const item={
 
@@ -4295,26 +5603,26 @@ function saveCourse(){
             ).value,
 
         name:{
-            ru:inputValue("courseNameRU"),
-            en:inputValue("courseNameEN"),
-            pt:inputValue("courseNamePT")
+            ru:getValue("courseNameRU"),
+            en:getValue("courseNameEN"),
+            pt:getValue("courseNamePT")
         },
 
         desc:{
-            ru:inputValue("courseDescRU"),
-            en:inputValue("courseDescEN"),
-            pt:inputValue("courseDescPT")
+            ru:getValue("courseDescRU"),
+            en:getValue("courseDescEN"),
+            pt:getValue("courseDescPT")
         }
 
     };
 
 
-    if(!item.name.ru &&
-       !item.name.en &&
-       !item.name.pt){
-
+    if(
+        !item.name.ru &&
+        !item.name.en &&
+        !item.name.pt
+    ){
         return;
-
     }
 
 
@@ -4357,32 +5665,36 @@ function editCourse(id){
         return;
     }
 
-    setInput(
+
+    setValue(
         "courseEditId",
         item.id
     );
 
-    setInput(
+    setValue(
         "courseFaculty",
         item.facultyId
     );
 
-    LANGS.forEach(lang=>{
 
-        const code=
-            lang.toUpperCase();
+    LANGUAGES.forEach(
+        language=>{
 
-        setInput(
-            "courseName"+code,
-            item.name[lang]
-        );
+            const code=
+                language.toUpperCase();
 
-        setInput(
-            "courseDesc"+code,
-            item.desc[lang]
-        );
+            setValue(
+                "courseName"+code,
+                item.name[language]
+            );
 
-    });
+            setValue(
+                "courseDesc"+code,
+                item.desc[language]
+            );
+
+        }
+    );
 
 }
 
@@ -4397,7 +5709,9 @@ function clearCourseForm(){
         "courseDescRU",
         "courseDescEN",
         "courseDescPT"
-    ].forEach(id=>setInput(id,""));
+    ].forEach(
+        id=>setValue(id,"")
+    );
 
     document.getElementById(
         "courseFaculty"
@@ -4406,16 +5720,17 @@ function clearCourseForm(){
 }
 
 
-/* =====================================================
+/* =========================================================
    SCHEDULE
-===================================================== */
+========================================================= */
 
 function saveSchedule(){
 
     const id=
-        inputValue("scheduleEditId")
+        getValue("scheduleEditId")
         ||
         makeId("schedule");
+
 
     const item={
 
@@ -4427,7 +5742,7 @@ function saveSchedule(){
             ).value,
 
         time:
-            inputValue("scheduleTime"),
+            getValue("scheduleTime"),
 
         courseId:
             document.getElementById(
@@ -4440,9 +5755,9 @@ function saveSchedule(){
             ).value,
 
         location:{
-            ru:inputValue("locationRU"),
-            en:inputValue("locationEN"),
-            pt:inputValue("locationPT")
+            ru:getValue("locationRU"),
+            en:getValue("locationEN"),
+            pt:getValue("locationPT")
         }
 
     };
@@ -4492,40 +5807,46 @@ function editSchedule(id){
         return;
     }
 
-    setInput(
+
+    setValue(
         "scheduleEditId",
         item.id
     );
 
-    setInput(
+    setValue(
         "scheduleDay",
         item.day
     );
 
-    setInput(
+    setValue(
         "scheduleTime",
         item.time
     );
 
-    setInput(
+    setValue(
         "scheduleCourse",
         item.courseId
     );
 
-    setInput(
+    setValue(
         "scheduleProfessor",
         item.professorId
     );
 
-    LANGS.forEach(lang=>{
 
-        setInput(
-            "location"+
-            lang.toUpperCase(),
-            item.location[lang]
-        );
+    LANGUAGES.forEach(
+        language=>{
 
-    });
+            const code=
+                language.toUpperCase();
+
+            setValue(
+                "location"+code,
+                item.location[language]
+            );
+
+        }
+    );
 
 }
 
@@ -4538,7 +5859,9 @@ function clearScheduleForm(){
         "locationRU",
         "locationEN",
         "locationPT"
-    ].forEach(id=>setInput(id,""));
+    ].forEach(
+        id=>setValue(id,"")
+    );
 
     document.getElementById(
         "scheduleDay"
@@ -4555,48 +5878,49 @@ function clearScheduleForm(){
 }
 
 
-/* =====================================================
+/* =========================================================
    PUBLICATIONS
-===================================================== */
+========================================================= */
 
 function savePublication(){
 
     const id=
-        inputValue("publicationEditId")
+        getValue("publicationEditId")
         ||
         makeId("publication");
+
 
     const item={
 
         id,
 
         title:{
-            ru:inputValue("publicationTitleRU"),
-            en:inputValue("publicationTitleEN"),
-            pt:inputValue("publicationTitlePT")
+            ru:getValue("publicationTitleRU"),
+            en:getValue("publicationTitleEN"),
+            pt:getValue("publicationTitlePT")
         },
 
         desc:{
-            ru:inputValue("publicationDescRU"),
-            en:inputValue("publicationDescEN"),
-            pt:inputValue("publicationDescPT")
+            ru:getValue("publicationDescRU"),
+            en:getValue("publicationDescEN"),
+            pt:getValue("publicationDescPT")
         },
 
         author:
-            inputValue("publicationAuthor"),
+            getValue("publicationAuthor"),
 
         url:
-            inputValue("publicationURL")
+            getValue("publicationURL")
 
     };
 
 
-    if(!item.title.ru &&
-       !item.title.en &&
-       !item.title.pt){
-
+    if(
+        !item.title.ru &&
+        !item.title.en &&
+        !item.title.pt
+    ){
         return;
-
     }
 
 
@@ -4638,34 +5962,39 @@ function editPublication(id){
         return;
     }
 
-    setInput(
+
+    setValue(
         "publicationEditId",
         item.id
     );
 
-    LANGS.forEach(lang=>{
 
-        const code=
-            lang.toUpperCase();
+    LANGUAGES.forEach(
+        language=>{
 
-        setInput(
-            "publicationTitle"+code,
-            item.title[lang]
-        );
+            const code=
+                language.toUpperCase();
 
-        setInput(
-            "publicationDesc"+code,
-            item.desc[lang]
-        );
+            setValue(
+                "publicationTitle"+code,
+                item.title[language]
+            );
 
-    });
+            setValue(
+                "publicationDesc"+code,
+                item.desc[language]
+            );
 
-    setInput(
+        }
+    );
+
+
+    setValue(
         "publicationAuthor",
         item.author
     );
 
-    setInput(
+    setValue(
         "publicationURL",
         item.url
     );
@@ -4685,62 +6014,65 @@ function clearPublicationForm(){
         "publicationDescPT",
         "publicationAuthor",
         "publicationURL"
-    ].forEach(id=>setInput(id,""));
+    ].forEach(
+        id=>setValue(id,"")
+    );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    NEWS
-===================================================== */
+========================================================= */
 
 function saveNews(){
 
     const id=
-        inputValue("newsEditId")
+        getValue("newsEditId")
         ||
         makeId("news");
+
 
     const item={
 
         id,
 
         title:{
-            ru:inputValue("newsTitleRU"),
-            en:inputValue("newsTitleEN"),
-            pt:inputValue("newsTitlePT")
+            ru:getValue("newsTitleRU"),
+            en:getValue("newsTitleEN"),
+            pt:getValue("newsTitlePT")
         },
 
         summary:{
-            ru:inputValue("newsSummaryRU"),
-            en:inputValue("newsSummaryEN"),
-            pt:inputValue("newsSummaryPT")
+            ru:getValue("newsSummaryRU"),
+            en:getValue("newsSummaryEN"),
+            pt:getValue("newsSummaryPT")
         },
 
         text:{
-            ru:inputValue("newsTextRU"),
-            en:inputValue("newsTextEN"),
-            pt:inputValue("newsTextPT")
+            ru:getValue("newsTextRU"),
+            en:getValue("newsTextEN"),
+            pt:getValue("newsTextPT")
         },
 
         date:
-            inputValue("newsDate"),
+            getValue("newsDate"),
 
         author:
-            inputValue("newsAuthor"),
+            getValue("newsAuthor"),
 
         image:
-            inputValue("newsImageURL")
+            getValue("newsImageURL")
 
     };
 
 
-    if(!item.title.ru &&
-       !item.title.en &&
-       !item.title.pt){
-
+    if(
+        !item.title.ru &&
+        !item.title.en &&
+        !item.title.pt
+    ){
         return;
-
     }
 
 
@@ -4771,39 +6103,6 @@ function saveNews(){
 }
 
 
-/* NEWS IMAGE */
-
-document.getElementById(
-    "newsImage"
-).addEventListener(
-    "change",
-    function(event){
-
-        const file=
-            event.target.files[0];
-
-        if(!file){
-            return;
-        }
-
-        const reader=
-            new FileReader();
-
-        reader.onload=function(){
-
-            setInput(
-                "newsImageURL",
-                reader.result
-            );
-
-        };
-
-        reader.readAsDataURL(file);
-
-    }
-);
-
-
 function editNews(id){
 
     const item=
@@ -4815,44 +6114,49 @@ function editNews(id){
         return;
     }
 
-    setInput(
+
+    setValue(
         "newsEditId",
         item.id
     );
 
-    LANGS.forEach(lang=>{
 
-        const code=
-            lang.toUpperCase();
+    LANGUAGES.forEach(
+        language=>{
 
-        setInput(
-            "newsTitle"+code,
-            item.title[lang]
-        );
+            const code=
+                language.toUpperCase();
 
-        setInput(
-            "newsSummary"+code,
-            item.summary[lang]
-        );
+            setValue(
+                "newsTitle"+code,
+                item.title[language]
+            );
 
-        setInput(
-            "newsText"+code,
-            item.text[lang]
-        );
+            setValue(
+                "newsSummary"+code,
+                item.summary[language]
+            );
 
-    });
+            setValue(
+                "newsText"+code,
+                item.text[language]
+            );
 
-    setInput(
+        }
+    );
+
+
+    setValue(
         "newsDate",
         item.date
     );
 
-    setInput(
+    setValue(
         "newsAuthor",
         item.author
     );
 
-    setInput(
+    setValue(
         "newsImageURL",
         item.image
     );
@@ -4876,7 +6180,9 @@ function clearNewsForm(){
         "newsDate",
         "newsAuthor",
         "newsImageURL"
-    ].forEach(id=>setInput(id,""));
+    ].forEach(
+        id=>setValue(id,"")
+    );
 
     document.getElementById(
         "newsImage"
@@ -4885,14 +6191,47 @@ function clearNewsForm(){
 }
 
 
-/* =====================================================
+document.getElementById(
+    "newsImage"
+).addEventListener(
+    "change",
+    function(event){
+
+        const file=
+            event.target.files[0];
+
+        if(!file){
+            return;
+        }
+
+        const reader=
+            new FileReader();
+
+        reader.onload=function(){
+
+            setValue(
+                "newsImageURL",
+                reader.result
+            );
+
+        };
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =========================================================
    ADMISSIONS
-===================================================== */
+========================================================= */
 
 function saveAdmissions(){
 
     database.admissions.price=
-        inputValue("admissionPrice");
+        getValue(
+            "admissionPrice"
+        );
 
     database.admissions.seats=
         Number(
@@ -4902,37 +6241,39 @@ function saveAdmissions(){
         ) || 0;
 
 
-    LANGS.forEach(lang=>{
+    LANGUAGES.forEach(
+        language=>{
 
-        const code=
-            lang.toUpperCase();
+            const code=
+                language.toUpperCase();
 
-        database.admissions.load[lang]=
-            inputValue(
-                "admissionLoad"+code
-            );
+            database.admissions.load[language]=
+                getValue(
+                    "admissionLoad"+code
+                );
 
-        database.admissions.entrance[lang]=
-            inputValue(
-                "entrance"+code
-            );
+            database.admissions.entrance[language]=
+                getValue(
+                    "entrance"+code
+                );
 
-        database.admissions.process[lang]=
-            inputValue(
-                "process"+code
-            );
+            database.admissions.process[language]=
+                getValue(
+                    "process"+code
+                );
 
-        database.admissions.openDay.date[lang]=
-            inputValue(
-                "openDate"+code
-            );
+            database.admissions.openDay.date[language]=
+                getValue(
+                    "openDate"+code
+                );
 
-        database.admissions.openDay.text[lang]=
-            inputValue(
-                "openText"+code
-            );
+            database.admissions.openDay.text[language]=
+                getValue(
+                    "openText"+code
+                );
 
-    });
+        }
+    );
 
 
     saveDatabase();
@@ -4947,26 +6288,29 @@ function saveAdmissions(){
 }
 
 
-/* =====================================================
+/* =========================================================
    SUPPORT
-===================================================== */
+========================================================= */
 
 function saveSupport(){
 
-    LANGS.forEach(lang=>{
+    LANGUAGES.forEach(
+        language=>{
 
-        const code=
-            lang.toUpperCase();
+            const code=
+                language.toUpperCase();
 
-        database.support.text[lang]=
-            inputValue(
-                "support"+code
-            );
+            database.support.text[language]=
+                getValue(
+                    "support"+code
+                );
 
-    });
+        }
+    );
+
 
     database.support.pix=
-        inputValue("supportPIX");
+        getValue("supportPIX");
 
 
     saveDatabase();
@@ -4981,501 +6325,13 @@ function saveSupport(){
 }
 
 
-/* =====================================================
-   PAGES
-===================================================== */
-
-function savePages(){
-
-    LANGS.forEach(lang=>{
-
-        const code=
-            lang.toUpperCase();
-
-        database.pages.hero[lang]=
-            inputValue(
-                "hero"+code
-            );
-
-        database.pages.about1[lang]=
-            inputValue(
-                "about1"+code
-            );
-
-        database.pages.about2[lang]=
-            inputValue(
-                "about2"+code
-            );
-
-        database.pages.students[lang]=
-            inputValue(
-                "students"+code
-            );
-
-    });
-
-
-    for(let i=1;i<=5;i++){
-
-        LANGS.forEach(lang=>{
-
-            const code=
-                lang.toUpperCase();
-
-            database.rules[i].title[lang]=
-                inputValue(
-                    `rule${i}Title${code}`
-                );
-
-            database.rules[i].text[lang]=
-                inputValue(
-                    `rule${i}Text${code}`
-                );
-
-        });
-
-    }
-
-
-    saveDatabase();
-
-    renderSite();
-
-    setText(
-        "pagesMessage",
-        UI[currentLanguage].saved
-    );
-
-}
-
-
-/* =====================================================
-   RULES EDITOR
-===================================================== */
-
-function renderRulesEditor(){
-
-    const container=
-        document.getElementById(
-            "rulesEditor"
-        );
-
-    let html="";
-
-    Object.keys(database.rules).forEach(
-        number=>{
-
-            html+=`
-
-                <div class="language-editor">
-
-                    <h4>
-                        Rule ${number}
-                    </h4>
-
-                    <div class="form-grid">
-
-            `;
-
-            LANGS.forEach(lang=>{
-
-                const code=
-                    lang.toUpperCase();
-
-                html+=`
-
-                    <div>
-
-                        <label>
-                            ${code} — Title
-                        </label>
-
-                        <input
-                            id="rule${number}Title${code}"
-                            value="${escapeHTML(
-                                database.rules[number].title[lang]
-                            )}">
-
-                        <label>
-                            ${code} — Text
-                        </label>
-
-                        <textarea
-                            id="rule${number}Text${code}">${escapeHTML(
-                                database.rules[number].text[lang]
-                            )}</textarea>
-
-                    </div>
-
-                `;
-
-            });
-
-            html+=`
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }
-    );
-
-    container.innerHTML=html;
-
-}
-
-
-/* =====================================================
-   ADMIN FORMS
-===================================================== */
-
-function renderAdminForms(){
-
-    /* faculties */
-
-    fillFacultySelect(
-        document.getElementById(
-            "profFaculty"
-        )
-    );
-
-    fillFacultySelect(
-        document.getElementById(
-            "courseFaculty"
-        )
-    );
-
-    fillCourseSelect(
-        document.getElementById(
-            "scheduleCourse"
-        )
-    );
-
-    fillProfessorSelect(
-        document.getElementById(
-            "scheduleProfessor"
-        )
-    );
-
-
-    /* pages */
-
-    LANGS.forEach(lang=>{
-
-        const code=
-            lang.toUpperCase();
-
-        setInput(
-            "hero"+code,
-            database.pages.hero[lang]
-        );
-
-        setInput(
-            "about1"+code,
-            database.pages.about1[lang]
-        );
-
-        setInput(
-            "about2"+code,
-            database.pages.about2[lang]
-        );
-
-        setInput(
-            "students"+code,
-            database.pages.students[lang]
-        );
-
-    });
-
-
-    /* admission */
-
-    setInput(
-        "admissionPrice",
-        database.admissions.price
-    );
-
-    setInput(
-        "admissionSeats",
-        database.admissions.seats
-    );
-
-
-    LANGS.forEach(lang=>{
-
-        const code=
-            lang.toUpperCase();
-
-        setInput(
-            "admissionLoad"+code,
-            database.admissions.load[lang]
-        );
-
-        setInput(
-            "entrance"+code,
-            database.admissions.entrance[lang]
-        );
-
-        setInput(
-            "process"+code,
-            database.admissions.process[lang]
-        );
-
-        setInput(
-            "openDate"+code,
-            database.admissions.openDay.date[lang]
-        );
-
-        setInput(
-            "openText"+code,
-            database.admissions.openDay.text[lang]
-        );
-
-        setInput(
-            "support"+code,
-            database.support.text[lang]
-        );
-
-    });
-
-
-    setInput(
-        "supportPIX",
-        database.support.pix
-    );
-
-}
-
-
-/* =====================================================
-   SELECTS
-===================================================== */
-
-function fillFacultySelect(select){
-
-    if(!select){
-        return;
-    }
-
-    const old=
-        select.value;
-
-    select.innerHTML=
-
-        `<option value="">
-            ${
-                currentLanguage==="ru"
-                ?
-                "Выберите факультет"
-                :
-                currentLanguage==="en"
-                ?
-                "Select faculty"
-                :
-                "Selecione a faculdade"
-            }
-        </option>`
-
-        +
-
-        database.faculties.map(
-            faculty=>`
-
-                <option
-                    value="${esc(faculty.id)}">
-
-                    ${escapeHTML(
-                        getLocalized(
-                            faculty.name
-                        )
-                    )}
-
-                </option>
-
-            `
-        ).join("");
-
-
-    if(
-        [...select.options]
-        .some(
-            option=>option.value===old
-        )
-    ){
-        select.value=old;
-    }
-
-}
-
-
-function fillCourseSelect(select){
-
-    if(!select){
-        return;
-    }
-
-    const old=
-        select.value;
-
-    select.innerHTML=
-
-        `<option value="">
-            ${
-                currentLanguage==="ru"
-                ?
-                "Выберите курс"
-                :
-                currentLanguage==="en"
-                ?
-                "Select course"
-                :
-                "Selecione o curso"
-            }
-        </option>`
-
-        +
-
-        database.courses.map(
-            course=>`
-
-                <option
-                    value="${esc(course.id)}">
-
-                    ${escapeHTML(
-                        getLocalized(
-                            course.name
-                        )
-                    )}
-
-                </option>
-
-            `
-        ).join("");
-
-
-    if(
-        [...select.options]
-        .some(
-            option=>option.value===old
-        )
-    ){
-        select.value=old;
-    }
-
-}
-
-
-function fillProfessorSelect(select){
-
-    if(!select){
-        return;
-    }
-
-    const old=
-        select.value;
-
-    select.innerHTML=
-
-        `<option value="">
-            ${
-                currentLanguage==="ru"
-                ?
-                "Выберите преподавателя"
-                :
-                currentLanguage==="en"
-                ?
-                "Select professor"
-                :
-                "Selecione o professor"
-            }
-        </option>`
-
-        +
-
-        database.professors.map(
-            professor=>`
-
-                <option
-                    value="${esc(professor.id)}">
-
-                    ${escapeHTML(
-                        getLocalized(
-                            professor.name
-                        )
-                    )}
-
-                </option>
-
-            `
-        ).join("");
-
-
-    if(
-        [...select.options]
-        .some(
-            option=>option.value===old
-        )
-    ){
-        select.value=old;
-    }
-
-}
-
-
-function fillApplicationFacultySelect(){
-
-    const select=
-        document.getElementById(
-            "applicationFaculty"
-        );
-
-    if(!select){
-        return;
-    }
-
-    const old=
-        select.value;
-
-    select.innerHTML=
-        database.faculties.map(
-            faculty=>`
-
-                <option
-                    value="${esc(faculty.id)}">
-
-                    ${escapeHTML(
-                        getLocalized(
-                            faculty.name
-                        )
-                    )}
-
-                </option>
-
-            `
-        ).join("");
-
-    if(
-        [...select.options]
-        .some(
-            option=>option.value===old
-        )
-    ){
-        select.value=old;
-    }
-
-}
-
-
-/* =====================================================
+/* =========================================================
    ADMIN LISTS
-===================================================== */
+========================================================= */
 
 function renderAdminLists(){
 
-    const t=
-        UI[currentLanguage];
+    const t=UI[currentLanguage];
 
 
     /* FACULTIES */
@@ -5492,7 +6348,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                getLocalized(
+                                textOf(
                                     faculty.name
                                 )
                             )}
@@ -5504,13 +6360,24 @@ function renderAdminLists(){
                         <button
                             class="small edit"
                             onclick="editFaculty('${faculty.id}')">
-                            ${escapeHTML(t.edit)}
+
+                            ${escapeHTML(
+                                t.edit
+                            )}
+
                         </button>
 
                         <button
                             class="small delete"
-                            onclick="deleteItem('faculty','${faculty.id}')">
-                            ${escapeHTML(t.delete)}
+                            onclick="deleteItem(
+                                'faculty',
+                                '${faculty.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.delete
+                            )}
+
                         </button>
 
                     </div>
@@ -5537,7 +6404,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                getLocalized(
+                                textOf(
                                     professor.name
                                 )
                             )}
@@ -5548,14 +6415,27 @@ function renderAdminLists(){
 
                         <button
                             class="small edit"
-                            onclick="editProfessor('${professor.id}')">
-                            ${escapeHTML(t.edit)}
+                            onclick="editProfessor(
+                                '${professor.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.edit
+                            )}
+
                         </button>
 
                         <button
                             class="small delete"
-                            onclick="deleteItem('professor','${professor.id}')">
-                            ${escapeHTML(t.delete)}
+                            onclick="deleteItem(
+                                'professor',
+                                '${professor.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.delete
+                            )}
+
                         </button>
 
                     </div>
@@ -5582,7 +6462,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                getLocalized(
+                                textOf(
                                     course.name
                                 )
                             )}
@@ -5593,14 +6473,27 @@ function renderAdminLists(){
 
                         <button
                             class="small edit"
-                            onclick="editCourse('${course.id}')">
-                            ${escapeHTML(t.edit)}
+                            onclick="editCourse(
+                                '${course.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.edit
+                            )}
+
                         </button>
 
                         <button
                             class="small delete"
-                            onclick="deleteItem('course','${course.id}')">
-                            ${escapeHTML(t.delete)}
+                            onclick="deleteItem(
+                                'course',
+                                '${course.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.delete
+                            )}
+
                         </button>
 
                     </div>
@@ -5624,7 +6517,7 @@ function renderAdminLists(){
 
                 const course=
                     database.courses.find(
-                        course=>course.id===item.courseId
+                        c=>c.id===item.courseId
                     );
 
                 return `
@@ -5632,11 +6525,11 @@ function renderAdminLists(){
                     <div class="admin-item">
 
                         <span>
+
                             <strong>
                                 ${escapeHTML(
                                     dayName(item.day)
                                 )}
-                                —
                                 ${escapeHTML(
                                     item.time
                                 )}
@@ -5647,7 +6540,7 @@ function renderAdminLists(){
                                 ?
                                 " — "+
                                 escapeHTML(
-                                    getLocalized(
+                                    textOf(
                                         course.name
                                     )
                                 )
@@ -5661,20 +6554,32 @@ function renderAdminLists(){
 
                             <button
                                 class="small edit"
-                                onclick="editSchedule('${item.id}')">
-                                ${escapeHTML(t.edit)}
+                                onclick="editSchedule(
+                                    '${item.id}'
+                                )">
+
+                                ${escapeHTML(
+                                    t.edit
+                                )}
+
                             </button>
 
                             <button
                                 class="small delete"
-                                onclick="deleteItem('schedule','${item.id}')">
-                                ${escapeHTML(t.delete)}
+                                onclick="deleteItem(
+                                    'schedule',
+                                    '${item.id}'
+                                )">
+
+                                ${escapeHTML(
+                                    t.delete
+                                )}
+
                             </button>
 
                         </div>
 
                     </div>
-
                 `;
 
             }
@@ -5697,7 +6602,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                getLocalized(
+                                textOf(
                                     publication.title
                                 )
                             )}
@@ -5708,14 +6613,27 @@ function renderAdminLists(){
 
                         <button
                             class="small edit"
-                            onclick="editPublication('${publication.id}')">
-                            ${escapeHTML(t.edit)}
+                            onclick="editPublication(
+                                '${publication.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.edit
+                            )}
+
                         </button>
 
                         <button
                             class="small delete"
-                            onclick="deleteItem('publication','${publication.id}')">
-                            ${escapeHTML(t.delete)}
+                            onclick="deleteItem(
+                                'publication',
+                                '${publication.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.delete
+                            )}
+
                         </button>
 
                     </div>
@@ -5742,7 +6660,7 @@ function renderAdminLists(){
                     <span>
                         <strong>
                             ${escapeHTML(
-                                getLocalized(
+                                textOf(
                                     article.title
                                 )
                             )}
@@ -5765,14 +6683,27 @@ function renderAdminLists(){
 
                         <button
                             class="small edit"
-                            onclick="editNews('${article.id}')">
-                            ${escapeHTML(t.edit)}
+                            onclick="editNews(
+                                '${article.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.edit
+                            )}
+
                         </button>
 
                         <button
                             class="small delete"
-                            onclick="deleteItem('news','${article.id}')">
-                            ${escapeHTML(t.delete)}
+                            onclick="deleteItem(
+                                'news',
+                                '${article.id}'
+                            )">
+
+                            ${escapeHTML(
+                                t.delete
+                            )}
+
                         </button>
 
                     </div>
@@ -5792,6 +6723,7 @@ function renderAdminLists(){
     ).innerHTML=
 
         database.applications.length
+
         ?
 
         database.applications.map(
@@ -5819,13 +6751,11 @@ function renderAdminLists(){
 
                     <br>
 
-                    ${
-                        escapeHTML(
-                            facultyName(
-                                application.facultyId
-                            )
+                    ${escapeHTML(
+                        facultyName(
+                            application.facultyId
                         )
-                    }
+                    )}
 
                     <br><br>
 
@@ -5845,7 +6775,10 @@ function renderAdminLists(){
 
                     <button
                         class="small delete"
-                        onclick="deleteItem('application','${application.id}')">
+                        onclick="deleteItem(
+                            'application',
+                            '${application.id}'
+                        )">
 
                         ${escapeHTML(
                             t.delete
@@ -5865,13 +6798,11 @@ function renderAdminLists(){
 }
 
 
-/* =====================================================
+/* =========================================================
    DELETE
-===================================================== */
+========================================================= */
 
 function deleteItem(type,id){
-
-    const t=UI[currentLanguage];
 
     const question=
         currentLanguage==="ru"
@@ -5883,6 +6814,7 @@ function deleteItem(type,id){
         "Delete this entry?"
         :
         "Excluir este registro?";
+
 
     if(!confirm(question)){
         return;
@@ -5906,7 +6838,22 @@ function deleteItem(type,id){
                 item=>item.facultyId!==id
             );
 
+        database.schedule=
+            database.schedule.filter(
+                item=>{
+
+                    const course=
+                        database.courses.find(
+                            c=>c.id===item.courseId
+                        );
+
+                    return Boolean(course);
+
+                }
+            );
+
     }
+
 
     else if(type==="professor"){
 
@@ -5922,6 +6869,7 @@ function deleteItem(type,id){
 
     }
 
+
     else if(type==="course"){
 
         database.courses=
@@ -5936,6 +6884,7 @@ function deleteItem(type,id){
 
     }
 
+
     else if(type==="schedule"){
 
         database.schedule=
@@ -5944,6 +6893,7 @@ function deleteItem(type,id){
             );
 
     }
+
 
     else if(type==="publication"){
 
@@ -5954,6 +6904,7 @@ function deleteItem(type,id){
 
     }
 
+
     else if(type==="news"){
 
         database.news=
@@ -5962,6 +6913,7 @@ function deleteItem(type,id){
             );
 
     }
+
 
     else if(type==="application"){
 
@@ -5981,161 +6933,68 @@ function deleteItem(type,id){
 }
 
 
-/* =====================================================
-   APPLICATION
-===================================================== */
+/* =========================================================
+   SCROLLING HEADER
+========================================================= */
 
-function submitApplication(){
-
-    const name=
-        inputValue("applicationName");
-
-    const email=
-        inputValue("applicationEmail");
-
-    const country=
-        inputValue("applicationCountry");
-
-    const facultyId=
-        document.getElementById(
-            "applicationFaculty"
-        ).value;
-
-    const motivation=
-        inputValue("applicationMotivation");
+let lastScrollY=
+    window.scrollY;
 
 
-    if(
-        !name ||
-        !email ||
-        !country ||
-        !motivation
-    ){
+window.addEventListener(
+    "scroll",
+    function(){
 
-        alert(
-            UI[currentLanguage].required
-        );
+        const header=
+            document.getElementById(
+                "siteHeader"
+            );
 
-        return;
+        const current=
+            window.scrollY;
+
+
+        if(
+            current>120 &&
+            current>lastScrollY
+        ){
+
+            header.classList.add(
+                "header-hidden"
+            );
+
+        }
+
+
+        else if(
+            current<lastScrollY
+        ){
+
+            header.classList.remove(
+                "header-hidden"
+            );
+
+        }
+
+
+        if(current<=20){
+
+            header.classList.remove(
+                "header-hidden"
+            );
+
+        }
+
+
+        lastScrollY=current;
 
     }
+);
 
 
-    database.applications.push({
-
-        id:makeId("application"),
-
-        name,
-
-        email,
-
-        country,
-
-        facultyId,
-
-        motivation,
-
-        date:new Date()
-            .toLocaleString()
-
-    });
-
-
-    saveDatabase();
-
-
-    [
-        "applicationName",
-        "applicationEmail",
-        "applicationCountry",
-        "applicationMotivation"
-    ].forEach(
-        id=>setInput(id,"")
-    );
-
-
-    setText(
-        "applicationMessage",
-        UI[currentLanguage].applicationSuccess
-    );
-
-
-    renderAdminLists();
-
-}
-
-
-/* =====================================================
-   UTILITY
-===================================================== */
-
-function facultyName(id){
-
-    const faculty=
-        database.faculties.find(
-            item=>item.id===id
-        );
-
-    return faculty
-        ?
-        getLocalized(
-            faculty.name
-        )
-        :
-        "—";
-
-}
-
-
-function dayName(number){
-
-    const days={
-
-        ru:[
-            "",
-            "Понедельник",
-            "Вторник",
-            "Среда",
-            "Четверг",
-            "Пятница",
-            "Суббота",
-            "Воскресенье"
-        ],
-
-        en:[
-            "",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        ],
-
-        pt:[
-            "",
-            "Segunda-feira",
-            "Terça-feira",
-            "Quarta-feira",
-            "Quinta-feira",
-            "Sexta-feira",
-            "Sábado",
-            "Domingo"
-        ]
-
-    };
-
-    return days[currentLanguage][
-        Number(number)
-    ] || "—";
-
-}
-
-
-/* =====================================================
-   INIT
-===================================================== */
+/* =========================================================
+   INITIALIZATION
+========================================================= */
 
 setLanguage(
     currentLanguage
