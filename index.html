@@ -1,513 +1,1798 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>UGG — Universidade Guadagnin Galashin</title>
 
-    <title>Университет имени Гуаданина Галашина</title>
+<style>
+:root{
+    --bg:#f5f1e8;
+    --paper:#fffdf8;
+    --dark:#17202a;
+    --gold:#b58a32;
+    --gold2:#d5b45a;
+    --text:#20252b;
+    --muted:#69717a;
+    --border:#ddd5c5;
+    --danger:#9e3030;
+    --shadow:0 12px 35px rgba(0,0,0,.10);
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+*{box-sizing:border-box}
 
-        body {
-            font-family: Georgia, "Times New Roman", serif;
-            background: #f5f1e8;
-            color: #211d1a;
-            line-height: 1.6;
-        }
+html{scroll-behavior:smooth}
 
-        header {
-            background: #35151b;
-            color: #f5f1e8;
-            padding: 22px 7%;
-            border-bottom: 4px solid #b08a4a;
-        }
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Georgia,"Times New Roman",serif;
+}
 
-        .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-        }
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(23,32,42,.97);
+    color:white;
+    border-bottom:2px solid var(--gold);
+    transition:transform .28s ease;
+}
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
+header.hidden{
+    transform:translateY(-100%);
+}
 
-        .logo img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            display: block;
-        }
+.top{
+    height:82px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1400px;
+    margin:auto;
+    padding:0 28px;
+}
 
-        nav a {
-            color: #f5f1e8;
-            text-decoration: none;
-            margin-left: 22px;
-            font-size: 15px;
-        }
+.brand{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
 
-        nav a:hover {
-            color: #d7b978;
-        }
+.crest{
+    width:58px;
+    height:58px;
+    border:2px solid var(--gold2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Georgia,serif;
+    font-size:23px;
+    letter-spacing:2px;
+    font-weight:bold;
+    color:var(--gold2);
+}
 
-        .hero {
-            min-height: 520px;
-            display: flex;
-            align-items: center;
-            padding: 80px 7%;
-            background:
-                linear-gradient(rgba(245,241,232,0.93), rgba(245,241,232,0.93)),
-                radial-gradient(circle at center, #d7c7a6, #f5f1e8);
-        }
+.brand-name{
+    font-size:20px;
+    letter-spacing:.8px;
+}
 
-        .hero-content {
-            max-width: 900px;
-        }
+.motto{
+    color:var(--gold2);
+    font-size:12px;
+    margin-top:4px;
+    letter-spacing:2px;
+}
 
-        .small-title {
-            color: #80652e;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-size: 14px;
-            margin-bottom: 18px;
-        }
+nav{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
 
-        h1 {
-            font-size: clamp(42px, 7vw, 82px);
-            line-height: 1.05;
-            font-weight: normal;
-            margin-bottom: 25px;
-        }
+nav button{
+    border:0;
+    background:none;
+    color:white;
+    padding:10px 12px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:14px;
+}
 
-        .subtitle {
-            font-size: 22px;
-            max-width: 720px;
-            margin-bottom: 35px;
-        }
+nav button:hover{
+    color:var(--gold2);
+}
 
-        .button {
-            display: inline-block;
-            background: #35151b;
-            color: #f5f1e8;
-            padding: 13px 25px;
-            text-decoration: none;
-            margin-right: 10px;
-            border: 1px solid #35151b;
-        }
+.lang{
+    margin-left:10px;
+    border-left:1px solid #56606b;
+    padding-left:12px;
+}
 
-        .button:hover {
-            background: #5a242c;
-        }
+.lang button{
+    color:var(--gold2);
+}
 
-        .button.secondary {
-            background: transparent;
-            color: #35151b;
-            border: 1px solid #35151b;
-        }
+main{
+    max-width:1400px;
+    margin:auto;
+    padding:115px 28px 70px;
+    min-height:100vh;
+}
 
-        section {
-            padding: 75px 7%;
-        }
+.page{
+    display:none;
+}
 
-        .section-title {
-            font-size: 40px;
-            font-weight: normal;
-            margin-bottom: 18px;
-        }
+.page.active{
+    display:block;
+}
 
-        .section-intro {
-            max-width: 750px;
-            margin-bottom: 45px;
-            font-size: 18px;
-        }
+.hero{
+    min-height:530px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:80px 10%;
+    background:
+        linear-gradient(135deg,rgba(23,32,42,.96),rgba(34,46,58,.90)),
+        var(--dark);
+    color:white;
+    box-shadow:var(--shadow);
+}
 
-        .about {
-            background: #ebe3d3;
-        }
+.hero h1{
+    font-size:64px;
+    margin:0 0 18px;
+    color:var(--gold2);
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
+.hero h2{
+    font-size:34px;
+    max-width:850px;
+    margin:0 0 20px;
+}
 
-        .card {
-            background: #f8f5ed;
-            padding: 30px;
-            border-top: 3px solid #b08a4a;
-        }
+.hero p{
+    max-width:750px;
+    font-size:19px;
+    line-height:1.7;
+    color:#e6e6e6;
+}
 
-        .card h3 {
-            font-size: 23px;
-            margin-bottom: 12px;
-            font-weight: normal;
-        }
+.btn{
+    border:0;
+    background:var(--gold);
+    color:white;
+    padding:13px 20px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:15px;
+    margin:5px;
+}
 
-        .card p {
-            font-size: 16px;
-        }
+.btn:hover{
+    background:#926d24;
+}
 
-        .courses {
-            background: #f5f1e8;
-        }
+.btn.secondary{
+    background:var(--dark);
+}
 
-        .course {
-            border-bottom: 1px solid #c9bea9;
-            padding: 22px 0;
-        }
+.btn.danger{
+    background:var(--danger);
+}
 
-        .course strong {
-            font-size: 20px;
-            font-weight: normal;
-        }
+.section-title{
+    margin:45px 0 25px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:12px;
+    font-size:32px;
+}
 
-        .course span {
-            display: block;
-            color: #6d6257;
-            margin-top: 5px;
-        }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:22px;
+}
 
-        .statement {
-            background: #35151b;
-            color: #f5f1e8;
-            text-align: center;
-        }
+.card{
+    background:var(--paper);
+    border:1px solid var(--border);
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
 
-        .statement p {
-            max-width: 850px;
-            margin: auto;
-            font-size: 26px;
-            line-height: 1.5;
-        }
+.card h3{
+    margin-top:0;
+    color:#263543;
+}
 
-        .publication {
-            background: #ebe3d3;
-        }
+.card p{
+    line-height:1.65;
+}
 
-        footer {
-            background: #211014;
-            color: #d9d0c1;
-            padding: 45px 7%;
-        }
+.price{
+    font-size:25px;
+    color:var(--gold);
+    font-weight:bold;
+}
 
-        footer h3 {
-            color: #f5f1e8;
-            margin-bottom: 10px;
-        }
+.meta{
+    color:var(--muted);
+    font-size:14px;
+}
 
-        footer p {
-            margin-bottom: 8px;
-        }
+.notice{
+    padding:20px;
+    border-left:5px solid var(--gold);
+    background:#fffaf0;
+    margin:20px 0;
+}
 
-        .legal {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #51333a;
-            font-size: 13px;
-            color: #aaa096;
-        }
+.form{
+    max-width:850px;
+    background:var(--paper);
+    padding:30px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+}
 
-        @media (max-width: 800px) {
-            .top {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+label{
+    display:block;
+    margin:15px 0 7px;
+    font-weight:bold;
+}
 
-            nav a {
-                margin-left: 0;
-                margin-right: 15px;
-                display: inline-block;
-                margin-top: 8px;
-            }
+input,textarea,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #cfc7b8;
+    background:white;
+    font-family:inherit;
+    font-size:15px;
+}
 
-            .grid {
-                grid-template-columns: 1fr;
-            }
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
 
-            h1 {
-                font-size: 48px;
-            }
+footer{
+    background:var(--dark);
+    color:#ddd;
+    padding:35px;
+    text-align:center;
+    border-top:2px solid var(--gold);
+}
 
-            .subtitle {
-                font-size: 19px;
-            }
-        }
-    </style>
+/* ADMIN */
+
+.admin{
+    background:#202832;
+    color:white;
+    padding:30px;
+    box-shadow:var(--shadow);
+}
+
+.admin h2{
+    color:var(--gold2);
+}
+
+.admin-tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:25px;
+}
+
+.admin-tabs button{
+    padding:10px 14px;
+    border:1px solid #58636e;
+    background:#2b3540;
+    color:white;
+    cursor:pointer;
+}
+
+.admin-tabs button.active{
+    background:var(--gold);
+}
+
+.admin-panel{
+    display:none;
+}
+
+.admin-panel.active{
+    display:block;
+}
+
+.admin table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+    color:#222;
+}
+
+.admin th,.admin td{
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:left;
+}
+
+.admin th{
+    background:#eee8dc;
+}
+
+.admin-list{
+    margin:15px 0;
+}
+
+.admin-item{
+    background:#fff;
+    color:#222;
+    padding:15px;
+    margin:10px 0;
+    border-left:4px solid var(--gold);
+}
+
+.login{
+    max-width:450px;
+    margin:80px auto;
+    background:var(--paper);
+    padding:35px;
+    box-shadow:var(--shadow);
+}
+
+.hidden{
+    display:none!important;
+}
+
+@media(max-width:900px){
+    nav{
+        overflow-x:auto;
+        max-width:55%;
+    }
+
+    .brand-name{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .hero h2{
+        font-size:27px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-    <div class="top">
+<header id="header">
+<div class="top">
 
-        <div class="logo">
-            <img src="Герб%20УГГ.png" alt="Герб УГГ">
+    <div class="brand">
+        <div class="crest">UGG</div>
+        <div>
+            <div class="brand-name">Universidade Guadagnin Galashin</div>
+            <div class="motto">VERITAS · RATIO · LIBERTAS</div>
         </div>
-
-        <nav>
-            <a href="#about">Об университете</a>
-            <a href="#faculties">Факультеты</a>
-            <a href="#courses">Курсы</a>
-            <a href="#publications">Публикации</a>
-            <a href="#support">Поддержать</a>
-        </nav>
-
     </div>
+
+    <nav>
+        <button onclick="showPage('home')" data-i18n="home">Главная</button>
+        <button onclick="showPage('admission')" data-i18n="admission">Поступление</button>
+        <button onclick="showPage('faculties')" data-i18n="faculties">Факультеты</button>
+        <button onclick="showPage('courses')" data-i18n="courses">Курсы</button>
+        <button onclick="showPage('lectures')" data-i18n="lectures">Лекции</button>
+        <button onclick="showPage('news')" data-i18n="news">Новости</button>
+        <button onclick="showPage('apply')" data-i18n="apply">Подать заявку</button>
+        <button onclick="showPage('admin')" data-i18n="admin">Админ</button>
+
+        <div class="lang">
+            <button onclick="setLanguage('ru')">RU</button>
+            <button onclick="setLanguage('pt')">PT</button>
+            <button onclick="setLanguage('en')">EN</button>
+        </div>
+    </nav>
+
+</div>
 </header>
 
+<main>
 
-<section class="hero">
+<!-- HOME -->
+<section id="home" class="page active">
 
-    <div class="hero-content">
-
-        <div class="small-title">
-            Бразилиа · Бразилия
-        </div>
-
-        <h1>
-            Университет имени<br>
-            Гуаданина Галашина
-        </h1>
-
-        <p class="subtitle">
-            Независимое образовательное и исследовательское сообщество,
-            посвящённое философии, истории, искусству и свободному поиску знаний.
-        </p>
-
-        <a class="button" href="#faculties">
-            Направления
-        </a>
-
-        <a class="button secondary" href="#about">
-            Об УГГ
-        </a>
-
-    </div>
-
-</section>
-
-
-<section id="about" class="about">
-
-    <h2 class="section-title">
-        Об университете
+<div class="hero">
+    <h1>UGG</h1>
+    <h2 data-i18n="heroTitle">
+        Университет философии, науки и свободного исследования
     </h2>
-
-    <p class="section-intro">
-        УГГ — независимый образовательный проект, объединяющий студентов,
-        преподавателей и исследователей для изучения философии, истории,
-        искусства, языка и других областей знания.
+    <p data-i18n="heroText">
+        Университет объединяет философское мышление, научное исследование,
+        гуманитарные дисциплины и свободный обмен идеями.
     </p>
-
-    <div class="grid">
-
-        <div class="card">
-            <h3>Свобода мысли</h3>
-            <p>
-                Возможность свободно формулировать, обсуждать и критиковать
-                философские и научные идеи.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Исследование</h3>
-            <p>
-                Публикация самостоятельных исследований преподавателей,
-                студентов и приглашённых авторов.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Диалог</h3>
-            <p>
-                Открытые лекции, семинары, дискуссии и встречи представителей
-                разных интеллектуальных традиций.
-            </p>
-        </div>
-
+    <div>
+        <button class="btn" onclick="showPage('admission')" data-i18n="learnAdmission">
+            Узнать о поступлении
+        </button>
+        <button class="btn secondary" onclick="showPage('lectures')" data-i18n="lectures">
+            Лекции
+        </button>
     </div>
+</div>
+
+<h2 class="section-title" data-i18n="important">Важная информация</h2>
+
+<div class="grid" id="homeCards"></div>
 
 </section>
 
 
-<section id="faculties">
+<!-- ADMISSION -->
+<section id="admission" class="page">
 
-    <h2 class="section-title">
-        Факультеты и направления
-    </h2>
+<h1 class="section-title" data-i18n="admission">Поступление</h1>
 
-    <p class="section-intro">
-        Академические направления УГГ находятся в процессе формирования.
-    </p>
+<div id="admissionContent"></div>
 
-    <div class="grid">
+<div class="notice">
+    <strong data-i18n="openDay">День открытых дверей</strong>
+    <div id="openDay"></div>
+</div>
 
-        <div class="card">
-            <h3>Философия</h3>
-            <p>
-                Онтология, метафизика, ноуменология, философия времени,
-                философия науки и история философии.
-            </p>
-        </div>
+<h2 data-i18n="exam">Вступительный экзамен</h2>
+<div id="examContent"></div>
 
-        <div class="card">
-            <h3>История</h3>
-            <p>
-                История России, Европы, Латинской Америки и история
-                политической и интеллектуальной мысли.
-            </p>
-        </div>
+<h2 data-i18n="places">Бесплатные места</h2>
+<div id="freePlaces"></div>
 
-        <div class="card">
-            <h3>Кинематограф</h3>
-            <p>
-                История кино, теория кинематографа, философия кино
-                и анализ произведений.
-            </p>
-        </div>
+<h2 data-i18n="tuition">Стоимость обучения</h2>
+<div id="tuition"></div>
 
-        <div class="card">
-            <h3>Геополитика</h3>
-            <p>
-                Исследование международных отношений, геополитических
-                концепций и современной мировой политики.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Русский язык</h3>
-            <p>
-                Изучение русского языка, литературы и русской культуры
-                для иностранных учащихся.
-            </p>
-        </div>
-
-        <div class="card">
-            <h3>Будущие направления</h3>
-            <p>
-                Новые факультеты и исследовательские направления будут
-                создаваться по мере развития УГГ.
-            </p>
-        </div>
-
-    </div>
+<button class="btn" onclick="showPage('apply')" data-i18n="apply">
+    Подать заявку
+</button>
 
 </section>
 
 
-<section id="courses" class="courses">
+<!-- FACULTIES -->
+<section id="faculties" class="page">
 
-    <h2 class="section-title">
-        Курсы
-    </h2>
+<h1 class="section-title" data-i18n="faculties">Факультеты</h1>
 
-    <p class="section-intro">
-        Примеры образовательных программ УГГ.
-    </p>
-
-    <div class="course">
-        <strong>Введение в онтологию</strong>
-        <span>Проблема бытия и основные онтологические концепции.</span>
-    </div>
-
-    <div class="course">
-        <strong>Метафизика</strong>
-        <span>Предельные основания реальности и философское исследование сущего.</span>
-    </div>
-
-    <div class="course">
-        <strong>Ноуменология</strong>
-        <span>Авторский философский курс, посвящённый проблемам ноумена, пустоты и ничто.</span>
-    </div>
-
-    <div class="course">
-        <strong>История России</strong>
-        <span>Основные периоды и проблемы российской истории.</span>
-    </div>
-
-    <div class="course">
-        <strong>Философия кинематографа</strong>
-        <span>Кино как искусство, способ мышления и форма философского выражения.</span>
-    </div>
+<div class="grid" id="facultyList"></div>
 
 </section>
 
 
-<section class="statement">
+<!-- COURSES -->
+<section id="courses" class="page">
 
-    <p>
-        «Знание должно быть предметом исследования,
-        а не только предметом передачи».
-    </p>
+<h1 class="section-title" data-i18n="courses">Курсы</h1>
 
-</section>
-
-
-<section id="publications" class="publication">
-
-    <h2 class="section-title">
-        Научные публикации
-    </h2>
-
-    <p class="section-intro">
-        В этом разделе будут публиковаться исследования преподавателей,
-        студентов и независимых авторов.
-    </p>
-
-    <a class="button" href="#">
-        Перейти к публикациям
-    </a>
+<div class="grid" id="courseList"></div>
 
 </section>
 
 
-<section id="support">
+<!-- LECTURES -->
+<section id="lectures" class="page">
 
-    <h2 class="section-title">
-        Поддержать УГГ
-    </h2>
+<h1 class="section-title" data-i18n="lectures">Лекции</h1>
 
-    <p class="section-intro">
-        УГГ стремится сохранять доступность образования. Поддержка проекта
-        помогает оплачивать помещения, оборудование, публикации и работу
-        преподавателей.
-    </p>
+<p data-i18n="lectureIntro">
+    Открытые лекции преподавателей университета.
+</p>
 
-    <a class="button" href="#">
-        Поддержать проект
-    </a>
+<div class="grid" id="lectureList"></div>
 
 </section>
+
+
+<!-- NEWS -->
+<section id="news" class="page">
+
+<h1 class="section-title" data-i18n="news">Новости</h1>
+
+<div class="grid" id="newsList"></div>
+
+</section>
+
+
+<!-- APPLICATION -->
+<section id="apply" class="page">
+
+<h1 class="section-title" data-i18n="apply">Подать заявку</h1>
+
+<div class="form">
+
+<label data-i18n="name">Имя</label>
+<input id="appName">
+
+<label data-i18n="email">Электронная почта</label>
+<input id="appEmail" type="email">
+
+<label data-i18n="faculty">Факультет</label>
+<select id="appFaculty"></select>
+
+<label data-i18n="message">Дополнительная информация</label>
+<textarea id="appMessage"></textarea>
+
+<button class="btn" onclick="submitApplication()" data-i18n="send">
+    Отправить заявку
+</button>
+
+<div id="applicationResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+<section id="admin" class="page">
+
+<div id="loginBox" class="login">
+
+<h1 data-i18n="admin">Админ-панель</h1>
+
+<label data-i18n="password">Пароль</label>
+<input id="adminPassword" type="password">
+
+<button class="btn" onclick="loginAdmin()" data-i18n="login">
+    Войти
+</button>
+
+<div id="loginError"></div>
+
+</div>
+
+
+<div id="adminPanel" class="admin hidden">
+
+<h2>UGG — Administration</h2>
+
+<div class="admin-tabs">
+
+<button onclick="adminTab('general')" class="active">Общее</button>
+<button onclick="adminTab('facultiesAdmin')">Факультеты</button>
+<button onclick="adminTab('coursesAdmin')">Курсы</button>
+<button onclick="adminTab('lecturesAdmin')">Лекции</button>
+<button onclick="adminTab('newsAdmin')">Новости</button>
+<button onclick="adminTab('applicationsAdmin')">Заявки</button>
+
+</div>
+
+
+<!-- GENERAL -->
+<div id="general" class="admin-panel active">
+
+<h3>Общие настройки</h3>
+
+<label>День открытых дверей</label>
+<input id="editOpenDay">
+
+<label>Стоимость обучения</label>
+<input id="editTuition">
+
+<label>Количество бесплатных мест</label>
+<input id="editFreePlaces">
+
+<label>Информация о поступлении</label>
+<textarea id="editAdmission"></textarea>
+
+<label>Вступительный экзамен</label>
+<textarea id="editExam"></textarea>
+
+<button class="btn" onclick="saveGeneral()">Сохранить</button>
+
+</div>
+
+
+<!-- FACULTIES -->
+<div id="facultiesAdmin" class="admin-panel">
+
+<h3>Факультеты</h3>
+
+<div id="adminFacultyList"></div>
+
+<h4>Добавить факультет</h4>
+
+<input id="newFacultyNameRu" placeholder="Название RU">
+<input id="newFacultyNamePt" placeholder="Nome PT">
+<input id="newFacultyNameEn" placeholder="Name EN">
+
+<textarea id="newFacultyDescRu" placeholder="Описание RU"></textarea>
+<textarea id="newFacultyDescPt" placeholder="Descrição PT"></textarea>
+<textarea id="newFacultyDescEn" placeholder="Description EN"></textarea>
+
+<button class="btn" onclick="addFaculty()">Добавить</button>
+
+</div>
+
+
+<!-- COURSES -->
+<div id="coursesAdmin" class="admin-panel">
+
+<h3>Курсы</h3>
+
+<div id="adminCourseList"></div>
+
+<h4>Добавить курс</h4>
+
+<input id="newCourseNameRu" placeholder="Название RU">
+<input id="newCourseNamePt" placeholder="Nome PT">
+<input id="newCourseNameEn" placeholder="Name EN">
+
+<input id="newCourseFaculty" placeholder="Факультет">
+
+<textarea id="newCourseDescRu" placeholder="Описание RU"></textarea>
+<textarea id="newCourseDescPt" placeholder="Descrição PT"></textarea>
+<textarea id="newCourseDescEn" placeholder="Description EN"></textarea>
+
+<button class="btn" onclick="addCourse()">Добавить</button>
+
+</div>
+
+
+<!-- LECTURES -->
+<div id="lecturesAdmin" class="admin-panel">
+
+<h3>Лекции</h3>
+
+<div id="adminLectureList"></div>
+
+<h4>Добавить лекцию</h4>
+
+<input id="newLectureTitleRu" placeholder="Название RU">
+<input id="newLectureTitlePt" placeholder="Título PT">
+<input id="newLectureTitleEn" placeholder="Title EN">
+
+<input id="newLectureProfessorRu" placeholder="Преподаватель RU">
+<input id="newLectureProfessorPt" placeholder="Professor PT">
+<input id="newLectureProfessorEn" placeholder="Professor EN">
+
+<input id="newLectureDate" type="date">
+
+<textarea id="newLectureDescRu" placeholder="Описание RU"></textarea>
+<textarea id="newLectureDescPt" placeholder="Descrição PT"></textarea>
+<textarea id="newLectureDescEn" placeholder="Description EN"></textarea>
+
+<button class="btn" onclick="addLecture()">Добавить</button>
+
+</div>
+
+
+<!-- NEWS -->
+<div id="newsAdmin" class="admin-panel">
+
+<h3>Новости</h3>
+
+<div id="adminNewsList"></div>
+
+<h4>Добавить новость</h4>
+
+<input id="newNewsTitleRu" placeholder="Заголовок RU">
+<input id="newNewsTitlePt" placeholder="Título PT">
+<input id="newNewsTitleEn" placeholder="Title EN">
+
+<textarea id="newNewsTextRu" placeholder="Текст RU"></textarea>
+<textarea id="newNewsTextPt" placeholder="Texto PT"></textarea>
+<textarea id="newNewsTextEn" placeholder="Text EN"></textarea>
+
+<button class="btn" onclick="addNews()">Добавить</button>
+
+</div>
+
+
+<!-- APPLICATIONS -->
+<div id="applicationsAdmin" class="admin-panel">
+
+<h3>Заявки</h3>
+
+<div id="adminApplications"></div>
+
+</div>
+
+<br>
+
+<button class="btn danger" onclick="logoutAdmin()">Выйти</button>
+
+</div>
+
+</section>
+
+</main>
 
 
 <footer>
-
-    <h3>
-        Университет имени Гуаданина Галашина
-    </h3>
-
-    <p>
-        Brasília, Brasil
-    </p>
-
-    <p>
-        Независимый образовательный и исследовательский проект.
-    </p>
-
-    <div class="legal">
-        УГГ не является аккредитованным Министерством образования Бразилии
-        учреждением высшего образования. Материалы сайта описывают
-        деятельность независимого образовательного проекта.
-    </div>
-
+    <div>UGG</div>
+    <div>VERITAS · RATIO · LIBERTAS</div>
 </footer>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const defaultData = {
+
+language:"ru",
+
+general:{
+    openDay:{
+        ru:"15 сентября 2026 года",
+        pt:"15 de setembro de 2026",
+        en:"September 15, 2026"
+    },
+
+    tuition:{
+        ru:"2 500 R$ в семестр",
+        pt:"R$ 2.500 por semestre",
+        en:"R$ 2,500 per semester"
+    },
+
+    freePlaces:{
+        ru:"20 мест предоставляются по результатам конкурса.",
+        pt:"20 vagas são oferecidas por concurso.",
+        en:"20 places are available through competitive selection."
+    },
+
+    admission:{
+        ru:"Для поступления необходимо подать заявку и пройти вступительный отбор. Университет принимает как студентов, так и внешних кандидатов на отдельные программы.",
+        pt:"Para ingressar, é necessário apresentar uma candidatura e passar pelo processo seletivo. A universidade aceita estudantes e candidatos externos em determinados programas.",
+        en:"Admission requires an application and entrance selection. The university accepts students and external candidates for selected programs."
+    },
+
+    exam:{
+        ru:"Вступительный экзамен проверяет способность кандидата рассуждать, анализировать тексты и самостоятельно формулировать аргументы. Для философских программ основной частью является письменное эссе.",
+        pt:"O exame de admissão avalia a capacidade do candidato de raciocinar, analisar textos e formular argumentos de forma independente. Nos programas de filosofia, a parte principal é uma redação.",
+        en:"The entrance examination evaluates reasoning, textual analysis and the ability to formulate independent arguments. For philosophy programs, the main component is a written essay."
+    }
+},
+
+faculties:[
+{
+    id:1,
+    name:{
+        ru:"Факультет философии",
+        pt:"Faculdade de Filosofia",
+        en:"Faculty of Philosophy"
+    },
+    desc:{
+        ru:"Онтология, метафизика, история философии, логика и эстетика.",
+        pt:"Ontologia, metafísica, história da filosofia, lógica e estética.",
+        en:"Ontology, metaphysics, history of philosophy, logic and aesthetics."
+    }
+},
+{
+    id:2,
+    name:{
+        ru:"Факультет политических наук",
+        pt:"Faculdade de Ciência Política",
+        en:"Faculty of Political Science"
+    },
+    desc:{
+        ru:"Политическая теория, геополитика и история государств.",
+        pt:"Teoria política, geopolítica e história dos Estados.",
+        en:"Political theory, geopolitics and the history of states."
+    }
+},
+{
+    id:3,
+    name:{
+        ru:"Факультет языков и культуры",
+        pt:"Faculdade de Línguas e Cultura",
+        en:"Faculty of Languages and Culture"
+    },
+    desc:{
+        ru:"Русский язык, литература и история русской культуры.",
+        pt:"Língua russa, literatura e história da cultura russa.",
+        en:"Russian language, literature and Russian cultural history."
+    }
+}
+],
+
+courses:[
+{
+    id:1,
+    faculty:"Факультет философии",
+    name:{
+        ru:"Онтология I",
+        pt:"Ontologia I",
+        en:"Ontology I"
+    },
+    desc:{
+        ru:"Введение в онтологию и философское исследование бытия.",
+        pt:"Introdução à ontologia e ao estudo filosófico do ser.",
+        en:"Introduction to ontology and the philosophical study of being."
+    }
+},
+{
+    id:2,
+    faculty:"Факультет политических наук",
+    name:{
+        ru:"Геополитика",
+        pt:"Geopolítica",
+        en:"Geopolitics"
+    },
+    desc:{
+        ru:"Курс по основным направлениям современной геополитики.",
+        pt:"Curso sobre as principais correntes da geopolítica contemporânea.",
+        en:"Course covering major approaches to contemporary geopolitics."
+    }
+},
+{
+    id:3,
+    faculty:"Факультет языков и культуры",
+    name:{
+        ru:"Русский язык",
+        pt:"Língua Russa",
+        en:"Russian Language"
+    },
+    desc:{
+        ru:"Изучение русского языка, литературы и культуры.",
+        pt:"Estudo da língua, literatura e cultura russas.",
+        en:"Study of Russian language, literature and culture."
+    }
+}
+],
+
+lectures:[
+{
+    id:1,
+    title:{
+        ru:"Что такое бытие?",
+        pt:"O que é o ser?",
+        en:"What Is Being?"
+    },
+    professor:{
+        ru:"Профессор философии",
+        pt:"Professor de Filosofia",
+        en:"Professor of Philosophy"
+    },
+    date:"2026-09-20",
+    desc:{
+        ru:"Введение в проблему бытия в истории философии.",
+        pt:"Introdução ao problema do ser na história da filosofia.",
+        en:"Introduction to the problem of being in the history of philosophy."
+    }
+}
+],
+
+news:[
+{
+    id:1,
+    title:{
+        ru:"Начат новый учебный год",
+        pt:"Novo ano acadêmico iniciado",
+        en:"New academic year begins"
+    },
+    text:{
+        ru:"Университет начинает новый учебный цикл.",
+        pt:"A universidade inicia um novo ciclo acadêmico.",
+        en:"The university begins a new academic cycle."
+    }
+}
+],
+
+applications:[]
+
+};
+
+
+/* =========================
+   STORAGE
+========================= */
+
+let data =
+    JSON.parse(localStorage.getItem("UGG_DATA")) ||
+    defaultData;
+
+let currentLang =
+    localStorage.getItem("UGG_LANG") ||
+    "ru";
+
+function saveData(){
+    localStorage.setItem("UGG_DATA",JSON.stringify(data));
+}
+
+
+/* =========================
+   TRANSLATIONS
+========================= */
+
+const translations={
+
+ru:{
+home:"Главная",
+admission:"Поступление",
+faculties:"Факультеты",
+courses:"Курсы",
+lectures:"Лекции",
+news:"Новости",
+apply:"Подать заявку",
+admin:"Админ",
+heroTitle:"Университет философии, науки и свободного исследования",
+heroText:"Университет объединяет философское мышление, научное исследование, гуманитарные дисциплины и свободный обмен идеями.",
+learnAdmission:"Узнать о поступлении",
+important:"Важная информация",
+openDay:"День открытых дверей",
+exam:"Вступительный экзамен",
+places:"Бесплатные места",
+tuition:"Стоимость обучения",
+lectureIntro:"Открытые лекции преподавателей университета.",
+name:"Имя",
+email:"Электронная почта",
+faculty:"Факультет",
+message:"Дополнительная информация",
+send:"Отправить заявку",
+password:"Пароль",
+login:"Войти"
+},
+
+pt:{
+home:"Início",
+admission:"Ingresso",
+faculties:"Faculdades",
+courses:"Cursos",
+lectures:"Palestras",
+news:"Notícias",
+apply:"Candidatar-se",
+admin:"Administração",
+heroTitle:"Universidade de filosofia, ciência e investigação livre",
+heroText:"A universidade reúne pensamento filosófico, pesquisa científica, humanidades e livre intercâmbio de ideias.",
+learnAdmission:"Informações sobre ingresso",
+important:"Informações importantes",
+openDay:"Dia de portas abertas",
+exam:"Exame de admissão",
+places:"Vagas gratuitas",
+tuition:"Valor da matrícula",
+lectureIntro:"Palestras abertas dos professores da universidade.",
+name:"Nome",
+email:"E-mail",
+faculty:"Faculdade",
+message:"Informações adicionais",
+send:"Enviar candidatura",
+password:"Senha",
+login:"Entrar"
+},
+
+en:{
+home:"Home",
+admission:"Admissions",
+faculties:"Faculties",
+courses:"Courses",
+lectures:"Lectures",
+news:"News",
+apply:"Apply",
+admin:"Admin",
+heroTitle:"University of philosophy, science and free inquiry",
+heroText:"The university brings together philosophical thought, scientific research, humanities and free exchange of ideas.",
+learnAdmission:"Admissions information",
+important:"Important information",
+openDay:"Open day",
+exam:"Entrance examination",
+places:"Scholarships and free places",
+tuition:"Tuition",
+lectureIntro:"Open lectures by university professors.",
+name:"Name",
+email:"Email",
+faculty:"Faculty",
+message:"Additional information",
+send:"Submit application",
+password:"Password",
+login:"Login"
+}
+
+};
+
+
+function setLanguage(lang){
+
+currentLang=lang;
+
+localStorage.setItem("UGG_LANG",lang);
+
+document.documentElement.lang=lang;
+
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+
+let key=el.dataset.i18n;
+
+if(translations[lang][key])
+    el.textContent=translations[lang][key];
+
+});
+
+renderAll();
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(id){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+window.scrollTo(0,0);
+
+if(id==="admin")
+    refreshAdmin();
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderAll(){
+
+renderHome();
+renderAdmission();
+renderFaculties();
+renderCourses();
+renderLectures();
+renderNews();
+renderFacultySelect();
+
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+
+let key=el.dataset.i18n;
+
+if(translations[currentLang][key])
+    el.textContent=translations[currentLang][key];
+
+});
+
+}
+
+
+function renderHome(){
+
+document.getElementById("homeCards").innerHTML=`
+
+<div class="card">
+<h3>${translations[currentLang].admission}</h3>
+<p>${data.general.admission[currentLang]}</p>
+</div>
+
+<div class="card">
+<h3>${translations[currentLang].tuition}</h3>
+<div class="price">${data.general.tuition[currentLang]}</div>
+</div>
+
+<div class="card">
+<h3>${translations[currentLang].openDay}</h3>
+<p>${data.general.openDay[currentLang]}</p>
+</div>
+
+`;
+
+}
+
+
+function renderAdmission(){
+
+document.getElementById("admissionContent").innerHTML=
+`<p>${data.general.admission[currentLang]}</p>`;
+
+document.getElementById("openDay").textContent=
+data.general.openDay[currentLang];
+
+document.getElementById("examContent").innerHTML=
+`<p>${data.general.exam[currentLang]}</p>`;
+
+document.getElementById("freePlaces").innerHTML=
+`<p>${data.general.freePlaces[currentLang]}</p>`;
+
+document.getElementById("tuition").innerHTML=
+`<div class="price">${data.general.tuition[currentLang]}</div>`;
+
+}
+
+
+function renderFaculties(){
+
+document.getElementById("facultyList").innerHTML=
+data.faculties.map(f=>`
+
+<div class="card">
+
+<h3>${f.name[currentLang]}</h3>
+
+<p>${f.desc[currentLang]}</p>
+
+</div>
+
+`).join("");
+
+}
+
+
+function renderCourses(){
+
+document.getElementById("courseList").innerHTML=
+data.courses.map(c=>`
+
+<div class="card">
+
+<h3>${c.name[currentLang]}</h3>
+
+<div class="meta">${c.faculty}</div>
+
+<p>${c.desc[currentLang]}</p>
+
+</div>
+
+`).join("");
+
+}
+
+
+function renderLectures(){
+
+document.getElementById("lectureList").innerHTML=
+data.lectures.map(l=>`
+
+<div class="card">
+
+<h3>${l.title[currentLang]}</h3>
+
+<div class="meta">
+${l.professor[currentLang]} · ${l.date}
+</div>
+
+<p>${l.desc[currentLang]}</p>
+
+</div>
+
+`).join("");
+
+}
+
+
+function renderNews(){
+
+document.getElementById("newsList").innerHTML=
+data.news.map(n=>`
+
+<div class="card">
+
+<h3>${n.title[currentLang]}</h3>
+
+<p>${n.text[currentLang]}</p>
+
+</div>
+
+`).join("");
+
+}
+
+
+function renderFacultySelect(){
+
+document.getElementById("appFaculty").innerHTML=
+data.faculties.map(f=>`
+
+<option>${f.name[currentLang]}</option>
+
+`).join("");
+
+}
+
+
+/* =========================
+   APPLICATION
+========================= */
+
+function submitApplication(){
+
+const name=
+document.getElementById("appName").value.trim();
+
+const email=
+document.getElementById("appEmail").value.trim();
+
+const faculty=
+document.getElementById("appFaculty").value;
+
+const message=
+document.getElementById("appMessage").value.trim();
+
+if(!name || !email){
+
+alert(
+currentLang==="ru"
+?"Заполните имя и электронную почту."
+:currentLang==="pt"
+?"Preencha o nome e o e-mail."
+:"Please enter your name and email."
+);
+
+return;
+}
+
+data.applications.push({
+
+id:Date.now(),
+name,
+email,
+faculty,
+message,
+date:new Date().toLocaleString()
+
+});
+
+saveData();
+
+document.getElementById("applicationResult").innerHTML=
+`<div class="notice">
+${currentLang==="ru"
+?"Заявка успешно сохранена."
+:currentLang==="pt"
+?"Candidatura enviada com sucesso."
+:"Application submitted successfully."}
+</div>`;
+
+document.getElementById("appName").value="";
+document.getElementById("appEmail").value="";
+document.getElementById("appMessage").value="";
+
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function loginAdmin(){
+
+const password=
+document.getElementById("adminPassword").value;
+
+if(password==="UGG2026"){
+
+localStorage.setItem("UGG_ADMIN","1");
+
+document.getElementById("loginBox")
+.classList.add("hidden");
+
+document.getElementById("adminPanel")
+.classList.remove("hidden");
+
+refreshAdmin();
+
+}else{
+
+document.getElementById("loginError")
+.textContent="Неверный пароль.";
+
+}
+
+}
+
+
+function logoutAdmin(){
+
+localStorage.removeItem("UGG_ADMIN");
+
+document.getElementById("adminPanel")
+.classList.add("hidden");
+
+document.getElementById("loginBox")
+.classList.remove("hidden");
+
+}
+
+
+function refreshAdmin(){
+
+if(localStorage.getItem("UGG_ADMIN")!=="1")
+    return;
+
+document.getElementById("loginBox")
+.classList.add("hidden");
+
+document.getElementById("adminPanel")
+.classList.remove("hidden");
+
+document.getElementById("editOpenDay").value=
+data.general.openDay.ru;
+
+document.getElementById("editTuition").value=
+data.general.tuition.ru;
+
+document.getElementById("editFreePlaces").value=
+data.general.freePlaces.ru;
+
+document.getElementById("editAdmission").value=
+data.general.admission.ru;
+
+document.getElementById("editExam").value=
+data.general.exam.ru;
+
+renderAdminFaculties();
+renderAdminCourses();
+renderAdminLectures();
+renderAdminNews();
+renderAdminApplications();
+
+}
+
+
+/* =========================
+   ADMIN TABS
+========================= */
+
+function adminTab(id){
+
+document.querySelectorAll(".admin-panel")
+.forEach(x=>x.classList.remove("active"));
+
+document.querySelectorAll(".admin-tabs button")
+.forEach(x=>x.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+event.target.classList.add("active");
+
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+function saveGeneral(){
+
+data.general.openDay.ru=
+document.getElementById("editOpenDay").value;
+
+data.general.tuition.ru=
+document.getElementById("editTuition").value;
+
+data.general.freePlaces.ru=
+document.getElementById("editFreePlaces").value;
+
+data.general.admission.ru=
+document.getElementById("editAdmission").value;
+
+data.general.exam.ru=
+document.getElementById("editExam").value;
+
+saveData();
+
+renderAll();
+
+alert("Сохранено.");
+
+}
+
+
+/* =========================
+   FACULTIES
+========================= */
+
+function addFaculty(){
+
+const f={
+
+id:Date.now(),
+
+name:{
+ru:document.getElementById("newFacultyNameRu").value,
+pt:document.getElementById("newFacultyNamePt").value,
+en:document.getElementById("newFacultyNameEn").value
+},
+
+desc:{
+ru:document.getElementById("newFacultyDescRu").value,
+pt:document.getElementById("newFacultyDescPt").value,
+en:document.getElementById("newFacultyDescEn").value
+}
+
+};
+
+data.faculties.push(f);
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function deleteFaculty(id){
+
+if(!confirm("Удалить факультет?"))return;
+
+data.faculties=
+data.faculties.filter(x=>x.id!==id);
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function renderAdminFaculties(){
+
+document.getElementById("adminFacultyList").innerHTML=
+data.faculties.map(f=>`
+
+<div class="admin-item">
+
+<strong>${f.name.ru}</strong>
+
+<br>${f.name.pt}
+<br>${f.name.en}
+
+<br><br>
+
+<button class="btn danger"
+onclick="deleteFaculty(${f.id})">
+Удалить
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =========================
+   COURSES
+========================= */
+
+function addCourse(){
+
+data.courses.push({
+
+id:Date.now(),
+
+faculty:document.getElementById("newCourseFaculty").value,
+
+name:{
+ru:document.getElementById("newCourseNameRu").value,
+pt:document.getElementById("newCourseNamePt").value,
+en:document.getElementById("newCourseNameEn").value
+},
+
+desc:{
+ru:document.getElementById("newCourseDescRu").value,
+pt:document.getElementById("newCourseDescPt").value,
+en:document.getElementById("newCourseDescEn").value
+}
+
+});
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function deleteCourse(id){
+
+if(!confirm("Удалить курс?"))return;
+
+data.courses=
+data.courses.filter(x=>x.id!==id);
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function renderAdminCourses(){
+
+document.getElementById("adminCourseList").innerHTML=
+data.courses.map(c=>`
+
+<div class="admin-item">
+
+<strong>${c.name.ru}</strong>
+
+<br>${c.faculty}
+
+<br><br>
+
+<button class="btn danger"
+onclick="deleteCourse(${c.id})">
+Удалить
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =========================
+   LECTURES
+========================= */
+
+function addLecture(){
+
+data.lectures.push({
+
+id:Date.now(),
+
+title:{
+ru:document.getElementById("newLectureTitleRu").value,
+pt:document.getElementById("newLectureTitlePt").value,
+en:document.getElementById("newLectureTitleEn").value
+},
+
+professor:{
+ru:document.getElementById("newLectureProfessorRu").value,
+pt:document.getElementById("newLectureProfessorPt").value,
+en:document.getElementById("newLectureProfessorEn").value
+},
+
+date:document.getElementById("newLectureDate").value,
+
+desc:{
+ru:document.getElementById("newLectureDescRu").value,
+pt:document.getElementById("newLectureDescPt").value,
+en:document.getElementById("newLectureDescEn").value
+}
+
+});
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function deleteLecture(id){
+
+if(!confirm("Удалить лекцию?"))return;
+
+data.lectures=
+data.lectures.filter(x=>x.id!==id);
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function renderAdminLectures(){
+
+document.getElementById("adminLectureList").innerHTML=
+data.lectures.map(l=>`
+
+<div class="admin-item">
+
+<strong>${l.title.ru}</strong>
+
+<br>${l.professor.ru}
+
+<br>${l.date}
+
+<br><br>
+
+<button class="btn danger"
+onclick="deleteLecture(${l.id})">
+Удалить
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =========================
+   NEWS
+========================= */
+
+function addNews(){
+
+data.news.push({
+
+id:Date.now(),
+
+title:{
+ru:document.getElementById("newNewsTitleRu").value,
+pt:document.getElementById("newNewsTitlePt").value,
+en:document.getElementById("newNewsTitleEn").value
+},
+
+text:{
+ru:document.getElementById("newNewsTextRu").value,
+pt:document.getElementById("newNewsTextPt").value,
+en:document.getElementById("newNewsTextEn").value
+}
+
+});
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function deleteNews(id){
+
+if(!confirm("Удалить новость?"))return;
+
+data.news=
+data.news.filter(x=>x.id!==id);
+
+saveData();
+
+renderAll();
+
+refreshAdmin();
+
+}
+
+
+function renderAdminNews(){
+
+document.getElementById("adminNewsList").innerHTML=
+data.news.map(n=>`
+
+<div class="admin-item">
+
+<strong>${n.title.ru}</strong>
+
+<p>${n.text.ru}</p>
+
+<button class="btn danger"
+onclick="deleteNews(${n.id})">
+Удалить
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =========================
+   APPLICATIONS ADMIN
+========================= */
+
+function deleteApplication(id){
+
+data.applications=
+data.applications.filter(x=>x.id!==id);
+
+saveData();
+
+renderAdminApplications();
+
+}
+
+
+function renderAdminApplications(){
+
+if(!data.applications.length){
+
+document.getElementById("adminApplications").innerHTML=
+"<p>Заявок пока нет.</p>";
+
+return;
+
+}
+
+document.getElementById("adminApplications").innerHTML=
+data.applications.map(a=>`
+
+<div class="admin-item">
+
+<strong>${a.name}</strong>
+
+<br>Email: ${a.email}
+
+<br>Факультет: ${a.faculty}
+
+<br>Дата: ${a.date}
+
+<p>${a.message}</p>
+
+<button class="btn danger"
+onclick="deleteApplication(${a.id})">
+Удалить
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* =========================
+   HEADER SCROLL
+========================= */
+
+let lastScroll=0;
+
+window.addEventListener("scroll",()=>{
+
+const current=
+window.pageYOffset;
+
+const header=
+document.getElementById("header");
+
+if(current>lastScroll && current>100){
+
+header.classList.add("hidden");
+
+}else{
+
+header.classList.remove("hidden");
+
+}
+
+lastScroll=current;
+
+});
+
+
+/* =========================
+   START
+========================= */
+
+setLanguage(currentLang);
+
+if(localStorage.getItem("UGG_ADMIN")==="1")
+    refreshAdmin();
+
+</script>
 
 </body>
 </html>
