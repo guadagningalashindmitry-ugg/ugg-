@@ -1,2064 +1,1484 @@
-from flask import Flask, request, redirect, url_for, session, render_template_string, abort
-import sqlite3
-from functools import wraps
-from html import escape
-
-app = Flask(__name__)
-app.secret_key = "UGG_LOCAL_DEMO_SECRET_CHANGE_ME"
-
-DB = "ugg.db"
-
-LANGUAGES = {
-    "ru": "Русский",
-    "pt": "Português",
-    "en": "English",
-    "de": "Deutsch",
-    "fr": "Français"
-}
-
-UNIVERSITY = {
-    "ru": "Независимый негосударственный университет имени Гуаданина Галашина",
-    "pt": "Universidade Independente e Não Estatal Guadanin Galashin",
-    "en": "Independent Non-State University named after Guadagnin Galashin",
-    "de": "Unabhängige nichtstaatliche Universität namens Guadagnin Galashin",
-    "fr": "Université indépendante et non étatique nommée d'après Guadagnin Galashin"
-}
-
-T = {
-    "ru": {
-        "home": "Главная",
-        "about": "Об университете",
-        "faculties": "Факультеты",
-        "courses": "Курсы",
-        "lectures": "Лекции",
-        "publications": "Публикации",
-        "staff": "Научный состав",
-        "admission": "Поступление",
-        "documents": "Документы",
-        "news": "Новости",
-        "admin": "Админка",
-        "more": "Подробнее",
-        "mandatory": "Обязательные курсы",
-        "elective": "Курсы свободного выбора",
-        "save": "Сохранить",
-        "add": "Добавить",
-        "edit": "Изменить",
-        "delete": "Удалить",
-        "logout": "Выйти",
-        "login": "Войти",
-        "settings": "Настройки",
-        "name": "Название",
-        "description": "Описание",
-        "faculty": "Факультет",
-        "position": "Должность",
-        "degree": "Учёная степень",
-        "age": "Возраст",
-        "email": "E-mail",
-        "photo": "Фото",
-        "biography": "Биография"
-    },
-    "pt": {
-        "home": "Início",
-        "about": "Sobre a universidade",
-        "faculties": "Faculdades",
-        "courses": "Cursos",
-        "lectures": "Aulas",
-        "publications": "Publicações",
-        "staff": "Corpo científico",
-        "admission": "Admissão",
-        "documents": "Documentos",
-        "news": "Notícias",
-        "admin": "Administração",
-        "more": "Saiba mais",
-        "mandatory": "Cursos obrigatórios",
-        "elective": "Disciplinas de escolha",
-        "save": "Salvar",
-        "add": "Adicionar",
-        "edit": "Editar",
-        "delete": "Excluir",
-        "logout": "Sair",
-        "login": "Entrar",
-        "settings": "Configurações",
-        "name": "Nome",
-        "description": "Descrição",
-        "faculty": "Faculdade",
-        "position": "Cargo",
-        "degree": "Grau",
-        "age": "Idade",
-        "email": "E-mail",
-        "photo": "Foto",
-        "biography": "Biografia"
-    },
-    "en": {
-        "home": "Home",
-        "about": "About the university",
-        "faculties": "Faculties",
-        "courses": "Courses",
-        "lectures": "Lectures",
-        "publications": "Publications",
-        "staff": "Academic staff",
-        "admission": "Admission",
-        "documents": "Documents",
-        "news": "News",
-        "admin": "Admin",
-        "more": "Read more",
-        "mandatory": "Mandatory courses",
-        "elective": "Elective courses",
-        "save": "Save",
-        "add": "Add",
-        "edit": "Edit",
-        "delete": "Delete",
-        "logout": "Log out",
-        "login": "Log in",
-        "settings": "Settings",
-        "name": "Name",
-        "description": "Description",
-        "faculty": "Faculty",
-        "position": "Position",
-        "degree": "Degree",
-        "age": "Age",
-        "email": "E-mail",
-        "photo": "Photo",
-        "biography": "Biography"
-    },
-    "de": {
-        "home": "Startseite",
-        "about": "Über die Universität",
-        "faculties": "Fakultäten",
-        "courses": "Kurse",
-        "lectures": "Vorlesungen",
-        "publications": "Publikationen",
-        "staff": "Wissenschaftlicher Stab",
-        "admission": "Aufnahme",
-        "documents": "Dokumente",
-        "news": "Nachrichten",
-        "admin": "Administration",
-        "more": "Mehr erfahren",
-        "mandatory": "Pflichtkurse",
-        "elective": "Wahlkurse",
-        "save": "Speichern",
-        "add": "Hinzufügen",
-        "edit": "Bearbeiten",
-        "delete": "Löschen",
-        "logout": "Abmelden",
-        "login": "Anmelden",
-        "settings": "Einstellungen",
-        "name": "Name",
-        "description": "Beschreibung",
-        "faculty": "Fakultät",
-        "position": "Position",
-        "degree": "Abschluss",
-        "age": "Alter",
-        "email": "E-Mail",
-        "photo": "Foto",
-        "biography": "Biografie"
-    },
-    "fr": {
-        "home": "Accueil",
-        "about": "À propos de l'université",
-        "faculties": "Facultés",
-        "courses": "Cours",
-        "lectures": "Cours magistraux",
-        "publications": "Publications",
-        "staff": "Corps scientifique",
-        "admission": "Admission",
-        "documents": "Documents",
-        "news": "Actualités",
-        "admin": "Administration",
-        "more": "En savoir plus",
-        "mandatory": "Cours obligatoires",
-        "elective": "Cours au choix",
-        "save": "Enregistrer",
-        "add": "Ajouter",
-        "edit": "Modifier",
-        "delete": "Supprimer",
-        "logout": "Déconnexion",
-        "login": "Connexion",
-        "settings": "Paramètres",
-        "name": "Nom",
-        "description": "Description",
-        "faculty": "Faculté",
-        "position": "Fonction",
-        "degree": "Diplôme",
-        "age": "Âge",
-        "email": "E-mail",
-        "photo": "Photo",
-        "biography": "Biographie"
-    }
-}
-
-FACULTIES = {
-    "philosophy": {
-        "ru": "Факультет философии",
-        "pt": "Faculdade de Filosofia",
-        "en": "Faculty of Philosophy",
-        "de": "Philosophische Fakultät",
-        "fr": "Faculté de philosophie"
-    },
-    "russian": {
-        "ru": "Факультет русского языка и русской культуры",
-        "pt": "Faculdade de Língua e Cultura Russa",
-        "en": "Faculty of Russian Language and Culture",
-        "de": "Fakultät für russische Sprache und Kultur",
-        "fr": "Faculté de langue et culture russes"
-    },
-    "cinema": {
-        "ru": "Факультет кинематографа",
-        "pt": "Faculdade de Cinema",
-        "en": "Faculty of Cinema",
-        "de": "Fakultät für Filmkunst",
-        "fr": "Faculté de cinéma"
-    }
-}
-
-COURSES = [
-    # ФИЛОСОФИЯ
-    ("philosophy", "Введение в философию", 1),
-    ("philosophy", "Философия науки", 1),
-    ("philosophy", "Этика", 1),
-    ("philosophy", "Онтология", 1),
-    ("philosophy", "Ноуменология", 1),
-
-    ("philosophy", "История античной философии", 0),
-    ("philosophy", "Средневековая философия", 0),
-    ("philosophy", "Философия Нового времени", 0),
-    ("philosophy", "Немецкая классическая философия", 0),
-    ("philosophy", "Философия XIX века", 0),
-    ("philosophy", "Философия XX века", 0),
-    ("philosophy", "Современная философия", 0),
-    ("philosophy", "Логика", 0),
-    ("philosophy", "Эстетика", 0),
-    ("philosophy", "Философская антропология", 0),
-    ("philosophy", "Гносеология", 0),
-    ("philosophy", "История русской философии", 0),
-    ("philosophy", "Философия языка", 0),
-    ("philosophy", "Социальная философия", 0),
-    ("philosophy", "Философия времени", 0),
-    ("philosophy", "Философия пространства", 0),
-    ("philosophy", "Философия пустоты и ничто", 0),
-    ("philosophy", "Философия искусства", 0),
-    ("philosophy", "Философия истории", 0),
-
-    # РУССКИЙ
-    ("russian", "Практический русский язык", 1),
-    ("russian", "Грамматика русского языка", 1),
-    ("russian", "Введение в русскую литературу", 1),
-    ("russian", "История русского языка", 1),
-
-    ("russian", "История русской литературы", 0),
-    ("russian", "Стилистика", 0),
-    ("russian", "Культура речи", 0),
-    ("russian", "Литература XIX века", 0),
-    ("russian", "Литература XX века", 0),
-    ("russian", "Современная русская литература", 0),
-    ("russian", "Русская поэзия", 0),
-    ("russian", "Русская проза", 0),
-    ("russian", "История России", 0),
-    ("russian", "Русская культура", 0),
-    ("russian", "Русская философская культура", 0),
-    ("russian", "Пушкин", 0),
-    ("russian", "Достоевский", 0),
-    ("russian", "Толстой", 0),
-    ("russian", "Чехов", 0),
-    ("russian", "Булгаков", 0),
-    ("russian", "Набоков", 0),
-    ("russian", "Бродский", 0),
-    ("russian", "Русская эмиграция", 0),
-    ("russian", "Советская культура", 0),
-
-    # КИНО
-    ("cinema", "Введение в кинематограф", 1),
-    ("cinema", "История кино", 1),
-    ("cinema", "Киноязык", 1),
-    ("cinema", "Киноанализ", 1),
-    ("cinema", "Эстетика", 1),
-
-    ("cinema", "Кинорежиссура", 0),
-    ("cinema", "Сценарное мастерство", 0),
-    ("cinema", "Операторское искусство", 0),
-    ("cinema", "Монтаж", 0),
-    ("cinema", "Работа со звуком", 0),
-    ("cinema", "Киноактёрское мастерство", 0),
-    ("cinema", "Кинодраматургия", 0),
-    ("cinema", "Визуальная композиция", 0),
-    ("cinema", "Документальное кино", 0),
-    ("cinema", "Авторское кино", 0),
-    ("cinema", "Философия кино", 0),
-    ("cinema", "Кинематограф и общество", 0),
-    ("cinema", "Введение в философию", 0),
-    ("cinema", "Этика", 0),
-    ("cinema", "Советский кинематограф", 0),
-    ("cinema", "Русская режиссура", 0),
-    ("cinema", "Европейское кино", 0),
-    ("cinema", "Американское кино", 0),
-    ("cinema", "Экспериментальное кино", 0),
-    ("cinema", "Немое кино", 0)
-]
-
-
-def get_db():
-    con = sqlite3.connect(DB)
-    con.row_factory = sqlite3.Row
-    return con
-
-
-def init_db():
-    con = get_db()
-
-    con.executescript("""
-    CREATE TABLE IF NOT EXISTS settings (
-        key TEXT PRIMARY KEY,
-        value TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS courses (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        faculty TEXT NOT NULL,
-        name TEXT NOT NULL,
-        mandatory INTEGER DEFAULT 0,
-        description TEXT DEFAULT ''
-    );
-
-    CREATE TABLE IF NOT EXISTS publications (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        author TEXT DEFAULT '',
-        faculty TEXT DEFAULT '',
-        body TEXT DEFAULT '',
-        language TEXT DEFAULT 'ru',
-        published INTEGER DEFAULT 1
-    );
-
-    CREATE TABLE IF NOT EXISTS staff (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        position TEXT DEFAULT '',
-        degree TEXT DEFAULT '',
-        faculty TEXT DEFAULT '',
-        age TEXT DEFAULT '',
-        email TEXT DEFAULT '',
-        photo TEXT DEFAULT '',
-        biography TEXT DEFAULT '',
-        published INTEGER DEFAULT 1
-    );
-
-    CREATE TABLE IF NOT EXISTS pages (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        slug TEXT UNIQUE NOT NULL,
-        title TEXT NOT NULL,
-        body TEXT DEFAULT '',
-        published INTEGER DEFAULT 1
-    );
-
-    CREATE TABLE IF NOT EXISTS lectures (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        course TEXT DEFAULT '',
-        body TEXT DEFAULT '',
-        published INTEGER DEFAULT 1
-    );
-    """)
-
-    if con.execute("SELECT COUNT(*) FROM courses").fetchone()[0] == 0:
-        con.executemany(
-            "INSERT INTO courses(faculty,name,mandatory) VALUES(?,?,?)",
-            COURSES
-        )
-
-    defaults = {
-        "motto": "Scientia, Cogitatio, Humanitas",
-        "university_ru": UNIVERSITY["ru"],
-        "university_pt": UNIVERSITY["pt"],
-        "university_en": UNIVERSITY["en"],
-        "university_de": UNIVERSITY["de"],
-        "university_fr": UNIVERSITY["fr"]
-    }
-
-    for key, value in defaults.items():
-        con.execute(
-            "INSERT OR IGNORE INTO settings(key,value) VALUES(?,?)",
-            (key, value)
-        )
-
-    con.commit()
-    con.close()
-
-
-@app.context_processor
-def context():
-    lang = session.get("lang", "ru")
-
-    con = get_db()
-    settings = {
-        row["key"]: row["value"]
-        for row in con.execute("SELECT * FROM settings")
-    }
-    con.close()
-
-    return {
-        "lang": lang,
-        "languages": LANGUAGES,
-        "T": T[lang],
-        "settings": settings,
-        "university": settings.get(
-            "university_" + lang,
-            UNIVERSITY[lang]
-        )
-    }
-
-
-@app.route("/language/<lang>")
-def language(lang):
-    if lang in LANGUAGES:
-        session["lang"] = lang
-
-    return redirect(request.referrer or "/")
-
-
-# ============================================================
-# HTML / CSS
-# ============================================================
-
-CSS = """
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
-
-:root {
-    --paper:#f4f0e7;
-    --paper2:#fbf9f4;
-    --ink:#191817;
-    --muted:#77716a;
-    --line:#d8d0c2;
-    --gold:#8a6935;
-}
-
-* { box-sizing:border-box; }
-
-body {
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:Inter,Arial,sans-serif;
-}
-
-a {
-    color:inherit;
-    text-decoration:none;
-}
-
-.header {
-    min-height:105px;
-    padding:20px 5vw;
-    display:flex;
-    align-items:center;
-    gap:30px;
-    border-bottom:1px solid var(--line);
-    background:rgba(251,249,244,.97);
-    position:sticky;
-    top:0;
-    z-index:20;
-}
-
-.brand {
-    display:flex;
-    align-items:center;
-    gap:15px;
-    flex:1;
-}
-
-.crest {
-    font-family:"Cormorant Garamond",serif;
-    font-weight:700;
-    font-size:29px;
-    letter-spacing:.1em;
-    border:1px solid var(--ink);
-    padding:7px 10px;
-}
-
-.university {
-    max-width:400px;
-    font-family:"Cormorant Garamond",serif;
-    font-size:20px;
-    line-height:1.05;
-}
-
-.motto {
-    margin-top:4px;
-    color:var(--gold);
-    font-family:"Cormorant Garamond",serif;
-    font-style:italic;
-}
-
-.nav {
-    display:flex;
-    gap:18px;
-    flex-wrap:wrap;
-    font-size:12px;
-}
-
-.nav a:hover {
-    color:var(--gold);
-}
-
-.languages {
-    display:flex;
-    gap:6px;
-    font-size:11px;
-}
-
-.languages a {
-    padding:4px;
-}
-
-.languages .active {
-    color:var(--gold);
-    font-weight:bold;
-}
-
-main {
-    min-height:70vh;
-}
-
-.hero {
-    padding:120px 8vw 130px;
-    border-bottom:1px solid var(--line);
-}
-
-.hero-mark {
-    font-family:"Cormorant Garamond",serif;
-    font-weight:700;
-    font-size:100px;
-    letter-spacing:.08em;
-}
-
-.eyebrow {
-    color:var(--gold);
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.2em;
-}
-
-h1,h2,h3 {
-    font-family:"Cormorant Garamond",serif;
-    font-weight:600;
-}
-
-h1 {
-    font-size:clamp(45px,6vw,82px);
-    line-height:.92;
-    max-width:1000px;
-}
-
-h2 {
-    font-size:43px;
-}
-
-h3 {
-    font-size:28px;
-}
-
-.lead {
-    max-width:760px;
-    color:var(--muted);
-    line-height:1.8;
-    font-size:18px;
-}
-
-.buttons {
-    display:flex;
-    gap:12px;
-    margin-top:30px;
-}
-
-.button {
-    border:1px solid var(--ink);
-    background:var(--ink);
-    color:white;
-    padding:13px 19px;
-    font-size:12px;
-    cursor:pointer;
-}
-
-.button.light {
-    background:transparent;
-    color:var(--ink);
-}
-
-.section {
-    max-width:1400px;
-    margin:auto;
-    padding:70px 8vw;
-}
-
-.grid {
-    display:grid;
-    gap:18px;
-}
-
-.grid3 {
-    grid-template-columns:repeat(3,1fr);
-}
-
-.grid2 {
-    grid-template-columns:repeat(2,1fr);
-}
-
-.card {
-    background:var(--paper2);
-    border:1px solid var(--line);
-    padding:30px;
-    transition:.2s;
-}
-
-.card:hover {
-    transform:translateY(-2px);
-    border-color:#a99a83;
-}
-
-.pagehead {
-    padding:85px 8vw 55px;
-    border-bottom:1px solid var(--line);
-}
-
-.course {
-    padding:22px 0;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    gap:20px;
-}
-
-.course-number {
-    color:var(--gold);
-    font-family:"Cormorant Garamond",serif;
-    font-size:22px;
-}
-
-.course h3 {
-    margin:0;
-}
-
-.paper {
-    background:#e9e2d5;
-    max-width:none;
-}
-
-.article {
-    max-width:900px;
-    font-family:"Cormorant Garamond",serif;
-    font-size:23px;
-    line-height:1.6;
-}
-
-.person img {
-    width:100%;
-    aspect-ratio:1;
-    object-fit:cover;
-}
-
-.avatar {
-    height:220px;
-    display:grid;
-    place-items:center;
-    background:#e4ddcf;
-    font-family:"Cormorant Garamond",serif;
-    font-size:45px;
-}
-
-footer {
-    border-top:1px solid var(--line);
-    padding:50px 8vw;
-    display:flex;
-    justify-content:space-between;
-    font-family:"Cormorant Garamond",serif;
-    font-size:19px;
-}
-
-.adminbar {
-    background:#191817;
-    color:white;
-    padding:15px 4vw;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.adminbar nav {
-    display:flex;
-    gap:18px;
-    font-size:12px;
-    flex-wrap:wrap;
-}
-
-.admin {
-    padding:50px 5vw;
-}
-
-.admin-table {
-    border-top:1px solid var(--line);
-}
-
-.admin-row {
-    padding:17px 0;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.admin-actions {
-    display:flex;
-    gap:15px;
-}
-
-.form {
-    max-width:850px;
-    display:grid;
-    gap:12px;
-}
-
-.form input,
-.form textarea,
-.form select {
-    width:100%;
-    padding:13px;
-    border:1px solid var(--line);
-    background:white;
-    font:inherit;
-}
-
-.form textarea {
-    min-height:280px;
-}
-
-.login {
-    min-height:100vh;
-    display:grid;
-    place-items:center;
-}
-
-.login-box {
-    width:min(430px,90vw);
-    background:var(--paper2);
-    border:1px solid var(--line);
-    padding:45px;
-    display:grid;
-    gap:14px;
-}
-
-.login-box input {
-    padding:13px;
-    border:1px solid var(--line);
-}
-
-.stat {
-    font-family:"Cormorant Garamond",serif;
-    font-size:55px;
-}
-
-@media(max-width:900px) {
-    .header {
-        flex-wrap:wrap;
-    }
-
-    .nav {
-        order:4;
-        width:100%;
-    }
-
-    .grid3,
-    .grid2 {
-        grid-template-columns:1fr;
-    }
-
-    .hero {
-        padding-top:70px;
-    }
-
-    .hero-mark {
-        font-size:70px;
-    }
-
-    .university {
-        font-size:16px;
-    }
-}
-"""
-
-
-BASE = """
+```html
 <!DOCTYPE html>
-<html lang="{{lang}}">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>UGG — {{university}}</title>
-<style>{{ css }}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UGG — Независимый негосударственный университет имени Гуаданина Галашина</title>
+
+    <meta name="description"
+          content="Независимый негосударственный университет имени Гуаданина Галашина">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --background: #f4f0e7;
+            --paper: #fbf9f4;
+            --black: #171614;
+            --dark: #272522;
+            --gold: #8b6b38;
+            --gold-light: #b49a6c;
+            --gray: #716b62;
+            --border: #d8d0c1;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--black);
+            font-family: "Inter", Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(251, 249, 244, 0.96);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            min-height: 94px;
+            max-width: 1500px;
+            margin: auto;
+            padding: 16px 5vw;
+
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            flex: 1;
+        }
+
+        .crest {
+            width: 68px;
+            height: 68px;
+
+            border: 1px solid var(--black);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .brand-name {
+            max-width: 400px;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.05;
+        }
+
+        .brand-motto {
+            margin-top: 5px;
+
+            color: var(--gold);
+
+            font-family: "Cormorant Garamond", serif;
+            font-style: italic;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        nav a {
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .languages {
+            display: flex;
+            gap: 5px;
+            margin-left: 5px;
+        }
+
+        .languages button {
+            border: 0;
+            background: transparent;
+
+            color: var(--gray);
+
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .languages button.active,
+        .languages button:hover {
+            color: var(--gold);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 720px;
+
+            max-width: 1500px;
+            margin: auto;
+
+            padding: 120px 8vw 130px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-crest {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(80px, 13vw, 180px);
+            font-weight: 700;
+            letter-spacing: 0.07em;
+
+            line-height: 0.8;
+
+            margin-bottom: 42px;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+
+            font-size: 10px;
+            font-weight: 500;
+
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            max-width: 1050px;
+
+            margin: 20px 0 25px;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(48px, 7vw, 90px);
+            font-weight: 600;
+            line-height: 0.94;
+        }
+
+        .hero-description {
+            max-width: 720px;
+
+            color: var(--gray);
+
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+
+            margin-top: 35px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 46px;
+
+            padding: 0 23px;
+
+            border: 1px solid var(--black);
+
+            background: var(--black);
+            color: var(--white);
+
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+
+            transition: 0.2s ease;
+        }
+
+        .button:hover {
+            background: transparent;
+            color: var(--black);
+        }
+
+        .button.secondary {
+            background: transparent;
+            color: var(--black);
+        }
+
+        .button.secondary:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+            max-width: 1500px;
+            margin: auto;
+
+            padding: 90px 8vw;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 18px;
+
+            margin-bottom: 45px;
+        }
+
+        .section-number {
+            color: var(--gold);
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 20px;
+        }
+
+        .section-heading h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 55px;
+            font-weight: 600;
+        }
+
+        /* =========================
+           FACULTIES
+        ========================= */
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .faculty-card {
+            min-height: 300px;
+
+            position: relative;
+
+            padding: 32px;
+
+            border: 1px solid var(--border);
+            background: var(--paper);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-light);
+        }
+
+        .faculty-number {
+            color: var(--gold);
+
+            font-size: 10px;
+            letter-spacing: 0.2em;
+        }
+
+        .faculty-card h3 {
+            max-width: 350px;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.05;
+        }
+
+        .faculty-arrow {
+            color: var(--gold);
+            font-size: 25px;
+        }
+
+        /* =========================
+           PRINCIPLES
+        ========================= */
+
+        .dark-section {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .dark-section .section {
+            border: 0;
+        }
+
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+
+            background: #4a4741;
+        }
+
+        .principle {
+            min-height: 230px;
+
+            padding: 35px;
+
+            background: var(--dark);
+        }
+
+        .principle-number {
+            color: var(--gold-light);
+
+            font-size: 10px;
+            letter-spacing: 0.2em;
+        }
+
+        .principle h3 {
+            margin-top: 55px;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 35px;
+            font-weight: 500;
+        }
+
+        /* =========================
+           PUBLICATIONS
+        ========================= */
+
+        .publication-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .publication-card {
+            padding: 30px;
+
+            border: 1px solid var(--border);
+            background: var(--paper);
+        }
+
+        .publication-card h3 {
+            margin: 18px 0;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 31px;
+            line-height: 1.1;
+        }
+
+        .publication-card p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .publication-link {
+            display: inline-block;
+            margin-top: 28px;
+
+            color: var(--gold);
+
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* =========================
+           UNIVERSITY INFO
+        ========================= */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .info-item {
+            padding: 30px 0;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:nth-child(odd) {
+            padding-right: 40px;
+            border-right: 1px solid var(--border);
+        }
+
+        .info-item:nth-child(even) {
+            padding-left: 40px;
+        }
+
+        .info-item h3 {
+            margin-bottom: 10px;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 30px;
+        }
+
+        .info-item p {
+            color: var(--gray);
+            max-width: 500px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: var(--black);
+            color: var(--white);
+
+            padding: 65px 8vw;
+        }
+
+        .footer-inner {
+            max-width: 1500px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 50px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .footer-motto {
+            margin-top: 5px;
+
+            color: var(--gold-light);
+
+            font-family: "Cormorant Garamond", serif;
+            font-style: italic;
+        }
+
+        .footer-right {
+            color: #aaa49a;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .header-inner {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                order: 4;
+                width: 100%;
+
+                overflow-x: auto;
+
+                padding-bottom: 4px;
+            }
+
+            .faculty-grid,
+            .publication-grid,
+            .principles {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 80px;
+                padding-bottom: 90px;
+            }
+
+            .section-heading h2 {
+                font-size: 45px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .header-inner {
+                padding: 12px 5vw;
+            }
+
+            .crest {
+                width: 52px;
+                height: 52px;
+                font-size: 19px;
+            }
+
+            .brand-name {
+                font-size: 17px;
+            }
+
+            .brand-motto {
+                font-size: 12px;
+            }
+
+            .hero {
+                padding-left: 6vw;
+                padding-right: 6vw;
+            }
+
+            .section {
+                padding-left: 6vw;
+                padding-right: 6vw;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-item:nth-child(odd) {
+                padding-right: 0;
+                border-right: 0;
+            }
+
+            .info-item:nth-child(even) {
+                padding-left: 0;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        /* =========================
+           LANGUAGE CONTENT
+        ========================= */
+
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang="ru"] {
+            display: block;
+        }
+
+        span[data-lang="ru"],
+        a[data-lang="ru"] {
+            display: inline;
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="header">
+<header>
+    <div class="header-inner">
 
-<a class="brand" href="/">
-    <div class="crest">UGG</div>
-    <div>
-        <div class="university">{{university}}</div>
-        <div class="motto">{{settings.motto}}</div>
+        <a href="index.html" class="brand">
+
+            <div class="crest">
+                UGG
+            </div>
+
+            <div>
+                <div class="brand-name">
+
+                    <span data-lang="ru">
+                        Независимый негосударственный университет имени Гуаданина Галашина
+                    </span>
+
+                    <span data-lang="pt">
+                        Universidade Independente e Não Estatal Guadanin Galashin
+                    </span>
+
+                    <span data-lang="en">
+                        Independent Non-State University named after Guadagnin Galashin
+                    </span>
+
+                    <span data-lang="de">
+                        Unabhängige nichtstaatliche Universität namens Guadagnin Galashin
+                    </span>
+
+                    <span data-lang="fr">
+                        Université indépendante et non étatique nommée d'après Guadagnin Galashin
+                    </span>
+
+                </div>
+
+                <div class="brand-motto">
+                    Scientia · Cogitatio · Humanitas
+                </div>
+            </div>
+
+        </a>
+
+        <nav>
+
+            <a href="index.html">
+                <span data-lang="ru">Главная</span>
+                <span data-lang="pt">Início</span>
+                <span data-lang="en">Home</span>
+                <span data-lang="de">Startseite</span>
+                <span data-lang="fr">Accueil</span>
+            </a>
+
+            <a href="faculties.html">
+                <span data-lang="ru">Факультеты</span>
+                <span data-lang="pt">Faculdades</span>
+                <span data-lang="en">Faculties</span>
+                <span data-lang="de">Fakultäten</span>
+                <span data-lang="fr">Facultés</span>
+            </a>
+
+            <a href="courses.html">
+                <span data-lang="ru">Курсы</span>
+                <span data-lang="pt">Cursos</span>
+                <span data-lang="en">Courses</span>
+                <span data-lang="de">Kurse</span>
+                <span data-lang="fr">Cours</span>
+            </a>
+
+            <a href="publications.html">
+                <span data-lang="ru">Публикации</span>
+                <span data-lang="pt">Publicações</span>
+                <span data-lang="en">Publications</span>
+                <span data-lang="de">Publikationen</span>
+                <span data-lang="fr">Publications</span>
+            </a>
+
+            <a href="staff.html">
+                <span data-lang="ru">Состав</span>
+                <span data-lang="pt">Equipe</span>
+                <span data-lang="en">Staff</span>
+                <span data-lang="de">Stab</span>
+                <span data-lang="fr">Équipe</span>
+            </a>
+
+        </nav>
+
+        <div class="languages">
+
+            <button class="active" onclick="setLanguage('ru')">RU</button>
+            <button onclick="setLanguage('pt')">PT</button>
+            <button onclick="setLanguage('en')">EN</button>
+            <button onclick="setLanguage('de')">DE</button>
+            <button onclick="setLanguage('fr')">FR</button>
+
+        </div>
+
     </div>
-</a>
-
-<nav class="nav">
-    <a href="/">{{T.home}}</a>
-    <a href="/faculties">{{T.faculties}}</a>
-    <a href="/courses">{{T.courses}}</a>
-    <a href="/lectures">{{T.lectures}}</a>
-    <a href="/publications">{{T.publications}}</a>
-    <a href="/staff">{{T.staff}}</a>
-    <a href="/page/admission">{{T.admission}}</a>
-</nav>
-
-<div class="languages">
-{% for code,name in languages.items() %}
-<a class="{% if lang==code %}active{% endif %}"
-   href="/language/{{code}}">{{code.upper()}}</a>
-{% endfor %}
-</div>
-
 </header>
 
+
 <main>
-{{ content|safe }}
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-crest">
+            UGG
+        </div>
+
+        <div class="eyebrow">
+            Scientia · Cogitatio · Humanitas
+        </div>
+
+        <h1>
+
+            <span data-lang="ru">
+                Независимый негосударственный университет имени Гуаданина Галашина
+            </span>
+
+            <span data-lang="pt">
+                Universidade Independente e Não Estatal Guadanin Galashin
+            </span>
+
+            <span data-lang="en">
+                Independent Non-State University named after Guadagnin Galashin
+            </span>
+
+            <span data-lang="de">
+                Unabhängige nichtstaatliche Universität namens Guadagnin Galashin
+            </span>
+
+            <span data-lang="fr">
+                Université indépendante et non étatique nommée d'après Guadagnin Galashin
+            </span>
+
+        </h1>
+
+        <p class="hero-description">
+
+            <span data-lang="ru">
+                Академическое пространство, посвящённое свободному исследованию,
+                философии, языку, культуре и искусству.
+            </span>
+
+            <span data-lang="pt">
+                Um espaço académico dedicado à investigação livre,
+                à filosofia, à língua, à cultura e às artes.
+            </span>
+
+            <span data-lang="en">
+                An academic space dedicated to free inquiry,
+                philosophy, language, culture and the arts.
+            </span>
+
+            <span data-lang="de">
+                Ein akademischer Raum für freie Forschung,
+                Philosophie, Sprache, Kultur und Kunst.
+            </span>
+
+            <span data-lang="fr">
+                Un espace académique consacré à la recherche libre,
+                à la philosophie, à la langue, à la culture et aux arts.
+            </span>
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a class="button" href="faculties.html">
+
+                <span data-lang="ru">Факультеты</span>
+                <span data-lang="pt">Faculdades</span>
+                <span data-lang="en">Faculties</span>
+                <span data-lang="de">Fakultäten</span>
+                <span data-lang="fr">Facultés</span>
+
+            </a>
+
+            <a class="button secondary" href="about.html">
+
+                <span data-lang="ru">Об университете</span>
+                <span data-lang="pt">Sobre a universidade</span>
+                <span data-lang="en">About the university</span>
+                <span data-lang="de">Über die Universität</span>
+                <span data-lang="fr">À propos de l'université</span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- FACULTIES -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="section-number">01</span>
+
+            <h2>
+
+                <span data-lang="ru">Факультеты</span>
+                <span data-lang="pt">Faculdades</span>
+                <span data-lang="en">Faculties</span>
+                <span data-lang="de">Fakultäten</span>
+                <span data-lang="fr">Facultés</span>
+
+            </h2>
+
+        </div>
+
+
+        <div class="faculty-grid">
+
+            <a href="philosophy.html" class="faculty-card">
+
+                <span class="faculty-number">01</span>
+
+                <h3>
+
+                    <span data-lang="ru">Факультет философии</span>
+                    <span data-lang="pt">Faculdade de Filosofia</span>
+                    <span data-lang="en">Faculty of Philosophy</span>
+                    <span data-lang="de">Philosophische Fakultät</span>
+                    <span data-lang="fr">Faculté de philosophie</span>
+
+                </h3>
+
+                <span class="faculty-arrow">→</span>
+
+            </a>
+
+
+            <a href="russian.html" class="faculty-card">
+
+                <span class="faculty-number">02</span>
+
+                <h3>
+
+                    <span data-lang="ru">
+                        Факультет русского языка и русской культуры
+                    </span>
+
+                    <span data-lang="pt">
+                        Faculdade de Língua e Cultura Russa
+                    </span>
+
+                    <span data-lang="en">
+                        Faculty of Russian Language and Culture
+                    </span>
+
+                    <span data-lang="de">
+                        Fakultät für russische Sprache und Kultur
+                    </span>
+
+                    <span data-lang="fr">
+                        Faculté de langue et culture russes
+                    </span>
+
+                </h3>
+
+                <span class="faculty-arrow">→</span>
+
+            </a>
+
+
+            <a href="cinema.html" class="faculty-card">
+
+                <span class="faculty-number">03</span>
+
+                <h3>
+
+                    <span data-lang="ru">Факультет кинематографа</span>
+                    <span data-lang="pt">Faculdade de Cinema</span>
+                    <span data-lang="en">Faculty of Cinema</span>
+                    <span data-lang="de">Fakultät für Filmkunst</span>
+                    <span data-lang="fr">Faculté de cinéma</span>
+
+                </h3>
+
+                <span class="faculty-arrow">→</span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRINCIPLES -->
+
+    <div class="dark-section">
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <span class="section-number">02</span>
+
+                <h2>
+
+                    <span data-lang="ru">Принципы</span>
+                    <span data-lang="pt">Princípios</span>
+                    <span data-lang="en">Principles</span>
+                    <span data-lang="de">Grundsätze</span>
+                    <span data-lang="fr">Principes</span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="principles">
+
+                <div class="principle">
+
+                    <span class="principle-number">01</span>
+
+                    <h3>
+
+                        <span data-lang="ru">Свободное исследование</span>
+                        <span data-lang="pt">Investigação livre</span>
+                        <span data-lang="en">Free inquiry</span>
+                        <span data-lang="de">Freie Forschung</span>
+                        <span data-lang="fr">Recherche libre</span>
+
+                    </h3>
+
+                </div>
+
+
+                <div class="principle">
+
+                    <span class="principle-number">02</span>
+
+                    <h3>
+
+                        <span data-lang="ru">Академическая самостоятельность</span>
+                        <span data-lang="pt">Autonomia académica</span>
+                        <span data-lang="en">Academic independence</span>
+                        <span data-lang="de">Akademische Unabhängigkeit</span>
+                        <span data-lang="fr">Indépendance académique</span>
+
+                    </h3>
+
+                </div>
+
+
+                <div class="principle">
+
+                    <span class="principle-number">03</span>
+
+                    <h3>
+
+                        <span data-lang="ru">Единство знания и культуры</span>
+                        <span data-lang="pt">Unidade do conhecimento e da cultura</span>
+                        <span data-lang="en">Unity of knowledge and culture</span>
+                        <span data-lang="de">Einheit von Wissen und Kultur</span>
+                        <span data-lang="fr">Unité du savoir et de la culture</span>
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- PUBLICATIONS -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="section-number">03</span>
+
+            <h2>
+
+                <span data-lang="ru">Публикации</span>
+                <span data-lang="pt">Publicações</span>
+                <span data-lang="en">Publications</span>
+                <span data-lang="de">Publikationen</span>
+                <span data-lang="fr">Publications</span>
+
+            </h2>
+
+        </div>
+
+
+        <div class="publication-grid">
+
+            <article class="publication-card">
+
+                <span class="eyebrow">UGG / PHILOSOPHY</span>
+
+                <h3>
+                    Ноуменология
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Исследования бытия, ничто, пустоты и ноуменального.
+                    </span>
+
+                    <span data-lang="pt">
+                        Estudos sobre o ser, o nada, o vazio e o noumenal.
+                    </span>
+
+                    <span data-lang="en">
+                        Studies of being, nothingness, void and the noumenal.
+                    </span>
+
+                    <span data-lang="de">
+                        Untersuchungen des Seins, des Nichts, der Leere und des Noumenalen.
+                    </span>
+
+                    <span data-lang="fr">
+                        Études de l'être, du néant, du vide et du nouménal.
+                    </span>
+
+                </p>
+
+                <a class="publication-link" href="publications.html">
+
+                    <span data-lang="ru">Читать →</span>
+                    <span data-lang="pt">Ler →</span>
+                    <span data-lang="en">Read →</span>
+                    <span data-lang="de">Lesen →</span>
+                    <span data-lang="fr">Lire →</span>
+
+                </a>
+
+            </article>
+
+
+            <article class="publication-card">
+
+                <span class="eyebrow">UGG / CULTURE</span>
+
+                <h3>
+
+                    <span data-lang="ru">Русская культура</span>
+                    <span data-lang="pt">Cultura russa</span>
+                    <span data-lang="en">Russian culture</span>
+                    <span data-lang="de">Russische Kultur</span>
+                    <span data-lang="fr">Culture russe</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Исследования литературы, языка и культурного наследия.
+                    </span>
+
+                    <span data-lang="pt">
+                        Estudos de literatura, língua e património cultural.
+                    </span>
+
+                    <span data-lang="en">
+                        Studies of literature, language and cultural heritage.
+                    </span>
+
+                    <span data-lang="de">
+                        Studien zu Literatur, Sprache und kulturellem Erbe.
+                    </span>
+
+                    <span data-lang="fr">
+                        Études de littérature, de langue et de patrimoine culturel.
+                    </span>
+
+                </p>
+
+                <a class="publication-link" href="publications.html">
+
+                    <span data-lang="ru">Читать →</span>
+                    <span data-lang="pt">Ler →</span>
+                    <span data-lang="en">Read →</span>
+                    <span data-lang="de">Lesen →</span>
+                    <span data-lang="fr">Lire →</span>
+
+                </a>
+
+            </article>
+
+
+            <article class="publication-card">
+
+                <span class="eyebrow">UGG / CINEMA</span>
+
+                <h3>
+
+                    <span data-lang="ru">Кинематограф</span>
+                    <span data-lang="pt">Cinema</span>
+                    <span data-lang="en">Cinema</span>
+                    <span data-lang="de">Filmkunst</span>
+                    <span data-lang="fr">Cinéma</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Теория, история и эстетика кинематографа.
+                    </span>
+
+                    <span data-lang="pt">
+                        Teoria, história e estética do cinema.
+                    </span>
+
+                    <span data-lang="en">
+                        Film theory, history and aesthetics.
+                    </span>
+
+                    <span data-lang="de">
+                        Filmtheorie, Geschichte und Ästhetik.
+                    </span>
+
+                    <span data-lang="fr">
+                        Théorie, histoire et esthétique du cinéma.
+                    </span>
+
+                </p>
+
+                <a class="publication-link" href="publications.html">
+
+                    <span data-lang="ru">Читать →</span>
+                    <span data-lang="pt">Ler →</span>
+                    <span data-lang="en">Read →</span>
+                    <span data-lang="de">Lesen →</span>
+                    <span data-lang="fr">Lire →</span>
+
+                </a>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- UNIVERSITY -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="section-number">04</span>
+
+            <h2>
+
+                <span data-lang="ru">Университет</span>
+                <span data-lang="pt">Universidade</span>
+                <span data-lang="en">University</span>
+                <span data-lang="de">Universität</span>
+                <span data-lang="fr">Université</span>
+
+            </h2>
+
+        </div>
+
+
+        <div class="info-grid">
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Образование</span>
+                    <span data-lang="pt">Educação</span>
+                    <span data-lang="en">Education</span>
+                    <span data-lang="de">Bildung</span>
+                    <span data-lang="fr">Éducation</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Учебные программы объединяют фундаментальную подготовку
+                        и самостоятельное исследование.
+                    </span>
+
+                    <span data-lang="pt">
+                        Os programas combinam formação fundamental
+                        e investigação autónoma.
+                    </span>
+
+                    <span data-lang="en">
+                        Academic programs combine fundamental education
+                        with independent research.
+                    </span>
+
+                    <span data-lang="de">
+                        Studienprogramme verbinden Grundlagenbildung
+                        mit selbstständiger Forschung.
+                    </span>
+
+                    <span data-lang="fr">
+                        Les programmes associent formation fondamentale
+                        et recherche indépendante.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Исследования</span>
+                    <span data-lang="pt">Investigação</span>
+                    <span data-lang="en">Research</span>
+                    <span data-lang="de">Forschung</span>
+                    <span data-lang="fr">Recherche</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Университет поддерживает научные публикации,
+                        исследования и академические кружки.
+                    </span>
+
+                    <span data-lang="pt">
+                        A universidade apoia publicações científicas,
+                        investigação e círculos académicos.
+                    </span>
+
+                    <span data-lang="en">
+                        The university supports academic publications,
+                        research and student scholarly circles.
+                    </span>
+
+                    <span data-lang="de">
+                        Die Universität unterstützt wissenschaftliche Publikationen,
+                        Forschung und akademische Arbeitskreise.
+                    </span>
+
+                    <span data-lang="fr">
+                        L'université soutient les publications scientifiques,
+                        la recherche et les cercles académiques.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Лекции</span>
+                    <span data-lang="pt">Aulas</span>
+                    <span data-lang="en">Lectures</span>
+                    <span data-lang="de">Vorlesungen</span>
+                    <span data-lang="fr">Cours</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Открытые лекции и материалы преподавателей
+                        доступны в отдельном разделе.
+                    </span>
+
+                    <span data-lang="pt">
+                        Aulas abertas e materiais dos professores
+                        estão disponíveis numa secção própria.
+                    </span>
+
+                    <span data-lang="en">
+                        Open lectures and teaching materials
+                        are available in a dedicated section.
+                    </span>
+
+                    <span data-lang="de">
+                        Offene Vorlesungen und Lehrmaterialien
+                        stehen in einem eigenen Bereich zur Verfügung.
+                    </span>
+
+                    <span data-lang="fr">
+                        Les cours ouverts et les matériaux pédagogiques
+                        sont disponibles dans une section dédiée.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Академическое сообщество</span>
+                    <span data-lang="pt">Comunidade académica</span>
+                    <span data-lang="en">Academic community</span>
+                    <span data-lang="de">Akademische Gemeinschaft</span>
+                    <span data-lang="fr">Communauté académique</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Студенты, преподаватели и исследователи образуют
+                        единое академическое пространство УГГ.
+                    </span>
+
+                    <span data-lang="pt">
+                        Estudantes, professores e investigadores formam
+                        uma comunidade académica comum.
+                    </span>
+
+                    <span data-lang="en">
+                        Students, teachers and researchers form
+                        the academic community of UGG.
+                    </span>
+
+                    <span data-lang="de">
+                        Studierende, Lehrende und Forschende bilden
+                        die akademische Gemeinschaft der UGG.
+                    </span>
+
+                    <span data-lang="fr">
+                        Étudiants, enseignants et chercheurs forment
+                        la communauté académique de l'UGG.
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
 </main>
 
+
 <footer>
-    <div>UGG</div>
-    <div>{{settings.motto}}</div>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-logo">
+                UGG
+            </div>
+
+            <div class="footer-motto">
+                Scientia · Cogitatio · Humanitas
+            </div>
+
+        </div>
+
+
+        <div class="footer-right">
+
+            <span data-lang="ru">
+                Независимый негосударственный университет имени Гуаданина Галашина
+            </span>
+
+            <span data-lang="pt">
+                Universidade Independente e Não Estatal Guadanin Galashin
+            </span>
+
+            <span data-lang="en">
+                Independent Non-State University named after Guadagnin Galashin
+            </span>
+
+            <span data-lang="de">
+                Unabhängige nichtstaatliche Universität namens Guadagnin Galashin
+            </span>
+
+            <span data-lang="fr">
+                Université indépendante et non étatique nommée d'après Guadagnin Galashin
+            </span>
+
+            <br><br>
+
+            © UGG
+
+        </div>
+
+    </div>
+
 </footer>
+
+
+<script>
+
+    function setLanguage(language) {
+
+        document.documentElement.lang = language;
+
+        document.querySelectorAll("[data-lang]").forEach(function(element) {
+
+            if (element.getAttribute("data-lang") === language) {
+                element.style.display =
+                    element.tagName === "SPAN" || element.tagName === "A"
+                        ? "inline"
+                        : "block";
+            } else {
+                element.style.display = "none";
+            }
+
+        });
+
+
+        document.querySelectorAll(".languages button").forEach(function(button) {
+            button.classList.remove("active");
+        });
+
+        const activeButton =
+            document.querySelector(
+                '.languages button[onclick="setLanguage(\'' + language + '\')"]'
+            );
+
+        if (activeButton) {
+            activeButton.classList.add("active");
+        }
+
+        localStorage.setItem("ugg-language", language);
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const savedLanguage =
+            localStorage.getItem("ugg-language") || "ru";
+
+        setLanguage(savedLanguage);
+
+    });
+
+</script>
 
 </body>
 </html>
-"""
-
-
-def page(content):
-    return render_template_string(
-        BASE,
-        content=content,
-        css=CSS
-    )
-
-
-# ============================================================
-# PUBLIC SITE
-# ============================================================
-
-@app.route("/")
-def home():
-
-    cards = ""
-
-    for i, (slug, name) in enumerate([
-        ("philosophy", "philosophy"),
-        ("russian", "russian"),
-        ("cinema", "cinema")
-    ], 1):
-
-        cards += f"""
-        <a class="card" href="/faculty/{slug}">
-            <div class="eyebrow">0{i}</div>
-            <h2>{escape(FACULTIES[slug][session.get("lang","ru")])}</h2>
-            <p>{T[session.get("lang","ru")]["more"]} →</p>
-        </a>
-        """
-
-    content = f"""
-    <section class="hero">
-
-        <div class="hero-mark">UGG</div>
-
-        <div class="eyebrow">
-            {escape(session.get("lang","ru") and "Scientia, Cogitatio, Humanitas")}
-        </div>
-
-        <h1>{escape(UNIVERSITY[session.get("lang","ru")])}</h1>
-
-        <p class="lead">
-            Независимый университет, объединяющий образование,
-            философское исследование, язык, культуру и кинематограф.
-        </p>
-
-        <div class="buttons">
-            <a class="button" href="/faculties">
-                {T[session.get("lang","ru")]["faculties"]}
-            </a>
-
-            <a class="button light" href="/publications">
-                {T[session.get("lang","ru")]["publications"]}
-            </a>
-        </div>
-
-    </section>
-
-    <section class="section">
-
-        <h2>{T[session.get("lang","ru")]["faculties"]}</h2>
-
-        <div class="grid grid3">
-            {cards}
-        </div>
-
-    </section>
-
-    <section class="section paper">
-
-        <h2>{T[session.get("lang","ru")]["about"]}</h2>
-
-        <p class="lead">
-            УГГ — независимый негосударственный университет
-            имени Гуаданина Галашина.
-        </p>
-
-    </section>
-    """
-
-    return page(content)
-
-
-@app.route("/faculties")
-def faculties():
-
-    lang = session.get("lang", "ru")
-
-    cards = ""
-
-    for slug, names in FACULTIES.items():
-        cards += f"""
-        <a class="card" href="/faculty/{slug}">
-            <h2>{escape(names[lang])}</h2>
-            <p>{T[lang]["more"]} →</p>
-        </a>
-        """
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">UGG</div>
-        <h1>{T[lang]["faculties"]}</h1>
-    </section>
-
-    <section class="section">
-        <div class="grid grid3">
-            {cards}
-        </div>
-    </section>
-    """)
-
-
-@app.route("/faculty/<slug>")
-def faculty(slug):
-
-    if slug not in FACULTIES:
-        abort(404)
-
-    lang = session.get("lang", "ru")
-    con = get_db()
-
-    courses = con.execute(
-        """
-        SELECT * FROM courses
-        WHERE faculty=?
-        ORDER BY mandatory DESC, name
-        """,
-        (slug,)
-    ).fetchall()
-
-    con.close()
-
-    mandatory = ""
-    elective = ""
-
-    for i, c in enumerate(courses, 1):
-
-        block = f"""
-        <div class="course">
-            <div class="course-number">{i:02}</div>
-            <div>
-                <h3>{escape(c["name"])}</h3>
-                <p>{escape(c["description"] or "")}</p>
-            </div>
-        </div>
-        """
-
-        if c["mandatory"]:
-            mandatory += block
-        else:
-            elective += block
-
-    return page(f"""
-    <section class="pagehead">
-
-        <div class="eyebrow">UGG</div>
-
-        <h1>{escape(FACULTIES[slug][lang])}</h1>
-
-    </section>
-
-    <section class="section">
-
-        <h2>{T[lang]["mandatory"]}</h2>
-
-        <div>
-            {mandatory}
-        </div>
-
-        <h2 style="margin-top:80px">
-            {T[lang]["elective"]}
-        </h2>
-
-        <div>
-            {elective}
-        </div>
-
-    </section>
-    """)
-
-
-@app.route("/courses")
-def courses():
-
-    lang = session.get("lang", "ru")
-    con = get_db()
-    courses = con.execute(
-        "SELECT * FROM courses ORDER BY faculty, mandatory DESC, name"
-    ).fetchall()
-    con.close()
-
-    result = ""
-
-    for slug in FACULTIES:
-
-        result += f"""
-        <h2>{escape(FACULTIES[slug][lang])}</h2>
-        <div class="grid grid2">
-        """
-
-        for c in courses:
-
-            if c["faculty"] != slug:
-                continue
-
-            result += f"""
-            <div class="card">
-
-                <div class="eyebrow">
-                    {T[lang]["mandatory"] if c["mandatory"] else T[lang]["elective"]}
-                </div>
-
-                <h3>{escape(c["name"])}</h3>
-
-                <p>{escape(c["description"] or "")}</p>
-
-            </div>
-            """
-
-        result += "</div>"
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">UGG</div>
-        <h1>{T[lang]["courses"]}</h1>
-    </section>
-
-    <section class="section">
-        {result}
-    </section>
-    """)
-
-
-@app.route("/publications")
-def publications():
-
-    lang = session.get("lang", "ru")
-
-    con = get_db()
-    rows = con.execute(
-        """
-        SELECT * FROM publications
-        WHERE published=1
-        ORDER BY id DESC
-        """
-    ).fetchall()
-    con.close()
-
-    cards = ""
-
-    for p in rows:
-
-        cards += f"""
-        <article class="card">
-
-            <div class="eyebrow">
-                {escape(p["faculty"] or "UGG")}
-            </div>
-
-            <h2>{escape(p["title"])}</h2>
-
-            <p>{escape(p["author"])}</p>
-
-            <a href="/publication/{p["id"]}">
-                {T[lang]["more"]} →
-            </a>
-
-        </article>
-        """
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">UGG</div>
-        <h1>{T[lang]["publications"]}</h1>
-    </section>
-
-    <section class="section">
-        <div class="grid grid2">
-            {cards}
-        </div>
-    </section>
-    """)
-
-
-@app.route("/publication/<int:id>")
-def publication(id):
-
-    con = get_db()
-    p = con.execute(
-        "SELECT * FROM publications WHERE id=?",
-        (id,)
-    ).fetchone()
-    con.close()
-
-    if not p:
-        abort(404)
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">{escape(p["faculty"])}</div>
-        <h1>{escape(p["title"])}</h1>
-        <p>{escape(p["author"])}</p>
-    </section>
-
-    <section class="section article">
-        {escape(p["body"]).replace(chr(10), "<br>")}
-    </section>
-    """)
-
-
-@app.route("/staff")
-def staff():
-
-    lang = session.get("lang", "ru")
-
-    con = get_db()
-    rows = con.execute(
-        "SELECT * FROM staff WHERE published=1 ORDER BY name"
-    ).fetchall()
-    con.close()
-
-    cards = ""
-
-    for person in rows:
-
-        image = (
-            f'<img src="{escape(person["photo"])}">'
-            if person["photo"]
-            else '<div class="avatar">UGG</div>'
-        )
-
-        cards += f"""
-        <article class="card person">
-
-            {image}
-
-            <h2>{escape(person["name"])}</h2>
-
-            <p>
-                <strong>{escape(person["position"])}</strong>
-            </p>
-
-            <p>{escape(person["degree"])}</p>
-
-            <p>{escape(person["faculty"])}</p>
-
-            <p>{escape(person["age"])}</p>
-
-            <p>
-                <a href="mailto:{escape(person["email"])}">
-                    {escape(person["email"])}
-                </a>
-            </p>
-
-            <p>{escape(person["biography"])}</p>
-
-        </article>
-        """
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">UGG</div>
-        <h1>{T[lang]["staff"]}</h1>
-    </section>
-
-    <section class="section">
-
-        <div class="grid grid3">
-            {cards}
-        </div>
-
-    </section>
-    """)
-
-
-@app.route("/lectures")
-def lectures():
-
-    con = get_db()
-
-    rows = con.execute(
-        "SELECT * FROM lectures WHERE published=1 ORDER BY id DESC"
-    ).fetchall()
-
-    con.close()
-
-    cards = ""
-
-    for l in rows:
-
-        cards += f"""
-        <a class="card" href="/lecture/{l["id"]}">
-            <div class="eyebrow">{escape(l["course"])}</div>
-            <h2>{escape(l["title"])}</h2>
-        </a>
-        """
-
-    lang = session.get("lang", "ru")
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">UGG</div>
-        <h1>{T[lang]["lectures"]}</h1>
-    </section>
-
-    <section class="section">
-
-        <div class="grid grid2">
-            {cards}
-        </div>
-
-    </section>
-    """)
-
-
-@app.route("/lecture/<int:id>")
-def lecture(id):
-
-    con = get_db()
-
-    l = con.execute(
-        "SELECT * FROM lectures WHERE id=?",
-        (id,)
-    ).fetchone()
-
-    con.close()
-
-    if not l:
-        abort(404)
-
-    return page(f"""
-    <section class="pagehead">
-        <div class="eyebrow">{escape(l["course"])}</div>
-        <h1>{escape(l["title"])}</h1>
-    </section>
-
-    <section class="section article">
-        {escape(l["body"]).replace(chr(10), "<br>")}
-    </section>
-    """)
-
-
-@app.route("/page/<slug>")
-def custom_page(slug):
-
-    con = get_db()
-
-    p = con.execute(
-        """
-        SELECT * FROM pages
-        WHERE slug=? AND published=1
-        """,
-        (slug,)
-    ).fetchone()
-
-    con.close()
-
-    if not p:
-        abort(404)
-
-    return page(f"""
-    <section class="pagehead">
-        <h1>{escape(p["title"])}</h1>
-    </section>
-
-    <section class="section article">
-        {escape(p["body"]).replace(chr(10), "<br>")}
-    </section>
-    """)
-
-
-# ============================================================
-# ADMIN
-# ============================================================
-
-def admin_required(f):
-
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-
-        if not session.get("admin"):
-            return redirect("/admin/login")
-
-        return f(*args, **kwargs)
-
-    return wrapper
-
-
-@app.route("/admin/login", methods=["GET", "POST"])
-def admin_login():
-
-    if request.method == "POST":
-
-        if (
-            request.form.get("username") == "admin"
-            and request.form.get("password") == "ugg"
-        ):
-            session["admin"] = True
-            return redirect("/admin")
-
-    return render_template_string(
-        """
-        <style>{{css}}</style>
-
-        <div class="login">
-
-        <form class="login-box" method="post">
-
-            <div class="crest">UGG</div>
-
-            <h1>Административная панель</h1>
-
-            <input name="username" placeholder="Логин">
-
-            <input
-                name="password"
-                type="password"
-                placeholder="Пароль"
-            >
-
-            <button class="button">
-                Войти
-            </button>
-
-            <small>
-                Локальная демо-версия<br>
-                Логин: admin<br>
-                Пароль: ugg
-            </small>
-
-        </form>
-
-        </div>
-        """,
-        css=CSS
-    )
-
-
-@app.route("/admin/logout")
-def admin_logout():
-
-    session.pop("admin", None)
-
-    return redirect("/")
-
-
-@app.route("/admin")
-@admin_required
-def admin():
-
-    con = get_db()
-
-    counts = {}
-
-    for table in [
-        "courses",
-        "publications",
-        "staff",
-        "pages",
-        "lectures"
-    ]:
-
-        counts[table] = con.execute(
-            f"SELECT COUNT(*) FROM {table}"
-        ).fetchone()[0]
-
-    con.close()
-
-    cards = ""
-
-    for name, number in counts.items():
-
-        cards += f"""
-        <a class="card" href="/admin/{name}">
-            <h2>{name}</h2>
-            <div class="stat">{number}</div>
-        </a>
-        """
-
-    return render_template_string(
-        """
-        <style>{{css}}</style>
-
-        <header class="adminbar">
-
-            <strong>UGG ADMIN</strong>
-
-            <nav>
-                <a href="/">Сайт</a>
-                <a href="/admin/settings">Настройки</a>
-                <a href="/admin/logout">Выйти</a>
-            </nav>
-
-        </header>
-
-        <main class="admin">
-
-            <h1>Панель управления</h1>
-
-            <div class="grid grid3">
-                {{cards|safe}}
-            </div>
-
-        </main>
-        """,
-        css=CSS,
-        cards=cards
-    )
-
-
-# ============================================================
-# ADMIN LISTS
-# ============================================================
-
-ADMIN_TABLES = {
-    "courses": "Курсы",
-    "publications": "Публикации",
-    "staff": "Научный состав",
-    "pages": "Страницы",
-    "lectures": "Лекции"
-}
-
-
-@app.route("/admin/<table>")
-@admin_required
-def admin_table(table):
-
-    if table not in ADMIN_TABLES:
-        abort(404)
-
-    con = get_db()
-
-    rows = con.execute(
-        f"SELECT * FROM {table} ORDER BY id DESC"
-    ).fetchall()
-
-    con.close()
-
-    html = ""
-
-    for row in rows:
-
-        if table == "courses":
-            title = row["name"]
-
-        elif table == "staff":
-            title = row["name"]
-
-        else:
-            title = row["title"]
-
-        html += f"""
-        <div class="admin-row">
-
-            <div>
-                <strong>{escape(title)}</strong>
-                <small> #{row["id"]}</small>
-            </div>
-
-            <div class="admin-actions">
-
-                <a href="/admin/{table}/{row["id"]}/edit">
-                    Изменить
-                </a>
-
-                <form
-                    method="post"
-                    action="/admin/{table}/{row["id"]}/delete"
-                    onsubmit="return confirm('Удалить запись?')"
-                >
-                    <button>Удалить</button>
-                </form>
-
-            </div>
-
-        </div>
-        """
-
-    return render_template_string(
-        """
-        <style>{{css}}</style>
-
-        <header class="adminbar">
-            <strong>UGG ADMIN</strong>
-            <nav>
-                <a href="/admin">Dashboard</a>
-                <a href="/">Сайт</a>
-                <a href="/admin/logout">Выйти</a>
-            </nav>
-        </header>
-
-        <main class="admin">
-
-            <div style="
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-            ">
-
-                <h1>{{title}}</h1>
-
-                <a class="button"
-                   href="/admin/{{table}}/new">
-                    + Добавить
-                </a>
-
-            </div>
-
-            <div class="admin-table">
-                {{html|safe}}
-            </div>
-
-        </main>
-        """,
-        css=CSS,
-        title=ADMIN_TABLES[table],
-        table=table,
-        html=html
-    )
-
-
-# ============================================================
-# ADMIN FORMS
-# ============================================================
-
-@app.route("/admin/<table>/new", methods=["GET", "POST"])
-@app.route("/admin/<table>/<int:id>/edit", methods=["GET", "POST"])
-@admin_required
-def admin_form(table, id=None):
-
-    if table not in ADMIN_TABLES:
-        abort(404)
-
-    con = get_db()
-
-    if request.method == "POST":
-
-        form = request.form
-
-        if table == "courses":
-
-            if id:
-
-                con.execute(
-                    """
-                    UPDATE courses
-                    SET faculty=?, name=?, mandatory=?, description=?
-                    WHERE id=?
-                    """,
-                    (
-                        form["faculty"],
-                        form["name"],
-                        int("mandatory" in form),
-                        form["description"],
-                        id
-                    )
-                )
-
-            else:
-
-                con.execute(
-                    """
-                    INSERT INTO courses
-                    (faculty,name,mandatory,description)
-                    VALUES(?,?,?,?)
-                    """,
-                    (
-                        form["faculty"],
-                        form["name"],
-                        int("mandatory" in form),
-                        form["description"]
-                    )
-                )
-
-        elif table == "publications":
-
-            data = (
-                form["title"],
-                form["author"],
-                form["faculty"],
-                form["body"],
-                form["language"],
-                int("published" in form)
-            )
-
-            if id:
-
-                con.execute(
-                    """
-                    UPDATE publications
-                    SET title=?,author=?,faculty=?,body=?,
-                    language=?,published=?
-                    WHERE id=?
-                    """,
-                    data + (id,)
-                )
-
-            else:
-
-                con.execute(
-                    """
-                    INSERT INTO publications
-                    (title,author,faculty,body,language,published)
-                    VALUES(?,?,?,?,?,?)
-                    """,
-                    data
-                )
-
-        elif table == "staff":
-
-            fields = (
-                form["name"],
-                form["position"],
-                form["degree"],
-                form["faculty"],
-                form["age"],
-                form["email"],
-                form["photo"],
-                form["biography"],
-                int("published" in form)
-            )
-
-            if id:
-
-                con.execute(
-                    """
-                    UPDATE staff SET
-                    name=?,position=?,degree=?,faculty=?,
-                    age=?,email=?,photo=?,biography=?,published=?
-                    WHERE id=?
-                    """,
-                    fields + (id,)
-                )
-
-            else:
-
-                con.execute(
-                    """
-                    INSERT INTO staff
-                    (name,position,degree,faculty,age,email,
-                     photo,biography,published)
-                    VALUES(?,?,?,?,?,?,?,?,?)
-                    """,
-                    fields
-                )
-
-        elif table == "pages":
-
-            data = (
-                form["slug"],
-                form["title"],
-                form["body"],
-                int("published" in form)
-            )
-
-            if id:
-
-                con.execute(
-                    """
-                    UPDATE pages
-                    SET slug=?,title=?,body=?,published=?
-                    WHERE id=?
-                    """,
-                    data + (id,)
-                )
-
-            else:
-
-                con.execute(
-                    """
-                    INSERT INTO pages
-                    (slug,title,body,published)
-                    VALUES(?,?,?,?)
-                    """,
-                    data
-                )
-
-        elif table == "lectures":
-
-            data = (
-                form["title"],
-                form["course"],
-                form["body"],
-                int("published" in form)
-            )
-
-            if id:
-
-                con.execute(
-                    """
-                    UPDATE lectures
-                    SET title=?,course=?,body=?,published=?
-                    WHERE id=?
-                    """,
-                    data + (id,)
-                )
-
-            else:
-
-                con.execute(
-                    """
-                    INSERT INTO lectures
-                    (title,course,body,published)
-                    VALUES(?,?,?,?)
-                    """,
-                    data
-                )
-
-        con.commit()
-        con.close()
-
-        return redirect(f"/admin/{table}")
-
-    row = None
-
-    if id:
-
-        row = con.execute(
-            f"SELECT * FROM {table} WHERE id=?",
-            (id,)
-        ).fetchone()
-
-    con.close()
-
-    if table == "courses":
-
-        form = f"""
-        <select name="faculty">
-            <option value="philosophy">philosophy</option>
-            <option value="russian">russian</option>
-            <option value="cinema">cinema</option>
-        </select>
-
-        <input name="name"
-               placeholder="Название курса"
-               value="{escape(row['name']) if row else ''}">
-
-        <textarea name="description"
-                  placeholder="Описание">{escape(row['description']) if row else ''}</textarea>
-
-        <label>
-            <input type="checkbox" name="mandatory"
-            {"checked" if row and row["mandatory"] else ""}>
-            Обязательный курс
-        </label>
-        """
-
-    elif table == "publications":
-
-        form = f"""
-        <input name="title"
-               placeholder="Название"
-               value="{escape(row['title']) if row else ''}">
-
-        <input name="author"
-               placeholder="Автор"
-               value="{escape(row['author']) if row else ''}">
-
-        <input name="faculty"
-               placeholder="Факультет"
-               value="{escape(row['faculty']) if row else ''}">
-
-        <input name="language"
-               placeholder="Язык"
-               value="{escape(row['language']) if row else 'ru'}">
-
-        <textarea name="body"
-                  placeholder="Текст публикации">{escape(row['body']) if row else ''}</textarea>
-        """
-
-    elif table == "staff":
-
-        form = ""
-
-        fields = [
-            ("name", "ФИО"),
-            ("position", "Должность"),
-            ("degree", "Учёная степень"),
-            ("faculty", "Факультет"),
-            ("age", "Возраст"),
-            ("email", "E-mail"),
-            ("photo", "URL фотографии")
-        ]
-
-        for key, placeholder in fields:
-
-            value = escape(row[key]) if row else ""
-
-            form += f"""
-            <input name="{key}"
-                   placeholder="{placeholder}"
-                   value="{value}">
-            """
-
-        form += f"""
-        <textarea name="biography"
-                  placeholder="Биография">{escape(row['biography']) if row else ''}</textarea>
-        """
-
-    elif table == "pages":
-
-        form = f"""
-        <input name="slug"
-               placeholder="URL страницы, например history"
-               value="{escape(row['slug']) if row else ''}">
-
-        <input name="title"
-               placeholder="Название страницы"
-               value="{escape(row['title']) if row else ''}">
-
-        <textarea name="body"
-                  placeholder="Содержание">{escape(row['body']) if row else ''}</textarea>
-        """
-
-    elif table == "lectures":
-
-        form = f"""
-        <input name="title"
-               placeholder="Название лекции"
-               value="{escape(row['title']) if row else ''}">
-
-        <input name="course"
-               placeholder="Курс"
-               value="{escape(row['course']) if row else ''}">
-
-        <textarea name="body"
-                  placeholder="Текст лекции">{escape(row['body']) if row else ''}</textarea>
-        """
-
-    published = (
-        "checked"
-        if not row or row["published"]
-        else ""
-    )
-
-    return render_template_string(
-        """
-        <style>{{css}}</style>
-
-        <header class="adminbar">
-            <strong>UGG ADMIN</strong>
-            <nav>
-                <a href="/admin">Dashboard</a>
-                <a href="/admin/{{table}}">Назад</a>
-                <a href="/admin/logout">Выйти</a>
-            </nav>
-        </header>
-
-        <main class="admin">
-
-        <h1>
-            {% if id %}Изменить{% else %}Добавить{% endif %}
-            — {{title}}
-        </h1>
-
-        <form class="form" method="post">
-
-            {{form|safe}}
-
-            <label>
-                <input type="checkbox"
-                       name="published"
-                       {{published}}>
-                Опубликовано
-            </label>
-
-            <button class="button">
-                Сохранить
-            </button>
-
-        </form>
-
-        </main>
-        """,
-        css=CSS,
-        table=table,
-        title=ADMIN_TABLES[table],
-        form=form,
-        published=published,
-        id=id
-    )
-
-
-@app.route("/admin/<table>/<int:id>/delete", methods=["POST"])
-@admin_required
-def admin_delete(table, id):
-
-    if table not in ADMIN_TABLES:
-        abort(404)
-
-    con = get_db()
-
-    con.execute(
-        f"DELETE FROM {table} WHERE id=?",
-        (id,)
-    )
-
-    con.commit()
-    con.close()
-
-    return redirect(f"/admin/{table}")
-
-
-# ============================================================
-# SETTINGS
-# ============================================================
-
-@app.route("/admin/settings", methods=["GET", "POST"])
-@admin_required
-def settings():
-
-    con = get_db()
-
-    if request.method == "POST":
-
-        for lang in LANGUAGES:
-
-            con.execute(
-                """
-                INSERT OR REPLACE INTO settings(key,value)
-                VALUES(?,?)
-                """,
-                (
-                    "university_" + lang,
-                    request.form["university_" + lang]
-                )
-            )
-
-        con.execute(
-            """
-            INSERT OR REPLACE INTO settings(key,value)
-            VALUES('motto',?)
-            """,
-            (request.form["motto"],)
-        )
-
-        con.commit()
-
-    settings = {
-        r["key"]: r["value"]
-        for r in con.execute("SELECT * FROM settings")
-    }
-
-    con.close()
-
-    fields = ""
-
-    for lang in LANGUAGES:
-
-        fields += f"""
-        <label>Название ({lang.upper()})</label>
-
-        <input name="university_{lang}"
-               value="{escape(settings["university_" + lang])}">
-        """
-
-    fields += f"""
-    <label>Девиз</label>
-
-    <input name="motto"
-           value="{escape(settings["motto"])}">
-    """
-
-    return render_template_string(
-        """
-        <style>{{css}}</style>
-
-        <header class="adminbar">
-            <strong>UGG ADMIN</strong>
-            <nav>
-                <a href="/admin">Dashboard</a>
-                <a href="/">Сайт</a>
-                <a href="/admin/logout">Выйти</a>
-            </nav>
-        </header>
-
-        <main class="admin">
-
-        <h1>Настройки сайта</h1>
-
-        <form class="form" method="post">
-
-            {{fields|safe}}
-
-            <button class="button">
-                Сохранить
-            </button>
-
-        </form>
-
-        </main>
-        """,
-        css=CSS,
-        fields=fields
-    )
-
-
-# ============================================================
-# START
-# ============================================================
-
-if __name__ == "__main__":
-    init_db()
-
-    print()
-    print("=" * 55)
-    print("UGG — Независимый негосударственный университет")
-    print("Локальная демо-версия")
-    print("=" * 55)
-    print()
-    print("Сайт:    http://127.0.0.1:5000")
-    print("Админка: http://127.0.0.1:5000/admin/login")
-    print()
-    print("Логин:   admin")
-    print("Пароль:  ugg")
-    print()
-
-    app.run(
-        host="127.0.0.1",
-        port=5000,
-        debug=True
-    )
+```
