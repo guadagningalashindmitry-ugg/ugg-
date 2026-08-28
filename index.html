@@ -1,1798 +1,2064 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>UGG — Universidade Guadagnin Galashin</title>
+from flask import Flask, request, redirect, url_for, session, render_template_string, abort
+import sqlite3
+from functools import wraps
+from html import escape
 
-<style>
-:root{
-    --bg:#f5f1e8;
-    --paper:#fffdf8;
-    --dark:#17202a;
-    --gold:#b58a32;
-    --gold2:#d5b45a;
-    --text:#20252b;
-    --muted:#69717a;
-    --border:#ddd5c5;
-    --danger:#9e3030;
-    --shadow:0 12px 35px rgba(0,0,0,.10);
+app = Flask(__name__)
+app.secret_key = "UGG_LOCAL_DEMO_SECRET_CHANGE_ME"
+
+DB = "ugg.db"
+
+LANGUAGES = {
+    "ru": "Русский",
+    "pt": "Português",
+    "en": "English",
+    "de": "Deutsch",
+    "fr": "Français"
 }
 
-*{box-sizing:border-box}
+UNIVERSITY = {
+    "ru": "Независимый негосударственный университет имени Гуаданина Галашина",
+    "pt": "Universidade Independente e Não Estatal Guadanin Galashin",
+    "en": "Independent Non-State University named after Guadagnin Galashin",
+    "de": "Unabhängige nichtstaatliche Universität namens Guadagnin Galashin",
+    "fr": "Université indépendante et non étatique nommée d'après Guadagnin Galashin"
+}
 
-html{scroll-behavior:smooth}
+T = {
+    "ru": {
+        "home": "Главная",
+        "about": "Об университете",
+        "faculties": "Факультеты",
+        "courses": "Курсы",
+        "lectures": "Лекции",
+        "publications": "Публикации",
+        "staff": "Научный состав",
+        "admission": "Поступление",
+        "documents": "Документы",
+        "news": "Новости",
+        "admin": "Админка",
+        "more": "Подробнее",
+        "mandatory": "Обязательные курсы",
+        "elective": "Курсы свободного выбора",
+        "save": "Сохранить",
+        "add": "Добавить",
+        "edit": "Изменить",
+        "delete": "Удалить",
+        "logout": "Выйти",
+        "login": "Войти",
+        "settings": "Настройки",
+        "name": "Название",
+        "description": "Описание",
+        "faculty": "Факультет",
+        "position": "Должность",
+        "degree": "Учёная степень",
+        "age": "Возраст",
+        "email": "E-mail",
+        "photo": "Фото",
+        "biography": "Биография"
+    },
+    "pt": {
+        "home": "Início",
+        "about": "Sobre a universidade",
+        "faculties": "Faculdades",
+        "courses": "Cursos",
+        "lectures": "Aulas",
+        "publications": "Publicações",
+        "staff": "Corpo científico",
+        "admission": "Admissão",
+        "documents": "Documentos",
+        "news": "Notícias",
+        "admin": "Administração",
+        "more": "Saiba mais",
+        "mandatory": "Cursos obrigatórios",
+        "elective": "Disciplinas de escolha",
+        "save": "Salvar",
+        "add": "Adicionar",
+        "edit": "Editar",
+        "delete": "Excluir",
+        "logout": "Sair",
+        "login": "Entrar",
+        "settings": "Configurações",
+        "name": "Nome",
+        "description": "Descrição",
+        "faculty": "Faculdade",
+        "position": "Cargo",
+        "degree": "Grau",
+        "age": "Idade",
+        "email": "E-mail",
+        "photo": "Foto",
+        "biography": "Biografia"
+    },
+    "en": {
+        "home": "Home",
+        "about": "About the university",
+        "faculties": "Faculties",
+        "courses": "Courses",
+        "lectures": "Lectures",
+        "publications": "Publications",
+        "staff": "Academic staff",
+        "admission": "Admission",
+        "documents": "Documents",
+        "news": "News",
+        "admin": "Admin",
+        "more": "Read more",
+        "mandatory": "Mandatory courses",
+        "elective": "Elective courses",
+        "save": "Save",
+        "add": "Add",
+        "edit": "Edit",
+        "delete": "Delete",
+        "logout": "Log out",
+        "login": "Log in",
+        "settings": "Settings",
+        "name": "Name",
+        "description": "Description",
+        "faculty": "Faculty",
+        "position": "Position",
+        "degree": "Degree",
+        "age": "Age",
+        "email": "E-mail",
+        "photo": "Photo",
+        "biography": "Biography"
+    },
+    "de": {
+        "home": "Startseite",
+        "about": "Über die Universität",
+        "faculties": "Fakultäten",
+        "courses": "Kurse",
+        "lectures": "Vorlesungen",
+        "publications": "Publikationen",
+        "staff": "Wissenschaftlicher Stab",
+        "admission": "Aufnahme",
+        "documents": "Dokumente",
+        "news": "Nachrichten",
+        "admin": "Administration",
+        "more": "Mehr erfahren",
+        "mandatory": "Pflichtkurse",
+        "elective": "Wahlkurse",
+        "save": "Speichern",
+        "add": "Hinzufügen",
+        "edit": "Bearbeiten",
+        "delete": "Löschen",
+        "logout": "Abmelden",
+        "login": "Anmelden",
+        "settings": "Einstellungen",
+        "name": "Name",
+        "description": "Beschreibung",
+        "faculty": "Fakultät",
+        "position": "Position",
+        "degree": "Abschluss",
+        "age": "Alter",
+        "email": "E-Mail",
+        "photo": "Foto",
+        "biography": "Biografie"
+    },
+    "fr": {
+        "home": "Accueil",
+        "about": "À propos de l'université",
+        "faculties": "Facultés",
+        "courses": "Cours",
+        "lectures": "Cours magistraux",
+        "publications": "Publications",
+        "staff": "Corps scientifique",
+        "admission": "Admission",
+        "documents": "Documents",
+        "news": "Actualités",
+        "admin": "Administration",
+        "more": "En savoir plus",
+        "mandatory": "Cours obligatoires",
+        "elective": "Cours au choix",
+        "save": "Enregistrer",
+        "add": "Ajouter",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "logout": "Déconnexion",
+        "login": "Connexion",
+        "settings": "Paramètres",
+        "name": "Nom",
+        "description": "Description",
+        "faculty": "Faculté",
+        "position": "Fonction",
+        "degree": "Diplôme",
+        "age": "Âge",
+        "email": "E-mail",
+        "photo": "Photo",
+        "biography": "Biographie"
+    }
+}
 
-body{
+FACULTIES = {
+    "philosophy": {
+        "ru": "Факультет философии",
+        "pt": "Faculdade de Filosofia",
+        "en": "Faculty of Philosophy",
+        "de": "Philosophische Fakultät",
+        "fr": "Faculté de philosophie"
+    },
+    "russian": {
+        "ru": "Факультет русского языка и русской культуры",
+        "pt": "Faculdade de Língua e Cultura Russa",
+        "en": "Faculty of Russian Language and Culture",
+        "de": "Fakultät für russische Sprache und Kultur",
+        "fr": "Faculté de langue et culture russes"
+    },
+    "cinema": {
+        "ru": "Факультет кинематографа",
+        "pt": "Faculdade de Cinema",
+        "en": "Faculty of Cinema",
+        "de": "Fakultät für Filmkunst",
+        "fr": "Faculté de cinéma"
+    }
+}
+
+COURSES = [
+    # ФИЛОСОФИЯ
+    ("philosophy", "Введение в философию", 1),
+    ("philosophy", "Философия науки", 1),
+    ("philosophy", "Этика", 1),
+    ("philosophy", "Онтология", 1),
+    ("philosophy", "Ноуменология", 1),
+
+    ("philosophy", "История античной философии", 0),
+    ("philosophy", "Средневековая философия", 0),
+    ("philosophy", "Философия Нового времени", 0),
+    ("philosophy", "Немецкая классическая философия", 0),
+    ("philosophy", "Философия XIX века", 0),
+    ("philosophy", "Философия XX века", 0),
+    ("philosophy", "Современная философия", 0),
+    ("philosophy", "Логика", 0),
+    ("philosophy", "Эстетика", 0),
+    ("philosophy", "Философская антропология", 0),
+    ("philosophy", "Гносеология", 0),
+    ("philosophy", "История русской философии", 0),
+    ("philosophy", "Философия языка", 0),
+    ("philosophy", "Социальная философия", 0),
+    ("philosophy", "Философия времени", 0),
+    ("philosophy", "Философия пространства", 0),
+    ("philosophy", "Философия пустоты и ничто", 0),
+    ("philosophy", "Философия искусства", 0),
+    ("philosophy", "Философия истории", 0),
+
+    # РУССКИЙ
+    ("russian", "Практический русский язык", 1),
+    ("russian", "Грамматика русского языка", 1),
+    ("russian", "Введение в русскую литературу", 1),
+    ("russian", "История русского языка", 1),
+
+    ("russian", "История русской литературы", 0),
+    ("russian", "Стилистика", 0),
+    ("russian", "Культура речи", 0),
+    ("russian", "Литература XIX века", 0),
+    ("russian", "Литература XX века", 0),
+    ("russian", "Современная русская литература", 0),
+    ("russian", "Русская поэзия", 0),
+    ("russian", "Русская проза", 0),
+    ("russian", "История России", 0),
+    ("russian", "Русская культура", 0),
+    ("russian", "Русская философская культура", 0),
+    ("russian", "Пушкин", 0),
+    ("russian", "Достоевский", 0),
+    ("russian", "Толстой", 0),
+    ("russian", "Чехов", 0),
+    ("russian", "Булгаков", 0),
+    ("russian", "Набоков", 0),
+    ("russian", "Бродский", 0),
+    ("russian", "Русская эмиграция", 0),
+    ("russian", "Советская культура", 0),
+
+    # КИНО
+    ("cinema", "Введение в кинематограф", 1),
+    ("cinema", "История кино", 1),
+    ("cinema", "Киноязык", 1),
+    ("cinema", "Киноанализ", 1),
+    ("cinema", "Эстетика", 1),
+
+    ("cinema", "Кинорежиссура", 0),
+    ("cinema", "Сценарное мастерство", 0),
+    ("cinema", "Операторское искусство", 0),
+    ("cinema", "Монтаж", 0),
+    ("cinema", "Работа со звуком", 0),
+    ("cinema", "Киноактёрское мастерство", 0),
+    ("cinema", "Кинодраматургия", 0),
+    ("cinema", "Визуальная композиция", 0),
+    ("cinema", "Документальное кино", 0),
+    ("cinema", "Авторское кино", 0),
+    ("cinema", "Философия кино", 0),
+    ("cinema", "Кинематограф и общество", 0),
+    ("cinema", "Введение в философию", 0),
+    ("cinema", "Этика", 0),
+    ("cinema", "Советский кинематограф", 0),
+    ("cinema", "Русская режиссура", 0),
+    ("cinema", "Европейское кино", 0),
+    ("cinema", "Американское кино", 0),
+    ("cinema", "Экспериментальное кино", 0),
+    ("cinema", "Немое кино", 0)
+]
+
+
+def get_db():
+    con = sqlite3.connect(DB)
+    con.row_factory = sqlite3.Row
+    return con
+
+
+def init_db():
+    con = get_db()
+
+    con.executescript("""
+    CREATE TABLE IF NOT EXISTS settings (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS courses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        faculty TEXT NOT NULL,
+        name TEXT NOT NULL,
+        mandatory INTEGER DEFAULT 0,
+        description TEXT DEFAULT ''
+    );
+
+    CREATE TABLE IF NOT EXISTS publications (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        author TEXT DEFAULT '',
+        faculty TEXT DEFAULT '',
+        body TEXT DEFAULT '',
+        language TEXT DEFAULT 'ru',
+        published INTEGER DEFAULT 1
+    );
+
+    CREATE TABLE IF NOT EXISTS staff (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        position TEXT DEFAULT '',
+        degree TEXT DEFAULT '',
+        faculty TEXT DEFAULT '',
+        age TEXT DEFAULT '',
+        email TEXT DEFAULT '',
+        photo TEXT DEFAULT '',
+        biography TEXT DEFAULT '',
+        published INTEGER DEFAULT 1
+    );
+
+    CREATE TABLE IF NOT EXISTS pages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        slug TEXT UNIQUE NOT NULL,
+        title TEXT NOT NULL,
+        body TEXT DEFAULT '',
+        published INTEGER DEFAULT 1
+    );
+
+    CREATE TABLE IF NOT EXISTS lectures (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        course TEXT DEFAULT '',
+        body TEXT DEFAULT '',
+        published INTEGER DEFAULT 1
+    );
+    """)
+
+    if con.execute("SELECT COUNT(*) FROM courses").fetchone()[0] == 0:
+        con.executemany(
+            "INSERT INTO courses(faculty,name,mandatory) VALUES(?,?,?)",
+            COURSES
+        )
+
+    defaults = {
+        "motto": "Scientia, Cogitatio, Humanitas",
+        "university_ru": UNIVERSITY["ru"],
+        "university_pt": UNIVERSITY["pt"],
+        "university_en": UNIVERSITY["en"],
+        "university_de": UNIVERSITY["de"],
+        "university_fr": UNIVERSITY["fr"]
+    }
+
+    for key, value in defaults.items():
+        con.execute(
+            "INSERT OR IGNORE INTO settings(key,value) VALUES(?,?)",
+            (key, value)
+        )
+
+    con.commit()
+    con.close()
+
+
+@app.context_processor
+def context():
+    lang = session.get("lang", "ru")
+
+    con = get_db()
+    settings = {
+        row["key"]: row["value"]
+        for row in con.execute("SELECT * FROM settings")
+    }
+    con.close()
+
+    return {
+        "lang": lang,
+        "languages": LANGUAGES,
+        "T": T[lang],
+        "settings": settings,
+        "university": settings.get(
+            "university_" + lang,
+            UNIVERSITY[lang]
+        )
+    }
+
+
+@app.route("/language/<lang>")
+def language(lang):
+    if lang in LANGUAGES:
+        session["lang"] = lang
+
+    return redirect(request.referrer or "/")
+
+
+# ============================================================
+# HTML / CSS
+# ============================================================
+
+CSS = """
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --paper:#f4f0e7;
+    --paper2:#fbf9f4;
+    --ink:#191817;
+    --muted:#77716a;
+    --line:#d8d0c2;
+    --gold:#8a6935;
+}
+
+* { box-sizing:border-box; }
+
+body {
     margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Georgia,"Times New Roman",serif;
-}
-
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:1000;
-    background:rgba(23,32,42,.97);
-    color:white;
-    border-bottom:2px solid var(--gold);
-    transition:transform .28s ease;
-}
-
-header.hidden{
-    transform:translateY(-100%);
-}
-
-.top{
-    height:82px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    max-width:1400px;
-    margin:auto;
-    padding:0 28px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:16px;
-}
-
-.crest{
-    width:58px;
-    height:58px;
-    border:2px solid var(--gold2);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:Georgia,serif;
-    font-size:23px;
-    letter-spacing:2px;
-    font-weight:bold;
-    color:var(--gold2);
-}
-
-.brand-name{
-    font-size:20px;
-    letter-spacing:.8px;
-}
-
-.motto{
-    color:var(--gold2);
-    font-size:12px;
-    margin-top:4px;
-    letter-spacing:2px;
-}
-
-nav{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
-nav button{
-    border:0;
-    background:none;
-    color:white;
-    padding:10px 12px;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:14px;
-}
-
-nav button:hover{
-    color:var(--gold2);
-}
-
-.lang{
-    margin-left:10px;
-    border-left:1px solid #56606b;
-    padding-left:12px;
-}
-
-.lang button{
-    color:var(--gold2);
-}
-
-main{
-    max-width:1400px;
-    margin:auto;
-    padding:115px 28px 70px;
-    min-height:100vh;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-.hero{
-    min-height:530px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:80px 10%;
-    background:
-        linear-gradient(135deg,rgba(23,32,42,.96),rgba(34,46,58,.90)),
-        var(--dark);
-    color:white;
-    box-shadow:var(--shadow);
-}
-
-.hero h1{
-    font-size:64px;
-    margin:0 0 18px;
-    color:var(--gold2);
-}
-
-.hero h2{
-    font-size:34px;
-    max-width:850px;
-    margin:0 0 20px;
-}
-
-.hero p{
-    max-width:750px;
-    font-size:19px;
-    line-height:1.7;
-    color:#e6e6e6;
-}
-
-.btn{
-    border:0;
-    background:var(--gold);
-    color:white;
-    padding:13px 20px;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:15px;
-    margin:5px;
-}
-
-.btn:hover{
-    background:#926d24;
-}
-
-.btn.secondary{
-    background:var(--dark);
-}
-
-.btn.danger{
-    background:var(--danger);
-}
-
-.section-title{
-    margin:45px 0 25px;
-    border-bottom:1px solid var(--border);
-    padding-bottom:12px;
-    font-size:32px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:22px;
-}
-
-.card{
     background:var(--paper);
-    border:1px solid var(--border);
-    padding:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
+    color:var(--ink);
+    font-family:Inter,Arial,sans-serif;
 }
 
-.card h3{
-    margin-top:0;
-    color:#263543;
+a {
+    color:inherit;
+    text-decoration:none;
 }
 
-.card p{
-    line-height:1.65;
+.header {
+    min-height:105px;
+    padding:20px 5vw;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    border-bottom:1px solid var(--line);
+    background:rgba(251,249,244,.97);
+    position:sticky;
+    top:0;
+    z-index:20;
 }
 
-.price{
-    font-size:25px;
+.brand {
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex:1;
+}
+
+.crest {
+    font-family:"Cormorant Garamond",serif;
+    font-weight:700;
+    font-size:29px;
+    letter-spacing:.1em;
+    border:1px solid var(--ink);
+    padding:7px 10px;
+}
+
+.university {
+    max-width:400px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:20px;
+    line-height:1.05;
+}
+
+.motto {
+    margin-top:4px;
+    color:var(--gold);
+    font-family:"Cormorant Garamond",serif;
+    font-style:italic;
+}
+
+.nav {
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:12px;
+}
+
+.nav a:hover {
+    color:var(--gold);
+}
+
+.languages {
+    display:flex;
+    gap:6px;
+    font-size:11px;
+}
+
+.languages a {
+    padding:4px;
+}
+
+.languages .active {
     color:var(--gold);
     font-weight:bold;
 }
 
-.meta{
+main {
+    min-height:70vh;
+}
+
+.hero {
+    padding:120px 8vw 130px;
+    border-bottom:1px solid var(--line);
+}
+
+.hero-mark {
+    font-family:"Cormorant Garamond",serif;
+    font-weight:700;
+    font-size:100px;
+    letter-spacing:.08em;
+}
+
+.eyebrow {
+    color:var(--gold);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+}
+
+h1,h2,h3 {
+    font-family:"Cormorant Garamond",serif;
+    font-weight:600;
+}
+
+h1 {
+    font-size:clamp(45px,6vw,82px);
+    line-height:.92;
+    max-width:1000px;
+}
+
+h2 {
+    font-size:43px;
+}
+
+h3 {
+    font-size:28px;
+}
+
+.lead {
+    max-width:760px;
     color:var(--muted);
-    font-size:14px;
+    line-height:1.8;
+    font-size:18px;
 }
 
-.notice{
-    padding:20px;
-    border-left:5px solid var(--gold);
-    background:#fffaf0;
-    margin:20px 0;
-}
-
-.form{
-    max-width:850px;
-    background:var(--paper);
-    padding:30px;
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-}
-
-label{
-    display:block;
-    margin:15px 0 7px;
-    font-weight:bold;
-}
-
-input,textarea,select{
-    width:100%;
-    padding:12px;
-    border:1px solid #cfc7b8;
-    background:white;
-    font-family:inherit;
-    font-size:15px;
-}
-
-textarea{
-    min-height:120px;
-    resize:vertical;
-}
-
-footer{
-    background:var(--dark);
-    color:#ddd;
-    padding:35px;
-    text-align:center;
-    border-top:2px solid var(--gold);
-}
-
-/* ADMIN */
-
-.admin{
-    background:#202832;
-    color:white;
-    padding:30px;
-    box-shadow:var(--shadow);
-}
-
-.admin h2{
-    color:var(--gold2);
-}
-
-.admin-tabs{
+.buttons {
     display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-bottom:25px;
+    gap:12px;
+    margin-top:30px;
 }
 
-.admin-tabs button{
-    padding:10px 14px;
-    border:1px solid #58636e;
-    background:#2b3540;
+.button {
+    border:1px solid var(--ink);
+    background:var(--ink);
     color:white;
+    padding:13px 19px;
+    font-size:12px;
     cursor:pointer;
 }
 
-.admin-tabs button.active{
-    background:var(--gold);
+.button.light {
+    background:transparent;
+    color:var(--ink);
 }
 
-.admin-panel{
-    display:none;
+.section {
+    max-width:1400px;
+    margin:auto;
+    padding:70px 8vw;
 }
 
-.admin-panel.active{
-    display:block;
+.grid {
+    display:grid;
+    gap:18px;
 }
 
-.admin table{
+.grid3 {
+    grid-template-columns:repeat(3,1fr);
+}
+
+.grid2 {
+    grid-template-columns:repeat(2,1fr);
+}
+
+.card {
+    background:var(--paper2);
+    border:1px solid var(--line);
+    padding:30px;
+    transition:.2s;
+}
+
+.card:hover {
+    transform:translateY(-2px);
+    border-color:#a99a83;
+}
+
+.pagehead {
+    padding:85px 8vw 55px;
+    border-bottom:1px solid var(--line);
+}
+
+.course {
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    gap:20px;
+}
+
+.course-number {
+    color:var(--gold);
+    font-family:"Cormorant Garamond",serif;
+    font-size:22px;
+}
+
+.course h3 {
+    margin:0;
+}
+
+.paper {
+    background:#e9e2d5;
+    max-width:none;
+}
+
+.article {
+    max-width:900px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:23px;
+    line-height:1.6;
+}
+
+.person img {
     width:100%;
-    border-collapse:collapse;
-    background:#fff;
-    color:#222;
+    aspect-ratio:1;
+    object-fit:cover;
 }
 
-.admin th,.admin td{
-    padding:10px;
-    border:1px solid #ddd;
-    text-align:left;
+.avatar {
+    height:220px;
+    display:grid;
+    place-items:center;
+    background:#e4ddcf;
+    font-family:"Cormorant Garamond",serif;
+    font-size:45px;
 }
 
-.admin th{
-    background:#eee8dc;
+footer {
+    border-top:1px solid var(--line);
+    padding:50px 8vw;
+    display:flex;
+    justify-content:space-between;
+    font-family:"Cormorant Garamond",serif;
+    font-size:19px;
 }
 
-.admin-list{
-    margin:15px 0;
+.adminbar {
+    background:#191817;
+    color:white;
+    padding:15px 4vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.admin-item{
-    background:#fff;
-    color:#222;
-    padding:15px;
-    margin:10px 0;
-    border-left:4px solid var(--gold);
+.adminbar nav {
+    display:flex;
+    gap:18px;
+    font-size:12px;
+    flex-wrap:wrap;
 }
 
-.login{
-    max-width:450px;
-    margin:80px auto;
-    background:var(--paper);
-    padding:35px;
-    box-shadow:var(--shadow);
+.admin {
+    padding:50px 5vw;
 }
 
-.hidden{
-    display:none!important;
+.admin-table {
+    border-top:1px solid var(--line);
 }
 
-@media(max-width:900px){
-    nav{
-        overflow-x:auto;
-        max-width:55%;
+.admin-row {
+    padding:17px 0;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.admin-actions {
+    display:flex;
+    gap:15px;
+}
+
+.form {
+    max-width:850px;
+    display:grid;
+    gap:12px;
+}
+
+.form input,
+.form textarea,
+.form select {
+    width:100%;
+    padding:13px;
+    border:1px solid var(--line);
+    background:white;
+    font:inherit;
+}
+
+.form textarea {
+    min-height:280px;
+}
+
+.login {
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+}
+
+.login-box {
+    width:min(430px,90vw);
+    background:var(--paper2);
+    border:1px solid var(--line);
+    padding:45px;
+    display:grid;
+    gap:14px;
+}
+
+.login-box input {
+    padding:13px;
+    border:1px solid var(--line);
+}
+
+.stat {
+    font-family:"Cormorant Garamond",serif;
+    font-size:55px;
+}
+
+@media(max-width:900px) {
+    .header {
+        flex-wrap:wrap;
     }
 
-    .brand-name{
-        display:none;
+    .nav {
+        order:4;
+        width:100%;
     }
 
-    .hero h1{
-        font-size:45px;
+    .grid3,
+    .grid2 {
+        grid-template-columns:1fr;
     }
 
-    .hero h2{
-        font-size:27px;
+    .hero {
+        padding-top:70px;
+    }
+
+    .hero-mark {
+        font-size:70px;
+    }
+
+    .university {
+        font-size:16px;
     }
 }
-</style>
+"""
+
+
+BASE = """
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UGG — {{university}}</title>
+<style>{{ css }}</style>
 </head>
 
 <body>
 
-<header id="header">
-<div class="top">
+<header class="header">
 
-    <div class="brand">
-        <div class="crest">UGG</div>
-        <div>
-            <div class="brand-name">Universidade Guadagnin Galashin</div>
-            <div class="motto">VERITAS · RATIO · LIBERTAS</div>
-        </div>
+<a class="brand" href="/">
+    <div class="crest">UGG</div>
+    <div>
+        <div class="university">{{university}}</div>
+        <div class="motto">{{settings.motto}}</div>
     </div>
+</a>
 
-    <nav>
-        <button onclick="showPage('home')" data-i18n="home">Главная</button>
-        <button onclick="showPage('admission')" data-i18n="admission">Поступление</button>
-        <button onclick="showPage('faculties')" data-i18n="faculties">Факультеты</button>
-        <button onclick="showPage('courses')" data-i18n="courses">Курсы</button>
-        <button onclick="showPage('lectures')" data-i18n="lectures">Лекции</button>
-        <button onclick="showPage('news')" data-i18n="news">Новости</button>
-        <button onclick="showPage('apply')" data-i18n="apply">Подать заявку</button>
-        <button onclick="showPage('admin')" data-i18n="admin">Админ</button>
+<nav class="nav">
+    <a href="/">{{T.home}}</a>
+    <a href="/faculties">{{T.faculties}}</a>
+    <a href="/courses">{{T.courses}}</a>
+    <a href="/lectures">{{T.lectures}}</a>
+    <a href="/publications">{{T.publications}}</a>
+    <a href="/staff">{{T.staff}}</a>
+    <a href="/page/admission">{{T.admission}}</a>
+</nav>
 
-        <div class="lang">
-            <button onclick="setLanguage('ru')">RU</button>
-            <button onclick="setLanguage('pt')">PT</button>
-            <button onclick="setLanguage('en')">EN</button>
-        </div>
-    </nav>
-
+<div class="languages">
+{% for code,name in languages.items() %}
+<a class="{% if lang==code %}active{% endif %}"
+   href="/language/{{code}}">{{code.upper()}}</a>
+{% endfor %}
 </div>
+
 </header>
 
 <main>
-
-<!-- HOME -->
-<section id="home" class="page active">
-
-<div class="hero">
-    <h1>UGG</h1>
-    <h2 data-i18n="heroTitle">
-        Университет философии, науки и свободного исследования
-    </h2>
-    <p data-i18n="heroText">
-        Университет объединяет философское мышление, научное исследование,
-        гуманитарные дисциплины и свободный обмен идеями.
-    </p>
-    <div>
-        <button class="btn" onclick="showPage('admission')" data-i18n="learnAdmission">
-            Узнать о поступлении
-        </button>
-        <button class="btn secondary" onclick="showPage('lectures')" data-i18n="lectures">
-            Лекции
-        </button>
-    </div>
-</div>
-
-<h2 class="section-title" data-i18n="important">Важная информация</h2>
-
-<div class="grid" id="homeCards"></div>
-
-</section>
-
-
-<!-- ADMISSION -->
-<section id="admission" class="page">
-
-<h1 class="section-title" data-i18n="admission">Поступление</h1>
-
-<div id="admissionContent"></div>
-
-<div class="notice">
-    <strong data-i18n="openDay">День открытых дверей</strong>
-    <div id="openDay"></div>
-</div>
-
-<h2 data-i18n="exam">Вступительный экзамен</h2>
-<div id="examContent"></div>
-
-<h2 data-i18n="places">Бесплатные места</h2>
-<div id="freePlaces"></div>
-
-<h2 data-i18n="tuition">Стоимость обучения</h2>
-<div id="tuition"></div>
-
-<button class="btn" onclick="showPage('apply')" data-i18n="apply">
-    Подать заявку
-</button>
-
-</section>
-
-
-<!-- FACULTIES -->
-<section id="faculties" class="page">
-
-<h1 class="section-title" data-i18n="faculties">Факультеты</h1>
-
-<div class="grid" id="facultyList"></div>
-
-</section>
-
-
-<!-- COURSES -->
-<section id="courses" class="page">
-
-<h1 class="section-title" data-i18n="courses">Курсы</h1>
-
-<div class="grid" id="courseList"></div>
-
-</section>
-
-
-<!-- LECTURES -->
-<section id="lectures" class="page">
-
-<h1 class="section-title" data-i18n="lectures">Лекции</h1>
-
-<p data-i18n="lectureIntro">
-    Открытые лекции преподавателей университета.
-</p>
-
-<div class="grid" id="lectureList"></div>
-
-</section>
-
-
-<!-- NEWS -->
-<section id="news" class="page">
-
-<h1 class="section-title" data-i18n="news">Новости</h1>
-
-<div class="grid" id="newsList"></div>
-
-</section>
-
-
-<!-- APPLICATION -->
-<section id="apply" class="page">
-
-<h1 class="section-title" data-i18n="apply">Подать заявку</h1>
-
-<div class="form">
-
-<label data-i18n="name">Имя</label>
-<input id="appName">
-
-<label data-i18n="email">Электронная почта</label>
-<input id="appEmail" type="email">
-
-<label data-i18n="faculty">Факультет</label>
-<select id="appFaculty"></select>
-
-<label data-i18n="message">Дополнительная информация</label>
-<textarea id="appMessage"></textarea>
-
-<button class="btn" onclick="submitApplication()" data-i18n="send">
-    Отправить заявку
-</button>
-
-<div id="applicationResult"></div>
-
-</div>
-
-</section>
-
-
-<!-- ADMIN -->
-<section id="admin" class="page">
-
-<div id="loginBox" class="login">
-
-<h1 data-i18n="admin">Админ-панель</h1>
-
-<label data-i18n="password">Пароль</label>
-<input id="adminPassword" type="password">
-
-<button class="btn" onclick="loginAdmin()" data-i18n="login">
-    Войти
-</button>
-
-<div id="loginError"></div>
-
-</div>
-
-
-<div id="adminPanel" class="admin hidden">
-
-<h2>UGG — Administration</h2>
-
-<div class="admin-tabs">
-
-<button onclick="adminTab('general')" class="active">Общее</button>
-<button onclick="adminTab('facultiesAdmin')">Факультеты</button>
-<button onclick="adminTab('coursesAdmin')">Курсы</button>
-<button onclick="adminTab('lecturesAdmin')">Лекции</button>
-<button onclick="adminTab('newsAdmin')">Новости</button>
-<button onclick="adminTab('applicationsAdmin')">Заявки</button>
-
-</div>
-
-
-<!-- GENERAL -->
-<div id="general" class="admin-panel active">
-
-<h3>Общие настройки</h3>
-
-<label>День открытых дверей</label>
-<input id="editOpenDay">
-
-<label>Стоимость обучения</label>
-<input id="editTuition">
-
-<label>Количество бесплатных мест</label>
-<input id="editFreePlaces">
-
-<label>Информация о поступлении</label>
-<textarea id="editAdmission"></textarea>
-
-<label>Вступительный экзамен</label>
-<textarea id="editExam"></textarea>
-
-<button class="btn" onclick="saveGeneral()">Сохранить</button>
-
-</div>
-
-
-<!-- FACULTIES -->
-<div id="facultiesAdmin" class="admin-panel">
-
-<h3>Факультеты</h3>
-
-<div id="adminFacultyList"></div>
-
-<h4>Добавить факультет</h4>
-
-<input id="newFacultyNameRu" placeholder="Название RU">
-<input id="newFacultyNamePt" placeholder="Nome PT">
-<input id="newFacultyNameEn" placeholder="Name EN">
-
-<textarea id="newFacultyDescRu" placeholder="Описание RU"></textarea>
-<textarea id="newFacultyDescPt" placeholder="Descrição PT"></textarea>
-<textarea id="newFacultyDescEn" placeholder="Description EN"></textarea>
-
-<button class="btn" onclick="addFaculty()">Добавить</button>
-
-</div>
-
-
-<!-- COURSES -->
-<div id="coursesAdmin" class="admin-panel">
-
-<h3>Курсы</h3>
-
-<div id="adminCourseList"></div>
-
-<h4>Добавить курс</h4>
-
-<input id="newCourseNameRu" placeholder="Название RU">
-<input id="newCourseNamePt" placeholder="Nome PT">
-<input id="newCourseNameEn" placeholder="Name EN">
-
-<input id="newCourseFaculty" placeholder="Факультет">
-
-<textarea id="newCourseDescRu" placeholder="Описание RU"></textarea>
-<textarea id="newCourseDescPt" placeholder="Descrição PT"></textarea>
-<textarea id="newCourseDescEn" placeholder="Description EN"></textarea>
-
-<button class="btn" onclick="addCourse()">Добавить</button>
-
-</div>
-
-
-<!-- LECTURES -->
-<div id="lecturesAdmin" class="admin-panel">
-
-<h3>Лекции</h3>
-
-<div id="adminLectureList"></div>
-
-<h4>Добавить лекцию</h4>
-
-<input id="newLectureTitleRu" placeholder="Название RU">
-<input id="newLectureTitlePt" placeholder="Título PT">
-<input id="newLectureTitleEn" placeholder="Title EN">
-
-<input id="newLectureProfessorRu" placeholder="Преподаватель RU">
-<input id="newLectureProfessorPt" placeholder="Professor PT">
-<input id="newLectureProfessorEn" placeholder="Professor EN">
-
-<input id="newLectureDate" type="date">
-
-<textarea id="newLectureDescRu" placeholder="Описание RU"></textarea>
-<textarea id="newLectureDescPt" placeholder="Descrição PT"></textarea>
-<textarea id="newLectureDescEn" placeholder="Description EN"></textarea>
-
-<button class="btn" onclick="addLecture()">Добавить</button>
-
-</div>
-
-
-<!-- NEWS -->
-<div id="newsAdmin" class="admin-panel">
-
-<h3>Новости</h3>
-
-<div id="adminNewsList"></div>
-
-<h4>Добавить новость</h4>
-
-<input id="newNewsTitleRu" placeholder="Заголовок RU">
-<input id="newNewsTitlePt" placeholder="Título PT">
-<input id="newNewsTitleEn" placeholder="Title EN">
-
-<textarea id="newNewsTextRu" placeholder="Текст RU"></textarea>
-<textarea id="newNewsTextPt" placeholder="Texto PT"></textarea>
-<textarea id="newNewsTextEn" placeholder="Text EN"></textarea>
-
-<button class="btn" onclick="addNews()">Добавить</button>
-
-</div>
-
-
-<!-- APPLICATIONS -->
-<div id="applicationsAdmin" class="admin-panel">
-
-<h3>Заявки</h3>
-
-<div id="adminApplications"></div>
-
-</div>
-
-<br>
-
-<button class="btn danger" onclick="logoutAdmin()">Выйти</button>
-
-</div>
-
-</section>
-
+{{ content|safe }}
 </main>
-
 
 <footer>
     <div>UGG</div>
-    <div>VERITAS · RATIO · LIBERTAS</div>
+    <div>{{settings.motto}}</div>
 </footer>
-
-
-<script>
-
-/* =========================
-   DATA
-========================= */
-
-const defaultData = {
-
-language:"ru",
-
-general:{
-    openDay:{
-        ru:"15 сентября 2026 года",
-        pt:"15 de setembro de 2026",
-        en:"September 15, 2026"
-    },
-
-    tuition:{
-        ru:"2 500 R$ в семестр",
-        pt:"R$ 2.500 por semestre",
-        en:"R$ 2,500 per semester"
-    },
-
-    freePlaces:{
-        ru:"20 мест предоставляются по результатам конкурса.",
-        pt:"20 vagas são oferecidas por concurso.",
-        en:"20 places are available through competitive selection."
-    },
-
-    admission:{
-        ru:"Для поступления необходимо подать заявку и пройти вступительный отбор. Университет принимает как студентов, так и внешних кандидатов на отдельные программы.",
-        pt:"Para ingressar, é necessário apresentar uma candidatura e passar pelo processo seletivo. A universidade aceita estudantes e candidatos externos em determinados programas.",
-        en:"Admission requires an application and entrance selection. The university accepts students and external candidates for selected programs."
-    },
-
-    exam:{
-        ru:"Вступительный экзамен проверяет способность кандидата рассуждать, анализировать тексты и самостоятельно формулировать аргументы. Для философских программ основной частью является письменное эссе.",
-        pt:"O exame de admissão avalia a capacidade do candidato de raciocinar, analisar textos e formular argumentos de forma independente. Nos programas de filosofia, a parte principal é uma redação.",
-        en:"The entrance examination evaluates reasoning, textual analysis and the ability to formulate independent arguments. For philosophy programs, the main component is a written essay."
-    }
-},
-
-faculties:[
-{
-    id:1,
-    name:{
-        ru:"Факультет философии",
-        pt:"Faculdade de Filosofia",
-        en:"Faculty of Philosophy"
-    },
-    desc:{
-        ru:"Онтология, метафизика, история философии, логика и эстетика.",
-        pt:"Ontologia, metafísica, história da filosofia, lógica e estética.",
-        en:"Ontology, metaphysics, history of philosophy, logic and aesthetics."
-    }
-},
-{
-    id:2,
-    name:{
-        ru:"Факультет политических наук",
-        pt:"Faculdade de Ciência Política",
-        en:"Faculty of Political Science"
-    },
-    desc:{
-        ru:"Политическая теория, геополитика и история государств.",
-        pt:"Teoria política, geopolítica e história dos Estados.",
-        en:"Political theory, geopolitics and the history of states."
-    }
-},
-{
-    id:3,
-    name:{
-        ru:"Факультет языков и культуры",
-        pt:"Faculdade de Línguas e Cultura",
-        en:"Faculty of Languages and Culture"
-    },
-    desc:{
-        ru:"Русский язык, литература и история русской культуры.",
-        pt:"Língua russa, literatura e história da cultura russa.",
-        en:"Russian language, literature and Russian cultural history."
-    }
-}
-],
-
-courses:[
-{
-    id:1,
-    faculty:"Факультет философии",
-    name:{
-        ru:"Онтология I",
-        pt:"Ontologia I",
-        en:"Ontology I"
-    },
-    desc:{
-        ru:"Введение в онтологию и философское исследование бытия.",
-        pt:"Introdução à ontologia e ao estudo filosófico do ser.",
-        en:"Introduction to ontology and the philosophical study of being."
-    }
-},
-{
-    id:2,
-    faculty:"Факультет политических наук",
-    name:{
-        ru:"Геополитика",
-        pt:"Geopolítica",
-        en:"Geopolitics"
-    },
-    desc:{
-        ru:"Курс по основным направлениям современной геополитики.",
-        pt:"Curso sobre as principais correntes da geopolítica contemporânea.",
-        en:"Course covering major approaches to contemporary geopolitics."
-    }
-},
-{
-    id:3,
-    faculty:"Факультет языков и культуры",
-    name:{
-        ru:"Русский язык",
-        pt:"Língua Russa",
-        en:"Russian Language"
-    },
-    desc:{
-        ru:"Изучение русского языка, литературы и культуры.",
-        pt:"Estudo da língua, literatura e cultura russas.",
-        en:"Study of Russian language, literature and culture."
-    }
-}
-],
-
-lectures:[
-{
-    id:1,
-    title:{
-        ru:"Что такое бытие?",
-        pt:"O que é o ser?",
-        en:"What Is Being?"
-    },
-    professor:{
-        ru:"Профессор философии",
-        pt:"Professor de Filosofia",
-        en:"Professor of Philosophy"
-    },
-    date:"2026-09-20",
-    desc:{
-        ru:"Введение в проблему бытия в истории философии.",
-        pt:"Introdução ao problema do ser na história da filosofia.",
-        en:"Introduction to the problem of being in the history of philosophy."
-    }
-}
-],
-
-news:[
-{
-    id:1,
-    title:{
-        ru:"Начат новый учебный год",
-        pt:"Novo ano acadêmico iniciado",
-        en:"New academic year begins"
-    },
-    text:{
-        ru:"Университет начинает новый учебный цикл.",
-        pt:"A universidade inicia um novo ciclo acadêmico.",
-        en:"The university begins a new academic cycle."
-    }
-}
-],
-
-applications:[]
-
-};
-
-
-/* =========================
-   STORAGE
-========================= */
-
-let data =
-    JSON.parse(localStorage.getItem("UGG_DATA")) ||
-    defaultData;
-
-let currentLang =
-    localStorage.getItem("UGG_LANG") ||
-    "ru";
-
-function saveData(){
-    localStorage.setItem("UGG_DATA",JSON.stringify(data));
-}
-
-
-/* =========================
-   TRANSLATIONS
-========================= */
-
-const translations={
-
-ru:{
-home:"Главная",
-admission:"Поступление",
-faculties:"Факультеты",
-courses:"Курсы",
-lectures:"Лекции",
-news:"Новости",
-apply:"Подать заявку",
-admin:"Админ",
-heroTitle:"Университет философии, науки и свободного исследования",
-heroText:"Университет объединяет философское мышление, научное исследование, гуманитарные дисциплины и свободный обмен идеями.",
-learnAdmission:"Узнать о поступлении",
-important:"Важная информация",
-openDay:"День открытых дверей",
-exam:"Вступительный экзамен",
-places:"Бесплатные места",
-tuition:"Стоимость обучения",
-lectureIntro:"Открытые лекции преподавателей университета.",
-name:"Имя",
-email:"Электронная почта",
-faculty:"Факультет",
-message:"Дополнительная информация",
-send:"Отправить заявку",
-password:"Пароль",
-login:"Войти"
-},
-
-pt:{
-home:"Início",
-admission:"Ingresso",
-faculties:"Faculdades",
-courses:"Cursos",
-lectures:"Palestras",
-news:"Notícias",
-apply:"Candidatar-se",
-admin:"Administração",
-heroTitle:"Universidade de filosofia, ciência e investigação livre",
-heroText:"A universidade reúne pensamento filosófico, pesquisa científica, humanidades e livre intercâmbio de ideias.",
-learnAdmission:"Informações sobre ingresso",
-important:"Informações importantes",
-openDay:"Dia de portas abertas",
-exam:"Exame de admissão",
-places:"Vagas gratuitas",
-tuition:"Valor da matrícula",
-lectureIntro:"Palestras abertas dos professores da universidade.",
-name:"Nome",
-email:"E-mail",
-faculty:"Faculdade",
-message:"Informações adicionais",
-send:"Enviar candidatura",
-password:"Senha",
-login:"Entrar"
-},
-
-en:{
-home:"Home",
-admission:"Admissions",
-faculties:"Faculties",
-courses:"Courses",
-lectures:"Lectures",
-news:"News",
-apply:"Apply",
-admin:"Admin",
-heroTitle:"University of philosophy, science and free inquiry",
-heroText:"The university brings together philosophical thought, scientific research, humanities and free exchange of ideas.",
-learnAdmission:"Admissions information",
-important:"Important information",
-openDay:"Open day",
-exam:"Entrance examination",
-places:"Scholarships and free places",
-tuition:"Tuition",
-lectureIntro:"Open lectures by university professors.",
-name:"Name",
-email:"Email",
-faculty:"Faculty",
-message:"Additional information",
-send:"Submit application",
-password:"Password",
-login:"Login"
-}
-
-};
-
-
-function setLanguage(lang){
-
-currentLang=lang;
-
-localStorage.setItem("UGG_LANG",lang);
-
-document.documentElement.lang=lang;
-
-document.querySelectorAll("[data-i18n]").forEach(el=>{
-
-let key=el.dataset.i18n;
-
-if(translations[lang][key])
-    el.textContent=translations[lang][key];
-
-});
-
-renderAll();
-
-}
-
-
-/* =========================
-   NAVIGATION
-========================= */
-
-function showPage(id){
-
-document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
-
-document.getElementById(id)
-.classList.add("active");
-
-window.scrollTo(0,0);
-
-if(id==="admin")
-    refreshAdmin();
-
-}
-
-
-/* =========================
-   RENDER
-========================= */
-
-function renderAll(){
-
-renderHome();
-renderAdmission();
-renderFaculties();
-renderCourses();
-renderLectures();
-renderNews();
-renderFacultySelect();
-
-document.querySelectorAll("[data-i18n]").forEach(el=>{
-
-let key=el.dataset.i18n;
-
-if(translations[currentLang][key])
-    el.textContent=translations[currentLang][key];
-
-});
-
-}
-
-
-function renderHome(){
-
-document.getElementById("homeCards").innerHTML=`
-
-<div class="card">
-<h3>${translations[currentLang].admission}</h3>
-<p>${data.general.admission[currentLang]}</p>
-</div>
-
-<div class="card">
-<h3>${translations[currentLang].tuition}</h3>
-<div class="price">${data.general.tuition[currentLang]}</div>
-</div>
-
-<div class="card">
-<h3>${translations[currentLang].openDay}</h3>
-<p>${data.general.openDay[currentLang]}</p>
-</div>
-
-`;
-
-}
-
-
-function renderAdmission(){
-
-document.getElementById("admissionContent").innerHTML=
-`<p>${data.general.admission[currentLang]}</p>`;
-
-document.getElementById("openDay").textContent=
-data.general.openDay[currentLang];
-
-document.getElementById("examContent").innerHTML=
-`<p>${data.general.exam[currentLang]}</p>`;
-
-document.getElementById("freePlaces").innerHTML=
-`<p>${data.general.freePlaces[currentLang]}</p>`;
-
-document.getElementById("tuition").innerHTML=
-`<div class="price">${data.general.tuition[currentLang]}</div>`;
-
-}
-
-
-function renderFaculties(){
-
-document.getElementById("facultyList").innerHTML=
-data.faculties.map(f=>`
-
-<div class="card">
-
-<h3>${f.name[currentLang]}</h3>
-
-<p>${f.desc[currentLang]}</p>
-
-</div>
-
-`).join("");
-
-}
-
-
-function renderCourses(){
-
-document.getElementById("courseList").innerHTML=
-data.courses.map(c=>`
-
-<div class="card">
-
-<h3>${c.name[currentLang]}</h3>
-
-<div class="meta">${c.faculty}</div>
-
-<p>${c.desc[currentLang]}</p>
-
-</div>
-
-`).join("");
-
-}
-
-
-function renderLectures(){
-
-document.getElementById("lectureList").innerHTML=
-data.lectures.map(l=>`
-
-<div class="card">
-
-<h3>${l.title[currentLang]}</h3>
-
-<div class="meta">
-${l.professor[currentLang]} · ${l.date}
-</div>
-
-<p>${l.desc[currentLang]}</p>
-
-</div>
-
-`).join("");
-
-}
-
-
-function renderNews(){
-
-document.getElementById("newsList").innerHTML=
-data.news.map(n=>`
-
-<div class="card">
-
-<h3>${n.title[currentLang]}</h3>
-
-<p>${n.text[currentLang]}</p>
-
-</div>
-
-`).join("");
-
-}
-
-
-function renderFacultySelect(){
-
-document.getElementById("appFaculty").innerHTML=
-data.faculties.map(f=>`
-
-<option>${f.name[currentLang]}</option>
-
-`).join("");
-
-}
-
-
-/* =========================
-   APPLICATION
-========================= */
-
-function submitApplication(){
-
-const name=
-document.getElementById("appName").value.trim();
-
-const email=
-document.getElementById("appEmail").value.trim();
-
-const faculty=
-document.getElementById("appFaculty").value;
-
-const message=
-document.getElementById("appMessage").value.trim();
-
-if(!name || !email){
-
-alert(
-currentLang==="ru"
-?"Заполните имя и электронную почту."
-:currentLang==="pt"
-?"Preencha o nome e o e-mail."
-:"Please enter your name and email."
-);
-
-return;
-}
-
-data.applications.push({
-
-id:Date.now(),
-name,
-email,
-faculty,
-message,
-date:new Date().toLocaleString()
-
-});
-
-saveData();
-
-document.getElementById("applicationResult").innerHTML=
-`<div class="notice">
-${currentLang==="ru"
-?"Заявка успешно сохранена."
-:currentLang==="pt"
-?"Candidatura enviada com sucesso."
-:"Application submitted successfully."}
-</div>`;
-
-document.getElementById("appName").value="";
-document.getElementById("appEmail").value="";
-document.getElementById("appMessage").value="";
-
-}
-
-
-/* =========================
-   ADMIN LOGIN
-========================= */
-
-function loginAdmin(){
-
-const password=
-document.getElementById("adminPassword").value;
-
-if(password==="UGG2026"){
-
-localStorage.setItem("UGG_ADMIN","1");
-
-document.getElementById("loginBox")
-.classList.add("hidden");
-
-document.getElementById("adminPanel")
-.classList.remove("hidden");
-
-refreshAdmin();
-
-}else{
-
-document.getElementById("loginError")
-.textContent="Неверный пароль.";
-
-}
-
-}
-
-
-function logoutAdmin(){
-
-localStorage.removeItem("UGG_ADMIN");
-
-document.getElementById("adminPanel")
-.classList.add("hidden");
-
-document.getElementById("loginBox")
-.classList.remove("hidden");
-
-}
-
-
-function refreshAdmin(){
-
-if(localStorage.getItem("UGG_ADMIN")!=="1")
-    return;
-
-document.getElementById("loginBox")
-.classList.add("hidden");
-
-document.getElementById("adminPanel")
-.classList.remove("hidden");
-
-document.getElementById("editOpenDay").value=
-data.general.openDay.ru;
-
-document.getElementById("editTuition").value=
-data.general.tuition.ru;
-
-document.getElementById("editFreePlaces").value=
-data.general.freePlaces.ru;
-
-document.getElementById("editAdmission").value=
-data.general.admission.ru;
-
-document.getElementById("editExam").value=
-data.general.exam.ru;
-
-renderAdminFaculties();
-renderAdminCourses();
-renderAdminLectures();
-renderAdminNews();
-renderAdminApplications();
-
-}
-
-
-/* =========================
-   ADMIN TABS
-========================= */
-
-function adminTab(id){
-
-document.querySelectorAll(".admin-panel")
-.forEach(x=>x.classList.remove("active"));
-
-document.querySelectorAll(".admin-tabs button")
-.forEach(x=>x.classList.remove("active"));
-
-document.getElementById(id)
-.classList.add("active");
-
-event.target.classList.add("active");
-
-}
-
-
-/* =========================
-   GENERAL
-========================= */
-
-function saveGeneral(){
-
-data.general.openDay.ru=
-document.getElementById("editOpenDay").value;
-
-data.general.tuition.ru=
-document.getElementById("editTuition").value;
-
-data.general.freePlaces.ru=
-document.getElementById("editFreePlaces").value;
-
-data.general.admission.ru=
-document.getElementById("editAdmission").value;
-
-data.general.exam.ru=
-document.getElementById("editExam").value;
-
-saveData();
-
-renderAll();
-
-alert("Сохранено.");
-
-}
-
-
-/* =========================
-   FACULTIES
-========================= */
-
-function addFaculty(){
-
-const f={
-
-id:Date.now(),
-
-name:{
-ru:document.getElementById("newFacultyNameRu").value,
-pt:document.getElementById("newFacultyNamePt").value,
-en:document.getElementById("newFacultyNameEn").value
-},
-
-desc:{
-ru:document.getElementById("newFacultyDescRu").value,
-pt:document.getElementById("newFacultyDescPt").value,
-en:document.getElementById("newFacultyDescEn").value
-}
-
-};
-
-data.faculties.push(f);
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function deleteFaculty(id){
-
-if(!confirm("Удалить факультет?"))return;
-
-data.faculties=
-data.faculties.filter(x=>x.id!==id);
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function renderAdminFaculties(){
-
-document.getElementById("adminFacultyList").innerHTML=
-data.faculties.map(f=>`
-
-<div class="admin-item">
-
-<strong>${f.name.ru}</strong>
-
-<br>${f.name.pt}
-<br>${f.name.en}
-
-<br><br>
-
-<button class="btn danger"
-onclick="deleteFaculty(${f.id})">
-Удалить
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   COURSES
-========================= */
-
-function addCourse(){
-
-data.courses.push({
-
-id:Date.now(),
-
-faculty:document.getElementById("newCourseFaculty").value,
-
-name:{
-ru:document.getElementById("newCourseNameRu").value,
-pt:document.getElementById("newCourseNamePt").value,
-en:document.getElementById("newCourseNameEn").value
-},
-
-desc:{
-ru:document.getElementById("newCourseDescRu").value,
-pt:document.getElementById("newCourseDescPt").value,
-en:document.getElementById("newCourseDescEn").value
-}
-
-});
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function deleteCourse(id){
-
-if(!confirm("Удалить курс?"))return;
-
-data.courses=
-data.courses.filter(x=>x.id!==id);
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function renderAdminCourses(){
-
-document.getElementById("adminCourseList").innerHTML=
-data.courses.map(c=>`
-
-<div class="admin-item">
-
-<strong>${c.name.ru}</strong>
-
-<br>${c.faculty}
-
-<br><br>
-
-<button class="btn danger"
-onclick="deleteCourse(${c.id})">
-Удалить
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   LECTURES
-========================= */
-
-function addLecture(){
-
-data.lectures.push({
-
-id:Date.now(),
-
-title:{
-ru:document.getElementById("newLectureTitleRu").value,
-pt:document.getElementById("newLectureTitlePt").value,
-en:document.getElementById("newLectureTitleEn").value
-},
-
-professor:{
-ru:document.getElementById("newLectureProfessorRu").value,
-pt:document.getElementById("newLectureProfessorPt").value,
-en:document.getElementById("newLectureProfessorEn").value
-},
-
-date:document.getElementById("newLectureDate").value,
-
-desc:{
-ru:document.getElementById("newLectureDescRu").value,
-pt:document.getElementById("newLectureDescPt").value,
-en:document.getElementById("newLectureDescEn").value
-}
-
-});
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function deleteLecture(id){
-
-if(!confirm("Удалить лекцию?"))return;
-
-data.lectures=
-data.lectures.filter(x=>x.id!==id);
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function renderAdminLectures(){
-
-document.getElementById("adminLectureList").innerHTML=
-data.lectures.map(l=>`
-
-<div class="admin-item">
-
-<strong>${l.title.ru}</strong>
-
-<br>${l.professor.ru}
-
-<br>${l.date}
-
-<br><br>
-
-<button class="btn danger"
-onclick="deleteLecture(${l.id})">
-Удалить
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   NEWS
-========================= */
-
-function addNews(){
-
-data.news.push({
-
-id:Date.now(),
-
-title:{
-ru:document.getElementById("newNewsTitleRu").value,
-pt:document.getElementById("newNewsTitlePt").value,
-en:document.getElementById("newNewsTitleEn").value
-},
-
-text:{
-ru:document.getElementById("newNewsTextRu").value,
-pt:document.getElementById("newNewsTextPt").value,
-en:document.getElementById("newNewsTextEn").value
-}
-
-});
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function deleteNews(id){
-
-if(!confirm("Удалить новость?"))return;
-
-data.news=
-data.news.filter(x=>x.id!==id);
-
-saveData();
-
-renderAll();
-
-refreshAdmin();
-
-}
-
-
-function renderAdminNews(){
-
-document.getElementById("adminNewsList").innerHTML=
-data.news.map(n=>`
-
-<div class="admin-item">
-
-<strong>${n.title.ru}</strong>
-
-<p>${n.text.ru}</p>
-
-<button class="btn danger"
-onclick="deleteNews(${n.id})">
-Удалить
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   APPLICATIONS ADMIN
-========================= */
-
-function deleteApplication(id){
-
-data.applications=
-data.applications.filter(x=>x.id!==id);
-
-saveData();
-
-renderAdminApplications();
-
-}
-
-
-function renderAdminApplications(){
-
-if(!data.applications.length){
-
-document.getElementById("adminApplications").innerHTML=
-"<p>Заявок пока нет.</p>";
-
-return;
-
-}
-
-document.getElementById("adminApplications").innerHTML=
-data.applications.map(a=>`
-
-<div class="admin-item">
-
-<strong>${a.name}</strong>
-
-<br>Email: ${a.email}
-
-<br>Факультет: ${a.faculty}
-
-<br>Дата: ${a.date}
-
-<p>${a.message}</p>
-
-<button class="btn danger"
-onclick="deleteApplication(${a.id})">
-Удалить
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   HEADER SCROLL
-========================= */
-
-let lastScroll=0;
-
-window.addEventListener("scroll",()=>{
-
-const current=
-window.pageYOffset;
-
-const header=
-document.getElementById("header");
-
-if(current>lastScroll && current>100){
-
-header.classList.add("hidden");
-
-}else{
-
-header.classList.remove("hidden");
-
-}
-
-lastScroll=current;
-
-});
-
-
-/* =========================
-   START
-========================= */
-
-setLanguage(currentLang);
-
-if(localStorage.getItem("UGG_ADMIN")==="1")
-    refreshAdmin();
-
-</script>
 
 </body>
 </html>
+"""
+
+
+def page(content):
+    return render_template_string(
+        BASE,
+        content=content,
+        css=CSS
+    )
+
+
+# ============================================================
+# PUBLIC SITE
+# ============================================================
+
+@app.route("/")
+def home():
+
+    cards = ""
+
+    for i, (slug, name) in enumerate([
+        ("philosophy", "philosophy"),
+        ("russian", "russian"),
+        ("cinema", "cinema")
+    ], 1):
+
+        cards += f"""
+        <a class="card" href="/faculty/{slug}">
+            <div class="eyebrow">0{i}</div>
+            <h2>{escape(FACULTIES[slug][session.get("lang","ru")])}</h2>
+            <p>{T[session.get("lang","ru")]["more"]} →</p>
+        </a>
+        """
+
+    content = f"""
+    <section class="hero">
+
+        <div class="hero-mark">UGG</div>
+
+        <div class="eyebrow">
+            {escape(session.get("lang","ru") and "Scientia, Cogitatio, Humanitas")}
+        </div>
+
+        <h1>{escape(UNIVERSITY[session.get("lang","ru")])}</h1>
+
+        <p class="lead">
+            Независимый университет, объединяющий образование,
+            философское исследование, язык, культуру и кинематограф.
+        </p>
+
+        <div class="buttons">
+            <a class="button" href="/faculties">
+                {T[session.get("lang","ru")]["faculties"]}
+            </a>
+
+            <a class="button light" href="/publications">
+                {T[session.get("lang","ru")]["publications"]}
+            </a>
+        </div>
+
+    </section>
+
+    <section class="section">
+
+        <h2>{T[session.get("lang","ru")]["faculties"]}</h2>
+
+        <div class="grid grid3">
+            {cards}
+        </div>
+
+    </section>
+
+    <section class="section paper">
+
+        <h2>{T[session.get("lang","ru")]["about"]}</h2>
+
+        <p class="lead">
+            УГГ — независимый негосударственный университет
+            имени Гуаданина Галашина.
+        </p>
+
+    </section>
+    """
+
+    return page(content)
+
+
+@app.route("/faculties")
+def faculties():
+
+    lang = session.get("lang", "ru")
+
+    cards = ""
+
+    for slug, names in FACULTIES.items():
+        cards += f"""
+        <a class="card" href="/faculty/{slug}">
+            <h2>{escape(names[lang])}</h2>
+            <p>{T[lang]["more"]} →</p>
+        </a>
+        """
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">UGG</div>
+        <h1>{T[lang]["faculties"]}</h1>
+    </section>
+
+    <section class="section">
+        <div class="grid grid3">
+            {cards}
+        </div>
+    </section>
+    """)
+
+
+@app.route("/faculty/<slug>")
+def faculty(slug):
+
+    if slug not in FACULTIES:
+        abort(404)
+
+    lang = session.get("lang", "ru")
+    con = get_db()
+
+    courses = con.execute(
+        """
+        SELECT * FROM courses
+        WHERE faculty=?
+        ORDER BY mandatory DESC, name
+        """,
+        (slug,)
+    ).fetchall()
+
+    con.close()
+
+    mandatory = ""
+    elective = ""
+
+    for i, c in enumerate(courses, 1):
+
+        block = f"""
+        <div class="course">
+            <div class="course-number">{i:02}</div>
+            <div>
+                <h3>{escape(c["name"])}</h3>
+                <p>{escape(c["description"] or "")}</p>
+            </div>
+        </div>
+        """
+
+        if c["mandatory"]:
+            mandatory += block
+        else:
+            elective += block
+
+    return page(f"""
+    <section class="pagehead">
+
+        <div class="eyebrow">UGG</div>
+
+        <h1>{escape(FACULTIES[slug][lang])}</h1>
+
+    </section>
+
+    <section class="section">
+
+        <h2>{T[lang]["mandatory"]}</h2>
+
+        <div>
+            {mandatory}
+        </div>
+
+        <h2 style="margin-top:80px">
+            {T[lang]["elective"]}
+        </h2>
+
+        <div>
+            {elective}
+        </div>
+
+    </section>
+    """)
+
+
+@app.route("/courses")
+def courses():
+
+    lang = session.get("lang", "ru")
+    con = get_db()
+    courses = con.execute(
+        "SELECT * FROM courses ORDER BY faculty, mandatory DESC, name"
+    ).fetchall()
+    con.close()
+
+    result = ""
+
+    for slug in FACULTIES:
+
+        result += f"""
+        <h2>{escape(FACULTIES[slug][lang])}</h2>
+        <div class="grid grid2">
+        """
+
+        for c in courses:
+
+            if c["faculty"] != slug:
+                continue
+
+            result += f"""
+            <div class="card">
+
+                <div class="eyebrow">
+                    {T[lang]["mandatory"] if c["mandatory"] else T[lang]["elective"]}
+                </div>
+
+                <h3>{escape(c["name"])}</h3>
+
+                <p>{escape(c["description"] or "")}</p>
+
+            </div>
+            """
+
+        result += "</div>"
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">UGG</div>
+        <h1>{T[lang]["courses"]}</h1>
+    </section>
+
+    <section class="section">
+        {result}
+    </section>
+    """)
+
+
+@app.route("/publications")
+def publications():
+
+    lang = session.get("lang", "ru")
+
+    con = get_db()
+    rows = con.execute(
+        """
+        SELECT * FROM publications
+        WHERE published=1
+        ORDER BY id DESC
+        """
+    ).fetchall()
+    con.close()
+
+    cards = ""
+
+    for p in rows:
+
+        cards += f"""
+        <article class="card">
+
+            <div class="eyebrow">
+                {escape(p["faculty"] or "UGG")}
+            </div>
+
+            <h2>{escape(p["title"])}</h2>
+
+            <p>{escape(p["author"])}</p>
+
+            <a href="/publication/{p["id"]}">
+                {T[lang]["more"]} →
+            </a>
+
+        </article>
+        """
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">UGG</div>
+        <h1>{T[lang]["publications"]}</h1>
+    </section>
+
+    <section class="section">
+        <div class="grid grid2">
+            {cards}
+        </div>
+    </section>
+    """)
+
+
+@app.route("/publication/<int:id>")
+def publication(id):
+
+    con = get_db()
+    p = con.execute(
+        "SELECT * FROM publications WHERE id=?",
+        (id,)
+    ).fetchone()
+    con.close()
+
+    if not p:
+        abort(404)
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">{escape(p["faculty"])}</div>
+        <h1>{escape(p["title"])}</h1>
+        <p>{escape(p["author"])}</p>
+    </section>
+
+    <section class="section article">
+        {escape(p["body"]).replace(chr(10), "<br>")}
+    </section>
+    """)
+
+
+@app.route("/staff")
+def staff():
+
+    lang = session.get("lang", "ru")
+
+    con = get_db()
+    rows = con.execute(
+        "SELECT * FROM staff WHERE published=1 ORDER BY name"
+    ).fetchall()
+    con.close()
+
+    cards = ""
+
+    for person in rows:
+
+        image = (
+            f'<img src="{escape(person["photo"])}">'
+            if person["photo"]
+            else '<div class="avatar">UGG</div>'
+        )
+
+        cards += f"""
+        <article class="card person">
+
+            {image}
+
+            <h2>{escape(person["name"])}</h2>
+
+            <p>
+                <strong>{escape(person["position"])}</strong>
+            </p>
+
+            <p>{escape(person["degree"])}</p>
+
+            <p>{escape(person["faculty"])}</p>
+
+            <p>{escape(person["age"])}</p>
+
+            <p>
+                <a href="mailto:{escape(person["email"])}">
+                    {escape(person["email"])}
+                </a>
+            </p>
+
+            <p>{escape(person["biography"])}</p>
+
+        </article>
+        """
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">UGG</div>
+        <h1>{T[lang]["staff"]}</h1>
+    </section>
+
+    <section class="section">
+
+        <div class="grid grid3">
+            {cards}
+        </div>
+
+    </section>
+    """)
+
+
+@app.route("/lectures")
+def lectures():
+
+    con = get_db()
+
+    rows = con.execute(
+        "SELECT * FROM lectures WHERE published=1 ORDER BY id DESC"
+    ).fetchall()
+
+    con.close()
+
+    cards = ""
+
+    for l in rows:
+
+        cards += f"""
+        <a class="card" href="/lecture/{l["id"]}">
+            <div class="eyebrow">{escape(l["course"])}</div>
+            <h2>{escape(l["title"])}</h2>
+        </a>
+        """
+
+    lang = session.get("lang", "ru")
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">UGG</div>
+        <h1>{T[lang]["lectures"]}</h1>
+    </section>
+
+    <section class="section">
+
+        <div class="grid grid2">
+            {cards}
+        </div>
+
+    </section>
+    """)
+
+
+@app.route("/lecture/<int:id>")
+def lecture(id):
+
+    con = get_db()
+
+    l = con.execute(
+        "SELECT * FROM lectures WHERE id=?",
+        (id,)
+    ).fetchone()
+
+    con.close()
+
+    if not l:
+        abort(404)
+
+    return page(f"""
+    <section class="pagehead">
+        <div class="eyebrow">{escape(l["course"])}</div>
+        <h1>{escape(l["title"])}</h1>
+    </section>
+
+    <section class="section article">
+        {escape(l["body"]).replace(chr(10), "<br>")}
+    </section>
+    """)
+
+
+@app.route("/page/<slug>")
+def custom_page(slug):
+
+    con = get_db()
+
+    p = con.execute(
+        """
+        SELECT * FROM pages
+        WHERE slug=? AND published=1
+        """,
+        (slug,)
+    ).fetchone()
+
+    con.close()
+
+    if not p:
+        abort(404)
+
+    return page(f"""
+    <section class="pagehead">
+        <h1>{escape(p["title"])}</h1>
+    </section>
+
+    <section class="section article">
+        {escape(p["body"]).replace(chr(10), "<br>")}
+    </section>
+    """)
+
+
+# ============================================================
+# ADMIN
+# ============================================================
+
+def admin_required(f):
+
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+
+        if not session.get("admin"):
+            return redirect("/admin/login")
+
+        return f(*args, **kwargs)
+
+    return wrapper
+
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+
+    if request.method == "POST":
+
+        if (
+            request.form.get("username") == "admin"
+            and request.form.get("password") == "ugg"
+        ):
+            session["admin"] = True
+            return redirect("/admin")
+
+    return render_template_string(
+        """
+        <style>{{css}}</style>
+
+        <div class="login">
+
+        <form class="login-box" method="post">
+
+            <div class="crest">UGG</div>
+
+            <h1>Административная панель</h1>
+
+            <input name="username" placeholder="Логин">
+
+            <input
+                name="password"
+                type="password"
+                placeholder="Пароль"
+            >
+
+            <button class="button">
+                Войти
+            </button>
+
+            <small>
+                Локальная демо-версия<br>
+                Логин: admin<br>
+                Пароль: ugg
+            </small>
+
+        </form>
+
+        </div>
+        """,
+        css=CSS
+    )
+
+
+@app.route("/admin/logout")
+def admin_logout():
+
+    session.pop("admin", None)
+
+    return redirect("/")
+
+
+@app.route("/admin")
+@admin_required
+def admin():
+
+    con = get_db()
+
+    counts = {}
+
+    for table in [
+        "courses",
+        "publications",
+        "staff",
+        "pages",
+        "lectures"
+    ]:
+
+        counts[table] = con.execute(
+            f"SELECT COUNT(*) FROM {table}"
+        ).fetchone()[0]
+
+    con.close()
+
+    cards = ""
+
+    for name, number in counts.items():
+
+        cards += f"""
+        <a class="card" href="/admin/{name}">
+            <h2>{name}</h2>
+            <div class="stat">{number}</div>
+        </a>
+        """
+
+    return render_template_string(
+        """
+        <style>{{css}}</style>
+
+        <header class="adminbar">
+
+            <strong>UGG ADMIN</strong>
+
+            <nav>
+                <a href="/">Сайт</a>
+                <a href="/admin/settings">Настройки</a>
+                <a href="/admin/logout">Выйти</a>
+            </nav>
+
+        </header>
+
+        <main class="admin">
+
+            <h1>Панель управления</h1>
+
+            <div class="grid grid3">
+                {{cards|safe}}
+            </div>
+
+        </main>
+        """,
+        css=CSS,
+        cards=cards
+    )
+
+
+# ============================================================
+# ADMIN LISTS
+# ============================================================
+
+ADMIN_TABLES = {
+    "courses": "Курсы",
+    "publications": "Публикации",
+    "staff": "Научный состав",
+    "pages": "Страницы",
+    "lectures": "Лекции"
+}
+
+
+@app.route("/admin/<table>")
+@admin_required
+def admin_table(table):
+
+    if table not in ADMIN_TABLES:
+        abort(404)
+
+    con = get_db()
+
+    rows = con.execute(
+        f"SELECT * FROM {table} ORDER BY id DESC"
+    ).fetchall()
+
+    con.close()
+
+    html = ""
+
+    for row in rows:
+
+        if table == "courses":
+            title = row["name"]
+
+        elif table == "staff":
+            title = row["name"]
+
+        else:
+            title = row["title"]
+
+        html += f"""
+        <div class="admin-row">
+
+            <div>
+                <strong>{escape(title)}</strong>
+                <small> #{row["id"]}</small>
+            </div>
+
+            <div class="admin-actions">
+
+                <a href="/admin/{table}/{row["id"]}/edit">
+                    Изменить
+                </a>
+
+                <form
+                    method="post"
+                    action="/admin/{table}/{row["id"]}/delete"
+                    onsubmit="return confirm('Удалить запись?')"
+                >
+                    <button>Удалить</button>
+                </form>
+
+            </div>
+
+        </div>
+        """
+
+    return render_template_string(
+        """
+        <style>{{css}}</style>
+
+        <header class="adminbar">
+            <strong>UGG ADMIN</strong>
+            <nav>
+                <a href="/admin">Dashboard</a>
+                <a href="/">Сайт</a>
+                <a href="/admin/logout">Выйти</a>
+            </nav>
+        </header>
+
+        <main class="admin">
+
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+            ">
+
+                <h1>{{title}}</h1>
+
+                <a class="button"
+                   href="/admin/{{table}}/new">
+                    + Добавить
+                </a>
+
+            </div>
+
+            <div class="admin-table">
+                {{html|safe}}
+            </div>
+
+        </main>
+        """,
+        css=CSS,
+        title=ADMIN_TABLES[table],
+        table=table,
+        html=html
+    )
+
+
+# ============================================================
+# ADMIN FORMS
+# ============================================================
+
+@app.route("/admin/<table>/new", methods=["GET", "POST"])
+@app.route("/admin/<table>/<int:id>/edit", methods=["GET", "POST"])
+@admin_required
+def admin_form(table, id=None):
+
+    if table not in ADMIN_TABLES:
+        abort(404)
+
+    con = get_db()
+
+    if request.method == "POST":
+
+        form = request.form
+
+        if table == "courses":
+
+            if id:
+
+                con.execute(
+                    """
+                    UPDATE courses
+                    SET faculty=?, name=?, mandatory=?, description=?
+                    WHERE id=?
+                    """,
+                    (
+                        form["faculty"],
+                        form["name"],
+                        int("mandatory" in form),
+                        form["description"],
+                        id
+                    )
+                )
+
+            else:
+
+                con.execute(
+                    """
+                    INSERT INTO courses
+                    (faculty,name,mandatory,description)
+                    VALUES(?,?,?,?)
+                    """,
+                    (
+                        form["faculty"],
+                        form["name"],
+                        int("mandatory" in form),
+                        form["description"]
+                    )
+                )
+
+        elif table == "publications":
+
+            data = (
+                form["title"],
+                form["author"],
+                form["faculty"],
+                form["body"],
+                form["language"],
+                int("published" in form)
+            )
+
+            if id:
+
+                con.execute(
+                    """
+                    UPDATE publications
+                    SET title=?,author=?,faculty=?,body=?,
+                    language=?,published=?
+                    WHERE id=?
+                    """,
+                    data + (id,)
+                )
+
+            else:
+
+                con.execute(
+                    """
+                    INSERT INTO publications
+                    (title,author,faculty,body,language,published)
+                    VALUES(?,?,?,?,?,?)
+                    """,
+                    data
+                )
+
+        elif table == "staff":
+
+            fields = (
+                form["name"],
+                form["position"],
+                form["degree"],
+                form["faculty"],
+                form["age"],
+                form["email"],
+                form["photo"],
+                form["biography"],
+                int("published" in form)
+            )
+
+            if id:
+
+                con.execute(
+                    """
+                    UPDATE staff SET
+                    name=?,position=?,degree=?,faculty=?,
+                    age=?,email=?,photo=?,biography=?,published=?
+                    WHERE id=?
+                    """,
+                    fields + (id,)
+                )
+
+            else:
+
+                con.execute(
+                    """
+                    INSERT INTO staff
+                    (name,position,degree,faculty,age,email,
+                     photo,biography,published)
+                    VALUES(?,?,?,?,?,?,?,?,?)
+                    """,
+                    fields
+                )
+
+        elif table == "pages":
+
+            data = (
+                form["slug"],
+                form["title"],
+                form["body"],
+                int("published" in form)
+            )
+
+            if id:
+
+                con.execute(
+                    """
+                    UPDATE pages
+                    SET slug=?,title=?,body=?,published=?
+                    WHERE id=?
+                    """,
+                    data + (id,)
+                )
+
+            else:
+
+                con.execute(
+                    """
+                    INSERT INTO pages
+                    (slug,title,body,published)
+                    VALUES(?,?,?,?)
+                    """,
+                    data
+                )
+
+        elif table == "lectures":
+
+            data = (
+                form["title"],
+                form["course"],
+                form["body"],
+                int("published" in form)
+            )
+
+            if id:
+
+                con.execute(
+                    """
+                    UPDATE lectures
+                    SET title=?,course=?,body=?,published=?
+                    WHERE id=?
+                    """,
+                    data + (id,)
+                )
+
+            else:
+
+                con.execute(
+                    """
+                    INSERT INTO lectures
+                    (title,course,body,published)
+                    VALUES(?,?,?,?)
+                    """,
+                    data
+                )
+
+        con.commit()
+        con.close()
+
+        return redirect(f"/admin/{table}")
+
+    row = None
+
+    if id:
+
+        row = con.execute(
+            f"SELECT * FROM {table} WHERE id=?",
+            (id,)
+        ).fetchone()
+
+    con.close()
+
+    if table == "courses":
+
+        form = f"""
+        <select name="faculty">
+            <option value="philosophy">philosophy</option>
+            <option value="russian">russian</option>
+            <option value="cinema">cinema</option>
+        </select>
+
+        <input name="name"
+               placeholder="Название курса"
+               value="{escape(row['name']) if row else ''}">
+
+        <textarea name="description"
+                  placeholder="Описание">{escape(row['description']) if row else ''}</textarea>
+
+        <label>
+            <input type="checkbox" name="mandatory"
+            {"checked" if row and row["mandatory"] else ""}>
+            Обязательный курс
+        </label>
+        """
+
+    elif table == "publications":
+
+        form = f"""
+        <input name="title"
+               placeholder="Название"
+               value="{escape(row['title']) if row else ''}">
+
+        <input name="author"
+               placeholder="Автор"
+               value="{escape(row['author']) if row else ''}">
+
+        <input name="faculty"
+               placeholder="Факультет"
+               value="{escape(row['faculty']) if row else ''}">
+
+        <input name="language"
+               placeholder="Язык"
+               value="{escape(row['language']) if row else 'ru'}">
+
+        <textarea name="body"
+                  placeholder="Текст публикации">{escape(row['body']) if row else ''}</textarea>
+        """
+
+    elif table == "staff":
+
+        form = ""
+
+        fields = [
+            ("name", "ФИО"),
+            ("position", "Должность"),
+            ("degree", "Учёная степень"),
+            ("faculty", "Факультет"),
+            ("age", "Возраст"),
+            ("email", "E-mail"),
+            ("photo", "URL фотографии")
+        ]
+
+        for key, placeholder in fields:
+
+            value = escape(row[key]) if row else ""
+
+            form += f"""
+            <input name="{key}"
+                   placeholder="{placeholder}"
+                   value="{value}">
+            """
+
+        form += f"""
+        <textarea name="biography"
+                  placeholder="Биография">{escape(row['biography']) if row else ''}</textarea>
+        """
+
+    elif table == "pages":
+
+        form = f"""
+        <input name="slug"
+               placeholder="URL страницы, например history"
+               value="{escape(row['slug']) if row else ''}">
+
+        <input name="title"
+               placeholder="Название страницы"
+               value="{escape(row['title']) if row else ''}">
+
+        <textarea name="body"
+                  placeholder="Содержание">{escape(row['body']) if row else ''}</textarea>
+        """
+
+    elif table == "lectures":
+
+        form = f"""
+        <input name="title"
+               placeholder="Название лекции"
+               value="{escape(row['title']) if row else ''}">
+
+        <input name="course"
+               placeholder="Курс"
+               value="{escape(row['course']) if row else ''}">
+
+        <textarea name="body"
+                  placeholder="Текст лекции">{escape(row['body']) if row else ''}</textarea>
+        """
+
+    published = (
+        "checked"
+        if not row or row["published"]
+        else ""
+    )
+
+    return render_template_string(
+        """
+        <style>{{css}}</style>
+
+        <header class="adminbar">
+            <strong>UGG ADMIN</strong>
+            <nav>
+                <a href="/admin">Dashboard</a>
+                <a href="/admin/{{table}}">Назад</a>
+                <a href="/admin/logout">Выйти</a>
+            </nav>
+        </header>
+
+        <main class="admin">
+
+        <h1>
+            {% if id %}Изменить{% else %}Добавить{% endif %}
+            — {{title}}
+        </h1>
+
+        <form class="form" method="post">
+
+            {{form|safe}}
+
+            <label>
+                <input type="checkbox"
+                       name="published"
+                       {{published}}>
+                Опубликовано
+            </label>
+
+            <button class="button">
+                Сохранить
+            </button>
+
+        </form>
+
+        </main>
+        """,
+        css=CSS,
+        table=table,
+        title=ADMIN_TABLES[table],
+        form=form,
+        published=published,
+        id=id
+    )
+
+
+@app.route("/admin/<table>/<int:id>/delete", methods=["POST"])
+@admin_required
+def admin_delete(table, id):
+
+    if table not in ADMIN_TABLES:
+        abort(404)
+
+    con = get_db()
+
+    con.execute(
+        f"DELETE FROM {table} WHERE id=?",
+        (id,)
+    )
+
+    con.commit()
+    con.close()
+
+    return redirect(f"/admin/{table}")
+
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
+@app.route("/admin/settings", methods=["GET", "POST"])
+@admin_required
+def settings():
+
+    con = get_db()
+
+    if request.method == "POST":
+
+        for lang in LANGUAGES:
+
+            con.execute(
+                """
+                INSERT OR REPLACE INTO settings(key,value)
+                VALUES(?,?)
+                """,
+                (
+                    "university_" + lang,
+                    request.form["university_" + lang]
+                )
+            )
+
+        con.execute(
+            """
+            INSERT OR REPLACE INTO settings(key,value)
+            VALUES('motto',?)
+            """,
+            (request.form["motto"],)
+        )
+
+        con.commit()
+
+    settings = {
+        r["key"]: r["value"]
+        for r in con.execute("SELECT * FROM settings")
+    }
+
+    con.close()
+
+    fields = ""
+
+    for lang in LANGUAGES:
+
+        fields += f"""
+        <label>Название ({lang.upper()})</label>
+
+        <input name="university_{lang}"
+               value="{escape(settings["university_" + lang])}">
+        """
+
+    fields += f"""
+    <label>Девиз</label>
+
+    <input name="motto"
+           value="{escape(settings["motto"])}">
+    """
+
+    return render_template_string(
+        """
+        <style>{{css}}</style>
+
+        <header class="adminbar">
+            <strong>UGG ADMIN</strong>
+            <nav>
+                <a href="/admin">Dashboard</a>
+                <a href="/">Сайт</a>
+                <a href="/admin/logout">Выйти</a>
+            </nav>
+        </header>
+
+        <main class="admin">
+
+        <h1>Настройки сайта</h1>
+
+        <form class="form" method="post">
+
+            {{fields|safe}}
+
+            <button class="button">
+                Сохранить
+            </button>
+
+        </form>
+
+        </main>
+        """,
+        css=CSS,
+        fields=fields
+    )
+
+
+# ============================================================
+# START
+# ============================================================
+
+if __name__ == "__main__":
+    init_db()
+
+    print()
+    print("=" * 55)
+    print("UGG — Независимый негосударственный университет")
+    print("Локальная демо-версия")
+    print("=" * 55)
+    print()
+    print("Сайт:    http://127.0.0.1:5000")
+    print("Админка: http://127.0.0.1:5000/admin/login")
+    print()
+    print("Логин:   admin")
+    print("Пароль:  ugg")
+    print()
+
+    app.run(
+        host="127.0.0.1",
+        port=5000,
+        debug=True
+    )
