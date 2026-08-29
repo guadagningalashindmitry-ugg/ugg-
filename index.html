@@ -1,4443 +1,1484 @@
-```javascript
-/* ============================================================
-   UGG — UNIVERSAL SITE SCRIPT
-   Independent Non-State University named after Guadagnin Galashin
-
-   Works on GitHub Pages.
-   No server required.
-   Data is stored in localStorage.
-   ============================================================ */
-
-"use strict";
-
-/* ============================================================
-   1. CONFIGURATION
-   ============================================================ */
-
-const UGG_CONFIG = {
-    storageKey: "ugg_database_v1",
-    languageKey: "ugg-language",
-    adminKey: "ugg_admin_session",
-
-    languages: ["ru", "pt", "en", "de", "fr"],
-
-    defaultLanguage: "ru",
-
-    motto: "Scientia · Cogitatio · Humanitas",
-
-    universityName: {
-        ru: "Независимый негосударственный университет имени Гуаданина Галашина",
-        pt: "Universidade Independente e Não Estatal Guadanin Galashin",
-        en: "Independent Non-State University named after Guadagnin Galashin",
-        de: "Unabhängige nichtstaatliche Universität namens Guadagnin Galashin",
-        fr: "Université indépendante et non étatique nommée d'après Guadagnin Galashin"
-    }
-};
-
-
-/* ============================================================
-   2. TRANSLATIONS
-   ============================================================ */
-
-const UGG_TRANSLATIONS = {
-
-    ru: {
-        home: "Главная",
-        about: "Об университете",
-        admission: "Поступление",
-        faculties: "Факультеты",
-        courses: "Курсы",
-        lectures: "Лекции",
-        news: "Новости",
-        publications: "Публикации",
-        staff: "Научный состав",
-        documents: "Документы",
-        contacts: "Контакты",
-        admin: "Администрация",
-
-        read: "Читать",
-        learnMore: "Подробнее",
-        submit: "Подать заявку",
-        send: "Отправить",
-        save: "Сохранить",
-        cancel: "Отмена",
-        delete: "Удалить",
-        edit: "Изменить",
-        add: "Добавить",
-        search: "Поиск",
-        back: "Назад",
-
-        noInformation: "Информация пока не опубликована.",
-        noNews: "Новостей пока нет.",
-        noLectures: "Лекционные материалы пока не опубликованы.",
-        noPublications: "Публикаций пока нет.",
-        noStaff: "Информация о научном составе пока не опубликована.",
-        noCourses: "Курсы пока не опубликованы.",
-
-        philosophy: "Факультет философии",
-        russian: "Факультет русского языка и русской культуры",
-        cinema: "Факультет кинематографа",
-
-        mandatory: "Обязательный курс",
-        elective: "Курс по выбору",
-
-        applicationSent: "Заявка успешно отправлена.",
-        applicationError: "Необходимо заполнить обязательные поля.",
-
-        name: "Имя",
-        surname: "Фамилия",
-        birthDate: "Дата рождения",
-        email: "E-mail",
-        phone: "Телефон",
-        faculty: "Факультет",
-        program: "Программа",
-        education: "Предыдущее образование",
-        motivation: "Мотивационное письмо",
-        documentsUpload: "Документы",
-
-        student: "Студент",
-        professor: "Профессор",
-        lecturer: "Преподаватель",
-        researcher: "Исследователь",
-        dean: "Декан",
-        rector: "Ректор",
-
-        date: "Дата",
-        author: "Автор",
-        description: "Описание",
-
-        all: "Все",
-
-        confirmDelete: "Вы действительно хотите удалить этот объект?",
-        adminLogin: "Вход в администрацию",
-        password: "Пароль",
-        login: "Войти",
-        logout: "Выйти",
-        wrongPassword: "Неверный пароль",
-
-        saved: "Сохранено.",
-        reset: "Сбросить",
-        export: "Экспортировать данные",
-        import: "Импортировать данные",
-
-        sitePages: "Страницы сайта",
-        siteSettings: "Настройки сайта",
-        applications: "Заявки",
-        statistics: "Статистика"
-    },
-
-    pt: {
-        home: "Início",
-        about: "Sobre a universidade",
-        admission: "Admissão",
-        faculties: "Faculdades",
-        courses: "Cursos",
-        lectures: "Aulas",
-        news: "Notícias",
-        publications: "Publicações",
-        staff: "Equipe científica",
-        documents: "Documentos",
-        contacts: "Contactos",
-        admin: "Administração",
-
-        read: "Ler",
-        learnMore: "Mais informações",
-        submit: "Enviar candidatura",
-        send: "Enviar",
-        save: "Guardar",
-        cancel: "Cancelar",
-        delete: "Eliminar",
-        edit: "Editar",
-        add: "Adicionar",
-        search: "Pesquisar",
-        back: "Voltar",
-
-        noInformation: "A informação ainda não foi publicada.",
-        noNews: "Ainda não há notícias.",
-        noLectures: "Ainda não há materiais de aulas.",
-        noPublications: "Ainda não há publicações.",
-        noStaff: "A informação sobre a equipe ainda não foi publicada.",
-        noCourses: "Ainda não há cursos publicados.",
-
-        philosophy: "Faculdade de Filosofia",
-        russian: "Faculdade de Língua e Cultura Russa",
-        cinema: "Faculdade de Cinema",
-
-        mandatory: "Curso obrigatório",
-        elective: "Curso opcional",
-
-        applicationSent: "A candidatura foi enviada com sucesso.",
-        applicationError: "Preencha os campos obrigatórios.",
-
-        name: "Nome",
-        surname: "Apelido",
-        birthDate: "Data de nascimento",
-        email: "E-mail",
-        phone: "Telefone",
-        faculty: "Faculdade",
-        program: "Programa",
-        education: "Educação anterior",
-        motivation: "Carta de motivação",
-        documentsUpload: "Documentos",
-
-        student: "Estudante",
-        professor: "Professor",
-        lecturer: "Docente",
-        researcher: "Investigador",
-        dean: "Decano",
-        rector: "Reitor",
-
-        date: "Data",
-        author: "Autor",
-        description: "Descrição",
-
-        all: "Todos",
-
-        confirmDelete: "Tem a certeza de que deseja eliminar este objeto?",
-        adminLogin: "Entrada da administração",
-        password: "Palavra-passe",
-        login: "Entrar",
-        logout: "Sair",
-        wrongPassword: "Palavra-passe incorreta",
-
-        saved: "Guardado.",
-        reset: "Repor",
-        export: "Exportar dados",
-        import: "Importar dados",
-
-        sitePages: "Páginas do site",
-        siteSettings: "Configurações do site",
-        applications: "Candidaturas",
-        statistics: "Estatísticas"
-    },
-
-    en: {
-        home: "Home",
-        about: "About the university",
-        admission: "Admission",
-        faculties: "Faculties",
-        courses: "Courses",
-        lectures: "Lectures",
-        news: "News",
-        publications: "Publications",
-        staff: "Academic staff",
-        documents: "Documents",
-        contacts: "Contacts",
-        admin: "Administration",
-
-        read: "Read",
-        learnMore: "Learn more",
-        submit: "Submit application",
-        send: "Send",
-        save: "Save",
-        cancel: "Cancel",
-        delete: "Delete",
-        edit: "Edit",
-        add: "Add",
-        search: "Search",
-        back: "Back",
-
-        noInformation: "Information has not been published yet.",
-        noNews: "There is no news yet.",
-        noLectures: "No lecture materials have been published yet.",
-        noPublications: "There are no publications yet.",
-        noStaff: "Academic staff information has not been published yet.",
-        noCourses: "No courses have been published yet.",
-
-        philosophy: "Faculty of Philosophy",
-        russian: "Faculty of Russian Language and Culture",
-        cinema: "Faculty of Cinema",
-
-        mandatory: "Mandatory course",
-        elective: "Elective course",
-
-        applicationSent: "Your application has been submitted successfully.",
-        applicationError: "Please complete the required fields.",
-
-        name: "First name",
-        surname: "Last name",
-        birthDate: "Date of birth",
-        email: "E-mail",
-        phone: "Phone",
-        faculty: "Faculty",
-        program: "Programme",
-        education: "Previous education",
-        motivation: "Motivation letter",
-        documentsUpload: "Documents",
-
-        student: "Student",
-        professor: "Professor",
-        lecturer: "Lecturer",
-        researcher: "Researcher",
-        dean: "Dean",
-        rector: "Rector",
-
-        date: "Date",
-        author: "Author",
-        description: "Description",
-
-        all: "All",
-
-        confirmDelete: "Are you sure you want to delete this object?",
-        adminLogin: "Administration login",
-        password: "Password",
-        login: "Log in",
-        logout: "Log out",
-        wrongPassword: "Incorrect password",
-
-        saved: "Saved.",
-        reset: "Reset",
-        export: "Export data",
-        import: "Import data",
-
-        sitePages: "Site pages",
-        siteSettings: "Site settings",
-        applications: "Applications",
-        statistics: "Statistics"
-    },
-
-    de: {
-        home: "Startseite",
-        about: "Über die Universität",
-        admission: "Zulassung",
-        faculties: "Fakultäten",
-        courses: "Kurse",
-        lectures: "Vorlesungen",
-        news: "Nachrichten",
-        publications: "Publikationen",
-        staff: "Wissenschaftliches Personal",
-        documents: "Dokumente",
-        contacts: "Kontakt",
-        admin: "Verwaltung",
-
-        read: "Lesen",
-        learnMore: "Mehr erfahren",
-        submit: "Bewerbung einreichen",
-        send: "Senden",
-        save: "Speichern",
-        cancel: "Abbrechen",
-        delete: "Löschen",
-        edit: "Bearbeiten",
-        add: "Hinzufügen",
-        search: "Suche",
-        back: "Zurück",
-
-        noInformation: "Informationen wurden noch nicht veröffentlicht.",
-        noNews: "Es gibt noch keine Nachrichten.",
-        noLectures: "Es wurden noch keine Vorlesungsmaterialien veröffentlicht.",
-        noPublications: "Es gibt noch keine Publikationen.",
-        noStaff: "Informationen zum wissenschaftlichen Personal wurden noch nicht veröffentlicht.",
-        noCourses: "Es wurden noch keine Kurse veröffentlicht.",
-
-        philosophy: "Philosophische Fakultät",
-        russian: "Fakultät für russische Sprache und Kultur",
-        cinema: "Fakultät für Filmkunst",
-
-        mandatory: "Pflichtkurs",
-        elective: "Wahlkurs",
-
-        applicationSent: "Die Bewerbung wurde erfolgreich gesendet.",
-        applicationError: "Bitte füllen Sie die Pflichtfelder aus.",
-
-        name: "Vorname",
-        surname: "Nachname",
-        birthDate: "Geburtsdatum",
-        email: "E-Mail",
-        phone: "Telefon",
-        faculty: "Fakultät",
-        program: "Studiengang",
-        education: "Vorherige Ausbildung",
-        motivation: "Motivationsschreiben",
-        documentsUpload: "Dokumente",
-
-        student: "Student",
-        professor: "Professor",
-        lecturer: "Dozent",
-        researcher: "Forscher",
-        dean: "Dekan",
-        rector: "Rektor",
-
-        date: "Datum",
-        author: "Autor",
-        description: "Beschreibung",
-
-        all: "Alle",
-
-        confirmDelete: "Möchten Sie dieses Objekt wirklich löschen?",
-        adminLogin: "Verwaltungsanmeldung",
-        password: "Passwort",
-        login: "Anmelden",
-        logout: "Abmelden",
-        wrongPassword: "Falsches Passwort",
-
-        saved: "Gespeichert.",
-        reset: "Zurücksetzen",
-        export: "Daten exportieren",
-        import: "Daten importieren",
-
-        sitePages: "Seiten",
-        siteSettings: "Website-Einstellungen",
-        applications: "Bewerbungen",
-        statistics: "Statistiken"
-    },
-
-    fr: {
-        home: "Accueil",
-        about: "À propos de l'université",
-        admission: "Admission",
-        faculties: "Facultés",
-        courses: "Cours",
-        lectures: "Cours magistraux",
-        news: "Actualités",
-        publications: "Publications",
-        staff: "Personnel académique",
-        documents: "Documents",
-        contacts: "Contact",
-        admin: "Administration",
-
-        read: "Lire",
-        learnMore: "En savoir plus",
-        submit: "Envoyer la candidature",
-        send: "Envoyer",
-        save: "Enregistrer",
-        cancel: "Annuler",
-        delete: "Supprimer",
-        edit: "Modifier",
-        add: "Ajouter",
-        search: "Rechercher",
-        back: "Retour",
-
-        noInformation: "Les informations n'ont pas encore été publiées.",
-        noNews: "Il n'y a pas encore d'actualités.",
-        noLectures: "Aucun matériel de cours n'a encore été publié.",
-        noPublications: "Il n'y a pas encore de publications.",
-        noStaff: "Les informations sur le personnel académique n'ont pas encore été publiées.",
-        noCourses: "Aucun cours n'a encore été publié.",
-
-        philosophy: "Faculté de philosophie",
-        russian: "Faculté de langue et culture russes",
-        cinema: "Faculté de cinéma",
-
-        mandatory: "Cours obligatoire",
-        elective: "Cours optionnel",
-
-        applicationSent: "Votre candidature a été envoyée avec succès.",
-        applicationError: "Veuillez remplir les champs obligatoires.",
-
-        name: "Prénom",
-        surname: "Nom",
-        birthDate: "Date de naissance",
-        email: "E-mail",
-        phone: "Téléphone",
-        faculty: "Faculté",
-        program: "Programme",
-        education: "Formation antérieure",
-        motivation: "Lettre de motivation",
-        documentsUpload: "Documents",
-
-        student: "Étudiant",
-        professor: "Professeur",
-        lecturer: "Enseignant",
-        researcher: "Chercheur",
-        dean: "Doyen",
-        rector: "Recteur",
-
-        date: "Date",
-        author: "Auteur",
-        description: "Description",
-
-        all: "Tous",
-
-        confirmDelete: "Voulez-vous vraiment supprimer cet objet ?",
-        adminLogin: "Connexion à l'administration",
-        password: "Mot de passe",
-        login: "Connexion",
-        logout: "Déconnexion",
-        wrongPassword: "Mot de passe incorrect",
-
-        saved: "Enregistré.",
-        reset: "Réinitialiser",
-        export: "Exporter les données",
-        import: "Importer les données",
-
-        sitePages: "Pages du site",
-        siteSettings: "Paramètres du site",
-        applications: "Candidatures",
-        statistics: "Statistiques"
-    }
-};
-
-
-/* ============================================================
-   3. DEFAULT DATABASE
-   ============================================================ */
-
-const DEFAULT_DATABASE = {
-
-    settings: {
-        name: UGG_CONFIG.universityName,
-        motto: UGG_CONFIG.motto,
-
-        description: {
-            ru: "Академическое пространство для свободного исследования философии, языка, культуры и искусства.",
-            pt: "Um espaço académico dedicado à investigação livre da filosofia, língua, cultura e arte.",
-            en: "An academic space dedicated to the free study of philosophy, language, culture and the arts.",
-            de: "Ein akademischer Raum für die freie Erforschung von Philosophie, Sprache, Kultur und Kunst.",
-            fr: "Un espace académique consacré à l'étude libre de la philosophie, de la langue, de la culture et des arts."
-        }
-    },
-
-    faculties: [
-        {
-            id: "philosophy",
-            slug: "philosophy",
-            name: {
-                ru: "Философия",
-                pt: "Filosofia",
-                en: "Philosophy",
-                de: "Philosophie",
-                fr: "Philosophie"
-            },
-            description: {
-                ru: "Исследование фундаментальных вопросов бытия, сознания, познания и культуры.",
-                pt: "Estudo das questões fundamentais do ser, consciência, conhecimento e cultura.",
-                en: "The study of fundamental questions of being, consciousness, knowledge and culture.",
-                de: "Die Untersuchung grundlegender Fragen des Seins, Bewusstseins, Wissens und der Kultur.",
-                fr: "L'étude des questions fondamentales de l'être, de la conscience, de la connaissance et de la culture."
-            }
-        },
-
-        {
-            id: "russian",
-            slug: "russian",
-            name: {
-                ru: "Русский язык и русская культура",
-                pt: "Língua e Cultura Russa",
-                en: "Russian Language and Culture",
-                de: "Russische Sprache und Kultur",
-                fr: "Langue et culture russes"
-            },
-            description: {
-                ru: "Русский язык, литература, история и культурное наследие России.",
-                pt: "Língua russa, literatura, história e património cultural da Rússia.",
-                en: "Russian language, literature, history and cultural heritage.",
-                de: "Russische Sprache, Literatur, Geschichte und kulturelles Erbe.",
-                fr: "Langue russe, littérature, histoire et patrimoine culturel."
-            }
-        },
-
-        {
-            id: "cinema",
-            slug: "cinema",
-            name: {
-                ru: "Кинематограф",
-                pt: "Cinema",
-                en: "Cinema",
-                de: "Filmkunst",
-                fr: "Cinéma"
-            },
-            description: {
-                ru: "История, теория, практика и эстетика кинематографа.",
-                pt: "História, teoria, prática e estética do cinema.",
-                en: "Film history, theory, practice and aesthetics.",
-                de: "Filmgeschichte, Theorie, Praxis und Ästhetik.",
-                fr: "Histoire, théorie, pratique et esthétique du cinéma."
-            }
-        }
-    ],
-
-    courses: [
-
-        /* PHILOSOPHY */
-
-        {
-            id: "philosophy-1",
-            faculty: "philosophy",
-            code: "PH-01",
-            required: true,
-            name: {
-                ru: "Введение в философию",
-                pt: "Introdução à Filosofia",
-                en: "Introduction to Philosophy",
-                de: "Einführung in die Philosophie",
-                fr: "Introduction à la philosophie"
-            }
-        },
-
-        {
-            id: "philosophy-9",
-            faculty: "philosophy",
-            code: "PH-09",
-            required: true,
-            name: {
-                ru: "Ноуменология",
-                pt: "Noumenologia",
-                en: "Noumenology",
-                de: "Noumenologie",
-                fr: "Nouménologie"
-            }
-        },
-
-        {
-            id: "philosophy-12",
-            faculty: "philosophy",
-            code: "PH-12",
-            required: true,
-            name: {
-                ru: "Онтология",
-                pt: "Ontologia",
-                en: "Ontology",
-                de: "Ontologie",
-                fr: "Ontologie"
-            }
-        },
-
-        {
-            id: "philosophy-10",
-            faculty: "philosophy",
-            code: "PH-10",
-            required: true,
-            name: {
-                ru: "Теория познания",
-                pt: "Teoria do Conhecimento",
-                en: "Theory of Knowledge",
-                de: "Erkenntnistheorie",
-                fr: "Théorie de la connaissance"
-            }
-        },
-
-        {
-            id: "philosophy-16",
-            faculty: "philosophy",
-            code: "PH-16",
-            required: true,
-            name: {
-                ru: "История философии",
-                pt: "História da Filosofia",
-                en: "History of Philosophy",
-                de: "Geschichte der Philosophie",
-                fr: "Histoire de la philosophie"
-            }
-        },
-
-        {
-            id: "philosophy-ethics",
-            faculty: "philosophy",
-            code: "PH-ETH",
-            required: false,
-            name: {
-                ru: "Этика",
-                pt: "Ética",
-                en: "Ethics",
-                de: "Ethik",
-                fr: "Éthique"
-            }
-        },
-
-        {
-            id: "philosophy-aesthetics",
-            faculty: "philosophy",
-            code: "PH-AES",
-            required: false,
-            name: {
-                ru: "Эстетика",
-                pt: "Estética",
-                en: "Aesthetics",
-                de: "Ästhetik",
-                fr: "Esthétique"
-            }
-        },
-
-
-        /* RUSSIAN */
-
-        {
-            id: "russian-1",
-            faculty: "russian",
-            code: "RU-01",
-            required: true,
-            name: {
-                ru: "Русский язык",
-                pt: "Língua Russa",
-                en: "Russian Language",
-                de: "Russische Sprache",
-                fr: "Langue russe"
-            }
-        },
-
-        {
-            id: "russian-2",
-            faculty: "russian",
-            code: "RU-02",
-            required: true,
-            name: {
-                ru: "Практика русской речи",
-                pt: "Prática da Língua Russa",
-                en: "Russian Speech Practice",
-                de: "Praktische russische Sprache",
-                fr: "Pratique de la langue russe"
-            }
-        },
-
-        {
-            id: "russian-9",
-            faculty: "russian",
-            code: "RU-09",
-            required: true,
-            name: {
-                ru: "Введение и история русской литературы",
-                pt: "Introdução e História da Literatura Russa",
-                en: "Introduction and History of Russian Literature",
-                de: "Einführung und Geschichte der russischen Literatur",
-                fr: "Introduction et histoire de la littérature russe"
-            }
-        },
-
-        {
-            id: "russian-6",
-            faculty: "russian",
-            code: "RU-06",
-            required: true,
-            name: {
-                ru: "Русская культура",
-                pt: "Cultura Russa",
-                en: "Russian Culture",
-                de: "Russische Kultur",
-                fr: "Culture russe"
-            }
-        },
-
-        {
-            id: "russian-literature",
-            faculty: "russian",
-            code: "RU-LIT",
-            required: false,
-            name: {
-                ru: "Русская классическая литература",
-                pt: "Literatura Clássica Russa",
-                en: "Russian Classical Literature",
-                de: "Klassische russische Literatur",
-                fr: "Littérature classique russe"
-            }
-        },
-
-        {
-            id: "russian-history",
-            faculty: "russian",
-            code: "RU-HIS",
-            required: false,
-            name: {
-                ru: "История России",
-                pt: "História da Rússia",
-                en: "History of Russia",
-                de: "Geschichte Russlands",
-                fr: "Histoire de la Russie"
-            }
-        },
-
-
-        /* CINEMA */
-
-        {
-            id: "cinema-1",
-            faculty: "cinema",
-            code: "CI-01",
-            required: true,
-            name: {
-                ru: "Введение в кинематограф",
-                pt: "Introdução ao Cinema",
-                en: "Introduction to Cinema",
-                de: "Einführung in die Filmkunst",
-                fr: "Introduction au cinéma"
-            }
-        },
-
-        {
-            id: "cinema-2",
-            faculty: "cinema",
-            code: "CI-02",
-            required: true,
-            name: {
-                ru: "История кино",
-                pt: "História do Cinema",
-                en: "History of Cinema",
-                de: "Filmgeschichte",
-                fr: "Histoire du cinéma"
-            }
-        },
-
-        {
-            id: "cinema-13",
-            faculty: "cinema",
-            code: "CI-13",
-            required: true,
-            name: {
-                ru: "Теория кино",
-                pt: "Teoria do Cinema",
-                en: "Film Theory",
-                de: "Filmtheorie",
-                fr: "Théorie du cinéma"
-            }
-        },
-
-        {
-            id: "cinema-17",
-            faculty: "cinema",
-            code: "CI-17",
-            required: true,
-            name: {
-                ru: "Практика кинематографа",
-                pt: "Prática Cinematográfica",
-                en: "Film Practice",
-                de: "Filmische Praxis",
-                fr: "Pratique cinématographique"
-            }
-        },
-
-        {
-            id: "cinema-aesthetics",
-            faculty: "cinema",
-            code: "CI-AES",
-            required: true,
-            name: {
-                ru: "Эстетика",
-                pt: "Estética",
-                en: "Aesthetics",
-                de: "Ästhetik",
-                fr: "Esthétique"
-            }
-        },
-
-        {
-            id: "cinema-philosophy",
-            faculty: "cinema",
-            code: "CI-PH",
-            required: false,
-            name: {
-                ru: "Введение в философию",
-                pt: "Introdução à Filosofia",
-                en: "Introduction to Philosophy",
-                de: "Einführung in die Philosophie",
-                fr: "Introduction à la philosophie"
-            }
-        },
-
-        {
-            id: "cinema-ethics",
-            faculty: "cinema",
-            code: "CI-ETH",
-            required: false,
-            name: {
-                ru: "Этика",
-                pt: "Ética",
-                en: "Ethics",
-                de: "Ethik",
-                fr: "Éthique"
-            }
-        }
-    ],
-
-    lectures: [],
-
-    news: [],
-
-    publications: [],
-
-    staff: [],
-
-    applications: [],
-
-    pages: [
-        {
-            id: "about",
-            slug: "about",
-            title: {
-                ru: "Об университете",
-                pt: "Sobre a universidade",
-                en: "About the university",
-                de: "Über die Universität",
-                fr: "À propos de l'université"
-            },
-            content: {
-                ru: "",
-                pt: "",
-                en: "",
-                de: "",
-                fr: ""
-            },
-            visible: true
-        },
-
-        {
-            id: "documents",
-            slug: "documents",
-            title: {
-                ru: "Документы",
-                pt: "Documentos",
-                en: "Documents",
-                de: "Dokumente",
-                fr: "Documents"
-            },
-            content: {
-                ru: "",
-                pt: "",
-                en: "",
-                de: "",
-                fr: ""
-            },
-            visible: true
-        },
-
-        {
-            id: "contacts",
-            slug: "contacts",
-            title: {
-                ru: "Контакты",
-                pt: "Contactos",
-                en: "Contacts",
-                de: "Kontakt",
-                fr: "Contact"
-            },
-            content: {
-                ru: "",
-                pt: "",
-                en: "",
-                de: "",
-                fr: ""
-            },
-            visible: true
-        }
-    ]
-};
-
-
-/* ============================================================
-   4. DATABASE FUNCTIONS
-   ============================================================ */
-
-function cloneDatabase(object) {
-    return JSON.parse(JSON.stringify(object));
-}
-
-
-function getDatabase() {
-
-    const raw = localStorage.getItem(UGG_CONFIG.storageKey);
-
-    if (!raw) {
-        const database = cloneDatabase(DEFAULT_DATABASE);
-        saveDatabase(database);
-        return database;
-    }
-
-    try {
-        return JSON.parse(raw);
-    } catch (error) {
-
-        console.error("UGG database error:", error);
-
-        const database = cloneDatabase(DEFAULT_DATABASE);
-        saveDatabase(database);
-
-        return database;
-    }
-}
-
-
-function saveDatabase(database) {
-
-    localStorage.setItem(
-        UGG_CONFIG.storageKey,
-        JSON.stringify(database)
-    );
-
-    window.dispatchEvent(
-        new CustomEvent("uggDatabaseUpdated", {
-            detail: database
-        })
-    );
-}
-
-
-function resetDatabase() {
-
-    if (!confirm(t("confirmDelete"))) {
-        return;
-    }
-
-    const database = cloneDatabase(DEFAULT_DATABASE);
-
-    saveDatabase(database);
-
-    location.reload();
-}
-
-
-/* ============================================================
-   5. LANGUAGE
-   ============================================================ */
-
-function getLanguage() {
-
-    const saved = localStorage.getItem(UGG_CONFIG.languageKey);
-
-    if (saved && UGG_CONFIG.languages.includes(saved)) {
-        return saved;
-    }
-
-    return UGG_CONFIG.defaultLanguage;
-}
-
-
-function setLanguage(language) {
-
-    if (!UGG_CONFIG.languages.includes(language)) {
-        language = UGG_CONFIG.defaultLanguage;
-    }
-
-    localStorage.setItem(
-        UGG_CONFIG.languageKey,
-        language
-    );
-
-    document.documentElement.lang = language;
-
-    updateLanguageElements(language);
-
-    updateLanguageButtons(language);
-
-    window.dispatchEvent(
-        new CustomEvent("uggLanguageChanged", {
-            detail: language
-        })
-    );
-}
-
-
-function updateLanguageElements(language) {
-
-    document.querySelectorAll("[data-lang]").forEach(element => {
-
-        const elementLanguage =
-            element.getAttribute("data-lang");
-
-        if (elementLanguage === language) {
-
-            if (
-                element.tagName === "SPAN" ||
-                element.tagName === "A" ||
-                element.tagName === "BUTTON"
-            ) {
-                element.style.display = "inline";
-            } else {
-                element.style.display = "block";
-            }
-
-        } else {
-
-            element.style.display = "none";
-
-        }
-    });
-
-
-    document.querySelectorAll("[data-i18n]").forEach(element => {
-
-        const key = element.getAttribute("data-i18n");
-
-        const translated = t(key, language);
-
-        if (translated !== null) {
-            element.textContent = translated;
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UGG — Независимый негосударственный университет имени Гуаданина Галашина</title>
+
+    <meta name="description"
+          content="Независимый негосударственный университет имени Гуаданина Галашина">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --background: #f4f0e7;
+            --paper: #fbf9f4;
+            --black: #171614;
+            --dark: #272522;
+            --gold: #8b6b38;
+            --gold-light: #b49a6c;
+            --gray: #716b62;
+            --border: #d8d0c1;
+            --white: #ffffff;
         }
 
-    });
-
-
-    document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
-
-        const key =
-            element.getAttribute("data-i18n-placeholder");
-
-        const translated = t(key, language);
-
-        if (translated !== null) {
-            element.placeholder = translated;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-    });
-}
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--black);
+            font-family: "Inter", Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(251, 249, 244, 0.96);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            min-height: 94px;
+            max-width: 1500px;
+            margin: auto;
+            padding: 16px 5vw;
+
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            flex: 1;
+        }
+
+        .crest {
+            width: 68px;
+            height: 68px;
+
+            border: 1px solid var(--black);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .brand-name {
+            max-width: 400px;
 
+            font-family: "Cormorant Garamond", serif;
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.05;
+        }
+
+        .brand-motto {
+            margin-top: 5px;
+
+            color: var(--gold);
 
-function updateLanguageButtons(language) {
+            font-family: "Cormorant Garamond", serif;
+            font-style: italic;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
 
-    document.querySelectorAll(
-        "[data-language-button]"
-    ).forEach(button => {
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
 
-        const buttonLanguage =
-            button.getAttribute("data-language-button");
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
 
-        button.classList.toggle(
-            "active",
-            buttonLanguage === language
-        );
-    });
-}
+        nav a {
+            transition: color 0.2s ease;
+        }
 
+        nav a:hover {
+            color: var(--gold);
+        }
 
-function t(key, language = getLanguage()) {
+        .languages {
+            display: flex;
+            gap: 5px;
+            margin-left: 5px;
+        }
 
-    const dictionary =
-        UGG_TRANSLATIONS[language] ||
-        UGG_TRANSLATIONS[UGG_CONFIG.defaultLanguage];
+        .languages button {
+            border: 0;
+            background: transparent;
 
-    return dictionary[key] ?? key;
-}
+            color: var(--gray);
 
+            font-size: 10px;
+            cursor: pointer;
+        }
 
-function translateObject(object, language = getLanguage()) {
+        .languages button.active,
+        .languages button:hover {
+            color: var(--gold);
+        }
 
-    if (!object) {
-        return "";
-    }
+        /* =========================
+           HERO
+        ========================= */
 
-    if (typeof object === "string") {
-        return object;
-    }
+        .hero {
+            min-height: 720px;
 
-    return (
-        object[language] ||
-        object[UGG_CONFIG.defaultLanguage] ||
-        Object.values(object)[0] ||
-        ""
-    );
-}
+            max-width: 1500px;
+            margin: auto;
 
+            padding: 120px 8vw 130px;
 
-/* ============================================================
-   6. UNIVERSITY SETTINGS
-   ============================================================ */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-function getUniversityName(language = getLanguage()) {
+            border-bottom: 1px solid var(--border);
+        }
 
-    const database = getDatabase();
+        .hero-crest {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(80px, 13vw, 180px);
+            font-weight: 700;
+            letter-spacing: 0.07em;
 
-    return translateObject(
-        database.settings.name,
-        language
-    );
-}
+            line-height: 0.8;
 
+            margin-bottom: 42px;
+        }
 
-function getUniversityDescription(language = getLanguage()) {
+        .eyebrow {
+            color: var(--gold);
 
-    const database = getDatabase();
+            font-size: 10px;
+            font-weight: 500;
 
-    return translateObject(
-        database.settings.description,
-        language
-    );
-}
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
 
+        .hero h1 {
+            max-width: 1050px;
 
-function updateUniversitySettings(settings) {
+            margin: 20px 0 25px;
 
-    const database = getDatabase();
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(48px, 7vw, 90px);
+            font-weight: 600;
+            line-height: 0.94;
+        }
 
-    database.settings = {
-        ...database.settings,
-        ...settings
-    };
+        .hero-description {
+            max-width: 720px;
 
-    saveDatabase(database);
+            color: var(--gray);
 
-    return database.settings;
-}
+            font-size: 17px;
+            line-height: 1.8;
+        }
 
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
 
-/* ============================================================
-   7. FACULTIES
-   ============================================================ */
+            margin-top: 35px;
+        }
 
-function getFaculties() {
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
 
-    return getDatabase().faculties;
-}
+            min-height: 46px;
 
+            padding: 0 23px;
 
-function getFaculty(id) {
+            border: 1px solid var(--black);
 
-    return getFaculties().find(
-        faculty => faculty.id === id ||
-                   faculty.slug === id
-    );
-}
+            background: var(--black);
+            color: var(--white);
 
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
 
-function addFaculty(faculty) {
+            transition: 0.2s ease;
+        }
 
-    const database = getDatabase();
+        .button:hover {
+            background: transparent;
+            color: var(--black);
+        }
 
-    faculty.id =
-        faculty.id ||
-        createId("faculty");
+        .button.secondary {
+            background: transparent;
+            color: var(--black);
+        }
 
-    faculty.slug =
-        faculty.slug ||
-        slugify(
-            translateObject(faculty.name)
-        );
+        .button.secondary:hover {
+            background: var(--black);
+            color: var(--white);
+        }
 
-    database.faculties.push(faculty);
+        /* =========================
+           SECTIONS
+        ========================= */
 
-    saveDatabase(database);
+        .section {
+            max-width: 1500px;
+            margin: auto;
 
-    return faculty;
-}
+            padding: 90px 8vw;
+        }
 
+        .section-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 18px;
 
-function updateFaculty(id, changes) {
+            margin-bottom: 45px;
+        }
 
-    const database = getDatabase();
+        .section-number {
+            color: var(--gold);
 
-    const index =
-        database.faculties.findIndex(
-            faculty => faculty.id === id
-        );
+            font-family: "Cormorant Garamond", serif;
+            font-size: 20px;
+        }
 
-    if (index === -1) {
-        return null;
-    }
+        .section-heading h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 55px;
+            font-weight: 600;
+        }
 
-    database.faculties[index] = {
-        ...database.faculties[index],
-        ...changes
-    };
+        /* =========================
+           FACULTIES
+        ========================= */
 
-    saveDatabase(database);
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
 
-    return database.faculties[index];
-}
+        .faculty-card {
+            min-height: 300px;
 
+            position: relative;
 
-function deleteFaculty(id) {
+            padding: 32px;
 
-    const database = getDatabase();
+            border: 1px solid var(--border);
+            background: var(--paper);
 
-    database.faculties =
-        database.faculties.filter(
-            faculty => faculty.id !== id
-        );
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-    database.courses =
-        database.courses.filter(
-            course => course.faculty !== id
-        );
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
 
-    saveDatabase(database);
-}
+        .faculty-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-light);
+        }
 
+        .faculty-number {
+            color: var(--gold);
 
-/* ============================================================
-   8. COURSES
-   ============================================================ */
+            font-size: 10px;
+            letter-spacing: 0.2em;
+        }
 
-function getCourses(facultyId = null) {
+        .faculty-card h3 {
+            max-width: 350px;
 
-    const courses =
-        getDatabase().courses;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.05;
+        }
 
-    if (!facultyId) {
-        return courses;
-    }
+        .faculty-arrow {
+            color: var(--gold);
+            font-size: 25px;
+        }
 
-    return courses.filter(
-        course => course.faculty === facultyId
-    );
-}
+        /* =========================
+           PRINCIPLES
+        ========================= */
 
+        .dark-section {
+            background: var(--dark);
+            color: var(--white);
+        }
 
-function getCourse(id) {
+        .dark-section .section {
+            border: 0;
+        }
 
-    return getDatabase().courses.find(
-        course => course.id === id
-    );
-}
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
 
+            background: #4a4741;
+        }
 
-function getRequiredCourses(facultyId) {
+        .principle {
+            min-height: 230px;
 
-    return getCourses(facultyId)
-        .filter(course => course.required === true);
-}
+            padding: 35px;
 
+            background: var(--dark);
+        }
 
-function getElectiveCourses(facultyId) {
+        .principle-number {
+            color: var(--gold-light);
 
-    return getCourses(facultyId)
-        .filter(course => course.required === false);
-}
+            font-size: 10px;
+            letter-spacing: 0.2em;
+        }
 
+        .principle h3 {
+            margin-top: 55px;
 
-function addCourse(course) {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 35px;
+            font-weight: 500;
+        }
 
-    const database = getDatabase();
+        /* =========================
+           PUBLICATIONS
+        ========================= */
 
-    course.id =
-        course.id ||
-        createId("course");
+        .publication-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
 
-    database.courses.push(course);
+        .publication-card {
+            padding: 30px;
 
-    saveDatabase(database);
+            border: 1px solid var(--border);
+            background: var(--paper);
+        }
 
-    return course;
-}
+        .publication-card h3 {
+            margin: 18px 0;
 
+            font-family: "Cormorant Garamond", serif;
+            font-size: 31px;
+            line-height: 1.1;
+        }
 
-function updateCourse(id, changes) {
+        .publication-card p {
+            color: var(--gray);
+            font-size: 14px;
+        }
 
-    const database = getDatabase();
+        .publication-link {
+            display: inline-block;
+            margin-top: 28px;
 
-    const index =
-        database.courses.findIndex(
-            course => course.id === id
-        );
+            color: var(--gold);
 
-    if (index === -1) {
-        return null;
-    }
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
 
-    database.courses[index] = {
-        ...database.courses[index],
-        ...changes
-    };
+        /* =========================
+           UNIVERSITY INFO
+        ========================= */
 
-    saveDatabase(database);
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
 
-    return database.courses[index];
-}
+            border-top: 1px solid var(--border);
+        }
 
+        .info-item {
+            padding: 30px 0;
 
-function deleteCourse(id) {
+            border-bottom: 1px solid var(--border);
+        }
 
-    const database = getDatabase();
+        .info-item:nth-child(odd) {
+            padding-right: 40px;
+            border-right: 1px solid var(--border);
+        }
 
-    database.courses =
-        database.courses.filter(
-            course => course.id !== id
-        );
+        .info-item:nth-child(even) {
+            padding-left: 40px;
+        }
 
-    saveDatabase(database);
-}
+        .info-item h3 {
+            margin-bottom: 10px;
 
+            font-family: "Cormorant Garamond", serif;
+            font-size: 30px;
+        }
 
-/* ============================================================
-   9. LECTURES
-   ============================================================ */
+        .info-item p {
+            color: var(--gray);
+            max-width: 500px;
+        }
 
-function getLectures() {
+        /* =========================
+           FOOTER
+        ========================= */
 
-    return getDatabase().lectures;
-}
+        footer {
+            background: var(--black);
+            color: var(--white);
 
+            padding: 65px 8vw;
+        }
 
-function getLecture(id) {
+        .footer-inner {
+            max-width: 1500px;
+            margin: auto;
 
-    return getLectures().find(
-        lecture => lecture.id === id
-    );
-}
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
 
+        .footer-logo {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 50px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
 
-function addLecture(lecture) {
+        .footer-motto {
+            margin-top: 5px;
 
-    const database = getDatabase();
+            color: var(--gold-light);
 
-    lecture.id =
-        lecture.id ||
-        createId("lecture");
+            font-family: "Cormorant Garamond", serif;
+            font-style: italic;
+        }
 
-    lecture.createdAt =
-        lecture.createdAt ||
-        new Date().toISOString();
+        .footer-right {
+            color: #aaa49a;
+            font-size: 12px;
+            text-align: right;
+        }
 
-    database.lectures.push(lecture);
+        /* =========================
+           MOBILE
+        ========================= */
 
-    saveDatabase(database);
+        @media (max-width: 1000px) {
 
-    return lecture;
-}
-
-
-function updateLecture(id, changes) {
-
-    const database = getDatabase();
-
-    const index =
-        database.lectures.findIndex(
-            lecture => lecture.id === id
-        );
-
-    if (index === -1) {
-        return null;
-    }
-
-    database.lectures[index] = {
-        ...database.lectures[index],
-        ...changes
-    };
-
-    saveDatabase(database);
-
-    return database.lectures[index];
-}
-
-
-function deleteLecture(id) {
-
-    const database = getDatabase();
-
-    database.lectures =
-        database.lectures.filter(
-            lecture => lecture.id !== id
-        );
-
-    saveDatabase(database);
-}
-
-
-/* ============================================================
-   10. NEWS
-   ============================================================ */
-
-function getNews() {
-
-    return getDatabase().news;
-}
-
-
-function getNewsItem(id) {
-
-    return getNews().find(
-        item => item.id === id
-    );
-}
-
-
-function addNews(item) {
-
-    const database = getDatabase();
-
-    item.id =
-        item.id ||
-        createId("news");
-
-    item.createdAt =
-        item.createdAt ||
-        new Date().toISOString();
-
-    database.news.push(item);
-
-    saveDatabase(database);
-
-    return item;
-}
-
-
-function updateNews(id, changes) {
-
-    const database = getDatabase();
-
-    const index =
-        database.news.findIndex(
-            item => item.id === id
-        );
-
-    if (index === -1) {
-        return null;
-    }
-
-    database.news[index] = {
-        ...database.news[index],
-        ...changes
-    };
-
-    saveDatabase(database);
-
-    return database.news[index];
-}
-
-
-function deleteNews(id) {
-
-    const database = getDatabase();
-
-    database.news =
-        database.news.filter(
-            item => item.id !== id
-        );
-
-    saveDatabase(database);
-}
-
-
-/* ============================================================
-   11. PUBLICATIONS
-   ============================================================ */
-
-function getPublications() {
-
-    return getDatabase().publications;
-}
-
-
-function getPublication(id) {
-
-    return getPublications().find(
-        publication => publication.id === id
-    );
-}
-
-
-function addPublication(publication) {
-
-    const database = getDatabase();
-
-    publication.id =
-        publication.id ||
-        createId("publication");
-
-    publication.createdAt =
-        publication.createdAt ||
-        new Date().toISOString();
-
-    database.publications.push(publication);
-
-    saveDatabase(database);
-
-    return publication;
-}
-
-
-function updatePublication(id, changes) {
-
-    const database = getDatabase();
-
-    const index =
-        database.publications.findIndex(
-            publication => publication.id === id
-        );
-
-    if (index === -1) {
-        return null;
-    }
-
-    database.publications[index] = {
-        ...database.publications[index],
-        ...changes
-    };
-
-    saveDatabase(database);
-
-    return database.publications[index];
-}
-
-
-function deletePublication(id) {
-
-    const database = getDatabase();
-
-    database.publications =
-        database.publications.filter(
-            publication => publication.id !== id
-        );
-
-    saveDatabase(database);
-}
-
-
-/* ============================================================
-   12. ACADEMIC STAFF
-   ============================================================ */
-
-function getStaff() {
-
-    return getDatabase().staff;
-}
-
-
-function getStaffMember(id) {
-
-    return getStaff().find(
-        member => member.id === id
-    );
-}
-
-
-function addStaffMember(member) {
-
-    const database = getDatabase();
-
-    member.id =
-        member.id ||
-        createId("staff");
-
-    database.staff.push(member);
-
-    saveDatabase(database);
-
-    return member;
-}
-
-
-function updateStaffMember(id, changes) {
-
-    const database = getDatabase();
-
-    const index =
-        database.staff.findIndex(
-            member => member.id === id
-        );
-
-    if (index === -1) {
-        return null;
-    }
-
-    database.staff[index] = {
-        ...database.staff[index],
-        ...changes
-    };
-
-    saveDatabase(database);
-
-    return database.staff[index];
-}
-
-
-function deleteStaffMember(id) {
-
-    const database = getDatabase();
-
-    database.staff =
-        database.staff.filter(
-            member => member.id !== id
-        );
-
-    saveDatabase(database);
-}
-
-
-/* ============================================================
-   13. APPLICATIONS
-   ============================================================ */
-
-function getApplications() {
-
-    return getDatabase().applications;
-}
-
-
-function getApplication(id) {
-
-    return getApplications().find(
-        application => application.id === id
-    );
-}
-
-
-function submitApplication(formData) {
-
-    const database = getDatabase();
-
-    const application = {
-
-        id: createId("application"),
-
-        createdAt:
-            new Date().toISOString(),
-
-        status: "new",
-
-        name: formData.name || "",
-        surname: formData.surname || "",
-        birthDate: formData.birthDate || "",
-        email: formData.email || "",
-        phone: formData.phone || "",
-
-        faculty: formData.faculty || "",
-        program: formData.program || "",
-
-        education: formData.education || "",
-
-        motivation: formData.motivation || "",
-
-        documents: formData.documents || []
-    };
-
-    database.applications.push(application);
-
-    saveDatabase(database);
-
-    return application;
-}
-
-
-function updateApplication(id, changes) {
-
-    const database = getDatabase();
-
-    const index =
-        database.applications.findIndex(
-            application => application.id === id
-        );
-
-    if (index === -1) {
-        return null;
-    }
-
-    database.applications[index] = {
-        ...database.applications[index],
-        ...changes
-    };
-
-    saveDatabase(database);
-
-    return database.applications[index];
-}
-
-
-function deleteApplication(id) {
-
-    const database = getDatabase();
-
-    database.applications =
-        database.applications.filter(
-            application => application.id !== id
-        );
-
-    saveDatabase(database);
-}
-
-
-/* ============================================================
-   14. CUSTOM PAGES
-   ============================================================ */
-
-function getPages() {
-
-    return getDatabase().pages;
-}
-
-
-function getPage(idOrSlug) {
-
-    return getPages().find(
-        page =>
-            page.id === idOrSlug ||
-            page.slug === idOrSlug
-    );
-}
-
-
-function addPage(page) {
-
-    const database = getDatabase();
-
-    page.id =
-        page.id ||
-        createId("page");
-
-    page.slug =
-        page.slug ||
-        slugify(
-            translateObject(page.title)
-        );
-
-    page.visible =
-        page.visible !== false;
-
-    database.pages.push(page);
-
-    saveDatabase(database);
-
-    return page;
-}
-
-
-function updatePage(id, changes) {
-
-    const database = getDatabase();
-
-    const index =
-        database.pages.findIndex(
-            page => page.id === id
-        );
-
-    if (index === -1) {
-        return null;
-    }
-
-    database.pages[index] = {
-        ...database.pages[index],
-        ...changes
-    };
-
-    saveDatabase(database);
-
-    return database.pages[index];
-}
-
-
-function deletePage(id) {
-
-    const database = getDatabase();
-
-    database.pages =
-        database.pages.filter(
-            page => page.id !== id
-        );
-
-    saveDatabase(database);
-}
-
-
-/* ============================================================
-   15. FORM HANDLING
-   ============================================================ */
-
-function setupApplicationForms() {
-
-    document
-        .querySelectorAll("[data-admission-form]")
-        .forEach(form => {
-
-            form.addEventListener(
-                "submit",
-                function(event) {
-
-                    event.preventDefault();
-
-                    const formData =
-                        new FormData(form);
-
-                    const data = {};
-
-                    formData.forEach(
-                        (value, key) => {
-
-                            if (data[key]) {
-
-                                if (!Array.isArray(data[key])) {
-                                    data[key] = [
-                                        data[key]
-                                    ];
-                                }
-
-                                data[key].push(value);
-
-                            } else {
-
-                                data[key] = value;
-
-                            }
-                        }
-                    );
-
-
-                    const requiredFields = [
-                        "name",
-                        "surname",
-                        "email",
-                        "faculty"
-                    ];
-
-
-                    const missing =
-                        requiredFields.some(
-                            field =>
-                                !String(
-                                    data[field] || ""
-                                ).trim()
-                        );
-
-
-                    if (missing) {
-
-                        showNotification(
-                            t("applicationError"),
-                            "error"
-                        );
-
-                        return;
-                    }
-
-
-                    submitApplication(data);
-
-                    form.reset();
-
-                    showNotification(
-                        t("applicationSent"),
-                        "success"
-                    );
-
-                }
-            );
-
-        });
-}
-
-
-/* ============================================================
-   16. AUTO POPULATE FACULTY SELECT
-   ============================================================ */
-
-function populateFacultySelects() {
-
-    const faculties =
-        getFaculties();
-
-    document
-        .querySelectorAll(
-            "[data-faculty-select]"
-        )
-        .forEach(select => {
-
-            const currentValue =
-                select.value;
-
-            const language =
-                getLanguage();
-
-            select.innerHTML = "";
-
-            const defaultOption =
-                document.createElement("option");
-
-            defaultOption.value = "";
-
-            defaultOption.textContent =
-                t("faculty", language);
-
-            select.appendChild(
-                defaultOption
-            );
-
-
-            faculties.forEach(faculty => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    faculty.id;
-
-                option.textContent =
-                    translateObject(
-                        faculty.name,
-                        language
-                    );
-
-                select.appendChild(option);
-
-            });
-
-
-            if (currentValue) {
-                select.value = currentValue;
+            .header-inner {
+                flex-wrap: wrap;
             }
 
-        });
-}
+            nav {
+                order: 4;
+                width: 100%;
 
+                overflow-x: auto;
 
-/* ============================================================
-   17. AUTO POPULATE COURSE SELECTS
-   ============================================================ */
-
-function populateCourseSelects() {
-
-    document
-        .querySelectorAll(
-            "[data-course-select]"
-        )
-        .forEach(select => {
-
-            const facultyId =
-                select.getAttribute(
-                    "data-faculty"
-                );
-
-            const courses =
-                getCourses(facultyId);
-
-            const currentValue =
-                select.value;
-
-            select.innerHTML = "";
-
-            courses.forEach(course => {
-
-                const option =
-                    document.createElement("option");
-
-                option.value =
-                    course.id;
-
-                option.textContent =
-                    `${course.code} — ${
-                        translateObject(
-                            course.name
-                        )
-                    }`;
-
-                select.appendChild(option);
-
-            });
-
-            if (currentValue) {
-                select.value = currentValue;
+                padding-bottom: 4px;
             }
 
-        });
-}
+            .faculty-grid,
+            .publication-grid,
+            .principles {
+                grid-template-columns: 1fr;
+            }
 
+            .hero {
+                min-height: auto;
+                padding-top: 80px;
+                padding-bottom: 90px;
+            }
 
-/* ============================================================
-   18. DYNAMIC COURSE RENDERING
-   ============================================================ */
+            .section-heading h2 {
+                font-size: 45px;
+            }
+        }
 
-function renderCourses(container, facultyId) {
+        @media (max-width: 650px) {
 
-    if (!container) {
-        return;
-    }
+            .header-inner {
+                padding: 12px 5vw;
+            }
 
-    const language =
-        getLanguage();
+            .crest {
+                width: 52px;
+                height: 52px;
+                font-size: 19px;
+            }
 
-    const courses =
-        getCourses(facultyId);
+            .brand-name {
+                font-size: 17px;
+            }
 
-    if (!courses.length) {
+            .brand-motto {
+                font-size: 12px;
+            }
 
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noCourses")
-            )}</p>`;
+            .hero {
+                padding-left: 6vw;
+                padding-right: 6vw;
+            }
 
-        return;
-    }
+            .section {
+                padding-left: 6vw;
+                padding-right: 6vw;
+            }
 
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
 
-    container.innerHTML =
-        courses.map(course => {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
 
-            const badge =
-                course.required
-                    ? t("mandatory")
-                    : t("elective");
+            .info-item:nth-child(odd) {
+                padding-right: 0;
+                border-right: 0;
+            }
 
-            return `
-                <article class="course-card"
-                         data-course-id="${escapeHTML(course.id)}">
+            .info-item:nth-child(even) {
+                padding-left: 0;
+            }
 
-                    <div class="course-code">
-                        ${escapeHTML(course.code || "")}
-                    </div>
+            .footer-inner {
+                flex-direction: column;
+            }
 
-                    <h3>
-                        ${escapeHTML(
-                            translateObject(
-                                course.name,
-                                language
-                            )
-                        )}
-                    </h3>
+            .footer-right {
+                text-align: left;
+            }
+        }
 
-                    <span class="course-type">
-                        ${escapeHTML(badge)}
+        /* =========================
+           LANGUAGE CONTENT
+        ========================= */
+
+        [data-lang] {
+            display: none;
+        }
+
+        [data-lang="ru"] {
+            display: block;
+        }
+
+        span[data-lang="ru"],
+        a[data-lang="ru"] {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+
+        <a href="index.html" class="brand">
+
+            <div class="crest">
+                UGG
+            </div>
+
+            <div>
+                <div class="brand-name">
+
+                    <span data-lang="ru">
+                        Независимый негосударственный университет имени Гуаданина Галашина
                     </span>
 
-                </article>
-            `;
-
-        }).join("");
-}
-
-
-/* ============================================================
-   19. DYNAMIC FACULTY RENDERING
-   ============================================================ */
-
-function renderFaculties(container) {
-
-    if (!container) {
-        return;
-    }
-
-    const language =
-        getLanguage();
-
-    const faculties =
-        getFaculties();
-
-    if (!faculties.length) {
-
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noInformation")
-            )}</p>`;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        faculties.map(
-            (faculty, index) => {
-
-                return `
-                    <article class="faculty-card">
-
-                        <div class="faculty-number">
-                            ${String(index + 1).padStart(2, "0")}
-                        </div>
-
-                        <h3>
-                            ${escapeHTML(
-                                translateObject(
-                                    faculty.name,
-                                    language
-                                )
-                            )}
-                        </h3>
-
-                        <p>
-                            ${escapeHTML(
-                                translateObject(
-                                    faculty.description,
-                                    language
-                                )
-                            )}
-                        </p>
-
-                        <a href="${escapeHTML(
-                            faculty.slug + ".html"
-                        )}">
-                            ${escapeHTML(
-                                t("learnMore")
-                            )} →
-                        </a>
-
-                    </article>
-                `;
-
-            }
-        ).join("");
-}
-
-
-/* ============================================================
-   20. DYNAMIC NEWS RENDERING
-   ============================================================ */
-
-function renderNews(container) {
-
-    if (!container) {
-        return;
-    }
-
-    const language =
-        getLanguage();
-
-    const news =
-        getNews()
-            .slice()
-            .sort(
-                (a, b) =>
-                    new Date(b.createdAt || b.date) -
-                    new Date(a.createdAt || a.date)
-            );
-
-
-    if (!news.length) {
-
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noNews")
-            )}</p>`;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        news.map(item => {
-
-            return `
-                <article class="news-card"
-                         data-news-id="${escapeHTML(item.id)}">
-
-                    ${
-                        item.image
-                            ? `<img src="${escapeHTML(item.image)}"
-                                    alt="">`
-                            : ""
-                    }
-
-                    <div class="news-date">
-                        ${escapeHTML(
-                            formatDate(
-                                item.date ||
-                                item.createdAt
-                            )
-                        )}
-                    </div>
-
-                    <h3>
-                        ${escapeHTML(
-                            translateObject(
-                                item.title,
-                                language
-                            )
-                        )}
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(
-                            translateObject(
-                                item.excerpt ||
-                                item.content,
-                                language
-                            )
-                        )}
-                    </p>
-
-                    <a href="news-item.html?id=${encodeURIComponent(item.id)}">
-                        ${escapeHTML(
-                            t("read")
-                        )} →
-                    </a>
-
-                </article>
-            `;
-
-        }).join("");
-}
-
-
-/* ============================================================
-   21. DYNAMIC LECTURE RENDERING
-   ============================================================ */
-
-function renderLectures(container) {
-
-    if (!container) {
-        return;
-    }
-
-    const language =
-        getLanguage();
-
-    const lectures =
-        getLectures();
-
-
-    if (!lectures.length) {
-
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noLectures")
-            )}</p>`;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        lectures.map(lecture => {
-
-            return `
-                <article class="lecture-card">
-
-                    <div class="lecture-date">
-                        ${escapeHTML(
-                            formatDate(
-                                lecture.date ||
-                                lecture.createdAt
-                            )
-                        )}
-                    </div>
-
-                    <h3>
-                        ${escapeHTML(
-                            translateObject(
-                                lecture.title,
-                                language
-                            )
-                        )}
-                    </h3>
-
-                    ${
-                        lecture.author
-                            ? `<div class="lecture-author">
-                                ${escapeHTML(
-                                    lecture.author
-                                )}
-                               </div>`
-                            : ""
-                    }
-
-                    <p>
-                        ${escapeHTML(
-                            translateObject(
-                                lecture.description ||
-                                lecture.content,
-                                language
-                            )
-                        )}
-                    </p>
-
-                </article>
-            `;
-
-        }).join("");
-}
-
-
-/* ============================================================
-   22. DYNAMIC PUBLICATIONS
-   ============================================================ */
-
-function renderPublications(container) {
-
-    if (!container) {
-        return;
-    }
-
-    const language =
-        getLanguage();
-
-    const publications =
-        getPublications();
-
-
-    if (!publications.length) {
-
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noPublications")
-            )}</p>`;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        publications.map(publication => {
-
-            return `
-                <article class="publication-card">
-
-                    <div class="publication-date">
-                        ${escapeHTML(
-                            formatDate(
-                                publication.date ||
-                                publication.createdAt
-                            )
-                        )}
-                    </div>
-
-                    <h3>
-                        ${escapeHTML(
-                            translateObject(
-                                publication.title,
-                                language
-                            )
-                        )}
-                    </h3>
-
-                    ${
-                        publication.author
-                            ? `<div class="publication-author">
-                                ${escapeHTML(
-                                    publication.author
-                                )}
-                               </div>`
-                            : ""
-                    }
-
-                    <p>
-                        ${escapeHTML(
-                            translateObject(
-                                publication.abstract ||
-                                publication.description ||
-                                publication.content,
-                                language
-                            )
-                        )}
-                    </p>
-
-                </article>
-            `;
-
-        }).join("");
-}
-
-
-/* ============================================================
-   23. DYNAMIC STAFF
-   ============================================================ */
-
-function renderStaff(container) {
-
-    if (!container) {
-        return;
-    }
-
-    const language =
-        getLanguage();
-
-    const staff =
-        getStaff();
-
-
-    if (!staff.length) {
-
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noStaff")
-            )}</p>`;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        staff.map(member => {
-
-            const faculty =
-                getFaculty(member.faculty);
-
-            return `
-                <article class="staff-card">
-
-                    ${
-                        member.photo
-                            ? `<img src="${escapeHTML(
-                                member.photo
-                              )}"
-                              alt="${escapeHTML(
-                                member.name
-                              )}">`
-                            : `<div class="staff-photo-placeholder">
-                                  UGG
-                               </div>`
-                    }
-
-                    <h3>
-                        ${escapeHTML(
-                            member.name || ""
-                        )}
-                    </h3>
-
-                    ${
-                        member.position
-                            ? `<div class="staff-position">
-                                ${escapeHTML(
-                                    translateObject(
-                                        member.position,
-                                        language
-                                    )
-                                )}
-                               </div>`
-                            : ""
-                    }
-
-                    ${
-                        member.degree
-                            ? `<div class="staff-degree">
-                                ${escapeHTML(
-                                    translateObject(
-                                        member.degree,
-                                        language
-                                    )
-                                )}
-                               </div>`
-                            : ""
-                    }
-
-                    ${
-                        faculty
-                            ? `<div class="staff-faculty">
-                                ${escapeHTML(
-                                    translateObject(
-                                        faculty.name,
-                                        language
-                                    )
-                                )}
-                               </div>`
-                            : ""
-                    }
-
-                    ${
-                        member.email
-                            ? `<a href="mailto:${escapeHTML(
-                                member.email
-                              )}">
-                                ${escapeHTML(
-                                    member.email
-                                )}
-                               </a>`
-                            : ""
-                    }
-
-                    ${
-                        member.biography
-                            ? `<p>
-                                ${escapeHTML(
-                                    translateObject(
-                                        member.biography,
-                                        language
-                                    )
-                                )}
-                               </p>`
-                            : ""
-                    }
-
-                </article>
-            `;
-
-        }).join("");
-}
-
-
-/* ============================================================
-   24. PAGE RENDERING
-   ============================================================ */
-
-function renderCustomPage(container, pageId) {
-
-    if (!container) {
-        return;
-    }
-
-    const page =
-        getPage(pageId);
-
-    if (!page) {
-
-        container.innerHTML =
-            `<p class="empty-state">${escapeHTML(
-                t("noInformation")
-            )}</p>`;
-
-        return;
-    }
-
-    const language =
-        getLanguage();
-
-    const title =
-        translateObject(
-            page.title,
-            language
-        );
-
-    const content =
-        translateObject(
-            page.content,
-            language
-        );
-
-
-    container.innerHTML = `
-
-        <div class="custom-page">
-
-            <h1>
-                ${escapeHTML(title)}
-            </h1>
-
-            ${
-                content
-                    ? `<div class="custom-page-content">
-                        ${sanitizeBasicHTML(content)}
-                       </div>`
-                    : `<p class="empty-state">
-                        ${escapeHTML(
-                            t("noInformation")
-                        )}
-                       </p>`
-            }
+                    <span data-lang="pt">
+                        Universidade Independente e Não Estatal Guadanin Galashin
+                    </span>
+
+                    <span data-lang="en">
+                        Independent Non-State University named after Guadagnin Galashin
+                    </span>
+
+                    <span data-lang="de">
+                        Unabhängige nichtstaatliche Universität namens Guadagnin Galashin
+                    </span>
+
+                    <span data-lang="fr">
+                        Université indépendante et non étatique nommée d'après Guadagnin Galashin
+                    </span>
+
+                </div>
+
+                <div class="brand-motto">
+                    Scientia · Cogitatio · Humanitas
+                </div>
+            </div>
+
+        </a>
+
+        <nav>
+
+            <a href="index.html">
+                <span data-lang="ru">Главная</span>
+                <span data-lang="pt">Início</span>
+                <span data-lang="en">Home</span>
+                <span data-lang="de">Startseite</span>
+                <span data-lang="fr">Accueil</span>
+            </a>
+
+            <a href="faculties.html">
+                <span data-lang="ru">Факультеты</span>
+                <span data-lang="pt">Faculdades</span>
+                <span data-lang="en">Faculties</span>
+                <span data-lang="de">Fakultäten</span>
+                <span data-lang="fr">Facultés</span>
+            </a>
+
+            <a href="courses.html">
+                <span data-lang="ru">Курсы</span>
+                <span data-lang="pt">Cursos</span>
+                <span data-lang="en">Courses</span>
+                <span data-lang="de">Kurse</span>
+                <span data-lang="fr">Cours</span>
+            </a>
+
+            <a href="publications.html">
+                <span data-lang="ru">Публикации</span>
+                <span data-lang="pt">Publicações</span>
+                <span data-lang="en">Publications</span>
+                <span data-lang="de">Publikationen</span>
+                <span data-lang="fr">Publications</span>
+            </a>
+
+            <a href="staff.html">
+                <span data-lang="ru">Состав</span>
+                <span data-lang="pt">Equipe</span>
+                <span data-lang="en">Staff</span>
+                <span data-lang="de">Stab</span>
+                <span data-lang="fr">Équipe</span>
+            </a>
+
+        </nav>
+
+        <div class="languages">
+
+            <button class="active" onclick="setLanguage('ru')">RU</button>
+            <button onclick="setLanguage('pt')">PT</button>
+            <button onclick="setLanguage('en')">EN</button>
+            <button onclick="setLanguage('de')">DE</button>
+            <button onclick="setLanguage('fr')">FR</button>
 
         </div>
 
-    `;
-}
+    </div>
+</header>
 
 
-/* ============================================================
-   25. SITE SETTINGS RENDERING
-   ============================================================ */
+<main>
 
-function renderSiteSettings() {
+    <!-- HERO -->
 
-    const database =
-        getDatabase();
+    <section class="hero">
 
-    const language =
-        getLanguage();
+        <div class="hero-crest">
+            UGG
+        </div>
 
+        <div class="eyebrow">
+            Scientia · Cogitatio · Humanitas
+        </div>
 
-    document
-        .querySelectorAll(
-            "[data-university-name]"
-        )
-        .forEach(element => {
+        <h1>
 
-            element.textContent =
-                translateObject(
-                    database.settings.name,
-                    language
-                );
+            <span data-lang="ru">
+                Независимый негосударственный университет имени Гуаданина Галашина
+            </span>
 
-        });
+            <span data-lang="pt">
+                Universidade Independente e Não Estatal Guadanin Galashin
+            </span>
 
+            <span data-lang="en">
+                Independent Non-State University named after Guadagnin Galashin
+            </span>
 
-    document
-        .querySelectorAll(
-            "[data-university-motto]"
-        )
-        .forEach(element => {
+            <span data-lang="de">
+                Unabhängige nichtstaatliche Universität namens Guadagnin Galashin
+            </span>
 
-            element.textContent =
-                database.settings.motto ||
-                UGG_CONFIG.motto;
+            <span data-lang="fr">
+                Université indépendante et non étatique nommée d'après Guadagnin Galashin
+            </span>
 
-        });
+        </h1>
 
+        <p class="hero-description">
 
-    document
-        .querySelectorAll(
-            "[data-university-description]"
-        )
-        .forEach(element => {
+            <span data-lang="ru">
+                Академическое пространство, посвящённое свободному исследованию,
+                философии, языку, культуре и искусству.
+            </span>
 
-            element.textContent =
-                translateObject(
-                    database.settings.description,
-                    language
-                );
+            <span data-lang="pt">
+                Um espaço académico dedicado à investigação livre,
+                à filosofia, à língua, à cultura e às artes.
+            </span>
 
-        });
-}
+            <span data-lang="en">
+                An academic space dedicated to free inquiry,
+                philosophy, language, culture and the arts.
+            </span>
 
+            <span data-lang="de">
+                Ein akademischer Raum für freie Forschung,
+                Philosophie, Sprache, Kultur und Kunst.
+            </span>
 
-/* ============================================================
-   26. GENERIC CONTENT INITIALIZATION
-   ============================================================ */
+            <span data-lang="fr">
+                Un espace académique consacré à la recherche libre,
+                à la philosophie, à la langue, à la culture et aux arts.
+            </span>
 
-function initializeDynamicContent() {
+        </p>
 
-    const facultyContainer =
-        document.querySelector(
-            "[data-render-faculties]"
-        );
+        <div class="hero-buttons">
 
-    if (facultyContainer) {
-        renderFaculties(facultyContainer);
-    }
+            <a class="button" href="faculties.html">
 
+                <span data-lang="ru">Факультеты</span>
+                <span data-lang="pt">Faculdades</span>
+                <span data-lang="en">Faculties</span>
+                <span data-lang="de">Fakultäten</span>
+                <span data-lang="fr">Facultés</span>
 
-    const newsContainer =
-        document.querySelector(
-            "[data-render-news]"
-        );
+            </a>
 
-    if (newsContainer) {
-        renderNews(newsContainer);
-    }
+            <a class="button secondary" href="about.html">
 
+                <span data-lang="ru">Об университете</span>
+                <span data-lang="pt">Sobre a universidade</span>
+                <span data-lang="en">About the university</span>
+                <span data-lang="de">Über die Universität</span>
+                <span data-lang="fr">À propos de l'université</span>
 
-    const lectureContainer =
-        document.querySelector(
-            "[data-render-lectures]"
-        );
+            </a>
 
-    if (lectureContainer) {
-        renderLectures(lectureContainer);
-    }
+        </div>
 
+    </section>
 
-    const publicationContainer =
-        document.querySelector(
-            "[data-render-publications]"
-        );
 
-    if (publicationContainer) {
-        renderPublications(
-            publicationContainer
-        );
-    }
+    <!-- FACULTIES -->
 
+    <section class="section">
 
-    const staffContainer =
-        document.querySelector(
-            "[data-render-staff]"
-        );
+        <div class="section-heading">
 
-    if (staffContainer) {
-        renderStaff(staffContainer);
-    }
+            <span class="section-number">01</span>
 
+            <h2>
 
-    document
-        .querySelectorAll(
-            "[data-render-courses]"
-        )
-        .forEach(container => {
+                <span data-lang="ru">Факультеты</span>
+                <span data-lang="pt">Faculdades</span>
+                <span data-lang="en">Faculties</span>
+                <span data-lang="de">Fakultäten</span>
+                <span data-lang="fr">Facultés</span>
 
-            const facultyId =
-                container.getAttribute(
-                    "data-faculty"
-                );
+            </h2>
 
-            renderCourses(
-                container,
-                facultyId
-            );
+        </div>
 
-        });
 
+        <div class="faculty-grid">
 
-    document
-        .querySelectorAll(
-            "[data-render-page]"
-        )
-        .forEach(container => {
+            <a href="philosophy.html" class="faculty-card">
 
-            const pageId =
-                container.getAttribute(
-                    "data-render-page"
-                );
+                <span class="faculty-number">01</span>
 
-            renderCustomPage(
-                container,
-                pageId
-            );
+                <h3>
 
-        });
+                    <span data-lang="ru">Факультет философии</span>
+                    <span data-lang="pt">Faculdade de Filosofia</span>
+                    <span data-lang="en">Faculty of Philosophy</span>
+                    <span data-lang="de">Philosophische Fakultät</span>
+                    <span data-lang="fr">Faculté de philosophie</span>
 
+                </h3>
 
-    renderSiteSettings();
+                <span class="faculty-arrow">→</span>
 
-    populateFacultySelects();
+            </a>
 
-    populateCourseSelects();
-}
 
+            <a href="russian.html" class="faculty-card">
 
-/* ============================================================
-   27. ADMIN SESSION
-   ============================================================ */
+                <span class="faculty-number">02</span>
 
-function isAdminLoggedIn() {
+                <h3>
 
-    return (
-        localStorage.getItem(
-            UGG_CONFIG.adminKey
-        ) === "true"
-    );
-}
+                    <span data-lang="ru">
+                        Факультет русского языка и русской культуры
+                    </span>
 
+                    <span data-lang="pt">
+                        Faculdade de Língua e Cultura Russa
+                    </span>
 
-function adminLogin(password) {
+                    <span data-lang="en">
+                        Faculty of Russian Language and Culture
+                    </span>
 
-    /*
-       Demo password.
+                    <span data-lang="de">
+                        Fakultät für russische Sprache und Kultur
+                    </span>
 
-       IMPORTANT:
-       This is NOT secure authentication.
-       GitHub Pages cannot safely store a secret
-       password in client-side JavaScript.
+                    <span data-lang="fr">
+                        Faculté de langue et culture russes
+                    </span>
 
-       Change this value if you only need a demo.
-    */
+                </h3>
 
-    const demoPassword =
-        "UGG-admin-2026";
+                <span class="faculty-arrow">→</span>
 
+            </a>
 
-    if (password === demoPassword) {
 
-        localStorage.setItem(
-            UGG_CONFIG.adminKey,
-            "true"
-        );
+            <a href="cinema.html" class="faculty-card">
 
-        return true;
-    }
+                <span class="faculty-number">03</span>
 
-    return false;
-}
+                <h3>
 
+                    <span data-lang="ru">Факультет кинематографа</span>
+                    <span data-lang="pt">Faculdade de Cinema</span>
+                    <span data-lang="en">Faculty of Cinema</span>
+                    <span data-lang="de">Fakultät für Filmkunst</span>
+                    <span data-lang="fr">Faculté de cinéma</span>
 
-function adminLogout() {
+                </h3>
 
-    localStorage.removeItem(
-        UGG_CONFIG.adminKey
-    );
+                <span class="faculty-arrow">→</span>
 
-    location.reload();
-}
+            </a>
 
+        </div>
 
-/* ============================================================
-   28. ADMIN LOGIN FORM
-   ============================================================ */
+    </section>
 
-function setupAdminLogin() {
 
-    const form =
-        document.querySelector(
-            "[data-admin-login]"
-        );
+    <!-- PRINCIPLES -->
 
-    if (!form) {
-        return;
-    }
+    <div class="dark-section">
 
+        <section class="section">
 
-    if (isAdminLoggedIn()) {
+            <div class="section-heading">
 
-        document.body.classList.add(
-            "admin-authenticated"
-        );
+                <span class="section-number">02</span>
 
-        return;
-    }
+                <h2>
 
+                    <span data-lang="ru">Принципы</span>
+                    <span data-lang="pt">Princípios</span>
+                    <span data-lang="en">Principles</span>
+                    <span data-lang="de">Grundsätze</span>
+                    <span data-lang="fr">Principes</span>
 
-    form.addEventListener(
-        "submit",
-        function(event) {
+                </h2>
 
-            event.preventDefault();
+            </div>
 
-            const passwordInput =
-                form.querySelector(
-                    "[name='password']"
-                );
 
-            const password =
-                passwordInput
-                    ? passwordInput.value
-                    : "";
+            <div class="principles">
 
+                <div class="principle">
 
-            if (adminLogin(password)) {
+                    <span class="principle-number">01</span>
 
-                location.reload();
+                    <h3>
 
+                        <span data-lang="ru">Свободное исследование</span>
+                        <span data-lang="pt">Investigação livre</span>
+                        <span data-lang="en">Free inquiry</span>
+                        <span data-lang="de">Freie Forschung</span>
+                        <span data-lang="fr">Recherche libre</span>
+
+                    </h3>
+
+                </div>
+
+
+                <div class="principle">
+
+                    <span class="principle-number">02</span>
+
+                    <h3>
+
+                        <span data-lang="ru">Академическая самостоятельность</span>
+                        <span data-lang="pt">Autonomia académica</span>
+                        <span data-lang="en">Academic independence</span>
+                        <span data-lang="de">Akademische Unabhängigkeit</span>
+                        <span data-lang="fr">Indépendance académique</span>
+
+                    </h3>
+
+                </div>
+
+
+                <div class="principle">
+
+                    <span class="principle-number">03</span>
+
+                    <h3>
+
+                        <span data-lang="ru">Единство знания и культуры</span>
+                        <span data-lang="pt">Unidade do conhecimento e da cultura</span>
+                        <span data-lang="en">Unity of knowledge and culture</span>
+                        <span data-lang="de">Einheit von Wissen und Kultur</span>
+                        <span data-lang="fr">Unité du savoir et de la culture</span>
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- PUBLICATIONS -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="section-number">03</span>
+
+            <h2>
+
+                <span data-lang="ru">Публикации</span>
+                <span data-lang="pt">Publicações</span>
+                <span data-lang="en">Publications</span>
+                <span data-lang="de">Publikationen</span>
+                <span data-lang="fr">Publications</span>
+
+            </h2>
+
+        </div>
+
+
+        <div class="publication-grid">
+
+            <article class="publication-card">
+
+                <span class="eyebrow">UGG / PHILOSOPHY</span>
+
+                <h3>
+                    Ноуменология
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Исследования бытия, ничто, пустоты и ноуменального.
+                    </span>
+
+                    <span data-lang="pt">
+                        Estudos sobre o ser, o nada, o vazio e o noumenal.
+                    </span>
+
+                    <span data-lang="en">
+                        Studies of being, nothingness, void and the noumenal.
+                    </span>
+
+                    <span data-lang="de">
+                        Untersuchungen des Seins, des Nichts, der Leere und des Noumenalen.
+                    </span>
+
+                    <span data-lang="fr">
+                        Études de l'être, du néant, du vide et du nouménal.
+                    </span>
+
+                </p>
+
+                <a class="publication-link" href="publications.html">
+
+                    <span data-lang="ru">Читать →</span>
+                    <span data-lang="pt">Ler →</span>
+                    <span data-lang="en">Read →</span>
+                    <span data-lang="de">Lesen →</span>
+                    <span data-lang="fr">Lire →</span>
+
+                </a>
+
+            </article>
+
+
+            <article class="publication-card">
+
+                <span class="eyebrow">UGG / CULTURE</span>
+
+                <h3>
+
+                    <span data-lang="ru">Русская культура</span>
+                    <span data-lang="pt">Cultura russa</span>
+                    <span data-lang="en">Russian culture</span>
+                    <span data-lang="de">Russische Kultur</span>
+                    <span data-lang="fr">Culture russe</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Исследования литературы, языка и культурного наследия.
+                    </span>
+
+                    <span data-lang="pt">
+                        Estudos de literatura, língua e património cultural.
+                    </span>
+
+                    <span data-lang="en">
+                        Studies of literature, language and cultural heritage.
+                    </span>
+
+                    <span data-lang="de">
+                        Studien zu Literatur, Sprache und kulturellem Erbe.
+                    </span>
+
+                    <span data-lang="fr">
+                        Études de littérature, de langue et de patrimoine culturel.
+                    </span>
+
+                </p>
+
+                <a class="publication-link" href="publications.html">
+
+                    <span data-lang="ru">Читать →</span>
+                    <span data-lang="pt">Ler →</span>
+                    <span data-lang="en">Read →</span>
+                    <span data-lang="de">Lesen →</span>
+                    <span data-lang="fr">Lire →</span>
+
+                </a>
+
+            </article>
+
+
+            <article class="publication-card">
+
+                <span class="eyebrow">UGG / CINEMA</span>
+
+                <h3>
+
+                    <span data-lang="ru">Кинематограф</span>
+                    <span data-lang="pt">Cinema</span>
+                    <span data-lang="en">Cinema</span>
+                    <span data-lang="de">Filmkunst</span>
+                    <span data-lang="fr">Cinéma</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Теория, история и эстетика кинематографа.
+                    </span>
+
+                    <span data-lang="pt">
+                        Teoria, história e estética do cinema.
+                    </span>
+
+                    <span data-lang="en">
+                        Film theory, history and aesthetics.
+                    </span>
+
+                    <span data-lang="de">
+                        Filmtheorie, Geschichte und Ästhetik.
+                    </span>
+
+                    <span data-lang="fr">
+                        Théorie, histoire et esthétique du cinéma.
+                    </span>
+
+                </p>
+
+                <a class="publication-link" href="publications.html">
+
+                    <span data-lang="ru">Читать →</span>
+                    <span data-lang="pt">Ler →</span>
+                    <span data-lang="en">Read →</span>
+                    <span data-lang="de">Lesen →</span>
+                    <span data-lang="fr">Lire →</span>
+
+                </a>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- UNIVERSITY -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="section-number">04</span>
+
+            <h2>
+
+                <span data-lang="ru">Университет</span>
+                <span data-lang="pt">Universidade</span>
+                <span data-lang="en">University</span>
+                <span data-lang="de">Universität</span>
+                <span data-lang="fr">Université</span>
+
+            </h2>
+
+        </div>
+
+
+        <div class="info-grid">
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Образование</span>
+                    <span data-lang="pt">Educação</span>
+                    <span data-lang="en">Education</span>
+                    <span data-lang="de">Bildung</span>
+                    <span data-lang="fr">Éducation</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Учебные программы объединяют фундаментальную подготовку
+                        и самостоятельное исследование.
+                    </span>
+
+                    <span data-lang="pt">
+                        Os programas combinam formação fundamental
+                        e investigação autónoma.
+                    </span>
+
+                    <span data-lang="en">
+                        Academic programs combine fundamental education
+                        with independent research.
+                    </span>
+
+                    <span data-lang="de">
+                        Studienprogramme verbinden Grundlagenbildung
+                        mit selbstständiger Forschung.
+                    </span>
+
+                    <span data-lang="fr">
+                        Les programmes associent formation fondamentale
+                        et recherche indépendante.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Исследования</span>
+                    <span data-lang="pt">Investigação</span>
+                    <span data-lang="en">Research</span>
+                    <span data-lang="de">Forschung</span>
+                    <span data-lang="fr">Recherche</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Университет поддерживает научные публикации,
+                        исследования и академические кружки.
+                    </span>
+
+                    <span data-lang="pt">
+                        A universidade apoia publicações científicas,
+                        investigação e círculos académicos.
+                    </span>
+
+                    <span data-lang="en">
+                        The university supports academic publications,
+                        research and student scholarly circles.
+                    </span>
+
+                    <span data-lang="de">
+                        Die Universität unterstützt wissenschaftliche Publikationen,
+                        Forschung und akademische Arbeitskreise.
+                    </span>
+
+                    <span data-lang="fr">
+                        L'université soutient les publications scientifiques,
+                        la recherche et les cercles académiques.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Лекции</span>
+                    <span data-lang="pt">Aulas</span>
+                    <span data-lang="en">Lectures</span>
+                    <span data-lang="de">Vorlesungen</span>
+                    <span data-lang="fr">Cours</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Открытые лекции и материалы преподавателей
+                        доступны в отдельном разделе.
+                    </span>
+
+                    <span data-lang="pt">
+                        Aulas abertas e materiais dos professores
+                        estão disponíveis numa secção própria.
+                    </span>
+
+                    <span data-lang="en">
+                        Open lectures and teaching materials
+                        are available in a dedicated section.
+                    </span>
+
+                    <span data-lang="de">
+                        Offene Vorlesungen und Lehrmaterialien
+                        stehen in einem eigenen Bereich zur Verfügung.
+                    </span>
+
+                    <span data-lang="fr">
+                        Les cours ouverts et les matériaux pédagogiques
+                        sont disponibles dans une section dédiée.
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>
+
+                    <span data-lang="ru">Академическое сообщество</span>
+                    <span data-lang="pt">Comunidade académica</span>
+                    <span data-lang="en">Academic community</span>
+                    <span data-lang="de">Akademische Gemeinschaft</span>
+                    <span data-lang="fr">Communauté académique</span>
+
+                </h3>
+
+                <p>
+
+                    <span data-lang="ru">
+                        Студенты, преподаватели и исследователи образуют
+                        единое академическое пространство УГГ.
+                    </span>
+
+                    <span data-lang="pt">
+                        Estudantes, professores e investigadores formam
+                        uma comunidade académica comum.
+                    </span>
+
+                    <span data-lang="en">
+                        Students, teachers and researchers form
+                        the academic community of UGG.
+                    </span>
+
+                    <span data-lang="de">
+                        Studierende, Lehrende und Forschende bilden
+                        die akademische Gemeinschaft der UGG.
+                    </span>
+
+                    <span data-lang="fr">
+                        Étudiants, enseignants et chercheurs forment
+                        la communauté académique de l'UGG.
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-logo">
+                UGG
+            </div>
+
+            <div class="footer-motto">
+                Scientia · Cogitatio · Humanitas
+            </div>
+
+        </div>
+
+
+        <div class="footer-right">
+
+            <span data-lang="ru">
+                Независимый негосударственный университет имени Гуаданина Галашина
+            </span>
+
+            <span data-lang="pt">
+                Universidade Independente e Não Estatal Guadanin Galashin
+            </span>
+
+            <span data-lang="en">
+                Independent Non-State University named after Guadagnin Galashin
+            </span>
+
+            <span data-lang="de">
+                Unabhängige nichtstaatliche Universität namens Guadagnin Galashin
+            </span>
+
+            <span data-lang="fr">
+                Université indépendante et non étatique nommée d'après Guadagnin Galashin
+            </span>
+
+            <br><br>
+
+            © UGG
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    function setLanguage(language) {
+
+        document.documentElement.lang = language;
+
+        document.querySelectorAll("[data-lang]").forEach(function(element) {
+
+            if (element.getAttribute("data-lang") === language) {
+                element.style.display =
+                    element.tagName === "SPAN" || element.tagName === "A"
+                        ? "inline"
+                        : "block";
             } else {
-
-                showNotification(
-                    t("wrongPassword"),
-                    "error"
-                );
-
+                element.style.display = "none";
             }
-
-        }
-    );
-}
-
-
-/* ============================================================
-   29. ADMIN CRUD HELPERS
-   ============================================================ */
-
-function adminDelete(type, id) {
-
-    if (!confirm(t("confirmDelete"))) {
-        return;
-    }
-
-
-    switch (type) {
-
-        case "faculty":
-            deleteFaculty(id);
-            break;
-
-        case "course":
-            deleteCourse(id);
-            break;
-
-        case "lecture":
-            deleteLecture(id);
-            break;
-
-        case "news":
-            deleteNews(id);
-            break;
-
-        case "publication":
-            deletePublication(id);
-            break;
-
-        case "staff":
-            deleteStaffMember(id);
-            break;
-
-        case "application":
-            deleteApplication(id);
-            break;
-
-        case "page":
-            deletePage(id);
-            break;
-
-        default:
-            console.warn(
-                "Unknown admin type:",
-                type
-            );
-            return;
-    }
-
-
-    showNotification(
-        t("saved"),
-        "success"
-    );
-
-    initializeDynamicContent();
-}
-
-
-/* ============================================================
-   30. ADMIN EXPORT
-   ============================================================ */
-
-function exportDatabase() {
-
-    const database =
-        getDatabase();
-
-    const json =
-        JSON.stringify(
-            database,
-            null,
-            2
-        );
-
-    const blob =
-        new Blob(
-            [json],
-            {
-                type: "application/json"
-            }
-        );
-
-    const url =
-        URL.createObjectURL(blob);
-
-    const link =
-        document.createElement("a");
-
-    link.href = url;
-
-    link.download =
-        "ugg-database.json";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-    URL.revokeObjectURL(url);
-}
-
-
-/* ============================================================
-   31. ADMIN IMPORT
-   ============================================================ */
-
-function importDatabase(file) {
-
-    if (!file) {
-        return;
-    }
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(event) {
-
-            try {
-
-                const imported =
-                    JSON.parse(
-                        event.target.result
-                    );
-
-
-                if (
-                    !imported ||
-                    typeof imported !== "object"
-                ) {
-                    throw new Error(
-                        "Invalid database"
-                    );
-                }
-
-
-                saveDatabase(imported);
-
-                showNotification(
-                    t("saved"),
-                    "success"
-                );
-
-                setTimeout(
-                    () => location.reload(),
-                    700
-                );
-
-            } catch (error) {
-
-                console.error(error);
-
-                showNotification(
-                    "Invalid database file.",
-                    "error"
-                );
-
-            }
-
-        };
-
-
-    reader.readAsText(file);
-}
-
-
-/* ============================================================
-   32. ADMIN EXPORT / IMPORT UI
-   ============================================================ */
-
-function setupImportExport() {
-
-    const exportButton =
-        document.querySelector(
-            "[data-export-database]"
-        );
-
-    if (exportButton) {
-
-        exportButton.addEventListener(
-            "click",
-            exportDatabase
-        );
-
-    }
-
-
-    const importInput =
-        document.querySelector(
-            "[data-import-database]"
-        );
-
-    if (importInput) {
-
-        importInput.addEventListener(
-            "change",
-            function() {
-
-                const file =
-                    this.files &&
-                    this.files[0];
-
-                importDatabase(file);
-
-            }
-        );
-
-    }
-
-
-    document
-        .querySelectorAll(
-            "[data-reset-database]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                resetDatabase
-            );
 
         });
 
 
-    document
-        .querySelectorAll(
-            "[data-admin-logout]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                adminLogout
-            );
-
+        document.querySelectorAll(".languages button").forEach(function(button) {
+            button.classList.remove("active");
         });
 
-}
-
-
-/* ============================================================
-   33. NOTIFICATIONS
-   ============================================================ */
-
-function showNotification(
-    message,
-    type = "info"
-) {
-
-    const existing =
-        document.querySelector(
-            ".ugg-notification"
-        );
-
-    if (existing) {
-        existing.remove();
-    }
-
-
-    const notification =
-        document.createElement(
-            "div"
-        );
-
-    notification.className =
-        `ugg-notification ugg-notification-${type}`;
-
-
-    notification.textContent =
-        message;
-
-
-    document.body.appendChild(
-        notification
-    );
-
-
-    requestAnimationFrame(
-        () => {
-
-            notification.classList.add(
-                "visible"
+        const activeButton =
+            document.querySelector(
+                '.languages button[onclick="setLanguage(\'' + language + '\')"]'
             );
 
+        if (activeButton) {
+            activeButton.classList.add("active");
         }
-    );
 
-
-    setTimeout(
-        () => {
-
-            notification.classList.remove(
-                "visible"
-            );
-
-            setTimeout(
-                () => notification.remove(),
-                300
-            );
-
-        },
-        3500
-    );
-}
-
-
-/* ============================================================
-   34. DATE FORMATTING
-   ============================================================ */
-
-function formatDate(dateValue) {
-
-    if (!dateValue) {
-        return "";
+        localStorage.setItem("ugg-language", language);
     }
 
 
-    const date =
-        new Date(dateValue);
+    document.addEventListener("DOMContentLoaded", function() {
 
+        const savedLanguage =
+            localStorage.getItem("ugg-language") || "ru";
 
-    if (Number.isNaN(date.getTime())) {
-        return String(dateValue);
-    }
-
-
-    return new Intl.DateTimeFormat(
-        getLanguage(),
-        {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        }
-    ).format(date);
-}
-
-
-/* ============================================================
-   35. ID GENERATOR
-   ============================================================ */
-
-function createId(prefix = "item") {
-
-    return (
-        prefix +
-        "-" +
-        Date.now().toString(36) +
-        "-" +
-        Math.random()
-            .toString(36)
-            .substring(2, 8)
-    );
-}
-
-
-/* ============================================================
-   36. SLUG GENERATOR
-   ============================================================ */
-
-function slugify(value) {
-
-    if (!value) {
-        return createId("page");
-    }
-
-
-    return String(value)
-        .toLowerCase()
-        .trim()
-        .replace(
-            /[^\p{L}\p{N}]+/gu,
-            "-"
-        )
-        .replace(
-            /^-+|-+$/g,
-            ""
-        );
-}
-
-
-/* ============================================================
-   37. HTML ESCAPING
-   ============================================================ */
-
-function escapeHTML(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-        return "";
-    }
-
-
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-}
-
-
-/* ============================================================
-   38. BASIC HTML SANITIZATION
-   ============================================================ */
-
-function sanitizeBasicHTML(html) {
-
-    if (!html) {
-        return "";
-    }
-
-
-    /*
-       This is deliberately conservative.
-
-       The admin can use basic formatting,
-       but dangerous scripts and event handlers
-       are removed.
-    */
-
-    let result =
-        String(html);
-
-
-    result =
-        result.replace(
-            /<script[\s\S]*?>[\s\S]*?<\/script>/gi,
-            ""
-        );
-
-
-    result =
-        result.replace(
-            /on\w+\s*=\s*(['"]).*?\1/gi,
-            ""
-        );
-
-
-    result =
-        result.replace(
-            /javascript:/gi,
-            ""
-        );
-
-
-    return result;
-}
-
-
-/* ============================================================
-   39. SEARCH
-   ============================================================ */
-
-function searchSite(query) {
-
-    const search =
-        String(query || "")
-            .toLowerCase()
-            .trim();
-
-
-    if (!search) {
-        return [];
-    }
-
-
-    const database =
-        getDatabase();
-
-    const results = [];
-
-
-    database.news.forEach(item => {
-
-        const title =
-            Object.values(
-                item.title || {}
-            ).join(" ");
-
-        if (
-            title
-                .toLowerCase()
-                .includes(search)
-        ) {
-
-            results.push({
-                type: "news",
-                id: item.id,
-                title
-            });
-
-        }
+        setLanguage(savedLanguage);
 
     });
 
+</script>
 
-    database.lectures.forEach(item => {
-
-        const title =
-            Object.values(
-                item.title || {}
-            ).join(" ");
-
-        if (
-            title
-                .toLowerCase()
-                .includes(search)
-        ) {
-
-            results.push({
-                type: "lecture",
-                id: item.id,
-                title
-            });
-
-        }
-
-    });
-
-
-    database.publications.forEach(item => {
-
-        const title =
-            Object.values(
-                item.title || {}
-            ).join(" ");
-
-        if (
-            title
-                .toLowerCase()
-                .includes(search)
-        ) {
-
-            results.push({
-                type: "publication",
-                id: item.id,
-                title
-            });
-
-        }
-
-    });
-
-
-    database.courses.forEach(item => {
-
-        const title =
-            Object.values(
-                item.name || {}
-            ).join(" ");
-
-        if (
-            title
-                .toLowerCase()
-                .includes(search)
-        ) {
-
-            results.push({
-                type: "course",
-                id: item.id,
-                title
-            });
-
-        }
-
-    });
-
-
-    return results;
-}
-
-
-/* ============================================================
-   40. SEARCH FORM
-   ============================================================ */
-
-function setupSearch() {
-
-    document
-        .querySelectorAll(
-            "[data-site-search]"
-        )
-        .forEach(form => {
-
-            form.addEventListener(
-                "submit",
-                function(event) {
-
-                    event.preventDefault();
-
-                    const input =
-                        form.querySelector(
-                            "input"
-                        );
-
-                    if (!input) {
-                        return;
-                    }
-
-
-                    const results =
-                        searchSite(
-                            input.value
-                        );
-
-
-                    const container =
-                        document.querySelector(
-                            "[data-search-results]"
-                        );
-
-
-                    if (!container) {
-                        return;
-                    }
-
-
-                    if (!results.length) {
-
-                        container.innerHTML =
-                            `<p>${escapeHTML(
-                                t("noInformation")
-                            )}</p>`;
-
-                        return;
-                    }
-
-
-                    container.innerHTML =
-                        results.map(
-                            result => {
-
-                                return `
-                                    <div class="search-result">
-
-                                        <strong>
-                                            ${escapeHTML(
-                                                result.title
-                                            )}
-                                        </strong>
-
-                                        <span>
-                                            ${escapeHTML(
-                                                result.type
-                                            )}
-                                        </span>
-
-                                    </div>
-                                `;
-
-                            }
-                        ).join("");
-
-                }
-            );
-
-        });
-}
-
-
-/* ============================================================
-   41. MOBILE MENU
-   ============================================================ */
-
-function setupMobileMenu() {
-
-    const toggle =
-        document.querySelector(
-            "[data-menu-toggle]"
-        );
-
-    const menu =
-        document.querySelector(
-            "[data-mobile-menu]"
-        );
-
-
-    if (!toggle || !menu) {
-        return;
-    }
-
-
-    toggle.addEventListener(
-        "click",
-        () => {
-
-            menu.classList.toggle(
-                "open"
-            );
-
-            toggle.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
-
-    menu
-        .querySelectorAll("a")
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                () => {
-
-                    menu.classList.remove(
-                        "open"
-                    );
-
-                    toggle.classList.remove(
-                        "open"
-                    );
-
-                }
-            );
-
-        });
-
-}
-
-
-/* ============================================================
-   42. LANGUAGE BUTTONS
-   ============================================================ */
-
-function setupLanguageButtons() {
-
-    document
-        .querySelectorAll(
-            "[data-language-button]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    const language =
-                        this.getAttribute(
-                            "data-language-button"
-                        );
-
-                    setLanguage(language);
-
-                    initializeDynamicContent();
-
-                }
-            );
-
-        });
-
-}
-
-
-/* ============================================================
-   43. PAGE LINK LANGUAGE PERSISTENCE
-   ============================================================ */
-
-function setupInternalLinks() {
-
-    document
-        .querySelectorAll("a")
-        .forEach(link => {
-
-            link.addEventListener(
-                "click",
-                function() {
-
-                    const href =
-                        this.getAttribute("href");
-
-                    if (
-                        !href ||
-                        href.startsWith("#") ||
-                        href.startsWith("http") ||
-                        href.startsWith("mailto:")
-                    ) {
-                        return;
-                    }
-
-
-                    /*
-                       Language is already stored in localStorage.
-                       Nothing else is required.
-                    */
-
-                }
-            );
-
-        });
-}
-
-
-/* ============================================================
-   44. FACULTY PAGE DETECTION
-   ============================================================ */
-
-function initializeFacultyPage() {
-
-    const facultyId =
-        document.body.getAttribute(
-            "data-faculty-page"
-        );
-
-    if (!facultyId) {
-        return;
-    }
-
-
-    const faculty =
-        getFaculty(facultyId);
-
-    if (!faculty) {
-        return;
-    }
-
-
-    const language =
-        getLanguage();
-
-
-    document
-        .querySelectorAll(
-            "[data-current-faculty-name]"
-        )
-        .forEach(element => {
-
-            element.textContent =
-                translateObject(
-                    faculty.name,
-                    language
-                );
-
-        });
-
-
-    document
-        .querySelectorAll(
-            "[data-current-faculty-description]"
-        )
-        .forEach(element => {
-
-            element.textContent =
-                translateObject(
-                    faculty.description,
-                    language
-                );
-
-        });
-
-
-    document
-        .querySelectorAll(
-            "[data-current-faculty-courses]"
-        )
-        .forEach(container => {
-
-            renderCourses(
-                container,
-                faculty.id
-            );
-
-        });
-}
-
-
-/* ============================================================
-   45. CURRENT PAGE TITLE
-   ============================================================ */
-
-function updateDocumentTitle() {
-
-    const database =
-        getDatabase();
-
-    const language =
-        getLanguage();
-
-    const universityName =
-        translateObject(
-            database.settings.name,
-            language
-        );
-
-
-    const customTitle =
-        document.body.getAttribute(
-            "data-page-title"
-        );
-
-
-    if (customTitle) {
-
-        document.title =
-            `${customTitle} — ${universityName}`;
-
-        return;
-    }
-
-
-    document.title =
-        universityName;
-}
-
-
-/* ============================================================
-   46. ADMIN STATISTICS
-   ============================================================ */
-
-function getStatistics() {
-
-    const database =
-        getDatabase();
-
-
-    return {
-
-        faculties:
-            database.faculties.length,
-
-        courses:
-            database.courses.length,
-
-        lectures:
-            database.lectures.length,
-
-        news:
-            database.news.length,
-
-        publications:
-            database.publications.length,
-
-        staff:
-            database.staff.length,
-
-        applications:
-            database.applications.length,
-
-        pages:
-            database.pages.length
-
-    };
-}
-
-
-function renderStatistics() {
-
-    const statistics =
-        getStatistics();
-
-
-    Object.entries(statistics)
-        .forEach(
-            ([key, value]) => {
-
-                document
-                    .querySelectorAll(
-                        `[data-stat="${key}"]`
-                    )
-                    .forEach(
-                        element => {
-
-                            element.textContent =
-                                value;
-
-                        }
-                    );
-
-            }
-        );
-}
-
-
-/* ============================================================
-   47. ADMIN PROTECTION
-   ============================================================ */
-
-function protectAdminPage() {
-
-    const isAdminPage =
-        document.body.hasAttribute(
-            "data-admin-page"
-        );
-
-    if (!isAdminPage) {
-        return;
-    }
-
-
-    const loginScreen =
-        document.querySelector(
-            "[data-admin-login-screen]"
-        );
-
-    const adminPanel =
-        document.querySelector(
-            "[data-admin-panel]"
-        );
-
-
-    if (isAdminLoggedIn()) {
-
-        if (loginScreen) {
-            loginScreen.style.display =
-                "none";
-        }
-
-        if (adminPanel) {
-            adminPanel.style.display =
-                "block";
-        }
-
-    } else {
-
-        if (loginScreen) {
-            loginScreen.style.display =
-                "block";
-        }
-
-        if (adminPanel) {
-            adminPanel.style.display =
-                "none";
-        }
-
-    }
-}
-
-
-/* ============================================================
-   48. ADMIN DATA TABLE
-   ============================================================ */
-
-function renderAdminApplications(container) {
-
-    if (!container) {
-        return;
-    }
-
-
-    const applications =
-        getApplications();
-
-
-    if (!applications.length) {
-
-        container.innerHTML =
-            `<p class="empty-state">
-                ${escapeHTML(
-                    t("noInformation")
-                )}
-             </p>`;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        applications.map(
-            application => {
-
-                return `
-                    <div class="admin-application">
-
-                        <strong>
-                            ${escapeHTML(
-                                application.name
-                            )}
-                            ${escapeHTML(
-                                application.surname
-                            )}
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(
-                                application.email
-                            )}
-                        </span>
-
-                        <span>
-                            ${escapeHTML(
-                                application.faculty
-                            )}
-                        </span>
-
-                        <span>
-                            ${escapeHTML(
-                                formatDate(
-                                    application.createdAt
-                                )
-                            )}
-                        </span>
-
-                        <button
-                            type="button"
-                            data-admin-delete="application"
-                            data-id="${escapeHTML(
-                                application.id
-                            )}">
-                            ${escapeHTML(
-                                t("delete")
-                            )}
-                        </button>
-
-                    </div>
-                `;
-
-            }
-        ).join("");
-
-
-    container
-        .querySelectorAll(
-            "[data-admin-delete]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    adminDelete(
-                        this.getAttribute(
-                            "data-admin-delete"
-                        ),
-                        this.getAttribute(
-                            "data-id"
-                        )
-                    );
-
-                    renderAdminApplications(
-                        container
-                    );
-
-                }
-            );
-
-        });
-}
-
-
-/* ============================================================
-   49. ADMIN SETTINGS FORM
-   ============================================================ */
-
-function setupSettingsForm() {
-
-    const form =
-        document.querySelector(
-            "[data-settings-form]"
-        );
-
-    if (!form) {
-        return;
-    }
-
-
-    const database =
-        getDatabase();
-
-
-    const fields =
-        form.querySelectorAll(
-            "[name]"
-        );
-
-
-    fields.forEach(field => {
-
-        const name =
-            field.getAttribute("name");
-
-
-        if (
-            name.startsWith(
-                "name."
-            )
-        ) {
-
-            const language =
-                name.split(".")[1];
-
-            field.value =
-                database.settings.name[
-                    language
-                ] || "";
-
-        }
-
-
-        if (
-            name.startsWith(
-                "description."
-            )
-        ) {
-
-            const language =
-                name.split(".")[1];
-
-            field.value =
-                database.settings.description[
-                    language
-                ] || "";
-
-        }
-
-
-        if (
-            name === "motto"
-        ) {
-
-            field.value =
-                database.settings.motto ||
-                UGG_CONFIG.motto;
-
-        }
-
-    });
-
-
-    form.addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-            const data =
-                new FormData(form);
-
-
-            const settings = {
-
-                name: {
-                    ru: data.get("name.ru") || "",
-                    pt: data.get("name.pt") || "",
-                    en: data.get("name.en") || "",
-                    de: data.get("name.de") || "",
-                    fr: data.get("name.fr") || ""
-                },
-
-                motto:
-                    data.get("motto") ||
-                    UGG_CONFIG.motto,
-
-                description: {
-                    ru:
-                        data.get(
-                            "description.ru"
-                        ) || "",
-
-                    pt:
-                        data.get(
-                            "description.pt"
-                        ) || "",
-
-                    en:
-                        data.get(
-                            "description.en"
-                        ) || "",
-
-                    de:
-                        data.get(
-                            "description.de"
-                        ) || "",
-
-                    fr:
-                        data.get(
-                            "description.fr"
-                        ) || ""
-                }
-
-            };
-
-
-            updateUniversitySettings(
-                settings
-            );
-
-
-            showNotification(
-                t("saved"),
-                "success"
-            );
-
-
-            initializeDynamicContent();
-
-        }
-    );
-}
-
-
-/* ============================================================
-   50. GLOBAL DATABASE UPDATE
-   ============================================================ */
-
-window.addEventListener(
-    "uggDatabaseUpdated",
-    function() {
-
-        initializeDynamicContent();
-
-        renderStatistics();
-
-        initializeFacultyPage();
-
-        updateDocumentTitle();
-
-    }
-);
-
-
-/* ============================================================
-   51. GLOBAL LANGUAGE UPDATE
-   ============================================================ */
-
-window.addEventListener(
-    "uggLanguageChanged",
-    function(event) {
-
-        const language =
-            event.detail;
-
-        updateLanguageElements(
-            language
-        );
-
-        updateLanguageButtons(
-            language
-        );
-
-        initializeDynamicContent();
-
-        initializeFacultyPage();
-
-        updateDocumentTitle();
-
-    }
-);
-
-
-/* ============================================================
-   52. APPLICATION INITIALIZATION
-   ============================================================ */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        /*
-           Initialize database first.
-        */
-
-        getDatabase();
-
-
-        /*
-           Initialize language.
-        */
-
-        setLanguage(
-            getLanguage()
-        );
-
-
-        /*
-           Basic site functionality.
-        */
-
-        setupLanguageButtons();
-
-        setupApplicationForms();
-
-        setupAdminLogin();
-
-        setupImportExport();
-
-        setupSearch();
-
-        setupMobileMenu();
-
-        setupInternalLinks();
-
-        setupSettingsForm();
-
-
-        /*
-           Dynamic content.
-        */
-
-        initializeDynamicContent();
-
-        initializeFacultyPage();
-
-        renderStatistics();
-
-        protectAdminPage();
-
-        updateDocumentTitle();
-
-
-        /*
-           Expose useful functions
-           for admin.html and other pages.
-        */
-
-        window.UGG = {
-
-            config: UGG_CONFIG,
-
-            translations:
-                UGG_TRANSLATIONS,
-
-            getDatabase,
-
-            saveDatabase,
-
-            resetDatabase,
-
-            getLanguage,
-
-            setLanguage,
-
-            translate: t,
-
-            translateObject,
-
-            getUniversityName,
-
-            getUniversityDescription,
-
-            updateUniversitySettings,
-
-            getFaculties,
-
-            getFaculty,
-
-            addFaculty,
-
-            updateFaculty,
-
-            deleteFaculty,
-
-            getCourses,
-
-            getCourse,
-
-            getRequiredCourses,
-
-            getElectiveCourses,
-
-            addCourse,
-
-            updateCourse,
-
-            deleteCourse,
-
-            getLectures,
-
-            getLecture,
-
-            addLecture,
-
-            updateLecture,
-
-            deleteLecture,
-
-            getNews,
-
-            getNewsItem,
-
-            addNews,
-
-            updateNews,
-
-            deleteNews,
-
-            getPublications,
-
-            getPublication,
-
-            addPublication,
-
-            updatePublication,
-
-            deletePublication,
-
-            getStaff,
-
-            getStaffMember,
-
-            addStaffMember,
-
-            updateStaffMember,
-
-            deleteStaffMember,
-
-            getApplications,
-
-            getApplication,
-
-            submitApplication,
-
-            updateApplication,
-
-            deleteApplication,
-
-            getPages,
-
-            getPage,
-
-            addPage,
-
-            updatePage,
-
-            deletePage,
-
-            searchSite,
-
-            getStatistics,
-
-            showNotification,
-
-            exportDatabase,
-
-            importDatabase,
-
-            isAdminLoggedIn,
-
-            adminLogin,
-
-            adminLogout,
-
-            renderCourses,
-
-            renderFaculties,
-
-            renderNews,
-
-            renderLectures,
-
-            renderPublications,
-
-            renderStaff,
-
-            renderStatistics,
-
-            initializeDynamicContent
-
-        };
-
-
-        console.log(
-            "UGG website initialized."
-        );
-
-    }
-);
+</body>
+</html>
 ```
