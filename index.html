@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -9,39 +9,30 @@
 
     <meta
         name="description"
-        content="Независимый негосударственный университет имени Гуаданина Галашина."
+        content="Независимый негосударственный университет имени Гуаданина Галашина"
     >
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header class="site-header">
 
-    <div class="header-inner">
+    <div class="header-container">
 
-        <a href="index.html" class="brand">
+        <a href="index.html" class="logo">
 
-            <div class="brand-emblem">
-                UGG
-            </div>
+            <div class="logo-symbol">UGG</div>
 
-            <div class="brand-text">
-                <span class="brand-short">УГГ</span>
-                <span class="brand-full">
-                    Университет имени Гуаданина Галашина
-                </span>
+            <div class="logo-text">
+                <strong>УГГ</strong>
+                <span>Университет имени Гуаданина Галашина</span>
             </div>
 
         </a>
 
-
-        <nav class="main-navigation">
+        <nav class="main-nav">
 
             <a href="index.html" data-i18n="nav.home">
                 Главная
@@ -77,34 +68,24 @@
 
         </nav>
 
+        <div class="header-tools">
 
-        <div class="header-actions">
-
-            <label class="language-selector">
-
-                <span class="visually-hidden">
-                    Language
-                </span>
-
-                <select id="languageSelector" aria-label="Language">
-
-                    <option value="ru">Русский</option>
-                    <option value="pt">Português</option>
-                    <option value="en">English</option>
-                    <option value="de">Deutsch</option>
-                    <option value="fr">Français</option>
-
-                </select>
-
-            </label>
-
+            <select
+                id="languageSelector"
+                aria-label="Выбор языка"
+            >
+                <option value="ru">Русский</option>
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+            </select>
 
             <button
-                class="mobile-menu-button"
                 id="mobileMenuButton"
+                class="mobile-menu-button"
                 type="button"
                 aria-label="Открыть меню"
-                aria-expanded="false"
             >
                 ☰
             </button>
@@ -116,11 +97,7 @@
 </header>
 
 
-<!-- =========================================================
-     MOBILE NAVIGATION
-========================================================= -->
-
-<div class="mobile-navigation" id="mobileNavigation">
+<div id="mobileNavigation" class="mobile-navigation">
 
     <a href="index.html" data-i18n="nav.home">
         Главная
@@ -165,553 +142,566 @@
 </div>
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
-
 <main>
 
-<section class="hero">
+    <!-- HERO -->
 
-    <div class="hero-content">
+    <section class="hero">
 
-        <div class="hero-label" data-i18n="hero.label">
-            НЕЗАВИСИМЫЙ НЕГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
+        <div class="hero-container">
+
+            <div class="hero-content">
+
+                <div class="hero-kicker" data-i18n="hero.kicker">
+                    НЕЗАВИСИМЫЙ НЕГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
+                </div>
+
+                <h1 data-i18n="hero.title">
+                    Университет имени<br>
+                    Гуаданина Галашина
+                </h1>
+
+                <div class="hero-motto">
+                    Scientia libera humanitati.
+                </div>
+
+                <p data-i18n="hero.description">
+                    Независимое образовательное и научное пространство,
+                    посвящённое свободному исследованию, философии,
+                    культуре, языку и искусству.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="about.html"
+                        class="button button-primary"
+                        data-i18n="hero.about"
+                    >
+                        Об университете
+                    </a>
+
+                    <a
+                        href="admission.html"
+                        class="button button-outline"
+                        data-i18n="hero.admission"
+                    >
+                        Поступление
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-emblem">
+
+                <div class="hero-emblem-letters">
+                    UGG
+                </div>
+
+                <div class="hero-emblem-name">
+                    UNIVERSITAS<br>
+                    GUADAGNIN<br>
+                    GALASHIN
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <span class="section-number">
+                01
+            </span>
+
+            <h2 data-i18n="home.about.title">
+                Университет
+            </h2>
+
         </div>
 
 
-        <h1 data-i18n="hero.title">
-            Университет имени<br>
-            Гуаданина Галашина
-        </h1>
+        <div class="about-grid">
+
+            <div>
+
+                <p
+                    class="lead"
+                    data-i18n="home.about.lead"
+                >
+                    УГГ — независимый негосударственный университет
+                    имени Гуаданина Галашина.
+                </p>
+
+                <p data-i18n="home.about.text">
+                    Университет объединяет образовательную,
+                    научную и культурную деятельность и стремится
+                    создать пространство свободного исследования.
+                </p>
+
+                <a
+                    href="about.html"
+                    class="text-link"
+                    data-i18n="common.readMore"
+                >
+                    Подробнее →
+                </a>
+
+            </div>
 
 
-        <p class="hero-motto">
-            <em>Scientia libera humanitati.</em>
-        </p>
+            <div class="facts">
+
+                <div class="fact">
+
+                    <strong>UGG</strong>
+
+                    <span data-i18n="home.fact.independent">
+                        независимый университет
+                    </span>
+
+                </div>
 
 
-        <p class="hero-description" data-i18n="hero.description">
-            Независимое образовательное и научное пространство,
-            посвящённое свободному исследованию, философии,
-            культуре, языку и искусству.
-        </p>
+                <div class="fact">
+
+                    <strong>3</strong>
+
+                    <span data-i18n="home.fact.faculties">
+                        факультета
+                    </span>
+
+                </div>
 
 
-        <div class="hero-buttons">
+                <div class="fact">
+
+                    <strong>5</strong>
+
+                    <span data-i18n="home.fact.languages">
+                        языка сайта
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FACULTIES -->
+
+    <section class="section section-alt">
+
+        <div class="section-header">
+
+            <span class="section-number">
+                02
+            </span>
+
+            <h2 data-i18n="home.faculties.title">
+                Факультеты
+            </h2>
+
+        </div>
+
+
+        <div class="faculty-grid">
+
+
+            <!-- PHILOSOPHY -->
+
+            <article class="faculty-card">
+
+                <div class="faculty-card-number">
+                    01
+                </div>
+
+                <div class="faculty-card-body">
+
+                    <span
+                        class="faculty-card-label"
+                        data-i18n="common.faculty"
+                    >
+                        ФАКУЛЬТЕТ
+                    </span>
+
+                    <h3 data-i18n="faculty.philosophy.name">
+                        Философия
+                    </h3>
+
+                    <p data-i18n="faculty.philosophy.description">
+                        Философия, логика, метафизика,
+                        этика и история философии.
+                        Дополнительные дисциплины включают
+                        ноуменологию.
+                    </p>
+
+                    <a
+                        href="philosophy.html"
+                        class="card-link"
+                        data-i18n="common.more"
+                    >
+                        Подробнее →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- RUSSIAN -->
+
+            <article class="faculty-card">
+
+                <div class="faculty-card-number">
+                    02
+                </div>
+
+                <div class="faculty-card-body">
+
+                    <span
+                        class="faculty-card-label"
+                        data-i18n="common.faculty"
+                    >
+                        ФАКУЛЬТЕТ
+                    </span>
+
+                    <h3 data-i18n="faculty.russian.name">
+                        Русский язык
+                        и русская культура
+                    </h3>
+
+                    <p data-i18n="faculty.russian.description">
+                        Русский язык, литература,
+                        история русской литературы
+                        и русская культура.
+                    </p>
+
+                    <a
+                        href="russian.html"
+                        class="card-link"
+                        data-i18n="common.more"
+                    >
+                        Подробнее →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- CINEMA -->
+
+            <article class="faculty-card">
+
+                <div class="faculty-card-number">
+                    03
+                </div>
+
+                <div class="faculty-card-body">
+
+                    <span
+                        class="faculty-card-label"
+                        data-i18n="common.faculty"
+                    >
+                        ФАКУЛЬТЕТ
+                    </span>
+
+                    <h3 data-i18n="faculty.cinema.name">
+                        Кинематограф
+                    </h3>
+
+                    <p data-i18n="faculty.cinema.description">
+                        История кино, теория кино,
+                        анализ кинематографа и эстетика.
+                    </p>
+
+                    <a
+                        href="cinema.html"
+                        class="card-link"
+                        data-i18n="common.more"
+                    >
+                        Подробнее →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ACADEMIC LIFE -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <span class="section-number">
+                03
+            </span>
+
+            <h2 data-i18n="home.academic.title">
+                Академическая жизнь
+            </h2>
+
+        </div>
+
+
+        <div class="academic-grid">
+
 
             <a
-                href="about.html"
-                class="button button-primary"
-                data-i18n="hero.about"
+                href="lectures.html"
+                class="academic-card"
             >
-                Об университете
+
+                <span class="academic-number">
+                    I
+                </span>
+
+                <h3 data-i18n="nav.lectures">
+                    Лекции
+                </h3>
+
+                <p data-i18n="home.academic.lectures">
+                    Учебные и открытые лекции
+                    преподавателей УГГ.
+                </p>
+
             </a>
+
+
+            <a
+                href="publications.html"
+                class="academic-card"
+            >
+
+                <span class="academic-number">
+                    II
+                </span>
+
+                <h3 data-i18n="nav.publications">
+                    Публикации
+                </h3>
+
+                <p data-i18n="home.academic.publications">
+                    Научные статьи,
+                    исследования и работы авторов.
+                </p>
+
+            </a>
+
+
+            <a
+                href="news.html"
+                class="academic-card"
+            >
+
+                <span class="academic-number">
+                    III
+                </span>
+
+                <h3 data-i18n="nav.news">
+                    Новости
+                </h3>
+
+                <p data-i18n="home.academic.news">
+                    События и новости
+                    университета.
+                </p>
+
+            </a>
+
+
+            <a
+                href="faculty.html"
+                class="academic-card"
+            >
+
+                <span class="academic-number">
+                    IV
+                </span>
+
+                <h3 data-i18n="nav.faculty">
+                    Научный состав
+                </h3>
+
+                <p data-i18n="home.academic.faculty">
+                    Преподаватели, исследователи,
+                    профессора и сотрудники.
+                </p>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMISSION -->
+
+    <section class="admission-section">
+
+        <div class="admission-container">
+
+            <div>
+
+                <span class="section-number">
+                    04
+                </span>
+
+                <h2 data-i18n="home.admission.title">
+                    Поступление в УГГ
+                </h2>
+
+                <p data-i18n="home.admission.text">
+                    Узнайте об образовательных программах
+                    и подайте заявку на обучение.
+                </p>
+
+            </div>
+
 
             <a
                 href="admission.html"
-                class="button button-secondary"
-                data-i18n="hero.admission"
+                class="button button-light"
+                data-i18n="home.admission.button"
             >
-                Поступление
+                Подать заявку
             </a>
 
         </div>
 
-    </div>
+    </section>
 
 
-    <div class="hero-emblem">
+    <!-- PRINCIPLES -->
 
-        <div class="large-emblem">
-            UGG
-        </div>
+    <section class="section">
 
-        <div class="emblem-caption">
-            <span>UNIVERSITAS</span>
-            <span>GUADAGNIN</span>
-            <span>GALASHIN</span>
-        </div>
+        <div class="section-header">
 
-    </div>
+            <span class="section-number">
+                05
+            </span>
 
-</section>
-
-
-<!-- =========================================================
-     INTRODUCTION
-========================================================= -->
-
-<section class="section introduction">
-
-    <div class="section-heading">
-
-        <span class="section-number">
-            01
-        </span>
-
-        <h2 data-i18n="intro.title">
-            Университет
-        </h2>
-
-    </div>
-
-
-    <div class="introduction-grid">
-
-        <div class="introduction-main">
-
-            <p
-                class="large-text"
-                data-i18n="intro.text"
-            >
-                УГГ — независимый негосударственный университет
-                имени Гуаданина Галашина, созданный как пространство
-                свободного образования и научного поиска.
-            </p>
-
-            <p data-i18n="intro.text2">
-                Университет объединяет образовательную,
-                исследовательскую и культурную деятельность,
-                сохраняя самостоятельность своего академического
-                сообщества.
-            </p>
-
-            <a
-                href="about.html"
-                class="text-link"
-                data-i18n="intro.more"
-            >
-                Узнать больше →
-            </a>
+            <h2 data-i18n="home.principles.title">
+                Принципы университета
+            </h2>
 
         </div>
 
 
-        <div class="introduction-facts">
-
-            <div class="fact">
-                <strong>UGG</strong>
-                <span data-i18n="facts.independent">
-                    независимый университет
-                </span>
-            </div>
-
-            <div class="fact">
-                <strong>5</strong>
-                <span data-i18n="facts.languages">
-                    языков сайта
-                </span>
-            </div>
-
-            <div class="fact">
-                <strong>3</strong>
-                <span data-i18n="facts.faculties">
-                    факультета
-                </span>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+        <div class="principles-grid">
 
 
-<!-- =========================================================
-     FACULTIES
-========================================================= -->
+            <div class="principle">
 
-<section class="section faculties-section">
-
-    <div class="section-heading">
-
-        <span class="section-number">
-            02
-        </span>
-
-        <h2 data-i18n="faculties.title">
-            Факультеты
-        </h2>
-
-    </div>
-
-
-    <div class="faculty-grid">
-
-
-        <!-- PHILOSOPHY -->
-
-        <article class="faculty-card">
-
-            <div class="faculty-number">
-                01
-            </div>
-
-            <div class="faculty-card-content">
-
-                <span
-                    class="faculty-label"
-                    data-i18n="faculty.label"
-                >
-                    ФАКУЛЬТЕТ
+                <span>
+                    I
                 </span>
 
-                <h3 data-i18n="faculty.philosophy">
-                    Философия
+                <h3 data-i18n="home.principles.freedom">
+                    Свобода мысли
                 </h3>
 
-                <p data-i18n="faculty.philosophy.description">
-                    Философское образование,
-                    логика, метафизика, этика,
-                    история философии и ноуменология.
+                <p data-i18n="home.principles.freedom.text">
+                    Право на самостоятельное исследование,
+                    дискуссию и формирование собственной
+                    научной позиции.
                 </p>
 
-                <a
-                    href="philosophy.html"
-                    class="card-link"
-                    data-i18n="common.more"
-                >
-                    Подробнее →
-                </a>
-
             </div>
 
-        </article>
 
+            <div class="principle">
 
-        <!-- RUSSIAN -->
-
-        <article class="faculty-card">
-
-            <div class="faculty-number">
-                02
-            </div>
-
-            <div class="faculty-card-content">
-
-                <span
-                    class="faculty-label"
-                    data-i18n="faculty.label"
-                >
-                    ФАКУЛЬТЕТ
+                <span>
+                    II
                 </span>
 
-                <h3 data-i18n="faculty.russian">
-                    Русский язык
-                    и русская культура
+                <h3 data-i18n="home.principles.science">
+                    Научность
                 </h3>
 
-                <p data-i18n="faculty.russian.description">
-                    Русский язык, литература,
-                    история русской литературы
-                    и русская культура.
+                <p data-i18n="home.principles.science.text">
+                    Стремление к последовательному,
+                    аргументированному и ответственному знанию.
                 </p>
 
-                <a
-                    href="russian.html"
-                    class="card-link"
-                    data-i18n="common.more"
-                >
-                    Подробнее →
-                </a>
-
             </div>
 
-        </article>
 
+            <div class="principle">
 
-        <!-- CINEMA -->
-
-        <article class="faculty-card">
-
-            <div class="faculty-number">
-                03
-            </div>
-
-            <div class="faculty-card-content">
-
-                <span
-                    class="faculty-label"
-                    data-i18n="faculty.label"
-                >
-                    ФАКУЛЬТЕТ
+                <span>
+                    III
                 </span>
 
-                <h3 data-i18n="faculty.cinema">
-                    Кинематограф
+                <h3 data-i18n="home.principles.independence">
+                    Независимость
                 </h3>
 
-                <p data-i18n="faculty.cinema.description">
-                    История кино, теория кино,
-                    режиссура, эстетика
-                    и анализ кинематографа.
+                <p data-i18n="home.principles.independence.text">
+                    Самостоятельность академического
+                    сообщества и исследовательской деятельности.
                 </p>
-
-                <a
-                    href="cinema.html"
-                    class="card-link"
-                    data-i18n="common.more"
-                >
-                    Подробнее →
-                </a>
 
             </div>
 
-        </article>
 
+            <div class="principle">
 
-    </div>
+                <span>
+                    IV
+                </span>
 
-</section>
+                <h3 data-i18n="home.principles.humanity">
+                    Человечество
+                </h3>
 
+                <p data-i18n="home.principles.humanity.text">
+                    Знание рассматривается как достояние
+                    всего человечества.
+                </p>
 
-<!-- =========================================================
-     ACADEMIC LIFE
-========================================================= -->
+            </div>
 
-<section class="section academic-section">
-
-    <div class="section-heading">
-
-        <span class="section-number">
-            03
-        </span>
-
-        <h2 data-i18n="academic.title">
-            Академическая жизнь
-        </h2>
-
-    </div>
-
-
-    <div class="academic-grid">
-
-
-        <a href="lectures.html" class="academic-card">
-
-            <span class="academic-icon">
-                I
-            </span>
-
-            <h3 data-i18n="academic.lectures">
-                Лекции
-            </h3>
-
-            <p data-i18n="academic.lectures.description">
-                Открытые и учебные лекции
-                преподавателей университета.
-            </p>
-
-        </a>
-
-
-        <a href="publications.html" class="academic-card">
-
-            <span class="academic-icon">
-                II
-            </span>
-
-            <h3 data-i18n="academic.publications">
-                Публикации
-            </h3>
-
-            <p data-i18n="academic.publications.description">
-                Научные работы, статьи
-                и исследования.
-            </p>
-
-        </a>
-
-
-        <a href="news.html" class="academic-card">
-
-            <span class="academic-icon">
-                III
-            </span>
-
-            <h3 data-i18n="academic.news">
-                Новости
-            </h3>
-
-            <p data-i18n="academic.news.description">
-                Новости и события
-                университета.
-            </p>
-
-        </a>
-
-
-        <a href="faculty.html" class="academic-card">
-
-            <span class="academic-icon">
-                IV
-            </span>
-
-            <h3 data-i18n="academic.faculty">
-                Научный состав
-            </h3>
-
-            <p data-i18n="academic.faculty.description">
-                Преподаватели, исследователи,
-                профессора и другие сотрудники.
-            </p>
-
-        </a>
-
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     ADMISSION
-========================================================= -->
-
-<section class="admission-banner">
-
-    <div class="admission-content">
-
-        <span
-            class="section-number"
-            data-i18n="admission.number"
-        >
-            04
-        </span>
-
-        <h2 data-i18n="admission.title">
-            Поступление в УГГ
-        </h2>
-
-        <p data-i18n="admission.description">
-            Узнайте об образовательных программах,
-            требованиях и подайте заявку
-            на обучение.
-        </p>
-
-        <a
-            href="admission.html"
-            class="button button-light"
-            data-i18n="admission.button"
-        >
-            Подать заявку
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     UNIVERSITY PRINCIPLES
-========================================================= -->
-
-<section class="section principles-section">
-
-    <div class="section-heading">
-
-        <span class="section-number">
-            05
-        </span>
-
-        <h2 data-i18n="principles.title">
-            Принципы университета
-        </h2>
-
-    </div>
-
-
-    <div class="principles-grid">
-
-        <div class="principle">
-
-            <span class="principle-number">
-                I
-            </span>
-
-            <h3 data-i18n="principles.freedom">
-                Свобода мысли
-            </h3>
-
-            <p data-i18n="principles.freedom.text">
-                Право на самостоятельное исследование,
-                дискуссию и формирование научной позиции.
-            </p>
 
         </div>
 
+    </section>
 
-        <div class="principle">
-
-            <span class="principle-number">
-                II
-            </span>
-
-            <h3 data-i18n="principles.science">
-                Научность
-            </h3>
-
-            <p data-i18n="principles.science.text">
-                Стремление к аргументированному,
-                последовательному и ответственному знанию.
-            </p>
-
-        </div>
+</main>
 
 
-        <div class="principle">
-
-            <span class="principle-number">
-                III
-            </span>
-
-            <h3 data-i18n="principles.independence">
-                Независимость
-            </h3>
-
-            <p data-i18n="principles.independence.text">
-                Академическая деятельность университета
-                строится на принципе самостоятельности.
-            </p>
-
-        </div>
-
-
-        <div class="principle">
-
-            <span class="principle-number">
-                IV
-            </span>
-
-            <h3 data-i18n="principles.humanity">
-                Человечество
-            </h3>
-
-            <p data-i18n="principles.humanity.text">
-                Университет рассматривает знание
-                как достояние всего человечества.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+<!-- FOOTER -->
 
 <footer class="site-footer">
 
-    <div class="footer-inner">
+    <div class="footer-container">
 
 
         <div class="footer-brand">
 
-            <div class="footer-emblem">
+            <div class="footer-logo">
                 UGG
             </div>
 
@@ -769,7 +759,10 @@
                 Поступление
             </a>
 
-            <a href="scholarships.html" data-i18n="nav.scholarships">
+            <a
+                href="scholarships.html"
+                data-i18n="nav.scholarships"
+            >
                 Стипендии
             </a>
 
@@ -782,11 +775,17 @@
                 Наука
             </h4>
 
-            <a href="publications.html" data-i18n="nav.publications">
+            <a
+                href="publications.html"
+                data-i18n="nav.publications"
+            >
                 Публикации
             </a>
 
-            <a href="news.html" data-i18n="nav.news">
+            <a
+                href="news.html"
+                data-i18n="nav.news"
+            >
                 Новости
             </a>
 
@@ -799,16 +798,19 @@
     <div class="footer-bottom">
 
         <span>
-            © <span id="currentYear">2026</span>
-            UGG
+            © <span id="currentYear">2026</span> UGG
         </span>
 
         <span class="footer-motto">
             Scientia libera humanitati.
         </span>
 
-        <a href="admin.html" class="admin-link">
-            Admin
+        <a
+            href="admin.html"
+            class="admin-link"
+            data-i18n="footer.admin"
+        >
+            Администрация
         </a>
 
     </div>
@@ -816,11 +818,9 @@
 </footer>
 
 
-<!-- =========================================================
-     SCRIPTS
-========================================================= -->
-
-<script src="script.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/site.js"></script>
 
 </body>
 </html>
