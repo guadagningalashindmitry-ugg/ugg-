@@ -1,826 +1,1105 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>УГГ — Университет имени Гуаданина Галашина</title>
+<title>УГГ — Университет имени Гуаданина Галашина</title>
 
-    <meta
-        name="description"
-        content="Независимый негосударственный университет имени Гуаданина Галашина"
-    >
+<style>
 
-    <link rel="stylesheet" href="css/style.css">
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f4f0e8;
+    color: #191919;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,.96);
+    border-bottom: 1px solid #d6d0c5;
+    padding: 18px 5%;
+}
+
+.header-inner {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    font-family: Arial, sans-serif;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 7px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav button {
+    border: 0;
+    background: none;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 1250px;
+    margin: auto;
+    padding: 60px 5%;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.hero {
+    min-height: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 70px 0;
+}
+
+.eyebrow {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: clamp(45px, 7vw, 90px);
+    line-height: .98;
+    max-width: 1000px;
+    margin: 25px 0;
+}
+
+.hero p {
+    max-width: 650px;
+    font-size: 20px;
+}
+
+.button {
+    display: inline-block;
+    background: #171717;
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+.button:hover {
+    background: #444;
+}
+
+h1 {
+    font-size: 55px;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border: 1px solid #d7d1c7;
+    border-radius: 6px;
+}
+
+.card h2,
+.card h3 {
+    margin-top: 0;
+}
+
+.card a {
+    color: #111;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+form {
+    max-width: 700px;
+    background: white;
+    padding: 30px;
+    border: 1px solid #d7d1c7;
+}
+
+label {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+input,
+textarea,
+select {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 13px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+.notice {
+    padding: 18px;
+    background: #e5f1e5;
+    border: 1px solid #abc9ab;
+    margin-bottom: 25px;
+}
+
+.admin-box {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 30px;
+    max-width: 800px;
+}
+
+.admin-item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.delete {
+    color: #a00000;
+    cursor: pointer;
+}
+
+footer {
+    background: #171717;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    margin-top: 80px;
+}
+
+footer p {
+    margin: 5px;
+}
+
+@media(max-width:800px) {
+
+    .header-inner {
+        display: block;
+    }
+
+    nav {
+        margin-top: 15px;
+        gap: 12px;
+    }
+
+    nav button {
+        font-size: 14px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
 
-<header class="site-header">
+<header>
 
-    <div class="header-container">
+<div class="header-inner">
 
-        <a href="index.html" class="logo">
+<div class="logo">УГГ</div>
 
-            <div class="logo-symbol">UGG</div>
+<nav>
 
-            <div class="logo-text">
-                <strong>УГГ</strong>
-                <span>Университет имени Гуаданина Галашина</span>
-            </div>
+<button onclick="showPage('home')">Главная</button>
 
-        </a>
+<button onclick="showPage('faculties')">Факультеты</button>
 
-        <nav class="main-nav">
+<button onclick="showPage('teachers')">Преподаватели</button>
 
-            <a href="index.html" data-i18n="nav.home">
-                Главная
-            </a>
+<button onclick="showPage('lectures')">Лекции</button>
 
-            <a href="about.html" data-i18n="nav.about">
-                Об университете
-            </a>
+<button onclick="showPage('news')">Новости</button>
 
-            <a href="faculties.html" data-i18n="nav.faculties">
-                Факультеты
-            </a>
+<button onclick="showPage('admission')">Поступление</button>
 
-            <a href="lectures.html" data-i18n="nav.lectures">
-                Лекции
-            </a>
+<button onclick="showPage('admin')">Админка</button>
 
-            <a href="news.html" data-i18n="nav.news">
-                Новости
-            </a>
+</nav>
 
-            <a href="publications.html" data-i18n="nav.publications">
-                Публикации
-            </a>
-
-            <a href="faculty.html" data-i18n="nav.faculty">
-                Научный состав
-            </a>
-
-            <a href="admission.html" data-i18n="nav.admission">
-                Поступление
-            </a>
-
-        </nav>
-
-        <div class="header-tools">
-
-            <select
-                id="languageSelector"
-                aria-label="Выбор языка"
-            >
-                <option value="ru">Русский</option>
-                <option value="pt">Português</option>
-                <option value="en">English</option>
-                <option value="de">Deutsch</option>
-                <option value="fr">Français</option>
-            </select>
-
-            <button
-                id="mobileMenuButton"
-                class="mobile-menu-button"
-                type="button"
-                aria-label="Открыть меню"
-            >
-                ☰
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 </header>
 
 
-<div id="mobileNavigation" class="mobile-navigation">
+<main>
 
-    <a href="index.html" data-i18n="nav.home">
-        Главная
-    </a>
 
-    <a href="about.html" data-i18n="nav.about">
-        Об университете
-    </a>
+<!-- ГЛАВНАЯ -->
 
-    <a href="faculties.html" data-i18n="nav.faculties">
-        Факультеты
-    </a>
+<section id="home" class="page active">
 
-    <a href="lectures.html" data-i18n="nav.lectures">
-        Лекции
-    </a>
+<div class="hero">
 
-    <a href="news.html" data-i18n="nav.news">
-        Новости
-    </a>
+<div class="eyebrow">
+УНИВЕРСИТЕТ ИМЕНИ ГУАДАНИНА ГАЛАШИНА
+</div>
 
-    <a href="publications.html" data-i18n="nav.publications">
-        Публикации
-    </a>
+<h1>
+Философия.<br>
+Кинематограф.<br>
+Русский язык и культура.
+</h1>
 
-    <a href="faculty.html" data-i18n="nav.faculty">
-        Научный состав
-    </a>
+<p>
+Гуманитарный образовательный проект,
+посвящённый философии, искусству,
+кинематографу, русскому языку и культуре.
+</p>
 
-    <a href="admission.html" data-i18n="nav.admission">
-        Поступление
-    </a>
-
-    <a href="scholarships.html" data-i18n="nav.scholarships">
-        Стипендии
-    </a>
-
-    <a href="contacts.html" data-i18n="nav.contacts">
-        Контакты
-    </a>
+<button
+class="button"
+onclick="showPage('admission')"
+>
+Поступить в УГГ
+</button>
 
 </div>
 
 
-<main>
+<h2>Об УГГ</h2>
 
-    <!-- HERO -->
+<p>
+Университет имени Гуаданина Галашина — образовательный
+проект, создаваемый в Бразилиа. На первом этапе планируется
+развитие трёх направлений: философии, кинематографа,
+русского языка и культуры.
+</p>
 
-    <section class="hero">
+</section>
 
-        <div class="hero-container">
 
-            <div class="hero-content">
 
-                <div class="hero-kicker" data-i18n="hero.kicker">
-                    НЕЗАВИСИМЫЙ НЕГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
-                </div>
+<!-- ФАКУЛЬТЕТЫ -->
 
-                <h1 data-i18n="hero.title">
-                    Университет имени<br>
-                    Гуаданина Галашина
-                </h1>
+<section id="faculties" class="page">
 
-                <div class="hero-motto">
-                    Scientia libera humanitati.
-                </div>
+<h1>Факультеты</h1>
 
-                <p data-i18n="hero.description">
-                    Независимое образовательное и научное пространство,
-                    посвящённое свободному исследованию, философии,
-                    культуре, языку и искусству.
-                </p>
+<div class="cards">
 
-                <div class="hero-buttons">
+<div class="card">
 
-                    <a
-                        href="about.html"
-                        class="button button-primary"
-                        data-i18n="hero.about"
-                    >
-                        Об университете
-                    </a>
+<h2>Факультет философии</h2>
 
-                    <a
-                        href="admission.html"
-                        class="button button-outline"
-                        data-i18n="hero.admission"
-                    >
-                        Поступление
-                    </a>
+<p>
+Философия, история философии, метафизика,
+логика, этика, онтология, феноменология
+и другие философские дисциплины.
+</p>
 
-                </div>
+<p class="price">
+R$ 3.500 / семестр
+</p>
 
-            </div>
+</div>
 
 
-            <div class="hero-emblem">
+<div class="card">
 
-                <div class="hero-emblem-letters">
-                    UGG
-                </div>
+<h2>Факультет кинематографа</h2>
 
-                <div class="hero-emblem-name">
-                    UNIVERSITAS<br>
-                    GUADAGNIN<br>
-                    GALASHIN
-                </div>
+<p>
+История кино, теория кино, анализ фильмов,
+язык кинематографа, эстетика кино
+и культура кинематографа.
+</p>
 
-            </div>
+<p class="price">
+R$ 3.500 / семестр
+</p>
 
-        </div>
+</div>
 
-    </section>
 
+<div class="card">
 
-    <!-- ABOUT -->
+<h2>Факультет русского языка и культуры</h2>
 
-    <section class="section">
+<p>
+Русский язык, русская культура, литература,
+история России и русскоязычного
+культурного пространства.
+</p>
 
-        <div class="section-header">
+<p class="price">
+R$ 3.500 / семестр
+</p>
 
-            <span class="section-number">
-                01
-            </span>
+</div>
 
-            <h2 data-i18n="home.about.title">
-                Университет
-            </h2>
+</div>
 
-        </div>
+</section>
 
 
-        <div class="about-grid">
 
-            <div>
+<!-- ПРЕПОДАВАТЕЛИ -->
 
-                <p
-                    class="lead"
-                    data-i18n="home.about.lead"
-                >
-                    УГГ — независимый негосударственный университет
-                    имени Гуаданина Галашина.
-                </p>
+<section id="teachers" class="page">
 
-                <p data-i18n="home.about.text">
-                    Университет объединяет образовательную,
-                    научную и культурную деятельность и стремится
-                    создать пространство свободного исследования.
-                </p>
+<h1>Преподаватели</h1>
 
-                <a
-                    href="about.html"
-                    class="text-link"
-                    data-i18n="common.readMore"
-                >
-                    Подробнее →
-                </a>
+<div class="cards">
 
-            </div>
+<div class="card">
 
+<h2>Дмитрий Галашин</h2>
 
-            <div class="facts">
+<p>
+<strong>Ректор. Профессор философии.</strong>
+</p>
 
-                <div class="fact">
+<p>
+Философия, метафизика, история философии,
+философия кино.
+</p>
 
-                    <strong>UGG</strong>
+</div>
 
-                    <span data-i18n="home.fact.independent">
-                        независимый университет
-                    </span>
 
-                </div>
+<div class="card">
 
+<h2>Преподаватель русского языка</h2>
 
-                <div class="fact">
+<p>
+<strong>Факультет русского языка и культуры</strong>
+</p>
 
-                    <strong>3</strong>
+<p>
+Русский язык, русская культура и литература.
+</p>
 
-                    <span data-i18n="home.fact.faculties">
-                        факультета
-                    </span>
+</div>
 
-                </div>
 
+<div class="card">
 
-                <div class="fact">
+<h2>Преподаватель религиоведения</h2>
 
-                    <strong>5</strong>
+<p>
+<strong>Гуманитарные дисциплины</strong>
+</p>
 
-                    <span data-i18n="home.fact.languages">
-                        языка сайта
-                    </span>
+<p>
+Религиоведение, история религий
+и философия религии.
+</p>
 
-                </div>
+</div>
 
-            </div>
+</div>
 
-        </div>
+</section>
 
-    </section>
 
 
-    <!-- FACULTIES -->
+<!-- ЛЕКЦИИ -->
 
-    <section class="section section-alt">
+<section id="lectures" class="page">
 
-        <div class="section-header">
+<h1>Лекции</h1>
 
-            <span class="section-number">
-                02
-            </span>
+<div class="cards">
 
-            <h2 data-i18n="home.faculties.title">
-                Факультеты
-            </h2>
+<div class="card">
 
-        </div>
+<p class="eyebrow">
+ФИЛОСОФИЯ
+</p>
 
+<h2>
+Что такое бытие?
+</h2>
 
-        <div class="faculty-grid">
+<p>
+Введение в фундаментальные проблемы
+онтологии и метафизики.
+</p>
 
+<button class="button">
+Смотреть лекцию
+</button>
 
-            <!-- PHILOSOPHY -->
+</div>
 
-            <article class="faculty-card">
 
-                <div class="faculty-card-number">
-                    01
-                </div>
+<div class="card">
 
-                <div class="faculty-card-body">
+<p class="eyebrow">
+КИНО
+</p>
 
-                    <span
-                        class="faculty-card-label"
-                        data-i18n="common.faculty"
-                    >
-                        ФАКУЛЬТЕТ
-                    </span>
+<h2>
+Что такое кинематограф?
+</h2>
 
-                    <h3 data-i18n="faculty.philosophy.name">
-                        Философия
-                    </h3>
+<p>
+Введение в историю и теорию кино.
+</p>
 
-                    <p data-i18n="faculty.philosophy.description">
-                        Философия, логика, метафизика,
-                        этика и история философии.
-                        Дополнительные дисциплины включают
-                        ноуменологию.
-                    </p>
+<button class="button">
+Смотреть лекцию
+</button>
 
-                    <a
-                        href="philosophy.html"
-                        class="card-link"
-                        data-i18n="common.more"
-                    >
-                        Подробнее →
-                    </a>
+</div>
 
-                </div>
 
-            </article>
+<div class="card">
 
+<p class="eyebrow">
+РУССКИЙ ЯЗЫК
+</p>
 
-            <!-- RUSSIAN -->
+<h2>
+Введение в русский язык
+</h2>
 
-            <article class="faculty-card">
+<p>
+Основы русской грамматики и фонетики
+для бразильских студентов.
+</p>
 
-                <div class="faculty-card-number">
-                    02
-                </div>
+<button class="button">
+Смотреть лекцию
+</button>
 
-                <div class="faculty-card-body">
+</div>
 
-                    <span
-                        class="faculty-card-label"
-                        data-i18n="common.faculty"
-                    >
-                        ФАКУЛЬТЕТ
-                    </span>
+</div>
 
-                    <h3 data-i18n="faculty.russian.name">
-                        Русский язык
-                        и русская культура
-                    </h3>
+</section>
 
-                    <p data-i18n="faculty.russian.description">
-                        Русский язык, литература,
-                        история русской литературы
-                        и русская культура.
-                    </p>
 
-                    <a
-                        href="russian.html"
-                        class="card-link"
-                        data-i18n="common.more"
-                    >
-                        Подробнее →
-                    </a>
 
-                </div>
+<!-- НОВОСТИ -->
 
-            </article>
+<section id="news" class="page">
 
+<h1>Новости</h1>
 
-            <!-- CINEMA -->
+<div id="newsList">
 
-            <article class="faculty-card">
+<article class="card">
 
-                <div class="faculty-card-number">
-                    03
-                </div>
+<h2>
+УГГ готовится к первому набору
+</h2>
 
-                <div class="faculty-card-body">
+<p>
+Начата подготовка образовательных программ,
+лекций и организационной структуры университета.
+</p>
 
-                    <span
-                        class="faculty-card-label"
-                        data-i18n="common.faculty"
-                    >
-                        ФАКУЛЬТЕТ
-                    </span>
+</article>
 
-                    <h3 data-i18n="faculty.cinema.name">
-                        Кинематограф
-                    </h3>
 
-                    <p data-i18n="faculty.cinema.description">
-                        История кино, теория кино,
-                        анализ кинематографа и эстетика.
-                    </p>
+<article class="card">
 
-                    <a
-                        href="cinema.html"
-                        class="card-link"
-                        data-i18n="common.more"
-                    >
-                        Подробнее →
-                    </a>
+<h2>
+Открыты три первоначальных факультета
+</h2>
 
-                </div>
+<p>
+Философия, кинематограф и русский язык
+и культура станут первыми направлениями УГГ.
+</p>
 
-            </article>
+</article>
 
+</div>
 
-        </div>
+</section>
 
-    </section>
 
 
-    <!-- ACADEMIC LIFE -->
+<!-- ПОСТУПЛЕНИЕ -->
 
-    <section class="section">
+<section id="admission" class="page">
 
-        <div class="section-header">
+<h1>Поступление</h1>
 
-            <span class="section-number">
-                03
-            </span>
+<p>
+Стоимость обучения составляет
+<strong>R$ 3.500 за семестр.</strong>
+</p>
 
-            <h2 data-i18n="home.academic.title">
-                Академическая жизнь
-            </h2>
+<p>
+Заполните форму предварительной заявки.
+</p>
 
-        </div>
+<div id="formMessage"></div>
 
+<form onsubmit="submitApplication(event)">
 
-        <div class="academic-grid">
+<label>
 
+Имя
 
-            <a
-                href="lectures.html"
-                class="academic-card"
-            >
+<input
+type="text"
+id="studentName"
+required
+>
 
-                <span class="academic-number">
-                    I
-                </span>
+</label>
 
-                <h3 data-i18n="nav.lectures">
-                    Лекции
-                </h3>
 
-                <p data-i18n="home.academic.lectures">
-                    Учебные и открытые лекции
-                    преподавателей УГГ.
-                </p>
+<label>
 
-            </a>
+Email
 
+<input
+type="email"
+id="studentEmail"
+required
+>
 
-            <a
-                href="publications.html"
-                class="academic-card"
-            >
+</label>
 
-                <span class="academic-number">
-                    II
-                </span>
 
-                <h3 data-i18n="nav.publications">
-                    Публикации
-                </h3>
+<label>
 
-                <p data-i18n="home.academic.publications">
-                    Научные статьи,
-                    исследования и работы авторов.
-                </p>
+Факультет
 
-            </a>
+<select id="studentFaculty">
 
+<option>
+Факультет философии
+</option>
 
-            <a
-                href="news.html"
-                class="academic-card"
-            >
+<option>
+Факультет кинематографа
+</option>
 
-                <span class="academic-number">
-                    III
-                </span>
+<option>
+Факультет русского языка и культуры
+</option>
 
-                <h3 data-i18n="nav.news">
-                    Новости
-                </h3>
+</select>
 
-                <p data-i18n="home.academic.news">
-                    События и новости
-                    университета.
-                </p>
+</label>
 
-            </a>
 
+<label>
 
-            <a
-                href="faculty.html"
-                class="academic-card"
-            >
+Сообщение
 
-                <span class="academic-number">
-                    IV
-                </span>
+<textarea
+id="studentMessage"
+rows="6"
+></textarea>
 
-                <h3 data-i18n="nav.faculty">
-                    Научный состав
-                </h3>
+</label>
 
-                <p data-i18n="home.academic.faculty">
-                    Преподаватели, исследователи,
-                    профессора и сотрудники.
-                </p>
 
-            </a>
+<button
+class="button"
+type="submit"
+>
 
+Отправить заявку
 
-        </div>
+</button>
 
-    </section>
+</form>
 
+</section>
 
-    <!-- ADMISSION -->
 
-    <section class="admission-section">
 
-        <div class="admission-container">
+<!-- АДМИНКА -->
 
-            <div>
+<section id="admin" class="page">
 
-                <span class="section-number">
-                    04
-                </span>
+<h1>Административная панель</h1>
 
-                <h2 data-i18n="home.admission.title">
-                    Поступление в УГГ
-                </h2>
+<div class="admin-box">
 
-                <p data-i18n="home.admission.text">
-                    Узнайте об образовательных программах
-                    и подайте заявку на обучение.
-                </p>
+<p>
+<strong>Демонстрационная локальная админка.</strong>
+</p>
 
-            </div>
+<p>
+Эта версия хранит данные в браузере через
+localStorage. Она предназначена для демонстрации.
+</p>
 
 
-            <a
-                href="admission.html"
-                class="button button-light"
-                data-i18n="home.admission.button"
-            >
-                Подать заявку
-            </a>
+<h2>Добавить новость</h2>
 
-        </div>
+<form onsubmit="addNews(event)">
 
-    </section>
+<label>
 
+Заголовок
 
-    <!-- PRINCIPLES -->
+<input
+type="text"
+id="newsTitle"
+required
+>
 
-    <section class="section">
+</label>
 
-        <div class="section-header">
 
-            <span class="section-number">
-                05
-            </span>
+<label>
 
-            <h2 data-i18n="home.principles.title">
-                Принципы университета
-            </h2>
+Текст
 
-        </div>
+<textarea
+id="newsText"
+rows="5"
+required
+></textarea>
 
+</label>
 
-        <div class="principles-grid">
 
+<button class="button">
+Добавить новость
+</button>
 
-            <div class="principle">
+</form>
 
-                <span>
-                    I
-                </span>
 
-                <h3 data-i18n="home.principles.freedom">
-                    Свобода мысли
-                </h3>
+<h2>Заявки</h2>
 
-                <p data-i18n="home.principles.freedom.text">
-                    Право на самостоятельное исследование,
-                    дискуссию и формирование собственной
-                    научной позиции.
-                </p>
+<div id="applicationsList"></div>
 
-            </div>
+</div>
 
+</section>
 
-            <div class="principle">
-
-                <span>
-                    II
-                </span>
-
-                <h3 data-i18n="home.principles.science">
-                    Научность
-                </h3>
-
-                <p data-i18n="home.principles.science.text">
-                    Стремление к последовательному,
-                    аргументированному и ответственному знанию.
-                </p>
-
-            </div>
-
-
-            <div class="principle">
-
-                <span>
-                    III
-                </span>
-
-                <h3 data-i18n="home.principles.independence">
-                    Независимость
-                </h3>
-
-                <p data-i18n="home.principles.independence.text">
-                    Самостоятельность академического
-                    сообщества и исследовательской деятельности.
-                </p>
-
-            </div>
-
-
-            <div class="principle">
-
-                <span>
-                    IV
-                </span>
-
-                <h3 data-i18n="home.principles.humanity">
-                    Человечество
-                </h3>
-
-                <p data-i18n="home.principles.humanity.text">
-                    Знание рассматривается как достояние
-                    всего человечества.
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </section>
 
 </main>
 
 
-<!-- FOOTER -->
+<footer>
 
-<footer class="site-footer">
+<p><strong>УГГ</strong></p>
 
-    <div class="footer-container">
+<p>
+Университет имени Гуаданина Галашина
+</p>
 
+<p>
+Бразилиа, Бразилия
+</p>
 
-        <div class="footer-brand">
-
-            <div class="footer-logo">
-                UGG
-            </div>
-
-            <div>
-
-                <strong>
-                    УГГ
-                </strong>
-
-                <span data-i18n="footer.name">
-                    Университет имени Гуаданина Галашина
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h4 data-i18n="footer.university">
-                Университет
-            </h4>
-
-            <a href="about.html" data-i18n="nav.about">
-                Об университете
-            </a>
-
-            <a href="faculties.html" data-i18n="nav.faculties">
-                Факультеты
-            </a>
-
-            <a href="faculty.html" data-i18n="nav.faculty">
-                Научный состав
-            </a>
-
-            <a href="contacts.html" data-i18n="nav.contacts">
-                Контакты
-            </a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h4 data-i18n="footer.education">
-                Образование
-            </h4>
-
-            <a href="lectures.html" data-i18n="nav.lectures">
-                Лекции
-            </a>
-
-            <a href="admission.html" data-i18n="nav.admission">
-                Поступление
-            </a>
-
-            <a
-                href="scholarships.html"
-                data-i18n="nav.scholarships"
-            >
-                Стипендии
-            </a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h4 data-i18n="footer.science">
-                Наука
-            </h4>
-
-            <a
-                href="publications.html"
-                data-i18n="nav.publications"
-            >
-                Публикации
-            </a>
-
-            <a
-                href="news.html"
-                data-i18n="nav.news"
-            >
-                Новости
-            </a>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        <span>
-            © <span id="currentYear">2026</span> UGG
-        </span>
-
-        <span class="footer-motto">
-            Scientia libera humanitati.
-        </span>
-
-        <a
-            href="admin.html"
-            class="admin-link"
-            data-i18n="footer.admin"
-        >
-            Администрация
-        </a>
-
-    </div>
+<p>
+© 2026 УГГ
+</p>
 
 </footer>
 
 
-<script src="js/data.js"></script>
-<script src="js/i18n.js"></script>
-<script src="js/site.js"></script>
+
+<script>
+
+function showPage(page) {
+
+document
+.querySelectorAll('.page')
+.forEach(function(section) {
+
+section.classList.remove('active');
+
+});
+
+const target =
+document.getElementById(page);
+
+if(target) {
+
+target.classList.add('active');
+
+}
+
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+
+loadApplications();
+loadNews();
+
+}
+
+
+
+function submitApplication(event) {
+
+event.preventDefault();
+
+const name =
+document.getElementById('studentName').value;
+
+const email =
+document.getElementById('studentEmail').value;
+
+const faculty =
+document.getElementById('studentFaculty').value;
+
+const message =
+document.getElementById('studentMessage').value;
+
+
+const applications =
+JSON.parse(
+localStorage.getItem('uggApplications') || '[]'
+);
+
+
+applications.push({
+
+name: name,
+
+email: email,
+
+faculty: faculty,
+
+message: message,
+
+date: new Date().toLocaleString()
+
+});
+
+
+localStorage.setItem(
+'uggApplications',
+JSON.stringify(applications)
+);
+
+
+document.getElementById('formMessage').innerHTML =
+
+'<div class="notice">' +
+'Заявка успешно отправлена.' +
+'</div>';
+
+
+document.querySelector(
+'#admission form'
+).reset();
+
+
+loadApplications();
+
+}
+
+
+
+function addNews(event) {
+
+event.preventDefault();
+
+const title =
+document.getElementById('newsTitle').value;
+
+const text =
+document.getElementById('newsText').value;
+
+
+const news =
+JSON.parse(
+localStorage.getItem('uggNews') || '[]'
+);
+
+
+news.unshift({
+
+title: title,
+
+text: text,
+
+date: new Date().toLocaleDateString()
+
+});
+
+
+localStorage.setItem(
+'uggNews',
+JSON.stringify(news)
+);
+
+
+document.getElementById('newsTitle').value = '';
+
+document.getElementById('newsText').value = '';
+
+
+loadNews();
+
+}
+
+
+
+function loadNews() {
+
+const news =
+JSON.parse(
+localStorage.getItem('uggNews') || '[]'
+);
+
+const list =
+document.getElementById('newsList');
+
+if(!list) return;
+
+
+let html = '';
+
+
+news.forEach(function(item, index) {
+
+html += `
+
+<article class="card">
+
+<h2>
+${escapeHtml(item.title)}
+</h2>
+
+<p class="muted">
+${escapeHtml(item.date)}
+</p>
+
+<p>
+${escapeHtml(item.text)}
+</p>
+
+<div>
+
+<span
+class="delete"
+onclick="deleteNews(${index})"
+>
+Удалить
+</span>
+
+</div>
+
+</article>
+
+`;
+
+});
+
+
+list.innerHTML =
+html +
+list.innerHTML;
+
+}
+
+
+
+function deleteNews(index) {
+
+const news =
+JSON.parse(
+localStorage.getItem('uggNews') || '[]'
+);
+
+news.splice(index, 1);
+
+localStorage.setItem(
+'uggNews',
+JSON.stringify(news)
+);
+
+loadNews();
+
+}
+
+
+
+function loadApplications() {
+
+const list =
+document.getElementById('applicationsList');
+
+if(!list) return;
+
+
+const applications =
+JSON.parse(
+localStorage.getItem('uggApplications') || '[]'
+);
+
+
+if(applications.length === 0) {
+
+list.innerHTML =
+'<p>Заявок пока нет.</p>';
+
+return;
+
+}
+
+
+let html = '';
+
+
+applications.forEach(function(app, index) {
+
+html += `
+
+<div class="admin-item">
+
+<div>
+
+<strong>
+${escapeHtml(app.name)}
+</strong>
+
+<br>
+
+${escapeHtml(app.email)}
+
+<br>
+
+${escapeHtml(app.faculty)}
+
+<br>
+
+${escapeHtml(app.message)}
+
+<br>
+
+<small>
+${escapeHtml(app.date)}
+</small>
+
+</div>
+
+<div>
+
+<span
+class="delete"
+onclick="deleteApplication(${index})"
+>
+Удалить
+</span>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+list.innerHTML = html;
+
+}
+
+
+
+function deleteApplication(index) {
+
+const applications =
+JSON.parse(
+localStorage.getItem('uggApplications') || '[]'
+);
+
+applications.splice(index, 1);
+
+localStorage.setItem(
+'uggApplications',
+JSON.stringify(applications)
+);
+
+loadApplications();
+
+}
+
+
+
+function escapeHtml(text) {
+
+const div =
+document.createElement('div');
+
+div.textContent = text;
+
+return div.innerHTML;
+
+}
+
+
+loadNews();
+
+loadApplications();
+
+</script>
 
 </body>
+
 </html>
 ```
