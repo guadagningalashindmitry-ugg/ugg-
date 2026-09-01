@@ -3,12 +3,13 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UGG</title>
 
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+
 body{
 margin:0;
 background:#f4f1ea;
@@ -16,95 +17,116 @@ color:#171717;
 font-family:Georgia,"Times New Roman",serif;
 line-height:1.6
 }
+
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
+
 header{
 position:sticky;
 top:0;
-z-index:100;
+z-index:1000;
 background:rgba(255,253,248,.97);
-border-bottom:1px solid #d7d1c7
+border-bottom:1px solid #d5cec3
 }
+
 .header{
 max-width:1400px;
 margin:auto;
-padding:18px 5%;
+padding:17px 5%;
 display:flex;
 align-items:center;
 justify-content:space-between;
 gap:20px
 }
+
 .logo{
 font-family:Arial,sans-serif;
 font-size:34px;
 font-weight:900;
 letter-spacing:8px
 }
+
 nav{
 display:flex;
 align-items:center;
 flex-wrap:wrap;
-gap:3px
+gap:2px
 }
+
 nav button{
-background:none;
 border:0;
-padding:8px 9px;
+background:none;
+padding:8px;
 font-size:14px
 }
-nav button:hover{text-decoration:underline}
+
+nav button:hover{
+text-decoration:underline
+}
+
 .languages{
 display:flex;
 gap:3px;
 margin-left:8px
 }
+
 .languages button{
-border:1px solid #bbb;
+font:11px Arial,sans-serif;
+border:1px solid #aaa;
 background:#fff;
-font:11px Arial;
 padding:5px 8px
 }
-.languages .active{
+
+.languages button.active{
 background:#171717;
-color:#fff
+color:white
 }
+
 main{
 max-width:1400px;
 margin:auto;
-padding:50px 5%
+padding:45px 5%
 }
+
 .page{display:none}
 .page.active{display:block}
+
 .hero{
-min-height:560px;
+min-height:570px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 max-width:900px
 }
-.hero .small{
-font:11px Arial;
+
+.hero-small{
+font:11px Arial,sans-serif;
 font-weight:bold;
 letter-spacing:4px;
 margin-bottom:20px
 }
+
 .hero h1{
-font-size:clamp(55px,9vw,110px);
-line-height:.9;
-margin:0 0 30px;
-letter-spacing:-4px
+font-family:Arial,sans-serif;
+font-size:clamp(70px,12vw,150px);
+line-height:.85;
+letter-spacing:-8px;
+margin:0 0 30px
 }
+
 .hero p{
 font-size:21px;
-max-width:720px;
+max-width:700px;
 color:#444
 }
+
 .buttons{
 display:flex;
 gap:10px;
 flex-wrap:wrap;
 margin-top:15px
 }
+
 .btn{
 border:0;
 background:#171717;
@@ -112,76 +134,107 @@ color:white;
 padding:13px 22px;
 border-radius:4px
 }
+
 .btn.secondary{
 background:transparent;
 color:#171717;
 border:1px solid #171717
 }
-.section{margin:70px 0}
-.section h2{font-size:34px}
+
+.section{
+margin:70px 0
+}
+
+.section h2,
+.page>h1{
+font-size:36px;
+line-height:1.1
+}
+
 .cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:20px
 }
+
 .card{
 background:#fffdf8;
 border:1px solid #d8d1c6;
 padding:27px;
 border-radius:5px
 }
-.card h2{line-height:1.15}
+
+.card h2{
+line-height:1.15
+}
+
 .eyebrow{
-font:10px Arial;
+font:10px Arial,sans-serif;
+font-weight:bold;
 letter-spacing:3px;
-font-weight:bold
+text-transform:uppercase
 }
-.price{
-font:bold 20px Arial
-}
+
 .muted{
 color:#777;
 font-size:14px
 }
+
 form{
 background:#fffdf8;
 border:1px solid #d8d1c6;
 padding:28px;
-max-width:800px
+max-width:850px
 }
+
 label{
 display:block;
 font-weight:bold;
-margin-bottom:17px
+margin-bottom:18px
 }
+
 input,textarea,select{
 display:block;
 width:100%;
 padding:12px;
 margin-top:6px;
 border:1px solid #aaa;
-background:#fff;
+background:white;
 border-radius:4px
 }
-textarea{resize:vertical}
+
+textarea{
+resize:vertical
+}
+
 .notice{
 background:#e5f1e3;
 border:1px solid #b9ceb5;
 padding:15px;
 margin:15px 0
 }
+
 .warning{
 background:#f3ead8;
 border:1px solid #d7c49e;
 padding:15px;
 margin-bottom:20px
 }
+
 footer{
 background:#171717;
 color:white;
 text-align:center;
-padding:50px 20px;
+padding:45px 20px;
 margin-top:80px
+}
+
+footer .disclaimer{
+max-width:800px;
+margin:20px auto 0;
+font:12px Arial,sans-serif;
+line-height:1.5;
+color:#ccc
 }
 
 /* ADMIN */
@@ -192,85 +245,144 @@ padding:25px;
 border:1px solid #d0c8bc;
 border-radius:6px
 }
+
 .admin-tabs{
 display:flex;
 flex-wrap:wrap;
 gap:6px;
 margin-bottom:25px
 }
+
 .admin-tabs button{
 background:white;
 border:1px solid #aaa;
 padding:9px 12px
 }
+
 .admin-tabs button.active{
 background:#171717;
 color:white
 }
-.admin-panel{display:none}
-.admin-panel.active{display:block}
+
+.admin-panel{
+display:none
+}
+
+.admin-panel.active{
+display:block
+}
+
 .editor{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:15px
 }
-.full{grid-column:1/-1}
+
+.full{
+grid-column:1/-1
+}
+
 .admin-item{
 background:white;
 border:1px solid #d2cbc0;
 padding:18px;
 margin:12px 0
 }
+
 .actions{
 display:flex;
 gap:7px;
 flex-wrap:wrap;
 margin-top:12px
 }
+
 .smallbtn{
 padding:7px 11px;
 background:white;
 border:1px solid #999
 }
-.delete{color:#a00000}
+
+.delete{
+color:#a00000
+}
+
 .stats{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:15px
 }
+
 .stat{
 background:white;
 border:1px solid #ccc;
 padding:20px
 }
+
 .stat strong{
-font:bold 30px Arial;
+font:bold 30px Arial,sans-serif;
 display:block
 }
+
 .lang-editor{
 border:1px solid #ccc;
 background:#f8f6f0;
 padding:15px;
 margin-bottom:15px
 }
+
 .lang-title{
-font:bold 12px Arial;
+font:bold 12px Arial,sans-serif;
 letter-spacing:2px;
 margin-bottom:10px
 }
 
-@media(max-width:850px){
-.header{display:block}
-nav{margin-top:15px}
-.hero h1{font-size:60px}
-.editor{grid-template-columns:1fr}
-.full{grid-column:auto}
+.login-box{
+max-width:420px;
+margin:80px auto;
+background:#fffdf8;
+border:1px solid #d8d1c6;
+padding:30px
 }
+
+.hidden{
+display:none!important
+}
+
+@media(max-width:900px){
+.header{
+display:block
+}
+
+nav{
+margin-top:15px
+}
+
+.editor{
+grid-template-columns:1fr
+}
+
+.full{
+grid-column:auto
+}
+}
+
 @media(max-width:550px){
-.hero h1{font-size:48px}
-.hero p{font-size:18px}
-main{padding:35px 5%}
-.logo{font-size:28px}
+main{
+padding:35px 5%
+}
+
+.hero h1{
+font-size:75px;
+letter-spacing:-5px
+}
+
+.hero p{
+font-size:18px
+}
+
+.logo{
+font-size:28px
+}
 }
 </style>
 </head>
@@ -278,32 +390,38 @@ main{padding:35px 5%}
 <body>
 
 <header>
+
 <div class="header">
 
 <div class="logo">UGG</div>
 
 <nav>
-<button onclick="page('home')" data-t="home">Главная</button>
-<button onclick="page('faculties')" data-t="faculties">Факультеты</button>
-<button onclick="page('teachers')" data-t="teachers">Преподаватели</button>
-<button onclick="page('lectures')" data-t="lectures">Лекции</button>
-<button onclick="page('news')" data-t="news">Новости</button>
-<button onclick="page('admission')" data-t="admission">Поступление</button>
-<button onclick="page('about')" data-t="about">Об UGG</button>
-<button onclick="page('admin')" data-t="admin">Админка</button>
+
+<button onclick="showPage('home')" data-i18n="home"></button>
+<button onclick="showPage('faculties')" data-i18n="faculties"></button>
+<button onclick="showPage('teachers')" data-i18n="teachers"></button>
+<button onclick="showPage('lectures')" data-i18n="lectures"></button>
+<button onclick="showPage('news')" data-i18n="news"></button>
+<button onclick="showPage('admission')" data-i18n="admission"></button>
+<button onclick="showPage('about')" data-i18n="about"></button>
+<button onclick="showPage('admin')" data-i18n="admin"></button>
 
 <div class="languages">
-<button id="ru" onclick="language('ru')">RU</button>
-<button id="pt" onclick="language('pt')">PT</button>
-<button id="en" onclick="language('en')">EN</button>
+<button id="lang-ru" onclick="setLanguage('ru')">RU</button>
+<button id="lang-pt" onclick="setLanguage('pt')">PT</button>
+<button id="lang-en" onclick="setLanguage('en')">EN</button>
+<button id="lang-es" onclick="setLanguage('es')">ES</button>
 </div>
+
 </nav>
 
 </div>
+
 </header>
 
 
 <main>
+
 
 <!-- HOME -->
 
@@ -311,42 +429,39 @@ main{padding:35px 5%}
 
 <div class="hero">
 
-<div class="small">UNIVERSITY OF GUADAGNIN GALASHIN</div>
+<div class="hero-small">UNIVERSITY OF GUADAGNIN GALASHIN</div>
 
 <h1>UGG</h1>
 
-<p data-t="hero">
-Независимый гуманитарный образовательный проект в Бразилиа.
-</p>
+<p id="heroText"></p>
 
 <div class="buttons">
-<button class="btn" onclick="page('faculties')" data-t="explore">
-Исследовать университет
-</button>
 
-<button class="btn secondary" onclick="page('admission')" data-t="apply">
-Поступить
-</button>
+<button class="btn"
+onclick="showPage('faculties')"
+data-i18n="explore"></button>
+
+<button class="btn secondary"
+onclick="showPage('admission')"
+data-i18n="apply"></button>
+
 </div>
-
-</div>
-
-
-<div class="section">
-
-<h2 data-t="welcomeTitle">Об UGG</h2>
-
-<p data-t="welcomeText">
-UGG создаётся как гуманитарный образовательный проект,
-объединяющий преподавание, исследование и культурную деятельность.
-</p>
 
 </div>
 
 
 <div class="section">
 
-<h2 data-t="initialFaculties">Первоначальные факультеты</h2>
+<h2 data-i18n="welcomeTitle"></h2>
+
+<p id="descriptionText"></p>
+
+</div>
+
+
+<div class="section">
+
+<h2 data-i18n="initialFaculties"></h2>
 
 <div id="homeFaculties" class="cards"></div>
 
@@ -359,7 +474,7 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="faculties" class="page">
 
-<h1 data-t="facultiesTitle">Факультеты</h1>
+<h1 data-i18n="facultiesTitle"></h1>
 
 <div id="facultiesList" class="cards"></div>
 
@@ -370,7 +485,7 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="teachers" class="page">
 
-<h1 data-t="teachersTitle">Преподаватели</h1>
+<h1 data-i18n="teachersTitle"></h1>
 
 <div id="teachersList" class="cards"></div>
 
@@ -381,7 +496,7 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="lectures" class="page">
 
-<h1 data-t="lecturesTitle">Лекции</h1>
+<h1 data-i18n="lecturesTitle"></h1>
 
 <div id="lecturesList" class="cards"></div>
 
@@ -392,7 +507,7 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="news" class="page">
 
-<h1 data-t="newsTitle">Новости</h1>
+<h1 data-i18n="newsTitle"></h1>
 
 <div id="newsList"></div>
 
@@ -403,43 +518,39 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="admission" class="page">
 
-<h1 data-t="admissionTitle">Поступление</h1>
+<h1 data-i18n="admissionTitle"></h1>
 
 <div class="card">
 
-<h2 data-t="applicationTitle">Предварительная заявка</h2>
+<h2 data-i18n="applicationTitle"></h2>
 
-<p data-t="applicationText">
-Заполните форму, чтобы связаться с UGG.
-</p>
+<p data-i18n="applicationText"></p>
 
 <div id="applicationMessage"></div>
 
 <form onsubmit="submitApplication(event)">
 
 <label>
-<span data-t="name">Имя</span>
+<span data-i18n="name"></span>
 <input id="appName" required>
 </label>
 
 <label>
-<span data-t="email">Email</span>
+<span data-i18n="email"></span>
 <input id="appEmail" type="email" required>
 </label>
 
 <label>
-<span data-t="chooseFaculty">Выберите факультет</span>
+<span data-i18n="chooseFaculty"></span>
 <select id="appFaculty"></select>
 </label>
 
 <label>
-<span data-t="message">Сообщение</span>
+<span data-i18n="message"></span>
 <textarea id="appMessage" rows="6"></textarea>
 </label>
 
-<button class="btn" type="submit" data-t="send">
-Отправить заявку
-</button>
+<button class="btn" type="submit" data-i18n="send"></button>
 
 </form>
 
@@ -452,11 +563,11 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="about" class="page">
 
-<h1 data-t="aboutTitle">Об UGG</h1>
+<h1 data-i18n="aboutTitle"></h1>
 
 <div class="card">
 
-<h2 data-t="history">История проекта</h2>
+<h2 data-i18n="history"></h2>
 
 <p id="aboutText"></p>
 
@@ -469,48 +580,57 @@ UGG создаётся как гуманитарный образователь�
 
 <section id="admin" class="page">
 
-<h1 data-t="adminTitle">Административная панель</h1>
+<h1 data-i18n="adminTitle"></h1>
 
-<div class="warning" data-t="adminWarning">
-Демонстрационная локальная админка. Данные сохраняются
-в браузере этого устройства.
+<!-- LOGIN -->
+
+<div id="adminLogin" class="login-box">
+
+<h2 data-i18n="adminLogin"></h2>
+
+<p data-i18n="adminPasswordText"></p>
+
+<form onsubmit="login(event)">
+
+<label>
+<span data-i18n="password"></span>
+<input id="adminPassword" type="password" required>
+</label>
+
+<button class="btn" type="submit" data-i18n="login"></button>
+
+</form>
+
+<div id="loginError"></div>
+
 </div>
 
-<div class="admin">
+
+<!-- ADMIN CONTENT -->
+
+<div id="adminContent" class="admin hidden">
+
+<div class="warning" data-i18n="adminWarning"></div>
 
 <div class="admin-tabs">
 
-<button onclick="adminTab('dashboard')" class="active" data-t="dashboard">
-Обзор
-</button>
+<button onclick="adminTab('dashboard')" class="active" data-i18n="dashboard"></button>
 
-<button onclick="adminTab('site')" data-t="site">
-Сайт
-</button>
+<button onclick="adminTab('site')" data-i18n="site"></button>
 
-<button onclick="adminTab('facultiesAdmin')" data-t="faculties">
-Факультеты
-</button>
+<button onclick="adminTab('facultiesAdmin')" data-i18n="faculties"></button>
 
-<button onclick="adminTab('teachersAdmin')" data-t="teachers">
-Преподаватели
-</button>
+<button onclick="adminTab('teachersAdmin')" data-i18n="teachers"></button>
 
-<button onclick="adminTab('lecturesAdmin')" data-t="lectures">
-Лекции
-</button>
+<button onclick="adminTab('lecturesAdmin')" data-i18n="lectures"></button>
 
-<button onclick="adminTab('newsAdmin')" data-t="news">
-Новости
-</button>
+<button onclick="adminTab('newsAdmin')" data-i18n="news"></button>
 
-<button onclick="adminTab('applicationsAdmin')" data-t="applications">
-Заявки
-</button>
+<button onclick="adminTab('applicationsAdmin')" data-i18n="applications"></button>
 
-<button onclick="resetData()" data-t="reset">
-Сбросить
-</button>
+<button onclick="logout()" data-i18n="logout"></button>
+
+<button onclick="resetData()" data-i18n="reset"></button>
 
 </div>
 
@@ -519,33 +639,33 @@ UGG создаётся как гуманитарный образователь�
 
 <div id="dashboard" class="admin-panel active">
 
-<h2 data-t="dashboardTitle">Обзор</h2>
+<h2 data-i18n="dashboardTitle"></h2>
 
 <div class="stats">
 
 <div class="stat">
-<strong id="stat1">0</strong>
-<span data-t="faculties">Факультеты</span>
+<strong id="statFaculties">0</strong>
+<span data-i18n="faculties"></span>
 </div>
 
 <div class="stat">
-<strong id="stat2">0</strong>
-<span data-t="teachers">Преподаватели</span>
+<strong id="statTeachers">0</strong>
+<span data-i18n="teachers"></span>
 </div>
 
 <div class="stat">
-<strong id="stat3">0</strong>
-<span data-t="lectures">Лекции</span>
+<strong id="statLectures">0</strong>
+<span data-i18n="lectures"></span>
 </div>
 
 <div class="stat">
-<strong id="stat4">0</strong>
-<span data-t="news">Новости</span>
+<strong id="statNews">0</strong>
+<span data-i18n="news"></span>
 </div>
 
 <div class="stat">
-<strong id="stat5">0</strong>
-<span data-t="applications">Заявки</span>
+<strong id="statApplications">0</strong>
+<span data-i18n="applications"></span>
 </div>
 
 </div>
@@ -557,40 +677,31 @@ UGG создаётся как гуманитарный образователь�
 
 <div id="site" class="admin-panel">
 
-<h2 data-t="siteSettings">Настройки сайта</h2>
+<h2 data-i18n="siteSettings"></h2>
 
 <form onsubmit="saveSite(event)">
 
-<div class="editor">
-
 <label>
-<span data-t="city">Город</span>
+<span data-i18n="city"></span>
 <input id="siteCity">
 </label>
-
-<label>
-<span data-t="price">Цена семестра</span>
-<input id="sitePrice">
-</label>
-
-<div class="full">
 
 <div class="lang-editor">
 
 <div class="lang-title">РУССКИЙ</div>
 
 <label>
-<span>Главный текст</span>
+Главный текст
 <textarea id="heroRu" rows="3"></textarea>
 </label>
 
 <label>
-<span>Описание</span>
+Описание
 <textarea id="descriptionRu" rows="4"></textarea>
 </label>
 
 <label>
-<span>Миссия</span>
+Миссия
 <textarea id="missionRu" rows="5"></textarea>
 </label>
 
@@ -602,17 +713,17 @@ UGG создаётся как гуманитарный образователь�
 <div class="lang-title">PORTUGUÊS</div>
 
 <label>
-<span>Texto principal</span>
+Texto principal
 <textarea id="heroPt" rows="3"></textarea>
 </label>
 
 <label>
-<span>Descrição</span>
+Descrição
 <textarea id="descriptionPt" rows="4"></textarea>
 </label>
 
 <label>
-<span>Missão</span>
+Missão
 <textarea id="missionPt" rows="5"></textarea>
 </label>
 
@@ -624,23 +735,44 @@ UGG создаётся как гуманитарный образователь�
 <div class="lang-title">ENGLISH</div>
 
 <label>
-<span>Main text</span>
+Main text
 <textarea id="heroEn" rows="3"></textarea>
 </label>
 
 <label>
-<span>Description</span>
+Description
 <textarea id="descriptionEn" rows="4"></textarea>
 </label>
 
 <label>
-<span>Mission</span>
+Mission
 <textarea id="missionEn" rows="5"></textarea>
 </label>
 
 </div>
 
+
+<div class="lang-editor">
+
+<div class="lang-title">ESPAÑOL</div>
+
+<label>
+Texto principal
+<textarea id="heroEs" rows="3"></textarea>
+</label>
+
+<label>
+Descripción
+<textarea id="descriptionEs" rows="4"></textarea>
+</label>
+
+<label>
+Misión
+<textarea id="missionEs" rows="5"></textarea>
+</label>
+
 </div>
+
 
 <label>
 Email
@@ -657,9 +789,7 @@ YouTube
 <input id="siteYoutube">
 </label>
 
-</div>
-
-<button class="btn" data-t="save">Сохранить</button>
+<button class="btn" data-i18n="save"></button>
 
 </form>
 
@@ -670,7 +800,7 @@ YouTube
 
 <div id="facultiesAdmin" class="admin-panel">
 
-<h2 data-t="manageFaculties">Управление факультетами</h2>
+<h2 data-i18n="manageFaculties"></h2>
 
 <form onsubmit="addFaculty(event)">
 
@@ -679,43 +809,62 @@ YouTube
 <div class="lang-title">РУССКИЙ</div>
 
 <label>Название
-<input id="frName"></label>
+<input id="frName">
+</label>
 
 <label>Описание
-<textarea id="frDesc"></textarea></label>
+<textarea id="frDesc"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">PORTUGUÊS</div>
 
 <label>Nome
-<input id="fpName"></label>
+<input id="fpName">
+</label>
 
 <label>Descrição
-<textarea id="fpDesc"></textarea></label>
+<textarea id="fpDesc"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">ENGLISH</div>
 
 <label>Name
-<input id="feName"></label>
+<input id="feName">
+</label>
 
 <label>Description
-<textarea id="feDesc"></textarea></label>
+<textarea id="feDesc"></textarea>
+</label>
 
 </div>
 
-<label>
-<span data-t="price">Цена</span>
-<input id="fPrice">
+
+<div class="lang-editor">
+
+<div class="lang-title">ESPAÑOL</div>
+
+<label>Nombre
+<input id="fsName">
 </label>
 
-<button class="btn" data-t="add">Добавить</button>
+<label>Descripción
+<textarea id="fsDesc"></textarea>
+</label>
+
+</div>
+
+
+<button class="btn" data-i18n="add"></button>
 
 </form>
 
@@ -728,7 +877,7 @@ YouTube
 
 <div id="teachersAdmin" class="admin-panel">
 
-<h2 data-t="manageTeachers">Управление преподавателями</h2>
+<h2 data-i18n="manageTeachers"></h2>
 
 <form onsubmit="addTeacher(event)">
 
@@ -737,47 +886,78 @@ YouTube
 <div class="lang-title">РУССКИЙ</div>
 
 <label>Имя
-<input id="trName"></label>
+<input id="trName">
+</label>
 
 <label>Должность
-<input id="trRole"></label>
+<input id="trRole">
+</label>
 
 <label>Биография
-<textarea id="trBio"></textarea></label>
+<textarea id="trBio"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">PORTUGUÊS</div>
 
 <label>Nome
-<input id="tpName"></label>
+<input id="tpName">
+</label>
 
 <label>Cargo
-<input id="tpRole"></label>
+<input id="tpRole">
+</label>
 
 <label>Biografia
-<textarea id="tpBio"></textarea></label>
+<textarea id="tpBio"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">ENGLISH</div>
 
 <label>Name
-<input id="teName"></label>
+<input id="teName">
+</label>
 
 <label>Position
-<input id="teRole"></label>
+<input id="teRole">
+</label>
 
 <label>Biography
-<textarea id="teBio"></textarea></label>
+<textarea id="teBio"></textarea>
+</label>
 
 </div>
 
-<button class="btn" data-t="add">Добавить</button>
+
+<div class="lang-editor">
+
+<div class="lang-title">ESPAÑOL</div>
+
+<label>Nombre
+<input id="tsName">
+</label>
+
+<label>Cargo
+<input id="tsRole">
+</label>
+
+<label>Biografía
+<textarea id="tsBio"></textarea>
+</label>
+
+</div>
+
+
+<button class="btn" data-i18n="add"></button>
 
 </form>
 
@@ -790,7 +970,7 @@ YouTube
 
 <div id="lecturesAdmin" class="admin-panel">
 
-<h2 data-t="manageLectures">Управление лекциями</h2>
+<h2 data-i18n="manageLectures"></h2>
 
 <form onsubmit="addLecture(event)">
 
@@ -799,48 +979,72 @@ YouTube
 <div class="lang-title">РУССКИЙ</div>
 
 <label>Название
-<input id="lrTitle"></label>
+<input id="lrTitle">
+</label>
 
 <label>Описание
-<textarea id="lrDesc"></textarea></label>
+<textarea id="lrDesc"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">PORTUGUÊS</div>
 
 <label>Título
-<input id="lpTitle"></label>
+<input id="lpTitle">
+</label>
 
 <label>Descrição
-<textarea id="lpDesc"></textarea></label>
+<textarea id="lpDesc"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">ENGLISH</div>
 
 <label>Title
-<input id="leTitle"></label>
+<input id="leTitle">
+</label>
 
 <label>Description
-<textarea id="leDesc"></textarea></label>
+<textarea id="leDesc"></textarea>
+</label>
 
 </div>
 
+
+<div class="lang-editor">
+
+<div class="lang-title">ESPAÑOL</div>
+
+<label>Título
+<input id="lsTitle">
+</label>
+
+<label>Descripción
+<textarea id="lsDesc"></textarea>
+</label>
+
+</div>
+
+
 <label>
-<span data-t="faculty">Факультет</span>
+<span data-i18n="faculty"></span>
 <select id="lectureFaculty"></select>
 </label>
 
 <label>
-<span data-t="video">Ссылка на видео</span>
+<span data-i18n="video"></span>
 <input id="lectureVideo">
 </label>
 
-<button class="btn" data-t="add">Добавить</button>
+<button class="btn" data-i18n="add"></button>
 
 </form>
 
@@ -853,7 +1057,7 @@ YouTube
 
 <div id="newsAdmin" class="admin-panel">
 
-<h2 data-t="manageNews">Управление новостями</h2>
+<h2 data-i18n="manageNews"></h2>
 
 <form onsubmit="addNews(event)">
 
@@ -862,38 +1066,62 @@ YouTube
 <div class="lang-title">РУССКИЙ</div>
 
 <label>Заголовок
-<input id="nrTitle"></label>
+<input id="nrTitle">
+</label>
 
 <label>Текст
-<textarea id="nrText"></textarea></label>
+<textarea id="nrText"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">PORTUGUÊS</div>
 
 <label>Título
-<input id="npTitle"></label>
+<input id="npTitle">
+</label>
 
 <label>Texto
-<textarea id="npText"></textarea></label>
+<textarea id="npText"></textarea>
+</label>
 
 </div>
+
 
 <div class="lang-editor">
 
 <div class="lang-title">ENGLISH</div>
 
 <label>Title
-<input id="neTitle"></label>
+<input id="neTitle">
+</label>
 
 <label>Text
-<textarea id="neText"></textarea></label>
+<textarea id="neText"></textarea>
+</label>
 
 </div>
 
-<button class="btn" data-t="publish">Опубликовать</button>
+
+<div class="lang-editor">
+
+<div class="lang-title">ESPAÑOL</div>
+
+<label>Título
+<input id="nsTitle">
+</label>
+
+<label>Texto
+<textarea id="nsText"></textarea>
+</label>
+
+</div>
+
+
+<button class="btn" data-i18n="publish"></button>
 
 </form>
 
@@ -906,7 +1134,7 @@ YouTube
 
 <div id="applicationsAdmin" class="admin-panel">
 
-<h2 data-t="manageApplications">Заявки</h2>
+<h2 data-i18n="manageApplications"></h2>
 
 <div id="applicationsList"></div>
 
@@ -925,7 +1153,9 @@ YouTube
 
 <p>University of Guadagnin Galashin</p>
 
-<p id="footerCity">Brasília, Brazil</p>
+<p id="footerCity"></p>
+
+<div class="disclaimer" id="disclaimer"></div>
 
 <p>© 2026 UGG</p>
 
@@ -934,11 +1164,11 @@ YouTube
 
 <script>
 
-/* ==========================================
-   ПЕРЕВОД ИНТЕРФЕЙСА
-========================================== */
+/* =========================================================
+   ПЕРЕВОДЫ ИНТЕРФЕЙСА
+========================================================= */
 
-const T={
+const translations={
 
 ru:{
 home:"Главная",
@@ -950,14 +1180,10 @@ admission:"Поступление",
 about:"Об UGG",
 admin:"Админка",
 
-hero:"Независимый гуманитарный образовательный проект в Бразилиа.",
-
 explore:"Исследовать университет",
-apply:"Поступить",
+apply:"Подать заявку",
 
 welcomeTitle:"Об UGG",
-welcomeText:"UGG создаётся как гуманитарный образовательный проект, объединяющий преподавание, исследование и культурную деятельность.",
-
 initialFaculties:"Первоначальные факультеты",
 
 facultiesTitle:"Факультеты",
@@ -967,7 +1193,7 @@ newsTitle:"Новости",
 
 admissionTitle:"Поступление",
 applicationTitle:"Предварительная заявка",
-applicationText:"Заполните форму, чтобы связаться с UGG.",
+applicationText:"Заполните форму, чтобы направить запрос на поступление в UGG.",
 
 name:"Имя",
 email:"Email",
@@ -979,7 +1205,13 @@ aboutTitle:"Об UGG",
 history:"История проекта",
 
 adminTitle:"Административная панель",
-adminWarning:"Демонстрационная локальная админка. Данные сохраняются в браузере этого устройства.",
+adminLogin:"Вход в админку",
+adminPasswordText:"Введите пароль для демонстрационной панели.",
+password:"Пароль",
+login:"Войти",
+logout:"Выйти",
+
+adminWarning:"Это демонстрационная локальная админка. Данные сохраняются только в браузере этого устройства.",
 
 dashboard:"Обзор",
 site:"Сайт",
@@ -989,7 +1221,6 @@ reset:"Сбросить",
 dashboardTitle:"Обзор",
 siteSettings:"Настройки сайта",
 city:"Город",
-price:"Цена семестра",
 save:"Сохранить",
 
 manageFaculties:"Управление факультетами",
@@ -1002,11 +1233,12 @@ add:"Добавить",
 publish:"Опубликовать",
 faculty:"Факультет",
 video:"Ссылка на видео",
-
 delete:"Удалить",
-edit:"Изменить",
+
 noApplications:"Заявок пока нет.",
-saved:"Изменения сохранены."
+saved:"Изменения сохранены.",
+
+disclaimer:"UGG не является вузом, признанным или аккредитованным Министерством образования Бразилии. UGG является независимым негосударственным образовательным проектом."
 },
 
 pt:{
@@ -1019,14 +1251,10 @@ admission:"Ingresso",
 about:"Sobre a UGG",
 admin:"Administração",
 
-hero:"Um projeto educacional humanístico independente em Brasília.",
-
 explore:"Explorar a universidade",
-apply:"Ingressar",
+apply:"Enviar inscrição",
 
 welcomeTitle:"Sobre a UGG",
-welcomeText:"A UGG está sendo criada como um projeto educacional humanístico que reúne ensino, pesquisa e atividade cultural.",
-
 initialFaculties:"Faculdades iniciais",
 
 facultiesTitle:"Faculdades",
@@ -1036,7 +1264,7 @@ newsTitle:"Notícias",
 
 admissionTitle:"Ingresso",
 applicationTitle:"Pré-inscrição",
-applicationText:"Preencha o formulário para entrar em contato com a UGG.",
+applicationText:"Preencha o formulário para enviar uma solicitação de ingresso na UGG.",
 
 name:"Nome",
 email:"Email",
@@ -1048,7 +1276,13 @@ aboutTitle:"Sobre a UGG",
 history:"História do projeto",
 
 adminTitle:"Painel administrativo",
-adminWarning:"Administração local demonstrativa. Os dados são salvos no navegador deste dispositivo.",
+adminLogin:"Entrar na administração",
+adminPasswordText:"Digite a senha do painel demonstrativo.",
+password:"Senha",
+login:"Entrar",
+logout:"Sair",
+
+adminWarning:"Esta é uma administração local demonstrativa. Os dados são salvos apenas neste navegador.",
 
 dashboard:"Visão geral",
 site:"Site",
@@ -1058,7 +1292,6 @@ reset:"Restaurar",
 dashboardTitle:"Visão geral",
 siteSettings:"Configurações do site",
 city:"Cidade",
-price:"Preço do semestre",
 save:"Salvar",
 
 manageFaculties:"Gerenciar faculdades",
@@ -1071,11 +1304,12 @@ add:"Adicionar",
 publish:"Publicar",
 faculty:"Faculdade",
 video:"Link do vídeo",
-
 delete:"Excluir",
-edit:"Editar",
+
 noApplications:"Ainda não há inscrições.",
-saved:"Alterações salvas."
+saved:"Alterações salvas.",
+
+disclaimer:"A UGG não é uma instituição de ensino superior reconhecida ou credenciada pelo Ministério da Educação do Brasil. A UGG é um projeto educacional independente e não estatal."
 },
 
 en:{
@@ -1088,14 +1322,10 @@ admission:"Admission",
 about:"About UGG",
 admin:"Admin",
 
-hero:"An independent humanities educational project in Brasília.",
-
 explore:"Explore the university",
-apply:"Apply",
+apply:"Submit an application",
 
 welcomeTitle:"About UGG",
-welcomeText:"UGG is being developed as a humanities educational project bringing together teaching, research and cultural activity.",
-
 initialFaculties:"Initial faculties",
 
 facultiesTitle:"Faculties",
@@ -1105,7 +1335,7 @@ newsTitle:"News",
 
 admissionTitle:"Admission",
 applicationTitle:"Preliminary application",
-applicationText:"Fill out the form to contact UGG.",
+applicationText:"Fill out the form to submit an admission request to UGG.",
 
 name:"Name",
 email:"Email",
@@ -1117,7 +1347,13 @@ aboutTitle:"About UGG",
 history:"Project history",
 
 adminTitle:"Administrative panel",
-adminWarning:"Local demonstration administration. Data is saved in this browser.",
+adminLogin:"Admin login",
+adminPasswordText:"Enter the password for the demonstration panel.",
+password:"Password",
+login:"Log in",
+logout:"Log out",
+
+adminWarning:"This is a local demonstration administration panel. Data is saved only in this browser.",
 
 dashboard:"Dashboard",
 site:"Site",
@@ -1127,7 +1363,6 @@ reset:"Reset",
 dashboardTitle:"Dashboard",
 siteSettings:"Site settings",
 city:"City",
-price:"Semester price",
 save:"Save",
 
 manageFaculties:"Manage faculties",
@@ -1140,244 +1375,295 @@ add:"Add",
 publish:"Publish",
 faculty:"Faculty",
 video:"Video link",
-
 delete:"Delete",
-edit:"Edit",
+
 noApplications:"There are no applications yet.",
-saved:"Changes saved."
+saved:"Changes saved.",
+
+disclaimer:"UGG is not a higher education institution recognized or accredited by the Brazilian Ministry of Education. UGG is an independent non-state educational project."
+},
+
+es:{
+home:"Inicio",
+faculties:"Facultades",
+teachers:"Profesores",
+lectures:"Clases",
+news:"Noticias",
+admission:"Admisión",
+about:"Sobre UGG",
+admin:"Administración",
+
+explore:"Explorar la universidad",
+apply:"Enviar solicitud",
+
+welcomeTitle:"Sobre UGG",
+initialFaculties:"Facultades iniciales",
+
+facultiesTitle:"Facultades",
+teachersTitle:"Profesores",
+lecturesTitle:"Clases",
+newsTitle:"Noticias",
+
+admissionTitle:"Admisión",
+applicationTitle:"Solicitud preliminar",
+applicationText:"Complete el formulario para enviar una solicitud de admisión a UGG.",
+
+name:"Nombre",
+email:"Email",
+chooseFaculty:"Elija la facultad",
+message:"Mensaje",
+send:"Enviar solicitud",
+
+aboutTitle:"Sobre UGG",
+history:"Historia del proyecto",
+
+adminTitle:"Panel administrativo",
+adminLogin:"Acceso administrativo",
+adminPasswordText:"Introduzca la contraseña del panel de demostración.",
+password:"Contraseña",
+login:"Entrar",
+logout:"Salir",
+
+adminWarning:"Este es un panel administrativo local de demostración. Los datos se guardan solamente en este navegador.",
+
+dashboard:"Resumen",
+site:"Sitio",
+applications:"Solicitudes",
+reset:"Restablecer",
+
+dashboardTitle:"Resumen",
+siteSettings:"Configuración del sitio",
+city:"Ciudad",
+save:"Guardar",
+
+manageFaculties:"Gestionar facultades",
+manageTeachers:"Gestionar profesores",
+manageLectures:"Gestionar clases",
+manageNews:"Gestionar noticias",
+manageApplications:"Solicitudes",
+
+add:"Añadir",
+publish:"Publicar",
+faculty:"Facultad",
+video:"Enlace del vídeo",
+delete:"Eliminar",
+
+noApplications:"Todavía no hay solicitudes.",
+saved:"Cambios guardados.",
+
+disclaimer:"UGG no es una institución de educación superior reconocida o acreditada por el Ministerio de Educación de Brasil. UGG es un proyecto educativo independiente y no estatal."
 }
 
 };
 
 
-/* ==========================================
+/* =========================================================
    ДАННЫЕ
-========================================== */
+========================================================= */
 
 const initialData={
 
 site:{
 city:"Brasília, Brazil",
-price:"R$ 3.500 / semestre",
 
 hero:{
 ru:"Независимый гуманитарный образовательный проект в Бразилиа.",
 pt:"Um projeto educacional humanístico independente em Brasília.",
-en:"An independent humanities educational project in Brasília."
+en:"An independent humanities educational project in Brasília.",
+es:"Un proyecto educativo humanístico independiente en Brasilia."
 },
 
 description:{
 ru:"UGG создаётся как гуманитарный образовательный проект, объединяющий преподавание, исследование и культурную деятельность.",
 pt:"A UGG está sendo criada como um projeto educacional humanístico que reúne ensino, pesquisa e atividade cultural.",
-en:"UGG is being developed as a humanities educational project bringing together teaching, research and cultural activity."
+en:"UGG is being developed as a humanities educational project bringing together teaching, research and cultural activity.",
+es:"UGG se está desarrollando como un proyecto educativo humanístico que reúne enseñanza, investigación y actividad cultural."
 },
 
 mission:{
 ru:"UGG стремится создать пространство для серьёзного гуманитарного образования, философского мышления и культурного диалога.",
 pt:"A UGG busca criar um espaço para educação humanística, pensamento filosófico e diálogo cultural.",
-en:"UGG seeks to create a space for humanities education, philosophical thought and cultural dialogue."
+en:"UGG seeks to create a space for humanities education, philosophical thought and cultural dialogue.",
+es:"UGG busca crear un espacio para la educación humanística, el pensamiento filosófico y el diálogo cultural."
 },
 
-email:"contact@ugg.edu",
+email:"",
 instagram:"",
 youtube:""
 },
-
 
 faculties:[
 
 {
 id:1,
+
 name:{
 ru:"Факультет философии",
 pt:"Faculdade de Filosofia",
-en:"Faculty of Philosophy"
+en:"Faculty of Philosophy",
+es:"Facultad de Filosofía"
 },
+
 description:{
 ru:"Философия, история философии, метафизика, логика, этика, онтология и другие философские дисциплины.",
 pt:"Filosofia, história da filosofia, metafísica, lógica, ética, ontologia e outras disciplinas filosóficas.",
-en:"Philosophy, history of philosophy, metaphysics, logic, ethics, ontology and other philosophical disciplines."
-},
-price:"R$ 3.500 / semestre"
+en:"Philosophy, history of philosophy, metaphysics, logic, ethics, ontology and other philosophical disciplines.",
+es:"Filosofía, historia de la filosofía, metafísica, lógica, ética, ontología y otras disciplinas filosóficas."
+}
 },
 
 {
 id:2,
+
 name:{
 ru:"Факультет кинематографа",
 pt:"Faculdade de Cinema",
-en:"Faculty of Cinema"
+en:"Faculty of Cinema",
+es:"Facultad de Cine"
 },
+
 description:{
 ru:"История кино, теория кино, анализ фильмов, язык кинематографа и культура кино.",
 pt:"História do cinema, teoria do cinema, análise de filmes, linguagem cinematográfica e cultura do cinema.",
-en:"Film history, film theory, film analysis, cinematic language and film culture."
-},
-price:"R$ 3.500 / semestre"
+en:"Film history, film theory, film analysis, cinematic language and film culture.",
+es:"Historia del cine, teoría cinematográfica, análisis de películas, lenguaje cinematográfico y cultura del cine."
+}
 },
 
 {
 id:3,
+
 name:{
 ru:"Факультет русского языка и культуры",
 pt:"Faculdade de Língua e Cultura Russas",
-en:"Faculty of Russian Language and Culture"
+en:"Faculty of Russian Language and Culture",
+es:"Facultad de Lengua y Cultura Rusas"
 },
+
 description:{
 ru:"Русский язык, русская культура, литература и история России.",
 pt:"Língua russa, cultura russa, literatura e história da Rússia.",
-en:"Russian language, Russian culture, literature and Russian history."
-},
-price:"R$ 3.500 / semestre"
+en:"Russian language, Russian culture, literature and Russian history.",
+es:"Lengua rusa, cultura rusa, literatura e historia de Rusia."
+}
 }
 
 ],
-
 
 teachers:[
 
 {
 id:1,
+
 name:{
 ru:"Дмитрий Галашин",
 pt:"Dmitry Galashin",
-en:"Dmitry Galashin"
+en:"Dmitry Galashin",
+es:"Dmitry Galashin"
 },
+
 role:{
-ru:"Ректор и профессор философии",
+ru:"Ректор и преподаватель философии",
 pt:"Reitor e professor de filosofia",
-en:"Rector and Professor of Philosophy"
+en:"Rector and philosophy lecturer",
+es:"Rector y profesor de filosofía"
 },
+
 bio:{
 ru:"Философия, метафизика, история философии и философия кино.",
 pt:"Filosofia, metafísica, história da filosofia e filosofia do cinema.",
-en:"Philosophy, metaphysics, history of philosophy and philosophy of cinema."
-}
-},
-
-{
-id:2,
-name:{
-ru:"Преподаватель русского языка",
-pt:"Professor de língua russa",
-en:"Russian Language Lecturer"
-},
-role:{
-ru:"Факультет русского языка и культуры",
-pt:"Faculdade de Língua e Cultura Russas",
-en:"Faculty of Russian Language and Culture"
-},
-bio:{
-ru:"Русский язык, русская культура и литература.",
-pt:"Língua russa, cultura russa e literatura.",
-en:"Russian language, Russian culture and literature."
-}
-},
-
-{
-id:3,
-name:{
-ru:"Преподаватель религиоведения",
-pt:"Professor de estudos da religião",
-en:"Religious Studies Lecturer"
-},
-role:{
-ru:"Гуманитарные дисциплины",
-pt:"Humanidades",
-en:"Humanities"
-},
-bio:{
-ru:"Религиоведение, история религий и философия религии.",
-pt:"Estudos da religião, história das religiões e filosofia da religião.",
-en:"Religious studies, history of religions and philosophy of religion."
+en:"Philosophy, metaphysics, history of philosophy and philosophy of cinema.",
+es:"Filosofía, metafísica, historia de la filosofía y filosofía del cine."
 }
 }
 
 ],
-
 
 lectures:[
 
 {
 id:1,
 faculty:1,
+
 title:{
 ru:"Что такое бытие?",
 pt:"O que é o ser?",
-en:"What is Being?"
+en:"What is Being?",
+es:"¿Qué es el ser?"
 },
+
 description:{
 ru:"Введение в фундаментальные вопросы онтологии и метафизики.",
 pt:"Introdução às questões fundamentais da ontologia e da metafísica.",
-en:"An introduction to fundamental questions of ontology and metaphysics."
+en:"An introduction to fundamental questions of ontology and metaphysics.",
+es:"Introducción a las cuestiones fundamentales de la ontología y la metafísica."
 },
+
 video:""
 },
 
 {
 id:2,
 faculty:2,
+
 title:{
 ru:"Что такое кинематограф?",
 pt:"O que é o cinema?",
-en:"What is Cinema?"
+en:"What is Cinema?",
+es:"¿Qué es el cine?"
 },
+
 description:{
 ru:"Введение в историю и теорию кинематографа.",
 pt:"Introdução à história e à teoria do cinema.",
-en:"An introduction to film history and film theory."
+en:"An introduction to film history and film theory.",
+es:"Introducción a la historia y teoría del cine."
 },
+
 video:""
 },
 
 {
 id:3,
 faculty:3,
+
 title:{
 ru:"Введение в русский язык",
 pt:"Introdução à língua russa",
-en:"Introduction to the Russian Language"
+en:"Introduction to the Russian Language",
+es:"Introducción a la lengua rusa"
 },
+
 description:{
 ru:"Основы русского языка для бразильских студентов.",
 pt:"Fundamentos da língua russa para estudantes brasileiros.",
-en:"Russian language fundamentals for Brazilian students."
+en:"Russian language fundamentals for Brazilian students.",
+es:"Fundamentos de la lengua rusa para estudiantes brasileños."
 },
+
 video:""
 }
 
 ],
-
 
 news:[
 
 {
 id:1,
 date:"2026",
+
 title:{
 ru:"UGG готовится к первому набору",
 pt:"A UGG se prepara para sua primeira turma",
-en:"UGG prepares for its first cohort"
+en:"UGG prepares for its first cohort",
+es:"UGG se prepara para su primera promoción"
 },
+
 text:{
 ru:"Начата подготовка образовательных программ и академической структуры университета.",
 pt:"Começou a preparação dos programas educacionais e da estrutura acadêmica da universidade.",
-en:"Preparation of the university's educational programs and academic structure has begun."
-}
-},
-
-{
-id:2,
-date:"2026",
-title:{
-ru:"Создаётся гуманитарный университет в Бразилиа",
-pt:"Uma universidade humanística está sendo criada em Brasília",
-en:"A humanities university is being developed in Brasília"
-},
-text:{
-ru:"Первоначальная программа UGG объединяет философию, кинематограф и русский язык и культуру.",
-pt:"O programa inicial da UGG reúne filosofia, cinema e língua e cultura russas.",
-en:"UGG's initial program brings together philosophy, cinema and Russian language and culture."
+en:"Preparation of the university's educational programs and academic structure has begun.",
+es:"Ha comenzado la preparación de los programas educativos y de la estructura académica de la universidad."
 }
 }
 
@@ -1388,74 +1674,93 @@ applications:[]
 };
 
 
-/* ==========================================
+/* =========================================================
    STORAGE
-========================================== */
+========================================================= */
 
 let data=
 JSON.parse(localStorage.getItem("UGG_DATA")) ||
 JSON.parse(JSON.stringify(initialData));
 
 let currentLanguage=
-localStorage.getItem("UGG_LANG")||"ru";
+localStorage.getItem("UGG_LANGUAGE") || "ru";
+
+let loggedIn=
+sessionStorage.getItem("UGG_ADMIN") === "true";
 
 
-function save(){
+function saveData(){
 localStorage.setItem("UGG_DATA",JSON.stringify(data));
 }
 
 
-/* ==========================================
-   ПЕРЕВОД
-========================================== */
+/* =========================================================
+   LANGUAGE
+========================================================= */
 
-function tr(key){
-return T[currentLanguage][key] || T.ru[key] || key;
+function t(key){
+return translations[currentLanguage][key] ||
+translations.ru[key] ||
+key;
 }
 
 
-function language(lang){
+function setLanguage(lang){
 
 currentLanguage=lang;
 
-localStorage.setItem("UGG_LANG",lang);
+localStorage.setItem("UGG_LANGUAGE",lang);
 
 document.documentElement.lang=lang;
 
-document.querySelectorAll("[data-t]").forEach(el=>{
-const key=el.dataset.t;
-el.textContent=tr(key);
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+el.textContent=t(el.dataset.i18n);
 });
 
 document.querySelectorAll(".languages button")
-.forEach(x=>x.classList.remove("active"));
+.forEach(button=>button.classList.remove("active"));
 
-document.getElementById(lang).classList.add("active");
+document.getElementById("lang-"+lang)
+.classList.add("active");
 
-render();
+renderAll();
+
 }
 
 
-/* ==========================================
-   NAVIGATION
-========================================== */
+function setStaticTranslations(){
 
-function page(id){
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+el.textContent=t(el.dataset.i18n);
+});
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function showPage(id){
 
 document.querySelectorAll(".page")
-.forEach(x=>x.classList.remove("active"));
+.forEach(page=>page.classList.remove("active"));
 
-document.getElementById(id).classList.add("active");
+document.getElementById(id)
+.classList.add("active");
 
 window.scrollTo(0,0);
 
-render();
+if(id==="admin"){
+updateAdminVisibility();
+}
+
 }
 
 
-/* ==========================================
+/* =========================================================
    FACULTIES
-========================================== */
+========================================================= */
 
 function renderFaculties(){
 
@@ -1469,15 +1774,15 @@ const cards=data.faculties.map(f=>`
 
 <p>${esc(f.description[currentLanguage])}</p>
 
-<div class="price">${esc(f.price)}</div>
-
 </div>
 
 `).join("");
 
 document.getElementById("facultiesList").innerHTML=cards;
 
+
 document.getElementById("homeFaculties").innerHTML=
+
 data.faculties.slice(0,3).map(f=>`
 
 <div class="card">
@@ -1490,7 +1795,8 @@ data.faculties.slice(0,3).map(f=>`
 
 `).join("");
 
-let options=data.faculties.map(f=>
+
+const options=data.faculties.map(f=>
 `<option value="${f.id}">
 ${esc(f.name[currentLanguage])}
 </option>`
@@ -1498,26 +1804,27 @@ ${esc(f.name[currentLanguage])}
 
 document.getElementById("appFaculty").innerHTML=options;
 document.getElementById("lectureFaculty").innerHTML=options;
+
 }
 
 
-/* ==========================================
+/* =========================================================
    TEACHERS
-========================================== */
+========================================================= */
 
 function renderTeachers(){
 
 document.getElementById("teachersList").innerHTML=
 
-data.teachers.map(t=>`
+data.teachers.map(person=>`
 
 <div class="card">
 
-<h2>${esc(t.name[currentLanguage])}</h2>
+<h2>${esc(person.name[currentLanguage])}</h2>
 
-<p><strong>${esc(t.role[currentLanguage])}</strong></p>
+<p><strong>${esc(person.role[currentLanguage])}</strong></p>
 
-<p>${esc(t.bio[currentLanguage])}</p>
+<p>${esc(person.bio[currentLanguage])}</p>
 
 </div>
 
@@ -1526,34 +1833,38 @@ data.teachers.map(t=>`
 }
 
 
-/* ==========================================
+/* =========================================================
    LECTURES
-========================================== */
+========================================================= */
 
 function renderLectures(){
 
 document.getElementById("lecturesList").innerHTML=
 
-data.lectures.map(l=>{
+data.lectures.map(lecture=>{
 
-let f=data.faculties.find(x=>x.id==l.faculty);
+const faculty=
+data.faculties.find(f=>f.id==lecture.faculty);
 
 return `
 
 <div class="card">
 
 <div class="eyebrow">
-${esc(f ? f.name[currentLanguage] : "")}
+${esc(faculty ? faculty.name[currentLanguage] : "")}
 </div>
 
-<h2>${esc(l.title[currentLanguage])}</h2>
+<h2>${esc(lecture.title[currentLanguage])}</h2>
 
-<p>${esc(l.description[currentLanguage])}</p>
+<p>${esc(lecture.description[currentLanguage])}</p>
 
-${l.video?
-`<a class="btn" href="${esc(l.video)}" target="_blank">
+${lecture.video?
+`<a class="btn"
+href="${esc(lecture.video)}"
+target="_blank">
 ${currentLanguage==="ru"?"Смотреть":
-currentLanguage==="pt"?"Assistir":"Watch"}
+currentLanguage==="pt"?"Assistir":
+currentLanguage==="en"?"Watch":"Ver"}
 </a>`:""}
 
 </div>
@@ -1565,23 +1876,23 @@ currentLanguage==="pt"?"Assistir":"Watch"}
 }
 
 
-/* ==========================================
+/* =========================================================
    NEWS
-========================================== */
+========================================================= */
 
 function renderNews(){
 
 document.getElementById("newsList").innerHTML=
 
-data.news.map(n=>`
+data.news.map(item=>`
 
 <div class="card" style="margin-bottom:20px">
 
-<h2>${esc(n.title[currentLanguage])}</h2>
+<h2>${esc(item.title[currentLanguage])}</h2>
 
-<div class="muted">${esc(n.date)}</div>
+<div class="muted">${esc(item.date)}</div>
 
-<p>${esc(n.text[currentLanguage])}</p>
+<p>${esc(item.text[currentLanguage])}</p>
 
 </div>
 
@@ -1590,11 +1901,17 @@ data.news.map(n=>`
 }
 
 
-/* ==========================================
-   ABOUT
-========================================== */
+/* =========================================================
+   ABOUT / HOME
+========================================================= */
 
-function renderAbout(){
+function renderSiteText(){
+
+document.getElementById("heroText").textContent=
+data.site.hero[currentLanguage];
+
+document.getElementById("descriptionText").textContent=
+data.site.description[currentLanguage];
 
 document.getElementById("aboutText").textContent=
 data.site.mission[currentLanguage];
@@ -1602,29 +1919,136 @@ data.site.mission[currentLanguage];
 document.getElementById("footerCity").textContent=
 data.site.city;
 
+document.getElementById("disclaimer").textContent=
+t("disclaimer");
+
 }
 
 
-/* ==========================================
-   ADMIN SETTINGS
-========================================== */
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
 
-function loadSite(){
+function login(event){
+
+event.preventDefault();
+
+const password=
+document.getElementById("adminPassword").value;
+
+/*
+DEMO PASSWORD:
+123
+
+Для настоящего сайта пароль должен находиться
+на сервере, а не в JavaScript.
+*/
+
+if(password==="123"){
+
+loggedIn=true;
+
+sessionStorage.setItem("UGG_ADMIN","true");
+
+document.getElementById("adminPassword").value="";
+
+document.getElementById("loginError").innerHTML="";
+
+updateAdminVisibility();
+
+}else{
+
+document.getElementById("loginError").innerHTML=
+`<div class="warning">
+${currentLanguage==="ru"?"Неверный пароль.":
+currentLanguage==="pt"?"Senha incorreta.":
+currentLanguage==="en"?"Incorrect password.":
+"Contraseña incorrecta."}
+</div>`;
+
+}
+
+}
+
+
+function logout(){
+
+loggedIn=false;
+
+sessionStorage.removeItem("UGG_ADMIN");
+
+updateAdminVisibility();
+
+}
+
+
+function updateAdminVisibility(){
+
+if(loggedIn){
+
+document.getElementById("adminLogin")
+.classList.add("hidden");
+
+document.getElementById("adminContent")
+.classList.remove("hidden");
+
+}else{
+
+document.getElementById("adminLogin")
+.classList.remove("hidden");
+
+document.getElementById("adminContent")
+.classList.add("hidden");
+
+}
+
+}
+
+
+/* =========================================================
+   ADMIN TABS
+========================================================= */
+
+function adminTab(id){
+
+document.querySelectorAll(".admin-panel")
+.forEach(panel=>panel.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+document.querySelectorAll(".admin-tabs button")
+.forEach(button=>button.classList.remove("active"));
+
+event.target.classList.add("active");
+
+renderAdmin();
+
+}
+
+
+/* =========================================================
+   LOAD SITE SETTINGS
+========================================================= */
+
+function loadSiteForm(){
 
 document.getElementById("siteCity").value=data.site.city;
-document.getElementById("sitePrice").value=data.site.price;
 
 document.getElementById("heroRu").value=data.site.hero.ru;
 document.getElementById("heroPt").value=data.site.hero.pt;
 document.getElementById("heroEn").value=data.site.hero.en;
+document.getElementById("heroEs").value=data.site.hero.es;
 
 document.getElementById("descriptionRu").value=data.site.description.ru;
 document.getElementById("descriptionPt").value=data.site.description.pt;
 document.getElementById("descriptionEn").value=data.site.description.en;
+document.getElementById("descriptionEs").value=data.site.description.es;
 
 document.getElementById("missionRu").value=data.site.mission.ru;
 document.getElementById("missionPt").value=data.site.mission.pt;
 document.getElementById("missionEn").value=data.site.mission.en;
+document.getElementById("missionEs").value=data.site.mission.es;
 
 document.getElementById("siteEmail").value=data.site.email;
 document.getElementById("siteInstagram").value=data.site.instagram;
@@ -1637,47 +2061,55 @@ function saveSite(event){
 
 event.preventDefault();
 
-data.site.city=document.getElementById("siteCity").value;
-data.site.price=document.getElementById("sitePrice").value;
+data.site.city=
+document.getElementById("siteCity").value;
 
 data.site.hero={
 ru:document.getElementById("heroRu").value,
 pt:document.getElementById("heroPt").value,
-en:document.getElementById("heroEn").value
+en:document.getElementById("heroEn").value,
+es:document.getElementById("heroEs").value
 };
 
 data.site.description={
 ru:document.getElementById("descriptionRu").value,
 pt:document.getElementById("descriptionPt").value,
-en:document.getElementById("descriptionEn").value
+en:document.getElementById("descriptionEn").value,
+es:document.getElementById("descriptionEs").value
 };
 
 data.site.mission={
 ru:document.getElementById("missionRu").value,
 pt:document.getElementById("missionPt").value,
-en:document.getElementById("missionEn").value
+en:document.getElementById("missionEn").value,
+es:document.getElementById("missionEs").value
 };
 
-data.site.email=document.getElementById("siteEmail").value;
-data.site.instagram=document.getElementById("siteInstagram").value;
-data.site.youtube=document.getElementById("siteYoutube").value;
+data.site.email=
+document.getElementById("siteEmail").value;
 
-save();
+data.site.instagram=
+document.getElementById("siteInstagram").value;
 
-alert(tr("saved"));
+data.site.youtube=
+document.getElementById("siteYoutube").value;
 
-render();
+saveData();
+
+alert(t("saved"));
+
+renderAll();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ADD FACULTY
-========================================== */
+========================================================= */
 
-function addFaculty(e){
+function addFaculty(event){
 
-e.preventDefault();
+event.preventDefault();
 
 data.faculties.push({
 
@@ -1686,35 +2118,35 @@ id:Date.now(),
 name:{
 ru:document.getElementById("frName").value,
 pt:document.getElementById("fpName").value,
-en:document.getElementById("feName").value
+en:document.getElementById("feName").value,
+es:document.getElementById("fsName").value
 },
 
 description:{
 ru:document.getElementById("frDesc").value,
 pt:document.getElementById("fpDesc").value,
-en:document.getElementById("feDesc").value
-},
-
-price:document.getElementById("fPrice").value
+en:document.getElementById("feDesc").value,
+es:document.getElementById("fsDesc").value
+}
 
 });
 
-save();
+saveData();
 
-e.target.reset();
+event.target.reset();
 
-render();
+renderAll();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ADD TEACHER
-========================================== */
+========================================================= */
 
-function addTeacher(e){
+function addTeacher(event){
 
-e.preventDefault();
+event.preventDefault();
 
 data.teachers.push({
 
@@ -1723,39 +2155,42 @@ id:Date.now(),
 name:{
 ru:document.getElementById("trName").value,
 pt:document.getElementById("tpName").value,
-en:document.getElementById("teName").value
+en:document.getElementById("teName").value,
+es:document.getElementById("tsName").value
 },
 
 role:{
 ru:document.getElementById("trRole").value,
 pt:document.getElementById("tpRole").value,
-en:document.getElementById("teRole").value
+en:document.getElementById("teRole").value,
+es:document.getElementById("tsRole").value
 },
 
 bio:{
 ru:document.getElementById("trBio").value,
 pt:document.getElementById("tpBio").value,
-en:document.getElementById("teBio").value
+en:document.getElementById("teBio").value,
+es:document.getElementById("tsBio").value
 }
 
 });
 
-save();
+saveData();
 
-e.target.reset();
+event.target.reset();
 
-render();
+renderAll();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ADD LECTURE
-========================================== */
+========================================================= */
 
-function addLecture(e){
+function addLecture(event){
 
-e.preventDefault();
+event.preventDefault();
 
 data.lectures.push({
 
@@ -1768,70 +2203,78 @@ document.getElementById("lectureFaculty").value
 title:{
 ru:document.getElementById("lrTitle").value,
 pt:document.getElementById("lpTitle").value,
-en:document.getElementById("leTitle").value
+en:document.getElementById("leTitle").value,
+es:document.getElementById("lsTitle").value
 },
 
 description:{
 ru:document.getElementById("lrDesc").value,
 pt:document.getElementById("lpDesc").value,
-en:document.getElementById("leDesc").value
+en:document.getElementById("leDesc").value,
+es:document.getElementById("lsDesc").value
 },
 
-video:document.getElementById("lectureVideo").value
+video:
+document.getElementById("lectureVideo").value
 
 });
 
-save();
+saveData();
 
-e.target.reset();
+event.target.reset();
 
-render();
+renderAll();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ADD NEWS
-========================================== */
+========================================================= */
 
-function addNews(e){
+function addNews(event){
 
-e.preventDefault();
+event.preventDefault();
 
 data.news.unshift({
 
 id:Date.now(),
 
-date:new Date().getFullYear().toString(),
+date:String(new Date().getFullYear()),
 
 title:{
 ru:document.getElementById("nrTitle").value,
 pt:document.getElementById("npTitle").value,
-en:document.getElementById("neTitle").value
+en:document.getElementById("neTitle").value,
+es:document.getElementById("nsTitle").value
 },
 
 text:{
 ru:document.getElementById("nrText").value,
 pt:document.getElementById("npText").value,
-en:document.getElementById("neText").value
+en:document.getElementById("neText").value,
+es:document.getElementById("nsText").value
 }
 
 });
 
-save();
+saveData();
 
-e.target.reset();
+event.target.reset();
 
-render();
+renderAll();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ADMIN LISTS
-========================================== */
+========================================================= */
 
-function renderAdminLists(){
+function renderAdmin(){
+
+if(!loggedIn)return;
+
 
 document.getElementById("facultyAdminList").innerHTML=
 
@@ -1843,13 +2286,11 @@ data.faculties.map(f=>`
 
 <p>${esc(f.description[currentLanguage])}</p>
 
-<p>${esc(f.price)}</p>
-
 <div class="actions">
 
 <button class="smallbtn delete"
 onclick="removeFaculty(${f.id})">
-${tr("delete")}
+${t("delete")}
 </button>
 
 </div>
@@ -1861,21 +2302,21 @@ ${tr("delete")}
 
 document.getElementById("teacherAdminList").innerHTML=
 
-data.teachers.map(t=>`
+data.teachers.map(person=>`
 
 <div class="admin-item">
 
-<strong>${esc(t.name[currentLanguage])}</strong>
+<strong>${esc(person.name[currentLanguage])}</strong>
 
-<p>${esc(t.role[currentLanguage])}</p>
+<p>${esc(person.role[currentLanguage])}</p>
 
-<p>${esc(t.bio[currentLanguage])}</p>
+<p>${esc(person.bio[currentLanguage])}</p>
 
 <div class="actions">
 
 <button class="smallbtn delete"
-onclick="removeTeacher(${t.id})">
-${tr("delete")}
+onclick="removeTeacher(${person.id})">
+${t("delete")}
 </button>
 
 </div>
@@ -1887,19 +2328,19 @@ ${tr("delete")}
 
 document.getElementById("lectureAdminList").innerHTML=
 
-data.lectures.map(l=>`
+data.lectures.map(lecture=>`
 
 <div class="admin-item">
 
-<strong>${esc(l.title[currentLanguage])}</strong>
+<strong>${esc(lecture.title[currentLanguage])}</strong>
 
-<p>${esc(l.description[currentLanguage])}</p>
+<p>${esc(lecture.description[currentLanguage])}</p>
 
 <div class="actions">
 
 <button class="smallbtn delete"
-onclick="removeLecture(${l.id})">
-${tr("delete")}
+onclick="removeLecture(${lecture.id})">
+${t("delete")}
 </button>
 
 </div>
@@ -1911,19 +2352,19 @@ ${tr("delete")}
 
 document.getElementById("newsAdminList").innerHTML=
 
-data.news.map(n=>`
+data.news.map(item=>`
 
 <div class="admin-item">
 
-<strong>${esc(n.title[currentLanguage])}</strong>
+<strong>${esc(item.title[currentLanguage])}</strong>
 
-<p>${esc(n.text[currentLanguage])}</p>
+<p>${esc(item.text[currentLanguage])}</p>
 
 <div class="actions">
 
 <button class="smallbtn delete"
-onclick="removeNews(${n.id})">
-${tr("delete")}
+onclick="removeNews(${item.id})">
+${t("delete")}
 </button>
 
 </div>
@@ -1932,116 +2373,97 @@ ${tr("delete")}
 
 `).join("");
 
-}
+
+renderApplications();
+
+loadSiteForm();
 
 
-/* ==========================================
-   REMOVE
-========================================== */
+document.getElementById("statFaculties").textContent=
+data.faculties.length;
 
-function removeFaculty(id){
+document.getElementById("statTeachers").textContent=
+data.teachers.length;
 
-data.faculties=data.faculties.filter(x=>x.id!==id);
+document.getElementById("statLectures").textContent=
+data.lectures.length;
 
-save();
-render();
+document.getElementById("statNews").textContent=
+data.news.length;
 
-}
-
-function removeTeacher(id){
-
-data.teachers=data.teachers.filter(x=>x.id!==id);
-
-save();
-render();
-
-}
-
-function removeLecture(id){
-
-data.lectures=data.lectures.filter(x=>x.id!==id);
-
-save();
-render();
-
-}
-
-function removeNews(id){
-
-data.news=data.news.filter(x=>x.id!==id);
-
-save();
-render();
-
-}
-
-function removeApplication(id){
-
-data.applications=
-data.applications.filter(x=>x.id!==id);
-
-save();
-render();
+document.getElementById("statApplications").textContent=
+data.applications.length;
 
 }
 
 
-/* ==========================================
+/* =========================================================
    APPLICATIONS
-========================================== */
+========================================================= */
 
-function submitApplication(e){
+function submitApplication(event){
 
-e.preventDefault();
+event.preventDefault();
+
+const select=
+document.getElementById("appFaculty");
 
 const faculty=
-document.getElementById("appFaculty")
-.options[
-document.getElementById("appFaculty").selectedIndex
-].text;
+select.options[select.selectedIndex]?.text || "";
+
 
 data.applications.push({
 
 id:Date.now(),
 
-name:document.getElementById("appName").value,
+name:
+document.getElementById("appName").value,
 
-email:document.getElementById("appEmail").value,
+email:
+document.getElementById("appEmail").value,
 
 faculty:faculty,
 
-message:document.getElementById("appMessage").value,
+message:
+document.getElementById("appMessage").value,
 
 date:new Date().toLocaleString()
 
 });
 
-save();
+saveData();
 
 document.getElementById("applicationMessage").innerHTML=
 `<div class="notice">
-${currentLanguage==="ru"?
-"Заявка отправлена.":
+${
+currentLanguage==="ru"?
+"Заявка отправлена. После рассмотрения с вами свяжется администрация.":
 currentLanguage==="pt"?
-"Inscrição enviada.":
-"Application submitted."}
+"A solicitação foi enviada. A administração entrará em contato após a análise.":
+currentLanguage==="en"?
+"The application has been submitted. The administration will contact you after review.":
+"La solicitud ha sido enviada. La administración se pondrá en contacto con usted después de revisarla."
+}
 </div>`;
 
-e.target.reset();
+event.target.reset();
 
-renderAdminLists();
+renderAdmin();
 
 }
 
 
 function renderApplications(){
 
-const box=document.getElementById("applicationsList");
+const box=
+document.getElementById("applicationsList");
+
+if(!box)return;
 
 if(data.applications.length===0){
 
 box.innerHTML=
-`<p>${tr("noApplications")}</p>`;
+`<p>${t("noApplications")}</p>`;
 
 return;
 
@@ -2049,25 +2471,25 @@ return;
 
 box.innerHTML=
 
-data.applications.map(a=>`
+data.applications.map(application=>`
 
 <div class="admin-item">
 
-<strong>${esc(a.name)}</strong>
+<strong>${esc(application.name)}</strong>
 
-<p>${esc(a.email)}</p>
+<p>${esc(application.email)}</p>
 
-<p><strong>${esc(a.faculty)}</strong></p>
+<p><strong>${esc(application.faculty)}</strong></p>
 
-<p>${esc(a.message)}</p>
+<p>${esc(application.message)}</p>
 
-<div class="muted">${esc(a.date)}</div>
+<div class="muted">${esc(application.date)}</div>
 
 <div class="actions">
 
 <button class="smallbtn delete"
-onclick="removeApplication(${a.id})">
-${tr("delete")}
+onclick="removeApplication(${application.id})">
+${t("delete")}
 </button>
 
 </div>
@@ -2079,136 +2501,141 @@ ${tr("delete")}
 }
 
 
-/* ==========================================
-   ADMIN TABS
-========================================== */
+/* =========================================================
+   DELETE
+========================================================= */
 
-function adminTab(id){
+function removeFaculty(id){
 
-document.querySelectorAll(".admin-panel")
-.forEach(x=>x.classList.remove("active"));
+data.faculties=
+data.faculties.filter(f=>f.id!==id);
 
-document.getElementById(id).classList.add("active");
-
-document.querySelectorAll(".admin-tabs button")
-.forEach(x=>x.classList.remove("active"));
-
-event.target.classList.add("active");
-
-renderAdminLists();
-renderApplications();
+saveData();
+renderAll();
 
 }
 
 
-/* ==========================================
+function removeTeacher(id){
+
+data.teachers=
+data.teachers.filter(t=>t.id!==id);
+
+saveData();
+renderAll();
+
+}
+
+
+function removeLecture(id){
+
+data.lectures=
+data.lectures.filter(l=>l.id!==id);
+
+saveData();
+renderAll();
+
+}
+
+
+function removeNews(id){
+
+data.news=
+data.news.filter(n=>n.id!==id);
+
+saveData();
+renderAll();
+
+}
+
+
+function removeApplication(id){
+
+data.applications=
+data.applications.filter(a=>a.id!==id);
+
+saveData();
+renderAll();
+
+}
+
+
+/* =========================================================
    RESET
-========================================== */
+========================================================= */
 
 function resetData(){
 
-if(!confirm(
+const question=
 currentLanguage==="ru"?
-"Сбросить весь сайт?":
+"Сбросить все данные сайта?":
 currentLanguage==="pt"?
-"Restaurar todo o site?":
-"Reset the entire website?"
-))return;
+"Restaurar todos os dados do site?":
+currentLanguage==="en"?
+"Reset all website data?":
+"¿Restablecer todos los datos del sitio?";
 
-data=JSON.parse(JSON.stringify(initialData));
+if(!confirm(question))return;
 
-save();
+data=
+JSON.parse(JSON.stringify(initialData));
 
-render();
+saveData();
+
+renderAll();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ESCAPE
-========================================== */
+========================================================= */
 
-function esc(v){
+function esc(value){
 
-const d=document.createElement("div");
+const div=document.createElement("div");
 
-d.textContent=v??"";
+div.textContent=value ?? "";
 
-return d.innerHTML;
+return div.innerHTML;
 
 }
 
 
-/* ==========================================
-   RENDER EVERYTHING
-========================================== */
+/* =========================================================
+   RENDER ALL
+========================================================= */
 
-function render(){
+function renderAll(){
 
-document.querySelectorAll("[data-t]").forEach(el=>{
-el.textContent=tr(el.dataset.t);
-});
+setStaticTranslations();
 
-document.getElementById("heroRu").value=data.site.hero.ru;
-document.getElementById("heroPt").value=data.site.hero.pt;
-document.getElementById("heroEn").value=data.site.hero.en;
-
-document.getElementById("siteCity").value=data.site.city;
-document.getElementById("sitePrice").value=data.site.price;
-
-document.getElementById("siteEmail").value=data.site.email;
-document.getElementById("siteInstagram").value=data.site.instagram;
-document.getElementById("siteYoutube").value=data.site.youtube;
-
-document.getElementById("descriptionRu").value=data.site.description.ru;
-document.getElementById("descriptionPt").value=data.site.description.pt;
-document.getElementById("descriptionEn").value=data.site.description.en;
-
-document.getElementById("missionRu").value=data.site.mission.ru;
-document.getElementById("missionPt").value=data.site.mission.pt;
-document.getElementById("missionEn").value=data.site.mission.en;
-
-document.querySelector(".hero p").textContent=
-data.site.hero[currentLanguage];
-
+renderSiteText();
 renderFaculties();
 renderTeachers();
 renderLectures();
 renderNews();
-renderAbout();
-renderAdminLists();
-renderApplications();
 
-document.getElementById("stat1").textContent=
-data.faculties.length;
+renderAdmin();
 
-document.getElementById("stat2").textContent=
-data.teachers.length;
-
-document.getElementById("stat3").textContent=
-data.lectures.length;
-
-document.getElementById("stat4").textContent=
-data.news.length;
-
-document.getElementById("stat5").textContent=
-data.applications.length;
+updateAdminVisibility();
 
 document.querySelectorAll(".languages button")
-.forEach(x=>x.classList.remove("active"));
+.forEach(button=>button.classList.remove("active"));
 
-document.getElementById(currentLanguage).classList.add("active");
+document.getElementById("lang-"+currentLanguage)
+.classList.add("active");
 
 }
 
 
-/* ==========================================
+/* =========================================================
    START
-========================================== */
+========================================================= */
 
 document.documentElement.lang=currentLanguage;
 
-render();
+renderAll();
 
 </script>
 
